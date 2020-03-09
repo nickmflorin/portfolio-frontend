@@ -1,26 +1,83 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route, withRouter} from 'react-router-dom'
+import { Router, hashHistory, IndexRoute } from 'react-router';
+
+import { NavBarMini, NavBar } from './layout/nav'
+
+import Landing from './pages/landing/landing'
+import Resume from './pages/resume/resume'
+import Work from './pages/work/work'
+import Contact from './pages/contact/contact'
+import About from './pages/about/about'
+
 import './App.css';
 
-function App() {
+function Footer(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <footer>
+        <p className='footer-content'>Copyright © 2018 Nick Florin All rights reserved.</p>
+    </footer>
   );
 }
 
+function Header(props) {
+  return (
+    <header>
+        <NavBar />
+    </header>
+  );
+}
+
+function MiniHeader(props) {
+  return (
+    <header>
+        <NavBarMini />
+    </header>
+  );
+}
+
+class App extends Component {
+  state = {
+    response: ''
+  };
+  componentDidMount() {
+    this.callApi()
+      .then(res => this.setState({ response: res.express }))
+      .catch(err => console.log(err));
+  }
+  navSelected(){
+    console.log('Nav Clicked')
+  }
+  callApi = async () => {
+    const response = await fetch('/api/hello');
+    const body = await response.json();
+
+    if (response.status !== 200){
+      throw Error(body.message);
+    }
+
+    return body;
+  };
+  render() {
+    return (
+        <BrowserRouter>
+          <div className="App">
+              <Switch>
+              <Route exact path="/" component={Header}></Route>
+              <Route component={MiniHeader}></Route>
+              </Switch>
+
+              <section>
+                  <Route exact path="/" component={Landing} name="landing"></Route>
+                  <Route exact path="/about" component={About}></Route>
+                  <Route exact path="/resume" component={Resume}></Route>
+                  <Route exact path="/work" component={Work}></Route>
+                  <Route exact path="/contact" component={Contact}></Route>
+              </section>
+            <Footer></Footer>
+          </div>
+        </BrowserRouter>
+    );
+  }
+}
 export default App;
