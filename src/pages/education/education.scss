@@ -1,31 +1,53 @@
-.education-item {
-  margin-bottom: 20px;
+.education-items-content {
+  text-align: center;
+  margin: 20px auto 20px auto;
 
-  .degree {
-    font-size: 16px;
-    margin-bottom: 2px;
-    font-family: 'Noto Sans', sans-serif;
-    color: #282828;
+  .education-item {
+    display: flex;
+    max-width: 800px;
+    margin: 0px auto 20px auto;
+
+    .left-container {
+      max-width: 100px;
+      max-height: 100px;
+
+      .image {
+        max-width: 100px;
+        max-height: 100px;
+      }
+    }
+
+    .right-container {
+      padding-left: 20px;
+
+      .degree {
+        font-size: 18px;
+        margin-bottom: 2px;
+        font-family: 'Noto Sans', sans-serif;
+        color: #282828;
+      }
+
+      .school {
+        font-size: 16px;
+        margin-bottom: 2px;
+        font-family: 'Roboto', sans-serif;
+        color: #3C3C3C;
+      }
+
+      .location {
+        font-size: 14px;
+        margin-bottom: 2px;
+        font-family: 'Roboto Light', sans-serif;
+        color: #3C3C3C;
+      }
+
+      .minor, .concentration{
+        font-size: 14px;
+        margin-bottom: 2px;
+        font-family: 'Roboto Regular', sans-serif;
+        color: #3C3C3C;
+      }
+    }
   }
 
-  .school {
-    font-size: 14px;
-    margin-bottom: 2px;
-    font-family: 'Roboto', sans-serif;
-    color: #3C3C3C;
-  }
-
-  .location {
-    font-size: 12px;
-    margin-bottom: 2px;
-    font-family: 'Roboto Light', sans-serif;
-    color: #3C3C3C;
-  }
-
-  .minor, .concentration{
-    font-size: 12px;
-    margin-bottom: 2px;
-    font-family: 'Roboto Light', sans-serif;
-    color: #3C3C3C;
-  }
 }

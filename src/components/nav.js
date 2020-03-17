@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './nav.scss'
 
 var classNames = require('classnames');
 
 
-class NavBarItem extends Component {
+class NavBarItem extends React.Component {
   render() {
     return (
       <div className="nav-bar-button-container">
@@ -18,7 +18,7 @@ class NavBarItem extends Component {
   }
 }
 
-export class NavBar extends Component {
+export class NavBar extends React.Component {
   render() {
     const cls_names = classNames('nav-bar', {
         ['overlay']: this.props.overlay === true,

@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, withRouter} from 'react-router-dom'
-import { Router, hashHistory, IndexRoute } from 'react-router';
+import { BrowserRouter, Switch, Route} from 'react-router-dom'
 
 import NavBar from './components/nav'
 

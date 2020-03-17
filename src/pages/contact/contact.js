@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import _ from 'underscore'
+import React from 'react';
 
-class Contact extends Component {
+
+class Contact extends React.Component {
   render() {
     return (
       <div className="page-content">

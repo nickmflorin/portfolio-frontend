@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import _ from 'underscore'
+import React from 'react';
 
 import landing from './landing.jpeg';
 import headshot from './headshot.png';
@@ -9,7 +8,7 @@ import './landing.scss'
 
 function TitleComponent(props){
   const separator = "|"
-  if(props.index != 2){
+  if(props.index !== 2){
     return <span>{props.text} <span className="separator"> {separator} </span> </span>
   }
   return <span>{props.text}</span>
@@ -24,7 +23,7 @@ function Title(props) {
 }
 
 
-class BackDrop extends Component {
+class BackDrop extends React.Component {
   render() {
     return (
         <div className="backdrop-image-container tint">
@@ -35,7 +34,7 @@ class BackDrop extends Component {
 }
 
 
-class Headshot extends Component {
+class Headshot extends React.Component {
   render() {
       return (
         <div className="headshot-container">
@@ -46,7 +45,7 @@ class Headshot extends Component {
 }
 
 
-class BackDropBody extends Component {
+class BackDropBody extends React.Component {
   components = ['Engineer','Technologist','Developer']
 
   render() {
