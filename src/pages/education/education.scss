@@ -1,24 +1,31 @@
 .education-item {
   margin-bottom: 20px;
-  font-family: 'Roboto', serif;
 
   .degree {
     font-size: 16px;
     margin-bottom: 2px;
+    font-family: 'Noto Sans', sans-serif;
+    color: #282828;
   }
 
   .school {
     font-size: 14px;
     margin-bottom: 2px;
+    font-family: 'Roboto', sans-serif;
+    color: #3C3C3C;
   }
 
   .location {
     font-size: 12px;
     margin-bottom: 2px;
+    font-family: 'Roboto Light', sans-serif;
+    color: #3C3C3C;
   }
 
   .minor, .concentration{
     font-size: 12px;
     margin-bottom: 2px;
+    font-family: 'Roboto Light', sans-serif;
+    color: #3C3C3C;
   }
 }
