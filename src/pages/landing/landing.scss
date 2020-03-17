@@ -1,5 +1,23 @@
-.landing-banner{
+.headshot-container {
+	display: inline-block;
+  position: relative;
+	background: white;
+	clip-path: circle(73px at center);
+	width: 150px;
+  height: 150px;
+}
+
+.headshot-image {
+	clip-path: circle(73px at center);
+	width: 144px;
+  height: 144px;
 	position: absolute;
+  top: 3px; /* equal to border thickness */
+  left: 3px; /* equal to border thickness */
+}
+
+.landing-banner{
+
 }
 
 .backdrop-image-container{

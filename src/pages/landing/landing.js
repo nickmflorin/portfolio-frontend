@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import _ from 'underscore'
 
 import landing from './landing.jpeg';
-import './landing.css'
+import headshot from './headshot.png';
+
+import './landing.scss'
+
 
 function TitleComponent(props){
   const separator = "|"
@@ -12,12 +15,14 @@ function TitleComponent(props){
   return <span>{props.text}</span>
 }
 
+
 function Title(props) {
   const TitleComponents = props.components.map((text, index) =>
     <TitleComponent key={index} text={text} index={index} />
   );
   return <h2 className="title"> {TitleComponents} </h2>
 }
+
 
 class BackDrop extends Component {
   render() {
@@ -29,12 +34,25 @@ class BackDrop extends Component {
   }
 }
 
+
+class Headshot extends Component {
+  render() {
+      return (
+        <div className="headshot-container">
+          <img className="headshot-image" src={headshot} />
+        </div>
+      )
+  }
+}
+
+
 class BackDropBody extends Component {
   components = ['Engineer','Technologist','Developer']
 
   render() {
     return (
       <div className="backdrop-body">
+          <Headshot />
           <Title components={this.components} />
           <div className="social-icons-container">
             <div className="social-icon-container">
@@ -51,14 +69,23 @@ class BackDropBody extends Component {
   }
 }
 
-class Landing extends Component {
+// class Landing extends Component {
+//   render() {
+//     return (
+//       <div className="landing-banner">
+//         <BackDrop />
+//         <BackDropBody />
+//       </div>
+//     )
+//   }
+// }
+
+class Landing extends React.Component {
   render() {
-    return (  
-      <div className="landing-banner">
-        <BackDrop />
-        <BackDropBody />
-      </div>
+    return (
+      <h3>Currently Under Construction</h3>
     )
   }
 }
+
 export default Landing;
