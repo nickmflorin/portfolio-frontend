@@ -1,5 +1,4 @@
-// General
-$brand-color:                   	rgba(0, 76, 151, 0.90);
+// Text
 $primary-color:                     #515052;
 $secondary-color:                   #666;
 
@@ -14,15 +13,12 @@ $medium-gray-fade:					rgba(145,145,145,0.6); // This is Alpha Applied to Sideba
 
 $medium-light-gray:					rgba(175, 175, 175, 1.0);
 
+// Brand
 $white:								#FFF;
+$blue: 								#0073B1;
 
-$blue: 								rgba(0, 102, 202, 0.9); // Slightly Brighter Than Brand Blue
-$blue-faded:						rgba(0, 102, 202, 0.75);
 
-$blue-alternate:					rgba(9, 121, 230, 1.0);
-$blue-alternate-alpha:				rgba(9, 121, 230, 0.9);
-$blue-alternate-fade:				rgba(9, 121, 230, 0.7);
-
+// Colorful
 $yellow:                            rgba(255, 231, 97, 1.0);
 $yellow-alpha:           			rgba(255, 231, 97, 0.9);
 $yellow-fade:           			rgba(255, 231, 97, 0.6);
@@ -41,68 +37,68 @@ $green-tint:                        rgba(61, 185, 135, 0.25);
 $orangered:                         #F46C43;
 $orange:                            #ff9800;
 
-// App Logo and Nav Bar
-$app-logo-color:                     #FFFFFF;
-$app-logo-hover-color:               #e6e6e6;
-$nav-background:                    lighten($brand-color, 4%);
-$footer-background:                 lighten($brand-color, 4%);
-
-// Borders
-$border-color: 						$medium-light-gray; // This is Alpha Applied to Sidebar Background
-$light-border-color:				$light-gray;
-$table-border-color:		   		$light-gray;
-$dropdown-item-border-color:		rgba(239, 239, 239, 0.55);
-
-// Backgrounds
-$background:                        $barely-gray;
-$nav-background:					lighten($brand-color, 4%);
-$footer-background:					lighten($brand-color, 4%);
-$white-background:					rgba(248, 248, 248, 0.6); // Used for Pages Where Gray Background is Too Intense from Lack of Panels
-
-// Panels
-$panel-header-background:			#f4f4f4;
-$panel-background:					rgba(255, 255, 255, 0.7);
-
-// Buttons
-$button-primary-background-color:			$blue;
-$button-primary-color:						$white;
-$button-default-color:						$primary-color;
-$button-default-background-color:			$accent-gray;
-$button-hover-image:  						linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
-
-// Menu Bar
-$menu-background:                   $accent-gray;
-$menu-item-color:                   #777;
-$menu-item-active-color:            #444;
-$menu-item-emphasize-background:    rgba(86, 86, 86, 0.1);
-$menu-item-active-background:    	$menu-item-emphasize-background;
-
-// Sidebar
-$sidebar-background:                $medium-gray;
-$child-color:                       #FFF;
-$child-background:                  transparent;
-$child-emphasize-background:        rgba(220, 220, 220, 0.3);
-$child-active-background:           rgba(235, 235, 235, 0.35);
-$child-emphasize-color:             $menu-item-active-color;
-
-$parent-background:                 rgba(121, 121, 121, 0.7);
-$parent-color:                      #FFF;
-$parent-emphasize-color:            $parent-color;
-$parent-emphasize-background:       darken($parent-background, 5%);
-
-// Table Variable Colors
-$negative-color: red;
-$positive-color: #282828;
-
-$table-cell-hover-color: rgba(96, 173, 255, 0.4);
-$table-cell-tint-color: rgba(0, 123, 255, 0.15);
-$table-cell-alternate-color: rgba(231, 231, 231, 0.65);
-
-// Dropdowns and Menus
-$dropdown-shadow:					0 6px 12px rgba(0,0,0,.175);
-$dropdown-hover-background-color:	rgba(239, 239, 239, 0.5);
-
-// Modals
-$modal-body-background:       #FFFFFF;
-$modal-header-background:     lighten($blue, 5%);
-$overlay-background:      	  rgba(55,55,55,1.0);
+// // App Logo and Nav Bar
+// $app-logo-color:                     #FFFFFF;
+// $app-logo-hover-color:               #e6e6e6;
+// $nav-background:                    lighten($brand-color, 4%);
+// $footer-background:                 lighten($brand-color, 4%);
+//
+// // Borders
+// $border-color: 						$medium-light-gray; // This is Alpha Applied to Sidebar Background
+// $light-border-color:				$light-gray;
+// $table-border-color:		   		$light-gray;
+// $dropdown-item-border-color:		rgba(239, 239, 239, 0.55);
+//
+// // Backgrounds
+// $background:                        $barely-gray;
+// $nav-background:					lighten($brand-color, 4%);
+// $footer-background:					lighten($brand-color, 4%);
+// $white-background:					rgba(248, 248, 248, 0.6); // Used for Pages Where Gray Background is Too Intense from Lack of Panels
+//
+// // Panels
+// $panel-header-background:			#f4f4f4;
+// $panel-background:					rgba(255, 255, 255, 0.7);
+//
+// // Buttons
+// $button-primary-background-color:			$blue;
+// $button-primary-color:						$white;
+// $button-default-color:						$primary-color;
+// $button-default-background-color:			$accent-gray;
+// $button-hover-image:  						linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+//
+// // Menu Bar
+// $menu-background:                   $accent-gray;
+// $menu-item-color:                   #777;
+// $menu-item-active-color:            #444;
+// $menu-item-emphasize-background:    rgba(86, 86, 86, 0.1);
+// $menu-item-active-background:    	$menu-item-emphasize-background;
+//
+// // Sidebar
+// $sidebar-background:                $medium-gray;
+// $child-color:                       #FFF;
+// $child-background:                  transparent;
+// $child-emphasize-background:        rgba(220, 220, 220, 0.3);
+// $child-active-background:           rgba(235, 235, 235, 0.35);
+// $child-emphasize-color:             $menu-item-active-color;
+//
+// $parent-background:                 rgba(121, 121, 121, 0.7);
+// $parent-color:                      #FFF;
+// $parent-emphasize-color:            $parent-color;
+// $parent-emphasize-background:       darken($parent-background, 5%);
+//
+// // Table Variable Colors
+// $negative-color: red;
+// $positive-color: #282828;
+//
+// $table-cell-hover-color: rgba(96, 173, 255, 0.4);
+// $table-cell-tint-color: rgba(0, 123, 255, 0.15);
+// $table-cell-alternate-color: rgba(231, 231, 231, 0.65);
+//
+// // Dropdowns and Menus
+// $dropdown-shadow:					0 6px 12px rgba(0,0,0,.175);
+// $dropdown-hover-background-color:	rgba(239, 239, 239, 0.5);
+//
+// // Modals
+// $modal-body-background:       #FFFFFF;
+// $modal-header-background:     lighten($blue, 5%);
+// $overlay-background:      	  rgba(55,55,55,1.0);
