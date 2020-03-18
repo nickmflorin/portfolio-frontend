@@ -82,7 +82,9 @@ class BackDropBody extends React.Component {
 class Landing extends React.Component {
   render() {
     return (
-      <h3>Currently Under Construction</h3>
+      <div className="page-content">
+      	<h2> Currently Under Construction </h2>
+      </div>
     )
   }
 }

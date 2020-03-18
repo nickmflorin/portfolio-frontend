@@ -67,7 +67,7 @@ class Education extends React.Component {
   render() {
     return (
       <div className="page-content">
-      	<h5> Education </h5>
+      	<h2> Education </h2>
         <div className='education-items-content'>
           {this.state.items && this.state.items.map((item) => {
             return <EducationItem key={item.id} item={item} />
