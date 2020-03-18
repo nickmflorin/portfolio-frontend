@@ -1,0 +1,58 @@
+.item {
+  display: flex;
+  max-width: 800px;
+  margin: 0px auto 20px auto;
+  border: 1px solid #EFEFEF;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #EFEFEF;
+  }
+
+  .left-container {
+    max-width: 100px;
+    max-height: 100px;
+    padding: 10px;
+
+    .image {
+      height: 80px;
+      width: 80px;
+    }
+  }
+
+  .right-container {
+    padding: 12px;
+
+    .title {
+      font-size: 18px;
+      margin-bottom: 2px;
+      font-family: 'Noto Sans', sans-serif;
+      color: #282828;
+    }
+
+    .sub-title {
+      font-size: 16px;
+      margin-bottom: 2px;
+      font-family: 'Roboto', sans-serif;
+      color: #3C3C3C;
+    }
+
+    .sub-title-2 {
+      font-size: 14px;
+      margin-bottom: 2px;
+      font-family: 'Roboto Light', sans-serif;
+      color: #3C3C3C;
+    }
+
+    .sub-title-3, .sub-title-4 {
+      font-size: 12px;
+      margin-bottom: 2px;
+      font-family: 'Roboto Light', sans-serif;
+      color: #3C3C3C;
+    }
+
+    .description {
+
+    }
+  }
+}

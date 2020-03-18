@@ -1,26 +1,19 @@
 import React from 'react';
+import _ from 'underscore'
 
 import getExperience from 'services/experience'
+import ResumeItem from 'components/item'
 import './experience.scss'
 
 
-class ExperienceItem extends React.Component {
-  render() {
-    const location = `${this.props.item.company.city}, ${this.props.item.company.state}`
-    return (
-      <div className='experience-item'>
-        <div className='left-container'>
-          <img className='image' alt="Could not Load" src={this.props.item.company.logo} />
-        </div>
-        <div className='right-container'>
-          <p className='align-left position'>{this.props.item.title}</p>
-          <p className='align-left company'>{this.props.item.company.name}</p>
-          <p className='align-left location'>{location}</p>
-        </div>
-      </div>
-    )
-  }
+var sortExperience = (items) => {
+  var current = _.filter(items, item => item.current === true);
+  var finished = _.filter(items, item => item.current === false);
+  current = _.sortBy(current, 'start_date').reverse()
+  finished = _.sortBy(finished, 'end_date').reverse()
+  return current.concat(finished)
 }
+
 
 class Experience extends React.Component {
   constructor(props, context) {
@@ -33,11 +26,22 @@ class Experience extends React.Component {
   getExperience() {
     var self = this
     getExperience().then((response) => {
-      self.setState({items: response})
-      console.log(response)
+      const ordered = sortExperience(response)
+      self.setState({items: ordered})
     }).catch((error) => {
       console.log('There was an error loading experience history.')
     })
+  }
+  createItem(item){
+    const location = `${item.company.city}, ${item.company.state}`
+    return (<ResumeItem
+      key={item.id}
+      id={item.id}
+      logo={item.company.logo}
+      title={item.title}
+      sub_title={item.company.name}
+      sub_title_2={location}
+    />)
   }
   render() {
     return (
@@ -45,7 +49,7 @@ class Experience extends React.Component {
       	<h2> Experience </h2>
         <div className='experience-items-content'>
           {this.state.items && this.state.items.map((item) => {
-            return <ExperienceItem key={item.id} item={item} />
+            return this.createItem(item)
           })}
         </div>
       </div>
