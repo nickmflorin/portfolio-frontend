@@ -6,11 +6,17 @@ import './experience.scss'
 
 class ExperienceItem extends React.Component {
   render() {
+    const location = `${this.props.item.company.city}, ${this.props.item.company.state}`
     return (
       <div className='experience-item'>
-        <p className='position'>{this.props.item.title}</p>
-        <p className='company'>{this.props.item.company.name}</p>
-        <p className='location'>{this.props.item.company.city} {this.props.item.company.state}</p>
+        <div className='left-container'>
+          <img className='image' alt="Could not Load" src={this.props.item.company.logo} />
+        </div>
+        <div className='right-container'>
+          <p className='align-left position'>{this.props.item.title}</p>
+          <p className='align-left company'>{this.props.item.company.name}</p>
+          <p className='align-left location'>{location}</p>
+        </div>
       </div>
     )
   }
@@ -37,9 +43,11 @@ class Experience extends React.Component {
     return (
       <div className="page-content">
       	<h2> Experience </h2>
-        {this.state.items && this.state.items.map((item) => {
-          return <ExperienceItem key={item.id} item={item} />
-        })}
+        <div className='experience-items-content'>
+          {this.state.items && this.state.items.map((item) => {
+            return <ExperienceItem key={item.id} item={item} />
+          })}
+        </div>
       </div>
     )
   }
