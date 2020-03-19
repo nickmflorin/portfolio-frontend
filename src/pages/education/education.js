@@ -46,17 +46,24 @@ class Education extends React.Component {
     if (item.minor) {
       minor = `Minor in ${item.minor}`
     }
-    return (<ResumeItem
-      key={item.id}
-      id={item.id}
-      logo={item.school.logo}
-      title={degree}
-      sub_title={item.school.name}
-      sub_title_2={location}
-      sub_title_3={minor}
-      sub_title_4={concentration}
-      description={item.description}
-    />)
+    return (
+      <ResumeItem
+        key={item.id}
+        id={item.id}
+        logo={item.school.logo}
+        title={degree}
+        sub_title={item.school.name}
+        description={item.description}
+        header_items={[
+          {text: location},
+          {text: "4.00/4.00"},
+        ]}
+        footer_items={[
+          {text: minor},
+          {text: concentration}
+        ]}
+      />
+    )
   }
   render() {
     return (
