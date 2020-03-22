@@ -1,89 +1,97 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import landing from './landing.jpeg';
-import headshot from './headshot.png';
 
-import './landing.scss'
+import Headshot from '../../components/headshot';
+import { SocialButton } from '../../components/buttons'
+import Github from './icons/Github_White.png'
+import LinkedIn from './icons/LinkedIn_White.png'
 
 
-function TitleComponent(props){
+const TitleComponent = (props) => {
   const separator = "|"
-  if(props.index !== 2){
-    return <span>{props.text} <span className="separator"> {separator} </span> </span>
+  if(props.index !== (props.total - 1)){
+    return (
+      <span>{props.text}
+        <span className="separator"> {separator} </span>
+      </span>
+    )
   }
   return <span>{props.text}</span>
 }
 
 
-function Title(props) {
-  const TitleComponents = props.components.map((text, index) =>
-    <TitleComponent key={index} text={text} index={index} />
-  );
-  return <h2 className="title"> {TitleComponents} </h2>
-}
+const Banner = styled.div`
+  background-image: ${props => 'url("' + props.image + '")'};
+  filter: brightness(0.4) grayscale(50%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 60vh;
+  padding-top: 311px;
+  padding-bottom: 312px;
+`;
 
+const SocialIconsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  margin-top: 22px;
+`;
 
-class BackDrop extends React.Component {
-  render() {
-    return (
-        <div className="backdrop-image-container tint">
-          <img className="landing-image" src={landing} />
-        </div>
-    );
-  }
-}
+const LandingBody = styled.div`
+  position: relative;
+  top: -60vh;  // Height of Banner
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+`;
 
+const LandingBodyContent = styled.div`
+  margin: auto;
+`;
 
-class Headshot extends React.Component {
-  render() {
-      return (
-        <div className="headshot-container">
-          <img className="headshot-image" src={headshot} />
-        </div>
-      )
-  }
-}
+const Title = styled.h2`
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 28px;
+  width: 100%;
+  letter-spacing: -0.02em;
 
+  margin: 0 auto;
+  margin-top: 12px;
+`;
 
-class BackDropBody extends React.Component {
-  components = ['Engineer','Technologist','Developer']
-
-  render() {
-    return (
-      <div className="backdrop-body">
-          <Headshot />
-          <Title components={this.components} />
-          <div className="social-icons-container">
-            <div className="social-icon-container">
-              <a className="social-icon" href="https://github.com/nickmflorin">
-                <div className="github"></div>
-              </a>
-            </div>
-            <div className="social-icon-container">
-              <a className="social-icon linkedin" href="http://linkedin.com/"></a>
-            </div>
-          </div>
-      </div>
-    );
-  }
-}
-
-// class Landing extends Component {
-//   render() {
-//     return (
-//       <div className="landing-banner">
-//         <BackDrop />
-//         <BackDropBody />
-//       </div>
-//     )
-//   }
-// }
 
 class Landing extends React.Component {
-  render() {
+  components = [
+    'Engineer',
+    'Technologist',
+    'Developer',
+  ]
+
+  render(){
     return (
-      <div className="page-content">
-      	<h2> Currently Under Construction </h2>
+      <div className='landing-page-content'>
+        <Banner image={landing} />
+        <LandingBody>
+          <LandingBodyContent>
+            <Headshot />
+            <Title>
+              {this.components.map((text, index) =>
+                <TitleComponent key={index} text={text} index={index} total={3}/>
+              )}
+            </Title>
+            <SocialIconsContainer>
+              <SocialButton icon={Github} url={'https://github.com/nickmflorin'}/>
+              <SocialButton icon={LinkedIn} url={'http://linkedin.com/'}/>
+            </SocialIconsContainer>
+          </LandingBodyContent>
+        </LandingBody>
       </div>
     )
   }

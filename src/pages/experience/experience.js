@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore'
 
-import getExperience from 'services/experience'
+import { getExperience } from 'services'
 import ResumeItem from 'components/item'
 import './experience.scss'
 

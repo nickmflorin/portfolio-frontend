@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore'
 
-import getEducation from 'services/education'
+import { getEducation } from 'services'
 import ResumeItem from 'components/item'
 import './education.scss'
 

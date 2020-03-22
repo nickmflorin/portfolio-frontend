@@ -1,22 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+import Button from './buttons/nav'
 import './nav.scss'
 
 var classNames = require('classnames');
 
 
+const NavBarButtonContainer = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+`;
+
+
 class NavBarItem extends React.Component {
   render() {
     return (
-      <div className="nav-bar-button-container">
-        <Link className="nav-bar-button" to={this.props.item.link} >
-          {this.props.item.label}
-        </Link>
-      </div>
+      <NavBarButtonContainer>
+        <Button
+          link={this.props.item.link}
+          label={this.props.item.label}
+        />
+      </NavBarButtonContainer>
     )
   }
 }
+
 
 export class NavBar extends React.Component {
   render() {
