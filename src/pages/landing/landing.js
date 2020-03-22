@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import landing from './landing.jpeg';
+import landing from 'media/landing.jpeg';
+import 'style/constants.scss'
 
 import Headshot from '../../components/headshot';
 import { SocialButton } from '../../components/buttons'
-import Github from './icons/Github_White.png'
-import LinkedIn from './icons/LinkedIn_White.png'
+import Github from 'media/icons/Github_White.png'
+import LinkedIn from 'media/icons/LinkedIn_White.png'
 
 
 const TitleComponent = (props) => {
@@ -28,9 +29,9 @@ const Banner = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
-  height: 60vh;
-  padding-top: 311px;
-  padding-bottom: 312px;
+  max-height: 60vh;
+  padding-top: 30vh;
+  padding-bottom: 30vh;
 `;
 
 const SocialIconsContainer = styled.div`
@@ -55,7 +56,7 @@ const LandingBodyContent = styled.div`
 `;
 
 const Title = styled.h2`
-  font-family: 'Open Sans', sans-serif;
+  font-family: $opensans;
   font-weight: 400;
   color: white;
   font-size: 28px;
@@ -88,7 +89,7 @@ class Landing extends React.Component {
             </Title>
             <SocialIconsContainer>
               <SocialButton icon={Github} url={'https://github.com/nickmflorin'}/>
-              <SocialButton icon={LinkedIn} url={'http://linkedin.com/'}/>
+              <SocialButton icon={LinkedIn} url={'https://www.linkedin.com/in/nick-florin-5046063b/'}/>
             </SocialIconsContainer>
           </LandingBodyContent>
         </LandingBody>

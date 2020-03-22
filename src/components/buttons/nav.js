@@ -9,16 +9,21 @@ const Private_Button = styled(Link)`
 
   border: 1px solid #FFFFFF;
   border-radius: 4px !important;
-  background: white;
-  color: blue;
+  background: transparent;
+  color: #FFFFFF;
 
   width: 100%;
   margin: 0 auto;
 
   text-transform: uppercase;
+
+  &:hover {
+    background: white;
+    color: grey;
+  }
 `;
 
-class Button extends React.Component {
+class NavBarButton extends React.Component {
   render(){
     return (
       <Private_Button to={this.props.link} >
@@ -28,4 +33,4 @@ class Button extends React.Component {
   }
 }
 
-export default Button;
+export default NavBarButton;

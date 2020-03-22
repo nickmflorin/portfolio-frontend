@@ -1,73 +1,16 @@
-@import '../style/constants';
+.logo-container {
+	display: inline-block;
 
+	max-height: 50px;
+	max-width: 50px;
+	vertical-align: middle;
+	text-align: center;
+	padding: 5px 0px;
 
-.nav-bar{
-	height: 100%;
-	width: 100%;
-	display: flex;
-
-	&.overlay {}
-
-	.container-left{
-		flex-grow: 100;
-		display: flex;
-		padding-left: 6px;
-
-		.logo-container {
-			max-height: 60px;
-			max-width: 60px;
-			display: inline-block;
-      margin: 5px;
-
-			.logo-wrapper {
-				max-height: 50px;
-				max-width: 50px;
-				vertical-align: middle;
-        text-align: center;
-
-				.logo {
-					max-width: 100%;
-					max-height: 100%;
-					display: block;
-					margin: 0 auto;
-				}
-			}
-		}
-		// .logo {
-		// 	height: 100px;
-		// 	width: 100px;
-		//   background-image: url(logo192.png);
-		// }
-		// @media
-		//   (-webkit-min-device-pixel-ratio: 2),
-		//   (min-resolution: 192dpi) {
-		//   .logo {
-		//     background-image: url(/public/logo512.png);
-		//   }
-		// }
-	}
-	.container-right{
-		display: flex;
-		padding-right: 6px;
-
-		.nav-bar-button-container{
-			margin-left: 10px;
-			margin-right: 10px;
-			padding-top: 16px;
-			padding-bottom: 16px;
-		}
-		.nav-bar-button{
-			font-family: 'Roboto', sans-serif;
-			color: $white;
-			font-size: 12px;
-
-			width: 100%;
-			margin: 0 auto;
-
-			padding: 7px 9px;
-			border: 1px solid #FFFFFF;
-			border-radius: 0px !important;
-			text-transform: uppercase;
-		}
+	.logo {
+		max-width: 100%;
+		max-height: 100%;
+		display: block;
+		margin: 0 auto;
 	}
 }

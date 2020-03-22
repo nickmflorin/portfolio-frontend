@@ -1,5 +1,5 @@
 import SocialButton from './social'
-import NavButton from './nav'
+import NavBarButton from './nav'
 import LogoButton from './logo'
 
-export { SocialButton, NavButton, LogoButton };
+export { SocialButton, NavBarButton, LogoButton };

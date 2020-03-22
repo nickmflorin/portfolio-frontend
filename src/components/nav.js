@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Button from './buttons/nav'
+import { NavBarButton } from './buttons'
+import Logo from 'media/icons/logo192_white.png'
 import './nav.scss'
 
 var classNames = require('classnames');
@@ -20,7 +21,7 @@ class NavBarItem extends React.Component {
   render() {
     return (
       <NavBarButtonContainer>
-        <Button
+        <NavBarButton
           link={this.props.item.link}
           label={this.props.item.label}
         />
@@ -30,31 +31,47 @@ class NavBarItem extends React.Component {
 }
 
 
+const NavBarContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  &.overlay {
+
+  }
+`;
+
+
+const NavBarLeftContainer = styled.div`
+  flex-grow: 100;
+  display: flex;
+  padding-left: 6px;
+`;
+
+
+const NavBarRightContainer = styled.div`
+  display: flex;
+  padding-right: 6px;
+`;
+
+
 export class NavBar extends React.Component {
   render() {
-    // TODO: We might want to deprecate this.
-    const cls_names = classNames('nav-bar', {
-        ['overlay']: this.props.overlay === true,
-    });
-    // TODO: Figure out how to set the logo in CSS so we can set it for different
-    // resolutions.
     return (
-      <div className={cls_names}>
-        <div className="container-left">
+      <NavBarContainer>
+        <NavBarLeftContainer>
           <Link to="/" className="nav-bar-logo">
           <div className="logo-container">
-            <div className="logo-wrapper">
-              <img className="logo" src="logo192.png" />
-            </div>
+            <img className="logo" src={Logo} />
           </div>
           </Link>
-        </div>
-        <div className="container-right">
+        </NavBarLeftContainer>
+        <NavBarRightContainer>
           {this.props.items.map((item) => {
             return <NavBarItem key={item.id} item={item} />
           })}
-        </div>
-      </div>
+        </NavBarRightContainer>
+      </NavBarContainer>
     );
   }
 }

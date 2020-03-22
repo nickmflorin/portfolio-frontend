@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 
 import NavBar from './components/nav'
@@ -7,17 +8,16 @@ import Landing from './pages/landing/landing'
 import About from './pages/about/about'
 import Experience from 'pages/experience/experience'
 import Education from './pages/education/education'
-import Contact from './pages/contact/contact'
-
 
 import './style/App.scss';
 
+// Extract our Sass variables into a JS object
+const theme = require('sass-extract-loader!./style/constants.scss');
 
 const NavBarItems = [
-  {'id' : 'about', 'label' : 'About Me', 'link' : '/about'},
-  {'id' : 'experience', 'label' : 'Experience', 'link' : '/experience'},
-  {'id' : 'education', 'label' : 'Education', 'link' : '/education'},
-  {'id' : 'contact', 'label' : 'Contact', 'link' : '/contact'}
+  {'id' : 'about', 'label' : 'About Me', 'link' : '/about', 'component': About},
+  {'id' : 'experience', 'label' : 'Experience', 'link' : '/experience', 'component': Experience},
+  {'id' : 'education', 'label' : 'Education', 'link' : '/education', 'component': Education},
 ]
 
 
@@ -34,10 +34,15 @@ function content(navbar_overlay=false){
           </header>
           <section className="content">
               <Route exact path="/" component={Landing}></Route>
-              <Route exact path="/about" component={About}></Route>
-              <Route exact path="/experience" component={Experience}></Route>
-              <Route exact path="/education" component={Education}></Route>
-              <Route exact path="/contact" component={Contact}></Route>
+              {NavBarItems.map((item) => {
+                return (
+                  <Route
+                    key={item.id}
+                    exact path={item.link}
+                    component={item.component}
+                  ></Route>
+                )
+              })}
           </section>
           <footer>
             <div className="footer-content">
@@ -58,14 +63,16 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="base">
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={content(false)}></Route>
-            <Route component={content(true)}></Route>
-          </Switch>
-        </BrowserRouter>
-      </div>
+      <ThemeProvider theme={theme}>
+        <div className="base">
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={content(false)}></Route>
+              <Route component={content(true)}></Route>
+            </Switch>
+          </BrowserRouter>
+        </div>
+      </ThemeProvider>
     );
   }
 }
