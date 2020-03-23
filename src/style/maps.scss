@@ -1,0 +1,42 @@
+@import './fonts.scss';
+
+$colors: (
+  "white": #FFF,
+  "black": #000000,
+  "primary": #282828,
+  "secondary": #3C3C3C,
+  "gray1": #474747,
+  "gray2": #5F5F5F,
+  "gray3": #838383,
+  "blue": #0073B1,
+  "green": rgba(61, 185, 135, 1.0),
+  "orange": #ff9800,
+  "orangered": #F46C43,
+  "red": rgba(255, 92, 80, 1.0),
+  "yellow": rgba(255, 231, 97, 1.0),
+  "navbar": rgba(65, 65, 65, 0.8),
+  "footer": rgba(65, 65, 65, 0.8),
+  "background": rgb(250, 250, 250)
+);
+
+$borders: (
+  'light': 1px solid #EFEFEF,
+  'dark': rgba(65, 65, 65, 1.0)
+);
+
+$fonts: (
+  'opensans': $opensans,
+  'roboto': $roboto
+);
+
+$heights: (
+  'footer': 40px,
+  'header': 60px
+);
+
+$fontweights: (
+  "light": 300,
+  "regular": 400,
+  "medium": 600,
+  "bold": 700
+);

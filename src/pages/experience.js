@@ -1,9 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
 import _ from 'underscore'
 
 import { getExperience } from 'services'
-import ResumeItem from 'components/item'
-import './experience.scss'
+import { Page } from 'pages/containers'
+import { ExperienceItem } from 'components/item'
 
 
 var sortExperience = (items) => {
@@ -13,6 +14,11 @@ var sortExperience = (items) => {
   finished = _.sortBy(finished, 'end_date').reverse()
   return current.concat(finished)
 }
+
+const ExperienceContainer = styled.div`
+  text-align: center;
+  margin: 20px auto 20px auto;
+`
 
 
 class Experience extends React.Component {
@@ -32,27 +38,24 @@ class Experience extends React.Component {
       console.log('There was an error loading experience history.')
     })
   }
-  createItem(item){
-    const location = `${item.company.city}, ${item.company.state}`
-    return (<ResumeItem
-      key={item.id}
-      id={item.id}
-      logo={item.company.logo}
-      title={item.title}
-      sub_title={item.company.name}
-      sub_title_2={location}
-    />)
-  }
   render() {
     return (
-      <div className="page-content">
-      	<h2> Experience </h2>
-        <div className='experience-items-content'>
+      <Page header="Experience">
+        <ExperienceContainer>
           {this.state.items && this.state.items.map((item) => {
-            return this.createItem(item)
+            return (
+              <ExperienceItem
+                key={item.id}
+                id={item.id}
+                logo={item.company.logo}
+                title={item.title}
+                sub_title={item.company.name}
+                location={`${item.company.city}, ${item.company.state}`}
+              />
+            )
           })}
-        </div>
-      </div>
+        </ExperienceContainer>
+      </Page>
     )
   }
 }

@@ -4,8 +4,10 @@ import styled from 'styled-components';
 
 const Private_Button = styled(Link)`
   font-family: 'Roboto', sans-serif;
-  padding: 0.5em 1em;
-  font-size: 1.2em;
+
+  font-size: 1em;
+  padding: 6px 8px;
+  line-height: 18px;
 
   border: 1px solid #FFFFFF;
   border-radius: 4px !important;
@@ -18,8 +20,8 @@ const Private_Button = styled(Link)`
   text-transform: uppercase;
 
   &:hover {
-    background: white;
-    color: grey;
+    background: ${props => props.theme.colors.white};
+    color: ${props => props.theme.colors.gray2};
   }
 `;
 

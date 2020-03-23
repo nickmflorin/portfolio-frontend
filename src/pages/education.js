@@ -1,9 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
 import _ from 'underscore'
 
+import { Page } from 'pages/containers'
+import { EducationItem } from 'components/item'
 import { getEducation } from 'services'
-import ResumeItem from 'components/item'
-import './education.scss'
 
 
 var sortEducation = (items) => {
@@ -14,6 +15,10 @@ var sortEducation = (items) => {
   return ongoing.concat(finished)
 }
 
+const EducationContainer = styled.div`
+  text-align: center;
+  margin: 20px auto 20px auto;
+`
 
 class Education extends React.Component {
   constructor(props, context) {
@@ -33,48 +38,34 @@ class Education extends React.Component {
     })
   }
   createItem(item){
-    const location = `${item.school.city}, ${item.school.state}`
     var degree = `${item.degree}, ${item.major}`
     if(item.degree.charAt(item.degree.length - 1) === "."){
       degree = `${item.degree} ${item.major}`
     }
-    var concentration = null;
-    if (item.concentration) {
-      concentration = `Concentration in ${item.concentration}`
-    }
-    var minor = null;
-    if (item.minor) {
-      minor = `Minor in ${item.minor}`
-    }
     return (
-      <ResumeItem
+      <EducationItem
         key={item.id}
         id={item.id}
         logo={item.school.logo}
         title={degree}
         sub_title={item.school.name}
         description={item.description}
-        header_items={[
-          {text: location},
-          {text: "4.00/4.00"},
-        ]}
-        footer_items={[
-          {text: minor},
-          {text: concentration}
-        ]}
+        location={`${item.school.city}, ${item.school.state}`}
+        minor={item.minor && `Minor in ${item.minor}`}
+        concentration={item.concentration && `Concentration in ${item.concentration}`}
+        gpa={"4.00/4.00"}
       />
     )
   }
   render() {
     return (
-      <div className="page-content">
-      	<h2> Education </h2>
-        <div className='education-items-content'>
+      <Page header="Education">
+        <EducationContainer>
           {this.state.items && this.state.items.map((item) => {
             return this.createItem(item)
           })}
-        </div>
-      </div>
+        </EducationContainer>
+      </Page>
     )
   }
 }

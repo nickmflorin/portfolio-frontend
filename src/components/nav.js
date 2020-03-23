@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { NavBarButton } from './buttons'
-import Logo from 'media/icons/logo192_white.png'
-import './nav.scss'
+import { NavBarButton, LogoButton } from './buttons'
+import landing from 'media/landing_tint.png';
 
 var classNames = require('classnames');
 
@@ -12,8 +10,9 @@ var classNames = require('classnames');
 const NavBarButtonContainer = styled.div`
   margin-left: 10px;
   margin-right: 10px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
 `;
 
 
@@ -35,10 +34,7 @@ const NavBarContainer = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-
-  &.overlay {
-
-  }
+  background-color: ${props => (props.overlay && props.theme.colors.navbar)};
 `;
 
 
@@ -58,13 +54,9 @@ const NavBarRightContainer = styled.div`
 export class NavBar extends React.Component {
   render() {
     return (
-      <NavBarContainer>
+      <NavBarContainer overlay={this.props.overlay}>
         <NavBarLeftContainer>
-          <Link to="/" className="nav-bar-logo">
-          <div className="logo-container">
-            <img className="logo" src={Logo} />
-          </div>
-          </Link>
+          <LogoButton to="/" />
         </NavBarLeftContainer>
         <NavBarRightContainer>
           {this.props.items.map((item) => {

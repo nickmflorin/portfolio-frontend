@@ -1,13 +1,14 @@
 import React from 'react';
+import { Page } from 'pages/containers'
 
 
 class About extends React.Component {
   render() {
     return (
-      <div className="page-content">
-        <h2> About </h2>
-      </div>
+      <Page header="About"></Page>
     )
   }
 }
+
+
 export default About;

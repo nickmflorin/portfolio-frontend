@@ -12,30 +12,31 @@ const SocialIconContainer = styled.div`
 const SocialIconLink = styled.a`
   height: 30px;
   width: 30px;
+  opacity:1.0;
 
   &:hover {
-    filter: brightness(0.6)
+    opacity: 0.7;
   }
 `;
 
-const SocialIconImage = styled.img`
+const SocialIcon = styled.img`
   content: ${props => 'url("' + props.icon + '")'};
   height: 30px;
   width: 30px;
 `;
 
 
-class SocialIcon extends React.Component {
+class SocialButton extends React.Component {
   render() {
       console.log(this.props.icon)
       return (
         <SocialIconContainer>
           <SocialIconLink href={this.props.url}>
-            <SocialIconImage icon={this.props.icon} />
+            <SocialIcon icon={this.props.icon} />
           </SocialIconLink>
         </SocialIconContainer>
       )
   }
 }
 
-export default SocialIcon;
+export default SocialButton;
