@@ -106,7 +106,7 @@ class Item extends React.Component {
 
 export class EducationItem extends React.Component {
   static propTypes = {
-    gpa: PropTypes.string, // TODO: Change to Numeric Value
+    gpa: PropTypes.number.isRequired,
     description: PropTypes.string,
     minor: PropTypes.string,
     concentration: PropTypes.string,
@@ -116,6 +116,7 @@ export class EducationItem extends React.Component {
     location: PropTypes.string.isRequired,
   }
   render() {
+    console.log(this.props.gpa)
     return (
       <Item
         logo={this.props.logo}
@@ -123,7 +124,7 @@ export class EducationItem extends React.Component {
         sub_title={this.props.sub_title}
         location={this.props.location}
       >
-        {this.props.gpa && <IconizedText text={this.props.gpa} icon={faGraduationCap}/>}
+        {this.props.gpa && <IconizedText text={`${this.props.gpa.toFixed(2)}/4.00`} icon={faGraduationCap}/>}
         {this.props.description && <Description>{this.props.description}</Description>}
         {this.props.minor && <IconizedText text={this.props.minor} icon={faBookOpen}/>}
         {this.props.concentration && <IconizedText text={this.props.concentration} icon={faBookOpen}/>}
@@ -134,7 +135,7 @@ export class EducationItem extends React.Component {
 
 export class ExperienceItem extends React.Component {
   static propTypes = {
-    gpa: PropTypes.string, // TODO: Change to Numeric Value
+    gpa: PropTypes.number.isRequired,
     description: PropTypes.string,
     logo: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

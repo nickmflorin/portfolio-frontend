@@ -53,7 +53,7 @@ class Education extends React.Component {
         location={`${item.school.city}, ${item.school.state}`}
         minor={item.minor && `Minor in ${item.minor}`}
         concentration={item.concentration && `Concentration in ${item.concentration}`}
-        gpa={"4.00/4.00"}
+        gpa={item.gpa}
       />
     )
   }
