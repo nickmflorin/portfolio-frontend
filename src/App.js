@@ -3,15 +3,20 @@ import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import styled from 'styled-components';
 
-import landing from 'media/landing_tint.png';
-
 import NavBar from 'components/nav'
+import Footer from 'components/footer'
+
 import { Landing, About, Experience, Education } from 'pages'
-import { NavBarContext, NavBarTheme } from './context'
+import { NavBarContext } from './context'
 
-// Extract our Sass variables into a JS object
-const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/maps.scss');
+const Theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/maps.scss');
 
+const Pages = {
+  landing: Landing,
+  about: About,
+  experience: Experience,
+  education: Education
+}
 
 const AppBase = styled.div`
   text-align: center;
@@ -30,18 +35,6 @@ const AppHeader = styled.header`
   height: ${props => props.theme.heights.header}
 `;
 
-const AppFooter = styled.footer`
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  background-color: ${props => props.theme.colors.footer};
-  color: ${props => props.theme.colors.white};
-  border-top: ${props => props.theme.borders.dark};
-  height: ${props => props.theme.heights.footer}
-`;
-
-const AppFooterContent = styled.div``;
-
 const AppSection = styled.section`
   height: 100%;
   width: 100%;
@@ -49,54 +42,61 @@ const AppSection = styled.section`
 `;
 
 
+class AppContext extends React.Component {
+  render() {
+    // ThemeProvider allows access to the SASS maps in styled-components.
+    return (
+      <ThemeProvider theme={Theme}>
+        <NavBarContext.Provider>
+          {this.props.children}
+        </NavBarContext.Provider>
+      </ThemeProvider>
+    )
+  }
+}
+
 class App extends React.Component {
   static contextType = NavBarContext;
 
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <NavBarContext.Provider>
-          <AppBase>
-            <BrowserRouter>
-              <AppContent>
-                <AppHeader>
-                  <Switch>
-                    <Route exact path="/">
-                      <NavBar
-                        overlay={false}  // TODO: Remove
-                        items={this.context}
-                      />
-                    </Route>
-                    <Route>
-                      <NavBar
-                        overlay={true}  // TODO: Remove
-                        items={this.context}
-                      />
-                    </Route>
-                  </Switch>
-                </AppHeader>
-                <AppSection>
-                    <Route exact path="/" component={Landing}></Route>
-                    {this.context.map((item) => {
-                      return (
-                        <Route
-                          key={item.id}
-                          exact path={item.link}
-                          component={item.component}
-                        ></Route>
-                      )
-                    })}
-                </AppSection>
-                <AppFooter image={landing}>
-                  <AppFooterContent>
-                    <p>Copyright © 2018 Nick Florin All rights reserved.</p>
-                  </AppFooterContent>
-                </AppFooter>
-              </AppContent>
-            </BrowserRouter>
-          </AppBase>
-        </NavBarContext.Provider>
-      </ThemeProvider>
+      <AppContext>
+        <AppBase>
+          <BrowserRouter>
+            <AppContent>
+              <AppHeader>
+                <Switch>
+                  <Route exact path="/">
+                    <NavBar
+                      overlay={false}  // TODO: Remove
+                      items={this.context}
+                    />
+                  </Route>
+                  <Route>
+                    <NavBar
+                      overlay={true}  // TODO: Remove
+                      items={this.context}
+                    />
+                  </Route>
+                </Switch>
+              </AppHeader>
+              <AppSection>
+                  <Route exact path="/" component={Landing}></Route>
+                  {this.context.map((item) => {
+                    return (
+                      <Route
+                        key={item.id}
+                        exact path={item.link}
+                        component={Pages[item.id]}
+                      ></Route>
+                    )
+                  })}
+              </AppSection>
+              <Footer />
+            </AppContent>
+          </BrowserRouter>
+        </AppBase>
+      </AppContext>
     );
   }
 }

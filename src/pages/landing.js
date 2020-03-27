@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import landing from 'media/landing_tint.png';
+import landing from 'media/landing.png';
 
 import Headshot from 'components/headshot';
 import { SocialButton } from 'components/buttons'
@@ -41,10 +41,8 @@ const Banner = styled.div`
 const SocialIconsContainer = styled.div`
   display: flex;
   width: 100%;
-  align-items: center;
   justify-content: center;
-  float: left;
-  margin-top: 22px;
+  margin-top: 12px;
 `;
 
 const LandingBody = styled.div`
@@ -57,6 +55,7 @@ const LandingBody = styled.div`
 
 const LandingBodyContent = styled.div`
   margin: auto;
+  display: inline-block;
 `;
 
 const Title = styled.h2`
@@ -66,9 +65,8 @@ const Title = styled.h2`
   font-size: 28px;
   width: 100%;
   letter-spacing: -0.02em;
-
-  margin: 0 auto;
-  margin-top: 12px;
+  margin: 12px auto;
+  display: inline-block;
 `;
 
 
@@ -79,9 +77,8 @@ const SubTitle = styled.h3`
   font-size: 24px;
   width: 100%;
   letter-spacing: -0.02em;
-
-  margin: 0 auto;
-  margin-top: 12px;
+  margin: 12px auto;
+  display: inline-block;
 `;
 
 

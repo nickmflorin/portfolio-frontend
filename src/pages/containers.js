@@ -7,7 +7,7 @@ const PageContainer = styled.div`
   margin-top: ${props => props.theme.heights.header};
   margin-bottom: ${props => props.theme.heights.footer};
   background-color: ${props => props.theme.colors.background};
-  height: 100%;
+  min-height: 100%;
 `;
 
 
@@ -18,7 +18,7 @@ export class Page extends React.Component {
   render() {
     return (
       <PageContainer>
-        <h2>{this.props.header}</h2>
+        <h1>{this.props.header}</h1>
         {this.props.children}
       </PageContainer>
     )

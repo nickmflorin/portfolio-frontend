@@ -28,7 +28,6 @@ const SocialIcon = styled.img`
 
 class SocialButton extends React.Component {
   render() {
-      console.log(this.props.icon)
       return (
         <SocialIconContainer>
           <SocialIconLink href={this.props.url}>

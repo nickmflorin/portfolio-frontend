@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { NavBarButton, LogoButton } from './buttons'
-import landing from 'media/landing_tint.png';
 
 var classNames = require('classnames');
 

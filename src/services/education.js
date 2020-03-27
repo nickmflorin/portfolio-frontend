@@ -1,17 +1,12 @@
+import { api_fetch } from './utils'
+
+
 var getEducation = async () => {
-  const response = await fetch('http://localhost:8000/api/v1/education/', {
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'include', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow', // manual, *follow, error
-    referrerPolicy: 'no-referrer', // no-referrer, *client
-  });
+  const response = await api_fetch('/education/')
   const data = await response.json()
   if (response.status !== 200){
     const body = await response.json()
+    console.log(body.message)
     throw Error(body.message);
   }
   return data
