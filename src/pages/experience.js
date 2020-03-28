@@ -1,17 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import _ from 'underscore'
 
 import { getExperience } from 'services'
 import { Page } from 'pages/containers'
-import ExperienceItem from 'components/items/experience'
+import { ExperienceItem } from 'components/items'
 import { sortExperienceEducation, formatDateRange } from 'utils'
-
-
-const ExperienceContainer = styled.div`
-  text-align: center;
-  margin: 20px auto 20px auto;
-`
 
 
 class Experience extends React.Component {
@@ -34,11 +26,9 @@ class Experience extends React.Component {
   render() {
     return (
       <Page header="Experience">
-        <ExperienceContainer>
-          {this.state.items && this.state.items.map((item) => {
-            return <ExperienceItem key={item.id} {...item} />
-          })}
-        </ExperienceContainer>
+        {this.state.items && this.state.items.map((item) => {
+          return <ExperienceItem key={item.id} {...item} />
+        })}
       </Page>
     )
   }

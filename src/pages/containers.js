@@ -11,6 +11,11 @@ const PageContainer = styled.div`
 `;
 
 
+const PageContent = styled.div`
+  text-align: center;
+  margin: 20px auto 20px auto;
+`
+
 export const LandingPage = styled.div``;
 
 
@@ -19,7 +24,9 @@ export class Page extends React.Component {
     return (
       <PageContainer>
         <h1>{this.props.header}</h1>
-        {this.props.children}
+        <PageContent>
+          {this.props.children}
+        </PageContent>
       </PageContainer>
     )
   }

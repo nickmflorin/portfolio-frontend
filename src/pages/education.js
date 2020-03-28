@@ -1,16 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { Page } from 'pages/containers'
-import EducationItem from 'components/items/education'
+import { EducationItem } from 'components/items'
 import { getEducation } from 'services'
 import { sortExperienceEducation, formatDateRange } from 'utils'
 
-
-const EducationContainer = styled.div`
-  text-align: center;
-  margin: 20px auto 20px auto;
-`
 
 class Education extends React.Component {
   constructor(props, context) {
@@ -32,11 +26,9 @@ class Education extends React.Component {
   render() {
     return (
       <Page header="Education">
-        <EducationContainer>
-          {this.state.items && this.state.items.map((item) => {
-            return <EducationItem key={item.id} {...item} />
-          })}
-        </EducationContainer>
+        {this.state.items && this.state.items.map((item) => {
+          return <EducationItem key={item.id} {...item} />
+        })}
       </Page>
     )
   }

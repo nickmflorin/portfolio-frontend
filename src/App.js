@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import NavBar from 'components/nav'
 import Footer from 'components/footer'
 
-import { Landing, About, Experience, Education } from 'pages'
+import { Landing, Projects, Experience, Education } from 'pages'
 import { NavBarContext } from './context'
 
 const Theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/maps.scss');
 
 const Pages = {
   landing: Landing,
-  about: About,
+  projects: Projects,
   experience: Experience,
   education: Education
 }

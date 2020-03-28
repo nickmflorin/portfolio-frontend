@@ -8,7 +8,7 @@ import { formatDateRange } from 'utils'
 
 import { IconizedText } from 'components/icons'
 import { Tags } from 'components/tags'
-
+import ItemCourses from './courses'
 import Item from './item'
 
 
@@ -23,6 +23,7 @@ class EducationItem extends React.Component {
     description: PropTypes.string,
     skills: PropTypes.array,
     projects: PropTypes.array,
+    courses: PropTypes.array,
     start_year: PropTypes.number.isRequired,
     start_month: PropTypes.number.isRequired,
     end_year: PropTypes.number,
@@ -63,12 +64,9 @@ class EducationItem extends React.Component {
         ]}
         {...this.props}
       >
-      {(this.props.courses.length != 0) && (
-        <div style={{marginBottom: 12}}>
-          <IconizedText size={14} text={"Courses"} icon={faChalkboardTeacher} marginBottom={12}/>
-          <Tags size={14} items={_.pluck(this.props.courses, 'name')} />
-        </div>
-      )}
+        {(this.props.courses.length != 0) && (
+          <ItemCourses courses={this.props.courses} />
+        )}
       </Item>
     )
   }
