@@ -10,11 +10,11 @@ import { Tags } from 'components/tags'
 
 
 const StyledCourses = styled.div`
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 `;
 
 
-class ItemCourses extends React.Component {
+class Courses extends React.Component {
   static propTypes = {
     courses: PropTypes.array.isRequired,
   }
@@ -28,4 +28,4 @@ class ItemCourses extends React.Component {
   }
 }
 
-export default ItemCourses;
+export default Courses;

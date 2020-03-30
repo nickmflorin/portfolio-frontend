@@ -21,7 +21,7 @@ const ProjectDescription = styled.p`
   font-family: ${props => props.theme.fonts.roboto};
   font-weight: ${props => props.theme.fontweights.light};
   color: ${props => props.theme.colors.text3};
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 `;
 
 const ProjectLinks = styled.div`
@@ -29,11 +29,11 @@ const ProjectLinks = styled.div`
 `;
 
 const StyledProject = styled.div`
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 `;
 
 const StyledProjects = styled.div`
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 `;
 
 
@@ -43,9 +43,9 @@ class Project extends React.Component {
     this.state = {files: []}
   }
   componentWillMount() {
-    this.getExperience()
+    this.getProjectFiles()
   }
-  getExperience() {
+  getProjectFiles() {
     // TODO: We only need this API call to get the PDF files associated with
     // the project.  Ideally, we want the projects attached with a given education
     // or experience to maybe only return the id and name.
@@ -68,7 +68,7 @@ class Project extends React.Component {
     return (
       <StyledProject>
         <ProjectName>{this.props.name}</ProjectName>
-        <ProjectDescription>{this.props.description}</ProjectDescription>
+        <ProjectDescription>{this.props.short_description}</ProjectDescription>
         <ProjectLinks>
           {this.state.files.map((file) => {
             return <FileLink key={file.id} label={file.name} url={file.file} />
@@ -79,7 +79,7 @@ class Project extends React.Component {
   }
 }
 
-class ItemProjects extends React.Component {
+class Projects extends React.Component {
   static propTypes = {
     projects: PropTypes.array.isRequired,
   }
@@ -95,4 +95,4 @@ class ItemProjects extends React.Component {
   }
 }
 
-export default ItemProjects;
+export default Projects;

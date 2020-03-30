@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
-import _ from 'underscore'
 
-import { faMapPin, faCalendarAlt, faPaperPlane, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons'
+import { faMapPin, faCalendarAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { formatDateRange } from 'utils'
 
-import { IconizedText } from 'components/icons'
-import { Tags } from 'components/tags'
-import ItemCourses from './courses'
-import Item from './item'
+import Header from './Header'
+import Skills from './skills'
+import Projects from './projects'
+import Courses from './courses'
+import { Item, LogoContainer, Logo, DetailContainer } from './base'
 
 
 class EducationItem extends React.Component {
@@ -36,37 +36,47 @@ class EducationItem extends React.Component {
       degree = `${this.props.degree} ${this.props.major}`
     }
     return (
-      <Item
-        title={degree}
-        sub_title={this.props.school.name}
-        logo={this.props.school.logo}
-        items={[
-          {
-              id: 'location',
-              text: `${this.props.school.city}, ${this.props.school.state}`,
-              icon: faMapPin
-          },
-          {
-              id: 'dates',
-              text: formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month),
-              icon: faCalendarAlt
-          },
-          {
-              id: 'gpa',
-              text: `${this.props.gpa.toFixed(2)}/4.00`,
-              icon:faPaperPlane
-          }
-        ]}
-        descriptions={[
-          this.props.description,
-          (this.props.minor && `Minor in ${this.props.minor}`),
-          (this.props.concentration && `Concentration in ${this.props.concentration}`)
-        ]}
-        {...this.props}
-      >
-        {(this.props.courses.length != 0) && (
-          <ItemCourses courses={this.props.courses} />
-        )}
+      <Item>
+        <LogoContainer>
+          <Logo alt="Could not Load" src={this.props.school.logo}/>
+        </LogoContainer>
+        <DetailContainer>
+          <Header
+            title={degree}
+            sub_title={this.props.school.name}
+            descriptions={[
+              this.props.description,
+              (this.props.minor && `Minor in ${this.props.minor}`),
+              (this.props.concentration && `Concentration in ${this.props.concentration}`)
+            ]}
+            items={[
+              {
+                  id: 'location',
+                  text: `${this.props.school.city}, ${this.props.school.state}`,
+                  icon: faMapPin
+              },
+              {
+                  id: 'dates',
+                  text: formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month),
+                  icon: faCalendarAlt
+              },
+              {
+                  id: 'gpa',
+                  text: `${this.props.gpa.toFixed(2)}/4.00`,
+                  icon:faPaperPlane
+              }
+            ]}
+          />
+          {(this.props.projects.length != 0) && (
+            <Projects projects={this.props.projects} />
+          )}
+          {(this.props.skills.length != 0) && (
+            <Skills skills={this.props.skills} />
+          )}
+          {(this.props.courses.length != 0) && (
+            <Courses courses={this.props.courses} />
+          )}
+        </DetailContainer>
       </Item>
     )
   }

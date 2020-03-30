@@ -36,9 +36,10 @@ const AppHeader = styled.header`
 `;
 
 const AppSection = styled.section`
-  height: 100%;
   width: 100%;
   position: absolute;
+  background-color: ${props => props.theme.colors.background};
+  min-height: 100%;
 `;
 
 

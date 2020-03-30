@@ -10,11 +10,11 @@ import { Tags } from 'components/tags'
 
 
 const StyledSkills = styled.div`
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 `;
 
 
-class ItemSkills extends React.Component {
+class Skills extends React.Component {
   static propTypes = {
     skills: PropTypes.array.isRequired,
   }
@@ -28,4 +28,4 @@ class ItemSkills extends React.Component {
   }
 }
 
-export default ItemSkills;
+export default Skills;

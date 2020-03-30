@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 import landing from 'media/landing.png';
+import Github from 'media/icons/Github_White.png'
+import LinkedIn from 'media/icons/LinkedIn_White.png'
+
+import { getProfile } from 'services'
 
 import Headshot from 'components/headshot';
 import { SocialButton } from 'components/buttons'
-import Github from 'media/icons/Github_White.png'
-import LinkedIn from 'media/icons/LinkedIn_White.png'
 import { LandingPage } from './containers'
 
 
@@ -88,7 +90,27 @@ class Landing extends React.Component {
     'Technologist',
     'Developer',
   ]
-
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+        github_url: null,
+        linkedin_url: null
+    }
+  }
+  componentWillMount() {
+    this.getSocialUrls()
+  }
+  getSocialUrls() {
+    var self = this
+    getProfile().then((response) => {
+      self.setState({
+          github_url: response.github_url,
+          linkedin_url: response.linkedin_url
+      })
+    }).catch((error) => {
+      console.log('There was an error loading the resume.')
+    })
+  }
   render(){
     return (
       <LandingPage>
@@ -103,8 +125,8 @@ class Landing extends React.Component {
               )}
             </SubTitle>
             <SocialIconsContainer>
-              <SocialButton icon={Github} url={'https://github.com/nickmflorin'}/>
-              <SocialButton icon={LinkedIn} url={'https://www.linkedin.com/in/nick-florin-5046063b/'}/>
+              <SocialButton icon={Github} url={this.state.github_url}/>
+              <SocialButton icon={LinkedIn} url={this.state.linkedin_url}/>
             </SocialIconsContainer>
           </LandingBodyContent>
         </LandingBody>

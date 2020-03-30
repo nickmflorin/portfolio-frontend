@@ -5,8 +5,7 @@ var getExperience = async () => {
   const response = await api_fetch('/experience/')
   const data = await response.json()
   if (response.status !== 200){
-    const body = await response.json()
-    throw Error(body.message);
+    throw Error(data.message);
   }
   return data
 };

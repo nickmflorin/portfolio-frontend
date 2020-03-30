@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { NavBarButton, LogoButton } from './buttons'
+import { getProfile } from 'services'
+import { NavBarInternalLink, NavBarExternalLink, LogoButton } from './buttons'
 
 var classNames = require('classnames');
 
@@ -13,20 +14,6 @@ const NavBarButtonContainer = styled.div`
   padding-bottom: 15px;
   display: flex;
 `;
-
-
-class NavBarItem extends React.Component {
-  render() {
-    return (
-      <NavBarButtonContainer>
-        <NavBarButton
-          link={this.props.item.link}
-          label={this.props.item.label}
-        />
-      </NavBarButtonContainer>
-    )
-  }
-}
 
 
 const NavBarContainer = styled.div`
@@ -51,6 +38,21 @@ const NavBarRightContainer = styled.div`
 
 
 export class NavBar extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {resume_url: null}
+  }
+  componentWillMount() {
+    this.getResumeLink()
+  }
+  getResumeLink() {
+    var self = this
+    getProfile().then((response) => {
+      self.setState({resume_url: response.resume})
+    }).catch((error) => {
+      console.log('There was an error loading the resume.')
+    })
+  }
   render() {
     return (
       <NavBarContainer overlay={this.props.overlay}>
@@ -59,8 +61,21 @@ export class NavBar extends React.Component {
         </NavBarLeftContainer>
         <NavBarRightContainer>
           {this.props.items.map((item) => {
-            return <NavBarItem key={item.id} item={item} />
+            return (
+              <NavBarButtonContainer key={item.id}>
+                <NavBarInternalLink
+                  url={item.link}
+                  label={item.label}
+                />
+              </NavBarButtonContainer>
+            )
           })}
+          <NavBarButtonContainer>
+            <NavBarExternalLink
+              url={this.state.resume_link}
+              label={"Resume"}
+            />
+          </NavBarButtonContainer>
         </NavBarRightContainer>
       </NavBarContainer>
     );

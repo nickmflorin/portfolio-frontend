@@ -1,8 +1,8 @@
 import { api_fetch } from './utils'
 
 
-var getEducation = async () => {
-  const response = await api_fetch('/education/')
+var getProfile = async (id) => {
+  const response = await api_fetch(`/profile/`)
   const data = await response.json()
   if (response.status !== 200){
     throw Error(data.message);
@@ -10,4 +10,4 @@ var getEducation = async () => {
   return data
 };
 
-export default getEducation;
+export default getProfile;
