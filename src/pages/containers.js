@@ -37,7 +37,7 @@ export class Page extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Spinner loading={true}/>
+        <Spinner loading={this.props.loading}/>
         <PageContainer maxWidth={this.props.maxWidth}>
           <HeaderContainer>
             <Header>{this.props.header}</Header>
