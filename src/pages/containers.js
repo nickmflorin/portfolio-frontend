@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Spinner from 'components/spinner'
 
@@ -34,6 +35,12 @@ export const LandingPage = styled.div``;
 
 
 export class Page extends React.Component {
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+  }
+  static defaultProps = {
+    loading: false,
+  }
   render() {
     return (
       <React.Fragment>
