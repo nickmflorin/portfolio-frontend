@@ -3,11 +3,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore'
 
+import { css } from "@emotion/core";
+import ClipLoader from "react-spinners/ClipLoader";
+
 import { isImageFile } from 'utils'
 import { getProject } from 'services'
 import { Item } from './base'
 import Header from './header'
 
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 const ProjectFilesContainer = styled.div`
 
@@ -49,7 +58,7 @@ class ProjectItem extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-        loaded: false,
+        loading: true,
         description: null,
         name: null,
         files: [],
@@ -71,7 +80,7 @@ class ProjectItem extends React.Component {
           name: response.name,
           description: response.long_description,
           files: files,
-          loaded: true,
+          loading: false,
       })
     }).catch((error) => {
       console.error(`There was an error loading project ${this.props.id}.`)
@@ -81,7 +90,11 @@ class ProjectItem extends React.Component {
     // NOTE: We already have the name from the props, but this will give us an
     // indication if the project has loaded.  We need to get the full project for
     // the files, based on the current API design.
-    if (this.state.loaded) {
+    if (this.state.loading) {
+      // TODO: Implement spinners on components that are children of the page.
+      return <p> Loading </p>
+    }
+    else {
       return (
         <Item maxWidth={"1200px"}>
           <Header
@@ -93,10 +106,6 @@ class ProjectItem extends React.Component {
           />
         </Item>
       )
-    }
-    // TODO: Come up with better loading display.
-    else {
-      return <p> Loading... </p>
     }
   }
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Spinner from 'components/spinner'
+
 
 const HeaderContainer = styled.div`
   margin: 0px auto 20px auto;
@@ -34,14 +36,17 @@ export const LandingPage = styled.div``;
 export class Page extends React.Component {
   render() {
     return (
-      <PageContainer maxWidth={this.props.maxWidth}>
-        <HeaderContainer>
-          <Header>{this.props.header}</Header>
-        </HeaderContainer>
-        <PageContent>
-          {this.props.children}
-        </PageContent>
-      </PageContainer>
+      <React.Fragment>
+        <Spinner loading={true}/>
+        <PageContainer maxWidth={this.props.maxWidth}>
+          <HeaderContainer>
+            <Header>{this.props.header}</Header>
+          </HeaderContainer>
+          <PageContent>
+            {this.props.children}
+          </PageContent>
+        </PageContainer>
+      </React.Fragment>
     )
   }
 }
