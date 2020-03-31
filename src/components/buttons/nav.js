@@ -61,7 +61,6 @@ export class NavBarInternalLink extends React.Component {
 
 export class NavBarExternalLink extends React.Component {
   render(){
-    console.log(this.props.url)
     return (
       <StyledExternalLink href={this.props.url} >
         {this.props.label}

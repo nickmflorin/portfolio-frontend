@@ -20,7 +20,7 @@ class Experience extends React.Component {
       const ordered = sortExperienceEducation(response)
       self.setState({items: ordered})
     }).catch((error) => {
-      console.log('There was an error loading experience history.')
+      console.error('There was an error loading experience history.')
     })
   }
   render() {

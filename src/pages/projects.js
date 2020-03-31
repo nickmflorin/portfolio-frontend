@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore'
 
 import { getProjects } from 'services'
 import { Page } from 'pages/containers'
@@ -16,9 +17,10 @@ class Projects extends React.Component {
   getProjects() {
     var self = this
     getProjects().then((response) => {
-      self.setState({items: response})
+      const projects = _.filter(response, (item) => item.display_alone)
+      self.setState({items: projects})
     }).catch((error) => {
-      console.log('There was an error loading projects.')
+      console.error('There was an error loading projects.')
     })
   }
   render() {

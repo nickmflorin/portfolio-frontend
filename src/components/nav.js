@@ -50,7 +50,7 @@ export class NavBar extends React.Component {
     getProfile().then((response) => {
       self.setState({resume_url: response.resume})
     }).catch((error) => {
-      console.log('There was an error loading the resume.')
+      console.error('There was an error loading the resume.')
     })
   }
   render() {
@@ -72,7 +72,7 @@ export class NavBar extends React.Component {
           })}
           <NavBarButtonContainer>
             <NavBarExternalLink
-              url={this.state.resume_link}
+              url={this.state.resume_url}
               label={"Resume"}
             />
           </NavBarButtonContainer>

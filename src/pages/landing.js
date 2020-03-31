@@ -108,7 +108,7 @@ class Landing extends React.Component {
           linkedin_url: response.linkedin_url
       })
     }).catch((error) => {
-      console.log('There was an error loading the resume.')
+      console.error('There was an error loading the resume.')
     })
   }
   render(){

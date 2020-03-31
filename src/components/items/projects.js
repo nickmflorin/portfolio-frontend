@@ -62,6 +62,7 @@ class Project extends React.Component {
       this.setState({files: files})
     }).catch((error) => {
       console.log(`There was an error retrieving project ${this.props.id}.`)
+      console.log(error.code)
     })
   }
   render() {

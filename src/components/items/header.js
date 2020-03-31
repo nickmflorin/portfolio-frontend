@@ -33,6 +33,7 @@ const Description = styled.p`
   font-weight: ${props => props.theme.fontweights.light};
   color: ${props => props.theme.colors.text3};
   margin-bottom: 8px;
+  text-align: left;
 `;
 
 const HeaderItems = styled.div`
