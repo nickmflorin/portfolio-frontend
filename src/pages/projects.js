@@ -20,7 +20,7 @@ class Projects extends React.Component {
   getProjects() {
     var self = this
     getProjects().then((response) => {
-      const projects = _.filter(response, (item) => item.display_alone)
+      const projects = _.filter(response, (item) => item.showcase)
       self.setState({
           items: projects,
           loading: false,
