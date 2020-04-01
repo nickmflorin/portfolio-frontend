@@ -1,4 +1,4 @@
-import { api_fetch } from './utils'
+import { api_fetch, api_post } from './utils'
 
 
 const sleep = (milliseconds) => {
@@ -32,3 +32,11 @@ export const getProject = async (id) => {
 export const getProfile = async (id) => {
   return api_fetch(`/profile/`)
 };
+
+export const getComments = async () => {
+  return api_fetch('/comments/')
+}
+
+export const createComment = async (data) => {
+  return api_post('/comments/', data)
+}

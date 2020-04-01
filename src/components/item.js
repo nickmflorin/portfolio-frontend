@@ -25,7 +25,7 @@ class Item extends React.Component {
   render(){
     return (
       <StyledItem {...this.props}>
-        <ComponentSpinner loading={this.props.loading} />
+        <ComponentSpinner show={this.props.loading} />
         {this.props.children}
       </StyledItem>
     )

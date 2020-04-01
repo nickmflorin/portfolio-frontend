@@ -8,9 +8,9 @@ $green: rgba(61, 185, 135, 1.0);
 $red: rgba(255, 92, 80, 1.0);
 
 // Text
-$text_primary: #282828;
-$text_secondary: #3C3C3C;
-$text_tertiary: #474747;
+$textprimary: #282828;
+$textsecondary: #3C3C3C;
+$texttertiary: #474747;
 $textgray1: #5F5F5F;
 $textgray2: #838383;
 
@@ -29,9 +29,9 @@ $footer_color: rgba(65, 65, 65, 0.8);
 $colors: (
   "white": $white,
   "black": $black,
-  "text_primary": $text_primary,
-  "text_secondary": $text_secondary,
-  "text_tertiary": $text_tertiary,
+  "textprimary": $textprimary,
+  "textsecondary": $textsecondary,
+  "texttertiary": $texttertiary,
   "textgray1": $textgray1,
   "textgray2": $textgray2,
   "blue": $blue,

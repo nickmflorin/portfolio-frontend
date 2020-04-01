@@ -46,7 +46,7 @@ export class LandingPage extends React.Component {
   render() {
     return (
       <LandingPageContainer>
-        <PageSpinner loading={this.props.loading}/>
+        <PageSpinner show={this.props.loading}/>
         {this.props.children}
       </LandingPageContainer>
     )
@@ -64,7 +64,7 @@ export class Page extends React.Component {
   render() {
     return (
       <PageContainer maxWidth={this.props.maxWidth}>
-        <PageSpinner loading={this.props.loading}/>
+        <PageSpinner show={this.props.loading}/>
         <HeaderContainer>
           <Header>{this.props.header}</Header>
         </HeaderContainer>

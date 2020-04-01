@@ -24,7 +24,7 @@ const ProjectNameLink = styled(HashLink)`
 `;
 
 const ProjectDescription = styled.p`
-  color: ${props => props.theme.colors.text_tertiary};
+  color: ${props => props.theme.colors.texttertiary};
   margin-bottom: 10px;
   font-size: 13px;
   margin-top: 4px;

@@ -53,10 +53,10 @@ export class PageSpinner extends React.Component {
 
 export class ComponentSpinner extends React.Component {
   static propTypes = {
-    loading: PropTypes.bool.isRequired,
+    show: PropTypes.bool.isRequired,
   }
   static defaultProps = {
-    loading: true,
+    show: true,
   }
   render() {
     if (this.props.loading) {

@@ -31,7 +31,7 @@ const Descriptions = styled.div`
 export const Description = styled.p`
   font-family: ${props => props.theme.fonts.roboto};
   font-weight: ${props => props.theme.fontweights.light};
-  color: ${props => props.theme.colors.text_tertiary};
+  color: ${props => props.theme.colors.texttertiary};
   margin-bottom: 8px;
   text-align: left;
 `;
@@ -61,10 +61,10 @@ class Header extends React.Component {
     return (
       <StyledHeader>
         <Title>{this.props.title}</Title>
-        {(this.props.sub_title != 0) && (
+        {(this.props.sub_title && (
           <SubTitle>{this.props.sub_title}</SubTitle>
-        )}
-        {(this.props.descriptions.length != 0) && (
+        ))}
+        {(this.props.items.length != 0) && (
           <HeaderItems>
             {this.props.items.map((item) => {
               return (item.text &&
