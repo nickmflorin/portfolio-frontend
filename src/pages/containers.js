@@ -26,12 +26,32 @@ const PageContainer = styled.div`
   max-width: ${props => props.maxWidth || "800px"};
 `;
 
+const LandingPageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const PageContent = styled.div`
   text-align: center;
   margin: 20px auto 20px auto;
 `
 
-export const LandingPage = styled.div``;
+export class LandingPage extends React.Component {
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+  }
+  static defaultProps = {
+    loading: false,
+  }
+  render() {
+    return (
+      <LandingPageContainer>
+        <PageSpinner loading={this.props.loading}/>
+        {this.props.children}
+      </LandingPageContainer>
+    )
+  }
+}
 
 
 export class Page extends React.Component {

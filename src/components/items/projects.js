@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { HashLink } from 'react-router-hash-link';
-
 import styled from 'styled-components';
 
 import { faHammer } from '@fortawesome/free-solid-svg-icons'

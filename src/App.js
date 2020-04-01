@@ -18,14 +18,9 @@ const Pages = {
   education: Education
 }
 
-const AppBase = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+const AppContent = styled.div`
+  height: 100vh;
 `;
-
-const AppContent = styled.div``;
-
 
 const AppHeader = styled.header`
   position: fixed;
@@ -39,7 +34,8 @@ const AppSection = styled.section`
   width: 100%;
   position: absolute;
   background-color: ${props => props.theme.colors.background};
-  min-height: 100%;
+  max-height: ${props => (`calc(100vh - ${props.theme.heights.footer})`)};
+  overflow-y: scroll;
 `;
 
 
@@ -62,9 +58,8 @@ class App extends React.Component {
   render() {
     return (
       <AppContext>
-        <AppBase>
-          <BrowserRouter>
-            <AppContent>
+        <BrowserRouter>
+          <AppContent>
               <AppHeader>
                 <Switch>
                   <Route exact path="/">
@@ -94,9 +89,8 @@ class App extends React.Component {
                   })}
               </AppSection>
               <Footer />
-            </AppContent>
-          </BrowserRouter>
-        </AppBase>
+          </AppContent>
+        </BrowserRouter>
       </AppContext>
     );
   }

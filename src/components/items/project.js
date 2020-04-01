@@ -6,17 +6,10 @@ import _ from 'underscore'
 import { isImageFile } from 'utils'
 import { getProject } from 'services'
 
-import { ComponentSpinner } from 'components/spinner'
-import { StyledItem } from './base'
+import Item from 'components/item'
+
 import Header, { Description } from './header'
 
-
-export const StyledProjectItem = styled(StyledItem)`
-  display: inline-block;
-  max-width: 1200px;
-  padding: 20px 100px;
-  position: relative;
-`;
 
 const ProjectFilesContainer = styled.div`
   display: inline-block;
@@ -96,8 +89,7 @@ class ProjectItem extends React.Component {
   }
   render() {
     return (
-        <StyledProjectItem id={`project-${this.props.id}`}>
-          <ComponentSpinner loading={this.state.loading} />
+        <Item id={`project-${this.props.id}`} loading={this.state.loading} maxWidth="1200px" padding="20px 100px">
           <Header
             title={this.props.name}
             descriptions={[this.state.description]}
@@ -115,7 +107,7 @@ class ProjectItem extends React.Component {
               )
             })}
           </ProjectFilesContainer>
-        </StyledProjectItem>
+        </Item>
     )
   }
 }

@@ -1,18 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 
 import { faMapPin, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
-import { formatDateRange } from 'utils'
 
+import { formatDateRange } from 'utils'
 import { getExperience } from 'services'
-import { ComponentSpinner } from 'components/spinner'
+
+import Item from 'components/item'
 
 import Header from './Header'
 import Skills from './skills'
 import Projects from './projects'
-import { StyledItem, LogoContainer, Logo, DetailContainer } from './base'
 
+
+const LogoContainer = styled.a`
+  min-width: 80px;
+  min-height: 80px;
+  max-width: 80px;
+  max-height: 80px;
+  padding: 10px;
+  display: inline-block;
+`;
+
+const Logo = styled.img`
+  height: 100%;
+  width: 100%;
+`;
+
+const DetailContainer = styled.div`
+  padding: 12px;
+  text-align: left;
+  display: inline-block;
+
+  div:last-child {
+    margin-bottom: 0px !important;
+  }
+`;
 
 class ExperienceItem extends React.Component {
   static propTypes = {
@@ -50,37 +74,38 @@ class ExperienceItem extends React.Component {
   }
   render() {
     return (
-      <StyledItem>
-        <ComponentSpinner loading={this.state.loading} />
-        <LogoContainer href={this.props.company.url}>
-          <Logo alt="Could not Load" src={this.props.company.logo}/>
-        </LogoContainer>
-        <DetailContainer>
-          <Header
-            title={this.props.title}
-            sub_title={this.props.company.name}
-            descriptions={[this.props.description]}
-            items={[
-              {
-                  id: 'location',
-                  text: `${this.props.company.city}, ${this.props.company.state}`,
-                  icon: faMapPin
-              },
-              {
-                  id: 'dates',
-                  text: formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month),
-                  icon: faCalendarAlt
-              },
-            ]}
-          />
-          {(this.state.projects.length != 0) && (
-            <Projects projects={this.state.projects} />
-          )}
-          {(this.state.skills.length != 0) && (
-            <Skills skills={this.state.skills} />
-          )}
-        </DetailContainer>
-      </StyledItem>
+      <Item loading={this.state.loading}>
+        <div style={{display: 'flex'}}>
+          <LogoContainer href={this.props.company.url}>
+            <Logo alt="Could not Load" src={this.props.company.logo}/>
+          </LogoContainer>
+          <DetailContainer>
+            <Header
+              title={this.props.title}
+              sub_title={this.props.company.name}
+              descriptions={[this.props.description]}
+              items={[
+                {
+                    id: 'location',
+                    text: `${this.props.company.city}, ${this.props.company.state}`,
+                    icon: faMapPin
+                },
+                {
+                    id: 'dates',
+                    text: formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month),
+                    icon: faCalendarAlt
+                },
+              ]}
+            />
+            {(this.state.projects.length != 0) && (
+              <Projects projects={this.state.projects} />
+            )}
+            {(this.state.skills.length != 0) && (
+              <Skills skills={this.state.skills} />
+            )}
+          </DetailContainer>
+        </div>
+      </Item>
     )
   }
 }

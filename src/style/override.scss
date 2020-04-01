@@ -14,3 +14,13 @@
     height: 1.2rem;
     border-width: 0.2em;
 }
+
+.btn {
+    padding: 0.775rem 1rem;
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+.btn span[role="status"] {
+  margin-right: 4px;
+}

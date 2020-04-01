@@ -17,6 +17,7 @@ const StyledFooterContent = styled.p`
   line-height: ${props => props.theme.heights.footer};
   color: ${props => props.theme.colors.white};
   font-size: 12px;
+  text-align: center;
 `;
 
 class Footer extends React.Component {
