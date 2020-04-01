@@ -5,6 +5,9 @@ import { withTheme } from 'styled-components';
 import { faMapPin, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { formatDateRange } from 'utils'
 
+import { getExperience } from 'services'
+import { ComponentSpinner } from 'components/spinner'
+
 import Header from './Header'
 import Skills from './skills'
 import Projects from './projects'
@@ -16,16 +19,39 @@ class ExperienceItem extends React.Component {
     company: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    skills: PropTypes.array,
-    projects: PropTypes.array,
     start_year: PropTypes.number.isRequired,
     start_month: PropTypes.number.isRequired,
     end_year: PropTypes.number,
     end_month: PropTypes.number,
   }
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      skills: [],
+      projects: [],
+      loading: true,
+    }
+  }
+  componentWillMount() {
+    this.getExperience()
+  }
+  getExperience() {
+    var self = this
+    getExperience(this.props.id).then((response) => {
+      self.setState({
+        skills: response.skills,
+        projects: response.projects,
+      })
+    }).catch((error) => {
+      console.error(`There was an error loading experience ${this.props.id}.`)
+    }).finally(() => {
+      self.setState({loading: false})
+    })
+  }
   render() {
     return (
       <StyledItem>
+        <ComponentSpinner loading={this.state.loading} />
         <LogoContainer href={this.props.company.url}>
           <Logo alt="Could not Load" src={this.props.company.logo}/>
         </LogoContainer>
@@ -47,11 +73,11 @@ class ExperienceItem extends React.Component {
               },
             ]}
           />
-          {(this.props.projects.length != 0) && (
-            <Projects projects={this.props.projects} />
+          {(this.state.projects.length != 0) && (
+            <Projects projects={this.state.projects} />
           )}
-          {(this.props.skills.length != 0) && (
-            <Skills skills={this.props.skills} />
+          {(this.state.skills.length != 0) && (
+            <Skills skills={this.state.skills} />
           )}
         </DetailContainer>
       </StyledItem>

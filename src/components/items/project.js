@@ -97,13 +97,13 @@ class ProjectItem extends React.Component {
   render() {
     return (
         <StyledProjectItem id={`project-${this.props.id}`}>
-          <ComponentSpinner loading={this.props.loading} />
+          <ComponentSpinner loading={this.state.loading} />
           <Header
             title={this.props.name}
             descriptions={[this.state.description]}
           />
           <ProjectFilesContainer>
-            {this.props.files.map((file) => {
+            {this.state.files.map((file) => {
               return (
                 <ProjectFile
                   id={file.id}

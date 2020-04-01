@@ -53,7 +53,10 @@ class Project extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
-    this.state = {files: []}
+    this.state = {
+        files: [],
+        loading: true,
+    }
   }
   componentWillMount() {
     this.getProjectFiles()
@@ -74,9 +77,11 @@ class Project extends React.Component {
           files.push(response.files[i])
         }
       }
-      this.setState({files: files})
+      self.setState({files: files})
     }).catch((error) => {
-      console.log(`There was an error retrieving project ${this.props.id}.`)
+      console.error(`There was an error retrieving project ${this.props.id}.`)
+    }).finally(() => {
+      self.setState({loading: false})
     })
   }
   getProjectName(){
@@ -125,7 +130,7 @@ class Projects extends React.Component {
       <StyledProjects>
         <IconizedText size={14} text={"Projects"} icon={faHammer} marginBottom={12}/>
         {this.props.projects.map((project, index) => {
-          return <Project key={index} {...project} {...this.props} />
+          return <Project key={index} {...project}/>
         })}
       </StyledProjects>
     )

@@ -5,6 +5,9 @@ import { withTheme } from 'styled-components';
 import { faMapPin, faCalendarAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { formatDateRange } from 'utils'
 
+import { getEducation } from 'services'
+import { ComponentSpinner } from 'components/spinner'
+
 import Header from './Header'
 import Skills from './skills'
 import Projects from './projects'
@@ -14,6 +17,7 @@ import { StyledItem, LogoContainer, Logo, DetailContainer } from './base'
 
 class EducationItem extends React.Component {
   static propTypes = {
+    id: PropTypes.number.isRequired,
     school: PropTypes.object.isRequired,
     degree: PropTypes.string.isRequired,
     major: PropTypes.string.isRequired,
@@ -21,15 +25,37 @@ class EducationItem extends React.Component {
     concentration: PropTypes.string,
     gpa: PropTypes.number,
     description: PropTypes.string,
-    skills: PropTypes.array,
-    projects: PropTypes.array,
-    courses: PropTypes.array,
     start_year: PropTypes.number.isRequired,
     start_month: PropTypes.number.isRequired,
     end_year: PropTypes.number,
     end_month: PropTypes.number,
   }
-
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      skills: [],
+      projects: [],
+      courses: [],
+      loading: true,
+    }
+  }
+  componentWillMount() {
+    this.getEducation()
+  }
+  getEducation() {
+    var self = this
+    getEducation(this.props.id).then((response) => {
+      self.setState({
+        skills: response.skills,
+        projects: response.projects,
+        courses: response.courses,
+      })
+    }).catch((error) => {
+      console.error(`There was an error loading education ${this.props.id}.`)
+    }).finally(() => {
+      self.setState({loading: false})
+    })
+  }
   render() {
     var degree = `${this.props.degree}, ${this.props.major}`
     if(this.props.degree.charAt(this.props.degree.length - 1) === "."){
@@ -37,6 +63,7 @@ class EducationItem extends React.Component {
     }
     return (
       <StyledItem>
+        <ComponentSpinner loading={this.state.loading} />
         <LogoContainer>
           <Logo alt="Could not Load" src={this.props.school.logo}/>
         </LogoContainer>
@@ -67,14 +94,14 @@ class EducationItem extends React.Component {
               }
             ]}
           />
-          {(this.props.projects.length != 0) && (
-            <Projects projects={this.props.projects} />
+          {(this.state.projects.length != 0) && (
+            <Projects projects={this.state.projects} />
           )}
-          {(this.props.skills.length != 0) && (
-            <Skills skills={this.props.skills} />
+          {(this.state.skills.length != 0) && (
+            <Skills skills={this.state.skills} />
           )}
-          {(this.props.courses.length != 0) && (
-            <Courses courses={this.props.courses} />
+          {(this.state.courses.length != 0) && (
+            <Courses courses={this.state.courses} />
           )}
         </DetailContainer>
       </StyledItem>

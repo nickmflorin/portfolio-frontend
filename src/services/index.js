@@ -5,18 +5,25 @@ const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 
-export const getExperience = async () => {
+export const getAllExperience = async () => {
   return api_fetch('/experience/')
 };
 
-export const getEducation = async () => {
+export const getExperience = async (id) => {
+  return api_fetch(`/experience/${id}/`)
+};
+
+export const getAllEducation = async () => {
   return api_fetch('/education/')
+};
+
+export const getEducation = async (id) => {
+  return api_fetch(`/education/${id}/`)
 };
 
 export const getProjects = async () => {
   return api_fetch(`/projects/`)
 }
-
 
 export const getProject = async (id) => {
   return api_fetch(`/projects/${id}/`)
