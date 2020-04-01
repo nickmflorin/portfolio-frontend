@@ -1,30 +1,54 @@
 @import './fonts.scss';
 
-$border_color: #dedede;
+// Colors
+$black: #000000;
+$white: #FFFFFF;
+$blue: #2196F3;
+$green: rgba(61, 185, 135, 1.0);
+$red: rgba(255, 92, 80, 1.0);
+
+// Text
+$text_primary: #282828;
+$text_secondary: #3C3C3C;
+$text_tertiary: #474747;
+$textgray1: #5F5F5F;
+$textgray2: #838383;
+
+// Borders
+$border_color: #DEDEDE;
+$border_color_light: #EFEFEF;
+
+// Icons
+$icon_color: $textgray2;
+
+// Branding
+$background_color: rgb(250, 250, 250);
+$navbar_color: rgba(65, 65, 65, 0.8);
+$footer_color: rgba(65, 65, 65, 0.8);
 
 $colors: (
-  "white": #FFF,
-  "black": #000000,
-  "primary": #282828,
-  "secondary": #3C3C3C,
-  "gray1": #474747,
-  "gray2": #5F5F5F,
-  "gray3": #838383,
-  "blue": #2196f3,
-  "green": rgba(61, 185, 135, 1.0),
-  "orange": #ff9800,
-  "orangered": #F46C43,
-  "red": rgba(255, 92, 80, 1.0),
-  "yellow": rgba(255, 231, 97, 1.0),
-  "icon": #838383,
-  "navbar": rgba(65, 65, 65, 0.8),
-  "footer": rgba(65, 65, 65, 0.8),
-  "background": rgb(250, 250, 250),
+  "white": $white,
+  "black": $black,
+  "text_primary": $text_primary,
+  "text_secondary": $text_secondary,
+  "text_tertiary": $text_tertiary,
+  "textgray1": $textgray1,
+  "textgray2": $textgray2,
+  "blue": $blue,
+  "green": $green,
+  "red": $red,
+  "icon": $icon_color,
+  "navbar": $navbar_color,
+  "footer": $footer_color,
+  "background": $background_color,
   "border": $border_color,
 );
 
 $borders: (
   'regular': 1px solid $border_color,
+  'light': 1px solid $border_color_light,
+  'white': 1px solid $white,
+  'blue': 1px solid $blue,
 );
 
 $fonts: (
@@ -42,4 +66,12 @@ $fontweights: (
   "regular": 400,
   "medium": 600,
   "bold": 700
+);
+
+
+// Bootstrap Customization
+$theme-colors: (
+    "primary": $blue,
+    "danger": $red,
+    "success": $green,
 );

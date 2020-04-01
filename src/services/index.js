@@ -1,6 +1,10 @@
 import { api_fetch } from './utils'
 
 
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 export const getExperience = async () => {
   return api_fetch('/experience/')
 };

@@ -9,7 +9,7 @@ import Header from './Header'
 import Skills from './skills'
 import Projects from './projects'
 import Courses from './courses'
-import { Item, LogoContainer, Logo, DetailContainer } from './base'
+import { StyledItem, LogoContainer, Logo, DetailContainer } from './base'
 
 
 class EducationItem extends React.Component {
@@ -36,7 +36,7 @@ class EducationItem extends React.Component {
       degree = `${this.props.degree} ${this.props.major}`
     }
     return (
-      <Item>
+      <StyledItem>
         <LogoContainer>
           <Logo alt="Could not Load" src={this.props.school.logo}/>
         </LogoContainer>
@@ -77,7 +77,7 @@ class EducationItem extends React.Component {
             <Courses courses={this.props.courses} />
           )}
         </DetailContainer>
-      </Item>
+      </StyledItem>
     )
   }
 }

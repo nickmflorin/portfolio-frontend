@@ -28,10 +28,10 @@ const Descriptions = styled.div`
   }
 `;
 
-const Description = styled.p`
+export const Description = styled.p`
   font-family: ${props => props.theme.fonts.roboto};
   font-weight: ${props => props.theme.fontweights.light};
-  color: ${props => props.theme.colors.text3};
+  color: ${props => props.theme.colors.text_tertiary};
   margin-bottom: 8px;
   text-align: left;
 `;

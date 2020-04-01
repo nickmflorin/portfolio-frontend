@@ -9,7 +9,6 @@ const StyledFooter = styled.footer`
   position: fixed;
   bottom: 0;
   background-color: ${props => props.theme.colors.footer};
-  color: ${props => props.theme.colors.white};
   border-top: ${props => props.theme.borders.dark};
   height: ${props => props.theme.heights.footer}
 `;
@@ -18,8 +17,6 @@ const StyledFooterContent = styled.p`
   line-height: ${props => props.theme.heights.footer};
   color: ${props => props.theme.colors.white};
   font-size: 12px;
-  font-family: ${props => props.theme.fonts.roboto};
-  font-weight: ${props => props.theme.fontweights.light};
 `;
 
 class Footer extends React.Component {

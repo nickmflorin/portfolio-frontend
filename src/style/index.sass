@@ -1,5 +1,9 @@
 @import './maps.scss'
+// Must import bootstrap after maps are imported but before overrides are imported.
+@import '~bootstrap/scss/bootstrap'
+@import './override.scss'
 @import './fonts.scss'
+
 @use "sass:map"
 
 
@@ -8,16 +12,19 @@ body
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  color: map-get($colors, "primary")
+  color: map-get($colors, "text_primary")
 
 code
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace
-  color: map-get($colors, "primary")
+  color: map-get($colors, "text_primary")
 
 a
+  font-family: $roboto
   text-decoration: none !important
+  color: map-get($colors, 'blue')
   &:hover
     text-decoration: none !important
+    color: lighten( map-get($colors, 'blue'), 30% )
 
 h1, h2, h3, h4, h5, h6
   margin-top: 0px
@@ -28,7 +35,7 @@ h1
   font-size: 26px
   line-height: 26px
   font-weight: map-get($fontweights, "medium")
-  color: map-get($colors, "primary")
+  color: map-get($colors, "text_primary")
   letter-spacing: 0.02em
 
 h2
@@ -36,7 +43,7 @@ h2
   font-size: 22px
   line-height: 22px
   font-weight: map-get($fontweights, "medium")
-  color: map-get($colors, "secondary")
+  color: map-get($colors, "text_secondary")
   letter-spacing: 0.02em
 
 h3
@@ -44,7 +51,7 @@ h3
   font-size: 20px
   line-height: 20px
   font-weight: map-get($fontweights, "medium")
-  color: map-get($colors, "secondary")
+  color: map-get($colors, "text_secondary")
   letter-spacing: 0.02em
 
 h4
@@ -52,21 +59,21 @@ h4
   font-size: 18px
   line-height: 18px
   font-weight: map-get($fontweights, "regular")
-  color: map-get($colors, "gray1")
+  color: map-get($colors, "text_tertiary")
 
 h5
   margin-bottom: 10px
   font-size: 16px
   line-height: 16px
   font-weight: map-get($fontweights, "regular")
-  color: map-get($colors, "gray1")
+  color: map-get($colors, "text_tertiary")
 
 h6
   margin-bottom: 8px
   font-size: 14px
   line-height: 14px
   font-weight: map-get($fontweights, "regular")
-  color: map-get($colors, "gray2")
+  color: map-get($colors, "textgray1")
 
 p
   margin-top: 0px
@@ -75,7 +82,7 @@ p
   line-height: 18px
   font-family: $roboto
   font-weight: map-get($fontweights, "light")
-  color: map-get($colors, "secondary")
+  color: map-get($colors, "text_secondary")
 
 
 ul

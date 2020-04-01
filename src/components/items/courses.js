@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore'
 
-import { faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons'
+import { faSchool } from '@fortawesome/free-solid-svg-icons'
 
 import { IconizedText } from 'components/icons'
 import { Tags } from 'components/tags'
@@ -21,7 +21,7 @@ class Courses extends React.Component {
   render(){
     return (
       <StyledCourses>
-        <IconizedText size={14} text={"Courses"} icon={faChalkboardTeacher} marginBottom={12}/>
+        <IconizedText size={14} text={"Courses"} icon={faSchool} marginBottom={12}/>
         <Tags size={14} items={_.pluck(this.props.courses, 'name')} />
       </StyledCourses>
     )

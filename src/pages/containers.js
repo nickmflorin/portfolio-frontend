@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import Spinner from 'components/spinner'
+import { PageSpinner } from 'components/spinner'
 
 
 const HeaderContainer = styled.div`
@@ -43,17 +43,15 @@ export class Page extends React.Component {
   }
   render() {
     return (
-      <React.Fragment>
-        <Spinner loading={this.props.loading}/>
-        <PageContainer maxWidth={this.props.maxWidth}>
-          <HeaderContainer>
-            <Header>{this.props.header}</Header>
-          </HeaderContainer>
-          <PageContent>
-            {this.props.children}
-          </PageContent>
-        </PageContainer>
-      </React.Fragment>
+      <PageContainer maxWidth={this.props.maxWidth}>
+        <PageSpinner loading={this.props.loading}/>
+        <HeaderContainer>
+          <Header>{this.props.header}</Header>
+        </HeaderContainer>
+        <PageContent>
+          {this.props.children}
+        </PageContent>
+      </PageContainer>
     )
   }
 }

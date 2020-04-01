@@ -8,7 +8,7 @@ import { formatDateRange } from 'utils'
 import Header from './Header'
 import Skills from './skills'
 import Projects from './projects'
-import { Item, LogoContainer, Logo, DetailContainer } from './base'
+import { StyledItem, LogoContainer, Logo, DetailContainer } from './base'
 
 
 class ExperienceItem extends React.Component {
@@ -25,7 +25,7 @@ class ExperienceItem extends React.Component {
   }
   render() {
     return (
-      <Item>
+      <StyledItem>
         <LogoContainer href={this.props.company.url}>
           <Logo alt="Could not Load" src={this.props.company.logo}/>
         </LogoContainer>
@@ -54,7 +54,7 @@ class ExperienceItem extends React.Component {
             <Skills skills={this.props.skills} />
           )}
         </DetailContainer>
-      </Item>
+      </StyledItem>
     )
   }
 }

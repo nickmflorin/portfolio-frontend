@@ -4,48 +4,39 @@ import styled from 'styled-components';
 
 // TODO: Figure out how to use one declaration of these styles.
 const StyledInternalLink = styled(Link)`
-  font-family: 'Roboto', sans-serif;
-
   font-size: 1em;
   padding: 6px 8px;
   line-height: 18px;
-
-  border: 1px solid #FFFFFF;
+  border: ${props => props.theme.borders.white};
   border-radius: 4px !important;
-  background: transparent;
-  color: #FFFFFF;
-
   width: 100%;
   margin: 0 auto;
-
   text-transform: uppercase;
+
+  background: transparent;
+  color: ${props => props.theme.colors.white};
 
   &:hover {
     background: ${props => props.theme.colors.white};
-    color: ${props => props.theme.colors.gray2};
+    color: ${props => props.theme.colors.textgray1};
   }
 `;
 
 const StyledExternalLink = styled.a`
-  font-family: 'Roboto', sans-serif;
-
   font-size: 1em;
   padding: 6px 8px;
   line-height: 18px;
-
-  border: 1px solid #FFFFFF;
+  border: ${props => props.theme.borders.white};
   border-radius: 4px !important;
-  background: transparent;
-  color: #FFFFFF;
-
   width: 100%;
   margin: 0 auto;
-
   text-transform: uppercase;
 
+  background: transparent;
+  color: ${props => props.theme.colors.white};
   &:hover {
     background: ${props => props.theme.colors.white};
-    color: ${props => props.theme.colors.gray2};
+    color: ${props => props.theme.colors.black};
   }
 `;
 

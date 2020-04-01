@@ -14,13 +14,13 @@ const StyledIconText = styled.span`
   font-size: ${props => (`${props.size}px`)};
   line-height: ${props => (`${props.size + 2}px`)};
   font-weight: ${props => (props.fontWeight || props.theme.fontweights.regular)};
-  color: ${props => (props.color || props.theme.colors.gray2)};
+  color: ${props => (props.color || props.theme.colors.textgray1)};
 `;
 
 const StyledIcon = styled.span`
   margin-right: ${props => props.side == 'left' ? '8px' : "0px"};
   margin-left: ${props => props.side == 'right' ? '8px' : "0px"};
-  color: ${props => (props.color || props.theme.colors.gray2)};
+  color: ${props => (props.color || props.theme.colors.textgray1)};
   height: ${props => (`${props.size + 2}px`)};
   width: ${props => (`${props.size + 2}px`)};
   text-align: center;

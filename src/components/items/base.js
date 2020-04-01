@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 
-export const Item = styled.div`
+export const StyledItem = styled.div`
   display: flex;
-  max-width: ${props => props.maxWidth || "800px"};
+  max-width: 800px;
   margin: 0px auto 20px auto;
   border: ${props => props.theme.borders.regular};
   border-radius: 5px;
   background-color: ${props => props.theme.colors.white};
   padding: 10px;
+  position: relative;
 `;
 
 export const LogoContainer = styled.a`

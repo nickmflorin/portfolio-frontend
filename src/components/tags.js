@@ -17,7 +17,7 @@ const TagName = styled.p`
 
 const TagContainer = styled.div`
   background-color: ${props => props.color || props.theme.colors.blue};
-  border: ${props => `1px solid ${props.color || props.theme.colors.blue}`};
+  border: ${props => (props.color ? `1px solid ${props.color}` : props.theme.borders.blue)};
   border-radius: 8px;
   display: inline-block;
   flex-wrap: wrap;

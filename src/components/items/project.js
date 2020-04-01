@@ -3,51 +3,65 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore'
 
-import { css } from "@emotion/core";
-import ClipLoader from "react-spinners/ClipLoader";
-
 import { isImageFile } from 'utils'
 import { getProject } from 'services'
-import { Item } from './base'
-import Header from './header'
+
+import { ComponentSpinner } from 'components/spinner'
+import { StyledItem } from './base'
+import Header, { Description } from './header'
 
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
+export const StyledProjectItem = styled(StyledItem)`
+  display: inline-block;
+  max-width: 1200px;
+  padding: 20px 100px;
+  position: relative;
 `;
 
 const ProjectFilesContainer = styled.div`
-
+  display: inline-block;
+  margin-top: 15px;
 `;
 
-class ProjectImage extends React.Component {
-  render() {
-    return (
-      <p> TEST </p>
-    )
-  }
-}
+const ProjectFileContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
+const ProjectImage = styled.img`
+  max-width: 100%;
+  margin-bottom: 8px;
+  border: ${props => (props.theme.borders.light)}
+`;
+
+const FileDescription = styled(Description)`
+  margin-bottom: 15px;
+`;
+
+const FileCaption = styled(FileDescription)`
+  font-size: 12px;
+  color: ${props => (props.theme.colors.textgray1)}
+`;
 
 
-class ProjectFiles extends React.Component {
-  static defaultProps = {
-    files: []
-  }
+
+class ProjectFile extends React.Component {
   static propTypes = {
-    files: PropTypes.array.isRequired
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    file: PropTypes.string.isRequired,
+    caption: PropTypes.string.isRequired,
   }
   render() {
     return (
-      <ProjectFilesContainer>
-        {this.props.files.map((file) => {
-          return <ProjectImage />
-        })}
-      </ProjectFilesContainer>
+      <ProjectFileContainer>
+        <FileDescription> {this.props.description} </FileDescription>
+        <ProjectImage src={this.props.file}/>
+        <FileCaption> {this.props.caption} </FileCaption>
+      </ProjectFileContainer>
     )
   }
 }
+
 
 class ProjectItem extends React.Component {
   static propTypes = {
@@ -59,8 +73,6 @@ class ProjectItem extends React.Component {
     super(props, context);
     this.state = {
         loading: true,
-        description: null,
-        name: null,
         files: [],
     }
   }
@@ -70,14 +82,10 @@ class ProjectItem extends React.Component {
   getProject() {
     var self = this
     getProject(this.props.id).then((response) => {
-      // TODO: Should we only include projects that have files?  Or should we
-      // assume that the display_alone flag would be set to false in the admin
-      // for projects that did not have appropriate files for display?
       const files = _.filter(response.files, (file) => {
         return isImageFile(file.file)
       })
       self.setState({
-          name: response.name,
           description: response.long_description,
           files: files,
           loading: false,
@@ -87,26 +95,28 @@ class ProjectItem extends React.Component {
     })
   }
   render() {
-    // NOTE: We already have the name from the props, but this will give us an
-    // indication if the project has loaded.  We need to get the full project for
-    // the files, based on the current API design.
-    if (this.state.loading) {
-      // TODO: Implement spinners on components that are children of the page.
-      return <p> Loading </p>
-    }
-    else {
-      return (
-        <Item maxWidth={"1200px"}>
+    return (
+        <StyledProjectItem id={`project-${this.props.id}`}>
+          <ComponentSpinner loading={this.props.loading} />
           <Header
-            title={this.state.name}
+            title={this.props.name}
             descriptions={[this.state.description]}
           />
-          <ProjectFiles
-            files={this.state.files}
-          />
-        </Item>
-      )
-    }
+          <ProjectFilesContainer>
+            {this.props.files.map((file) => {
+              return (
+                <ProjectFile
+                  id={file.id}
+                  key={file.id}
+                  file={file.file}
+                  caption={file.caption}
+                  description={file.description}
+                />
+              )
+            })}
+          </ProjectFilesContainer>
+        </StyledProjectItem>
+    )
   }
 }
 
