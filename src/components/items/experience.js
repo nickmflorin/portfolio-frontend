@@ -13,8 +13,8 @@ import Tags from 'components/tags'
 
 import { Item } from './base'
 import Project from './project'
-import { Header, Body, Descriptions, Description, LeftContainer, RightContainer,
-  HeaderItems, HeaderItem, Logo, Title, SubTitle } from './common'
+
+import './items.sass'
 
 
 class Experience extends React.Component {
@@ -54,33 +54,33 @@ class Experience extends React.Component {
   render() {
     return (
       <Item loading={this.state.loading}>
-        <Header>
-          <LeftContainer>
-            <Logo alt="Could not Load" src={this.props.company.logo}/>
-          </LeftContainer>
-          <RightContainer>
-            <Title>{this.props.title}</Title>
-            <SubTitle>{this.props.company.name}</SubTitle>
-            <HeaderItems>
-              <HeaderItem>
+        <div className='header'>
+          <div className='left'>
+            <img className='logo' alt="Could not Load" src={this.props.company.logo}/>
+          </div>
+          <div className='right'>
+            <h3 className='title'>{this.props.title}</h3>
+            <h5 className='subtitle'>{this.props.company.name}</h5>
+            <div className='header-items'>
+              <div className='header-item'>
                 <IconizedText
                   text={`${this.props.company.city}, ${this.props.company.state}`}
                   icon={faMapPin}
                 />
-              </HeaderItem>
-              <HeaderItem>
+              </div>
+              <div className='header-item'>
                 <IconizedText
                   text={formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month)}
                   icon={faCalendarAlt}
                 />
-              </HeaderItem>
-            </HeaderItems>
-          </RightContainer>
-        </Header>
-        <Body>
-          <Descriptions>
-            <Description>{this.props.description}</Description>
-          </Descriptions>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='body'>
+          <div className='descriptions'>
+            <p>{this.props.description}</p>
+          </div>
           {(this.state.projects.length != 0) && (
             <React.Fragment>
               <IconizedText
@@ -107,7 +107,7 @@ class Experience extends React.Component {
               <Tags items={_.pluck(this.state.skills, 'name')} />
             </React.Fragment>
           )}
-        </Body>
+        </div>
       </Item>
     )
   }

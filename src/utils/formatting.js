@@ -42,3 +42,12 @@ export const formatDateRange = (start_year, start_month, end_year, end_month) =>
         `and months.`)
   }
 }
+
+
+export const pixelfy = (value) => {
+  return `${value}px`;
+}
+
+export const urlify = (value) => {
+  return 'url("' + value + '")'
+}

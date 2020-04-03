@@ -4,31 +4,7 @@ import styled from 'styled-components';
 
 import { ComponentSpinner } from 'components/spinner'
 
-
-export const ItemsContainer = styled.div`
-  > div:last-child {
-    margin-bottom: 0px !important;
-  }
-`;
-
-const StyledItem = styled.div`
-  max-width: 800px;
-  margin: 0px auto 20px auto;
-  border: ${props => props.theme.borders.regular};
-  border-radius: 5px;
-  background-color: ${props => props.theme.colors.white};
-  position: relative;
-  text-align: left;
-  padding: 10px;
-
-  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
-    padding: 15px;
-  }
-
-  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
-    padding: 20px;
-  }
-`;
+var classNames = require('classnames');
 
 
 export class Item extends React.Component {
@@ -40,10 +16,10 @@ export class Item extends React.Component {
   }
   render(){
     return (
-      <StyledItem {...this.props}>
+      <div {...this.props} className={classNames('item', this.props.className)}>
         <ComponentSpinner show={this.props.loading} />
         {this.props.children}
-      </StyledItem>
+      </div>
     )
   }
 }

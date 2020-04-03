@@ -27,9 +27,11 @@ $navbar-color: rgba(65, 65, 65, 0.8);
 $footer-color: rgba(65, 65, 65, 0.8);
 
 // Responsive
-$break-small: 426px;  // Mobile Runs Up to 425px
-$break-medium: 769px; // Tablet is 768px
-$break-large: 1200px;
+$break-mobile: 0px;
+$break-tablet: 426px;  // Mobile Runs Up to 425px
+$break-laptop-s: 769px; // Tablet is 768px
+$break-laptop-l: 1025px;
+$break-full: 1441px;
 
 
 $colors: (
@@ -63,9 +65,13 @@ $fonts: (
 );
 
 $heights: (
-  'footer': 40px,
-  'header': 60px,
+  'footer': 40,
+  'header': 60,
   'banner': 50,
+);
+
+$widths: (
+  'sidebar': 200
 );
 
 $fontweights: (
@@ -75,7 +81,6 @@ $fontweights: (
   "bold": 700
 );
 
-
 // Bootstrap Customization
 $theme-colors: (
     "primary": $blue,
@@ -83,9 +88,16 @@ $theme-colors: (
     "success": $green,
 );
 
+$screen-min: (
+  "laptop-l": 1025px,
+  "laptop-s": 769px,
+  "tablet": 426px,
+  "mobile": 0px,
+);
 
-$responsive: (
-    "break-large": $break-large,
-    "break-medium": $break-medium,
-    "break-small": $break-small,
+$screen-max: (
+  "laptop-l": 1440px,
+  "laptop-s": 1024px,
+  "tablet": 768px,
+  "mobile": 425px,
 );

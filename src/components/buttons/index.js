@@ -1,6 +1,8 @@
 import SocialButton from './social'
-import { NavBarExternalLink, NavBarInternalLink } from './nav'
+import NavBarButton from './nav'
 import LogoButton from './logo'
 import FileLink from './file'
+import MenuButton from './menu'
+import SideBarButton from './sidebar'
 
-export { SocialButton, NavBarExternalLink, NavBarInternalLink, LogoButton, FileLink };
+export { SocialButton, NavBarButton, LogoButton, FileLink, MenuButton, SideBarButton };

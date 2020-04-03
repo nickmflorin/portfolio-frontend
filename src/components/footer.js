@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { pixelfy } from 'utils'
 import { FOOTER } from 'config'
 
 
@@ -10,11 +11,11 @@ const StyledFooter = styled.footer`
   bottom: 0;
   background-color: ${props => props.theme.colors.footer};
   border-top: ${props => props.theme.borders.dark};
-  height: ${props => props.theme.heights.footer}
+  height: ${props => pixelfy(props.theme.heights.footer)}
 `;
 
 const StyledFooterContent = styled.p`
-  line-height: ${props => props.theme.heights.footer};
+  line-height: ${props => pixelfy(props.theme.heights.footer)};
   color: ${props => props.theme.colors.white};
   font-size: 12px;
   text-align: center;

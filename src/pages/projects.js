@@ -3,7 +3,9 @@ import _ from 'underscore'
 
 import { getProjects } from 'services'
 import { Page } from 'pages/containers'
-import { ProjectItem, ItemsContainer } from 'components/items'
+import { ProjectItem } from 'components/items'
+
+import "./pages.sass"
 
 
 class Projects extends React.Component {
@@ -31,12 +33,12 @@ class Projects extends React.Component {
   }
   render() {
     return (
-      <Page header="Projects" maxWidth={"1200px"} loading={this.state.loading}>
-        <ItemsContainer>
+      <Page header="Projects" loading={this.state.loading} style={{maxWidth: 1200}}>
+        <div className='items-container'>
           {this.state.items && this.state.items.map((item, index) => {
             return <ProjectItem key={item.id} {...item} />
           })}
-        </ItemsContainer>
+        </div>
       </Page>
     )
   }

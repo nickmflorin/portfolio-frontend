@@ -6,13 +6,14 @@ import landing from 'media/landing.png';
 import Github from 'media/icons/Github_White.png'
 import LinkedIn from 'media/icons/LinkedIn_White.png'
 
+import { urlify } from 'utils'
 import { TITLE_COMPONENTS } from 'config'
 import Headshot from 'components/headshot';
 import { SocialButton } from 'components/buttons'
 
 
 const BannerImage = styled.div`
-  background-image: ${props => 'url("' + props.image + '")'};
+  background-image: ${props => urlify(props.image)};
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;

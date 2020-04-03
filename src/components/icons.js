@@ -13,12 +13,12 @@ const IconText = styled.span`
   font-size: ${props => (props.size == 'large') ? "12px" : "10px"};
   line-height: ${props => (props.size == 'large') ? "12px" : "10px"};
 
-  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
+  @media screen and (min-width: ${props => props.theme.screenMin.tablet}){
     font-size: ${props => (props.size == 'large') ? "13px" : "11px"};
     line-height: ${props => (props.size == 'large') ? "13px" : "11px"};
   }
 
-  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
+  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
     font-size: ${props => (props.size == 'large') ? "14px" : "12px"};
     line-height: ${props => (props.size == 'large') ? "14px" : "12px"};
   }
@@ -32,12 +32,12 @@ const IconContainer = styled.span`
   height: ${props => (props.size == 'large') ? "12px" : "10px"};
   width: ${props => (props.size == 'large') ? "12px" : "10px"};
 
-  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
+  @media screen and (min-width: ${props => props.theme.screenMin.tablet}){
     height: ${props => (props.size == 'large') ? "13px" : "11px"};
     width: ${props => (props.size == 'large') ? "13px" : "11px"};
   }
 
-  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
+  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
     height: ${props => (props.size == 'large') ? "14px" : "12px"};
     width: ${props => (props.size == 'large') ? "14px" : "12px"};
   }
@@ -46,11 +46,11 @@ const IconContainer = styled.span`
 const Icon = styled(FontAwesomeIcon)`
   line-height: 10px;
 
-  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
+  @media screen and (min-width: ${props => props.theme.screenMin.tablet}){
     line-height: 12px;
   }
 
-  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
+  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
     line-height: ${props => (props.size == 'large') ? "14px" : "12px"};
   }
 `;

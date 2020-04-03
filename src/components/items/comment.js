@@ -7,8 +7,8 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import IconizedText from 'components/icons'
 
 import { Item } from './base'
-import { Header, Descriptions, Description, HeaderItems, HeaderItem,
-  Title } from './common'
+
+import './items.sass'
 
 
 class Comment extends React.Component {
@@ -21,21 +21,21 @@ class Comment extends React.Component {
   render() {
     return (
         <Item>
-          <Header style={{display: "inline-block"}}>
-            <Title>{this.props.name}</Title>
-            <HeaderItems>
-              <HeaderItem>
+          <div className='header' style={{display: "inline-block"}}>
+            <h3 className='title'>{this.props.name}</h3>
+            <div className='header-items'>
+              <div className='header-item'>
                 <IconizedText
                   text={this.props.date_created}
                   icon={faCalendarAlt}
                   size={12}
                 />
-              </HeaderItem>
-            </HeaderItems>
-          </Header>
-          <Descriptions>
-            <Description>{this.props.comment}</Description>
-          </Descriptions>
+              </div>
+            </div>
+          </div>
+          <div className='descriptions'>
+            <p>{this.props.comment}</p>
+          </div>
         </Item>
     )
   }

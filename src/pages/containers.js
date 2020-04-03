@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { pixelfy } from 'utils'
 import { PageSpinner } from 'components/spinner'
 
 
@@ -21,9 +22,8 @@ const Header = styled.h3`
 const PageContainer = styled.div`
   padding: 25px;
   margin: 0 auto;
-  margin-top: ${props => props.theme.heights.header};
-  margin-bottom: ${props => props.theme.heights.footer};
-  max-width: ${props => props.maxWidth || "800px"};
+  margin-top: ${props => pixelfy(props.theme.heights.header)};
+  max-width: 800px;
 `;
 
 const LandingPageContainer = styled.div`
@@ -33,7 +33,7 @@ const LandingPageContainer = styled.div`
 
 const PageContent = styled.div`
   text-align: center;
-  margin: 20px auto 20px auto;
+  margin: 20px auto 0px auto;
 `
 
 export class LandingPage extends React.Component {
@@ -63,7 +63,7 @@ export class Page extends React.Component {
   }
   render() {
     return (
-      <PageContainer maxWidth={this.props.maxWidth}>
+      <PageContainer>
         <PageSpinner show={this.props.loading}/>
         <HeaderContainer>
           <Header>{this.props.header}</Header>

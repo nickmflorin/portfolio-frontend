@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-
 const StyledInternalLink = styled(Link)`
   font-size: 1em;
   padding: 6px 8px;
   line-height: 18px;
-  border: ${props => props.theme.borders.white};
-  border-radius: 4px !important;
   width: 100%;
   margin: 0 auto;
   text-transform: uppercase;
-
   background: transparent;
   color: ${props => props.theme.colors.white};
+  text-align: center;
 
   &:hover {
     background: ${props => props.theme.colors.white};
@@ -27,21 +24,21 @@ const StyledExternalLink = styled.a`
   font-size: 1em;
   padding: 6px 8px;
   line-height: 18px;
-  border: ${props => props.theme.borders.white};
-  border-radius: 4px !important;
   width: 100%;
   margin: 0 auto;
   text-transform: uppercase;
-
   background: transparent;
   color: ${props => props.theme.colors.white};
+  text-align: center;
+
   &:hover {
     background: ${props => props.theme.colors.white};
     color: ${props => props.theme.colors.black};
   }
 `;
 
-class NavBarButton extends React.Component {
+
+class SideBarButton extends React.Component {
 
   static propTypes = {
     url: PropTypes.string.isRequired,
@@ -69,4 +66,4 @@ class NavBarButton extends React.Component {
   }
 }
 
-export default NavBarButton;
+export default SideBarButton;

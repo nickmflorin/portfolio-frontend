@@ -2,8 +2,10 @@ import React from 'react';
 
 import { getAllExperience } from 'services'
 import { Page } from 'pages/containers'
-import { ItemsContainer, ExperienceItem } from 'components/items'
+import { ExperienceItem } from 'components/items'
 import { sortExperienceEducation, formatDateRange } from 'utils'
+
+import "./pages.sass"
 
 
 class Experience extends React.Component {
@@ -31,11 +33,11 @@ class Experience extends React.Component {
   render() {
     return (
       <Page header="Experience" loading={this.state.loading}>
-        <ItemsContainer>
+        <div className='items-container'>
           {this.state.items.map((item) => {
             return <ExperienceItem key={item.id} {...item} />
           })}
-        </ItemsContainer>
+        </div>
       </Page>
     )
   }

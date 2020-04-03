@@ -3,13 +3,16 @@ import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import styled from 'styled-components';
 
+import { pixelfy } from 'utils'
+
 import NavBar from 'components/nav'
+import SideBar from 'components/sidebar'
 import Footer from 'components/footer'
 
 import { Landing, Projects, Experience, Education } from 'pages'
 import { NavBarContext } from './context'
 
-const Theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/maps.scss');
+const Theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/constants.scss');
 
 const Pages = {
   landing: Landing,
@@ -27,14 +30,14 @@ const AppHeader = styled.header`
   z-index: 900;
   top: 0;
   width: 100%;
-  height: ${props => props.theme.heights.header}
+  height: ${props => pixelfy(props.theme.heights.header)}
 `;
 
 const AppSection = styled.section`
   width: 100%;
   position: absolute;
   background-color: ${props => props.theme.colors.background};
-  max-height: ${props => (`calc(100vh - ${props.theme.heights.footer})`)};
+  max-height: ${props => (`calc(100vh - ${pixelfy(props.theme.heights.footer)})`)};
   overflow-y: scroll;
 `;
 
@@ -55,23 +58,38 @@ class AppContext extends React.Component {
 class App extends React.Component {
   static contextType = NavBarContext;
 
+  constructor(props, context) {
+    super(props, context);
+    this.state = { showSideNavBar: false }
+  }
+  onMenuClick(){
+    this.setState({
+      showSideNavBar: !this.state.showSideNavBar,
+    })
+  }
   render() {
     return (
       <AppContext>
         <BrowserRouter>
           <AppContent>
               <AppHeader>
+                <SideBar
+                  items={this.context}
+                  visible={this.state.showSideNavBar}
+                />
                 <Switch>
                   <Route exact path="/">
                     <NavBar
                       overlay={false}  // TODO: Remove
                       items={this.context}
+                      onMenuClick={this.onMenuClick.bind(this)}
                     />
                   </Route>
                   <Route>
                     <NavBar
                       overlay={true}  // TODO: Remove
                       items={this.context}
+                      onMenuClick={this.onMenuClick.bind(this)}
                     />
                   </Route>
                 </Switch>

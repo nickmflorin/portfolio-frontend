@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { Page } from 'pages/containers'
-import { EducationItem, ItemsContainer } from 'components/items'
+import { EducationItem } from 'components/items'
 import { getAllEducation } from 'services'
 import { sortExperienceEducation, formatDateRange } from 'utils'
+
+import "./pages.sass"
 
 
 class Education extends React.Component {
@@ -31,11 +33,11 @@ class Education extends React.Component {
   render() {
     return (
       <Page header="Education" loading={this.state.loading}>
-        <ItemsContainer>
+        <div className='items-container'>
           {this.state.items.map((item) => {
             return <EducationItem key={item.id} {...item} />
           })}
-        </ItemsContainer>
+        </div>
       </Page>
     )
   }

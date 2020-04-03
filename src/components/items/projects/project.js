@@ -7,45 +7,10 @@ import { getProject } from 'services'
 import { isImageFile } from 'utils'
 
 import { Item } from '../base'
-import { Header, Body, Descriptions, Description, Title } from '../common'
 import ProjectFile from './file'
 
+import '../items.sass'
 
-const ProjectItem = styled(Item)`
-  max-width: 1200px;
-  padding: 15px 20px;
-
-  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
-    padding: 20px 40px;
-  }
-
-  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
-    padding: 20px 100px;
-  }
-`;
-
-const ProjectHeader = styled(Header)`
-  text-align: center;
-  display: flex;
-  margin-bottom: 10px;
-
-  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
-    margin-bottom: 12px;
-  }
-
-  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
-    margin-bottom: 14px;
-  }
-`;
-
-const ProjectTitle = styled(Title)`
-  text-align: center;
-  margin-bottom: 0px;
-`;
-
-const ProjectBody = styled(Body)`
-  margin-left: 0px !important;
-`;
 
 const ProjectFilesContainer = styled.div`
   display: inline-block;
@@ -85,17 +50,18 @@ class Project extends React.Component {
   }
   render() {
     return (
-        <ProjectItem
+        <Item
           id={`project-${this.props.id}`}
           loading={this.state.loading}
+          className='project'
         >
-          <ProjectHeader>
-            <ProjectTitle>{this.props.name}</ProjectTitle>
-          </ProjectHeader>
-          <ProjectBody>
-            <Descriptions>
-              <Description>{this.props.short_description}</Description>
-            </Descriptions>
+          <div className='header'>
+            <h3 className='title'>{this.props.name}</h3>
+          </div>
+          <div className='body project'>
+            <div className='descriptions'>
+              <p>{this.props.short_description}</p>
+            </div>
             <ProjectFilesContainer>
               {this.state.files.map((file) => {
                 return (
@@ -109,8 +75,8 @@ class Project extends React.Component {
                 )
               })}
             </ProjectFilesContainer>
-          </ProjectBody>
-        </ProjectItem>
+          </div>
+        </Item>
     )
   }
 }

@@ -14,8 +14,8 @@ import Tags from 'components/tags'
 
 import { Item } from './base'
 import Project from './project'
-import { Header, Body, Descriptions, Description, LeftContainer, RightContainer,
-  HeaderItems, HeaderItem, Logo, Title, SubTitle } from './common'
+
+import './items.sass'
 
 
 class Education extends React.Component {
@@ -68,21 +68,21 @@ class Education extends React.Component {
     }
     return (
       <Item loading={this.state.loading}>
-        <Header>
-          <LeftContainer>
-            <Logo alt="Could not Load" src={this.props.school.logo}/>
-          </LeftContainer>
-          <RightContainer>
-            <Title>{degree}</Title>
-            <SubTitle>{this.props.school.name}</SubTitle>
-            <HeaderItems>
-              <HeaderItem>
+        <div className='header'>
+          <div className='left'>
+            <img className='logo' alt="Could not Load" src={this.props.school.logo}/>
+          </div>
+          <div className='right'>
+            <h3 className='title'>{degree}</h3>
+            <h5 className='subtitle'>{this.props.school.name}</h5>
+            <div className='header-items'>
+              <div className='header-item'>
                 <IconizedText
                   text={`${this.props.school.city}, ${this.props.school.state}`}
                   icon={faMapPin}
                 />
-              </HeaderItem>
-              <HeaderItem>
+              </div>
+              <div className='header-item'>
                 <IconizedText
                   text={formatDateRange(
                     this.props.start_year,
@@ -92,26 +92,26 @@ class Education extends React.Component {
                   )}
                   icon={faCalendarAlt}
                 />
-              </HeaderItem>
-              <HeaderItem>
+              </div>
+              <div className='header-item'>
                 <IconizedText
                   text={`${this.props.gpa.toFixed(2)}/4.00`}
                   icon={faPaperPlane}
                 />
-              </HeaderItem>
-            </HeaderItems>
-          </RightContainer>
-        </Header>
-        <Body>
-          <Descriptions>
-            <Description>{this.props.description}</Description>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='body'>
+          <div className='descriptions'>
+            <p>{this.props.description}</p>
             {(this.props.minor && (
-                <Description>{this.props.minor && `Minor in ${this.props.minor}`}</Description>
+                <p>{this.props.minor && `Minor in ${this.props.minor}`}</p>
             ))}
             {(this.props.concentration && (
-                <Description>{this.props.concentration && `Concentration in ${this.props.concentration}`}</Description>
+                <p>{this.props.concentration && `Concentration in ${this.props.concentration}`}</p>
             ))}
-          </Descriptions>
+          </div>
           {(this.state.projects.length != 0) && (
             <React.Fragment>
               <IconizedText
@@ -150,7 +150,7 @@ class Education extends React.Component {
               <Tags items={_.pluck(this.state.courses, 'name')} />
             </React.Fragment>
           )}
-        </Body>
+        </div>
       </Item>
     )
   }

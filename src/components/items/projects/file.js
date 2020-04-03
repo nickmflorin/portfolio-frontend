@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Description } from '../common'
-
 
 const ProjectFileContainer = styled.div`
   margin-bottom: 16px;
@@ -15,7 +13,7 @@ const ProjectImage = styled.img`
   border: ${props => (props.theme.borders.light)}
 `;
 
-const FileDescription = styled(Description)`
+const FileDescription = styled.p`
   margin-bottom: 16px;
 `;
 
@@ -34,7 +32,7 @@ class ProjectFile extends React.Component {
   render() {
     return (
       <ProjectFileContainer>
-        <FileDescription> {this.props.description} </FileDescription>
+        <FileDescription className='description'> {this.props.description} </FileDescription>
         <ProjectImage src={this.props.file}/>
         <FileCaption> {this.props.caption} </FileCaption>
       </ProjectFileContainer>

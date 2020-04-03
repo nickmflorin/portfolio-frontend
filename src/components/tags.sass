@@ -1,0 +1,38 @@
+@import 'style/constants.scss'
+@import 'style/mixins.sass'
+
+@use "sass:map"
+
+
+.tags
+  display: inline-block
+
+  div
+    border-radius: 8px
+    display: inline-block
+    flex-wrap: wrap
+    margin-right: 3px
+    margin-bottom: 3px
+    padding: 6px 8px
+    background-color: map-get($colors, "blue")
+    border: map-get($borders, "blue")
+    flex-wrap: wrap
+
+    p
+      font-family: map-get($fonts, "roboto")
+      font-weight: map-get($fontweights, "regular")
+      color: map-get($colors, "white")
+      font-size: 10px
+      line-height: 12px
+
+      @include set-responsive-above("tablet")
+        font-size: 11px
+        line-height: 13px
+
+      @include set-responsive-above("laptop-s")
+        font-size: 12px
+        line-height: 14px
+
+      @include set-responsive-above("laptop-l")
+        font-size: 13px
+        line-height: 15px

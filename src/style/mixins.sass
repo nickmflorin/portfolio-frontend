@@ -1,0 +1,14 @@
+@import './constants.scss'
+@use "sass:map"
+
+
+@mixin set-responsive-below($size)
+  $break-size: map-get($screen-max, #{$size})
+  @media screen and (max-width: #{$break-size})
+    @content
+
+
+@mixin set-responsive-above($size)
+  $break-size: map-get($screen-min, #{$size})
+  @media screen and (min-width: #{$break-size})
+    @content
