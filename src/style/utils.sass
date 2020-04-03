@@ -6,7 +6,7 @@
 
 
 @function pixelfy($value)
-  @return $value + 'px'
+  @return unquote($value + 'px')
 
 
 @function vhify($value)

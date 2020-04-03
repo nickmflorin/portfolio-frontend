@@ -7,7 +7,7 @@ import { ComponentSpinner } from 'components/spinner'
 var classNames = require('classnames');
 
 
-export class Item extends React.Component {
+class Item extends React.Component {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
   }
@@ -23,3 +23,5 @@ export class Item extends React.Component {
     )
   }
 }
+
+export default Item;

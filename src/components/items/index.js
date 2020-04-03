@@ -1,7 +1,7 @@
-import { Item, ItemsContainer } from './base'
-import ProjectItem from './projects'
+import Item from './base'
+import ProjectItem from './project'
 import ExperienceItem from './experience'
 import EducationItem from './education'
 import CommentItem from './comment'
 
-export { Item, EducationItem, ExperienceItem, ProjectItem, ItemsContainer, CommentItem }
+export { Item, EducationItem, ExperienceItem, ProjectItem, CommentItem }

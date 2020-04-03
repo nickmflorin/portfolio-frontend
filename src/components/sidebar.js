@@ -7,29 +7,10 @@ import { getProfile } from 'services'
 
 import { SideBarButton } from './buttons'
 
+import './sidebar.sass'
 
-const SideBarContainer = styled.div`
-  height: ${props => (`calc(100vh - ${pixelfy(props.theme.heights.footer)} - ${pixelfy(props.theme.heights.header)})`)};
-  position: fixed;
-  right: ${props => props.visible ? pixelfy(0) : pixelfy(-1 * props.theme.widths.sidebar)};
-  top: ${props => pixelfy(props.theme.heights.header)};
-  width: ${props => pixelfy(props.theme.widths.sidebar)};
-  background-color: ${props => props.theme.colors.navbar};
-  transition-duration: 0.25s;
-  border: ${props => props.theme.borders.white};
+var classNames = require('classNames')
 
-  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
-    display: none !important;
-  }
-`;
-
-// FontAwesomeIcon size of 3x corresponds to about 42px height.
-const SideBarButtonContainer = styled.div`
-  position: relative;
-  border-bottom: ${props => props.theme.borders.white};
-  display: flex;
-  flex-direction: column;
-`;
 
 class SideBar extends React.Component {
 
@@ -52,18 +33,18 @@ class SideBar extends React.Component {
   }
   render() {
     return (
-      <SideBarContainer visible={this.props.visible}>
+      <div className={classNames('sidebar', this.props.visible ? 'visible' : 'invisible')}>
         {this.props.items.map((item) => {
           return (
-            <SideBarButtonContainer key={item.id}>
+            <div className='button-container' key={item.id}>
               <SideBarButton
                 url={item.link}
                 label={item.label}
               />
-            </SideBarButtonContainer>
+            </div>
           )
         })}
-      </SideBarContainer>
+      </div>
     );
   }
 }

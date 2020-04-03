@@ -11,13 +11,14 @@ import { formatDateRange } from 'utils'
 import IconizedText from 'components/icons'
 import Tags from 'components/tags'
 
-import { Item } from './base'
-import Project from './project'
+import Item from './base'
+import Project from './projects'
 
 import './items.sass'
 
 
 class Experience extends React.Component {
+
   static propTypes = {
     company: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
@@ -27,6 +28,7 @@ class Experience extends React.Component {
     end_year: PropTypes.number,
     end_month: PropTypes.number,
   }
+
   constructor(props, context) {
     super(props, context);
     this.state = {

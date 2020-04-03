@@ -12,8 +12,8 @@ import { formatDateRange } from 'utils'
 import IconizedText from 'components/icons'
 import Tags from 'components/tags'
 
-import { Item } from './base'
-import Project from './project'
+import Item from './base'
+import Project from './projects'
 
 import './items.sass'
 

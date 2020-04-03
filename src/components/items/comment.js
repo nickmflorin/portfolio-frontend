@@ -6,18 +6,20 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 import IconizedText from 'components/icons'
 
-import { Item } from './base'
+import Item from './base'
 
 import './items.sass'
 
 
 class Comment extends React.Component {
+
   static propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     comment: PropTypes.string.isRequired,
     date_created: PropTypes.string.isRequired,
   }
+
   render() {
     return (
         <Item>
