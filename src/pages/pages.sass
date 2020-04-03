@@ -1,5 +1,42 @@
-@import 'style/constants.scss'
-@import 'style/mixins.sass'
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
 
 
-.items-container
+.landing-container
+  position: relative
+  padding: 20px
+  overflow-y: scroll
+
+  $banner-height: map-get($heights, "banner")
+  $footer-height: map-get($heights, "footer")
+  $inverse-banner-height: -1 * map-get($heights, 'banner')
+
+  max-height: unquote("calc(" + vhify($banner-height) + " - " + pixelfy($footer-height) + ")")
+  height: unquote("calc(" + vhify(100) + " - " + vhify($banner-height) + ")")
+  margin-top: vhify($inverse-banner-height)
+
+  .content
+    max-width: 800px
+    margin: 0 auto
+
+    h3.intro
+      font-style: italic
+      font-weight: map-get($fontweights, "regular")
+      text-align: center
+      margin-bottom: 32px
+
+      font-size: 12px
+      line-height: 18px
+
+      @include set-responsive-above("tablet")
+        font-size: 14px
+        line-height: 20px
+
+      @include set-responsive-above("laptop-s")
+        font-size: 16px
+        line-height: 22px
+
+    .comments
+      margin-bottom: 20px

@@ -5,8 +5,6 @@ import { EducationItem } from 'components/items'
 import { getAllEducation } from 'services'
 import { sortExperienceEducation, formatDateRange } from 'utils'
 
-import "./pages.sass"
-
 
 class Education extends React.Component {
   constructor(props, context) {
@@ -33,7 +31,7 @@ class Education extends React.Component {
   render() {
     return (
       <Page header="Education" loading={this.state.loading}>
-        <div className='items-container'>
+        <div>
           {this.state.items.map((item) => {
             return <EducationItem key={item.id} {...item} />
           })}

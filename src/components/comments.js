@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { CommentItem, ItemsContainer } from 'components/items'
+import { CommentItem } from 'components/items'
 
 
 class Comments extends React.Component {
   render(){
     return (
-      <ItemsContainer>
+      <div>
         {this.props.comments.map((comment) => {
           return (
             <CommentItem key={comment.id}
@@ -19,7 +19,7 @@ class Comments extends React.Component {
             />
           )
         })}
-      </ItemsContainer>
+      </div>
     )
   }
 }

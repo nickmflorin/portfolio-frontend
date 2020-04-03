@@ -34,7 +34,7 @@ class Projects extends React.Component {
   render() {
     return (
       <Page header="Projects" loading={this.state.loading} style={{maxWidth: 1200}}>
-        <div className='items-container'>
+        <div>
           {this.state.items && this.state.items.map((item, index) => {
             return <ProjectItem key={item.id} {...item} />
           })}

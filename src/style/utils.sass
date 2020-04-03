@@ -1,5 +1,16 @@
-@import './constants.scss'
+@import '/constants.scss'
+@import '/fonts.scss'
+
 @use "sass:map"
+@use "sass:string"
+
+
+@function pixelfy($value)
+  @return $value + 'px'
+
+
+@function vhify($value)
+  @return unquote("#{$value}vh")
 
 
 @mixin set-responsive-below($size)
