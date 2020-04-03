@@ -4,12 +4,14 @@ import styled from 'styled-components';
 
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
-import Item from 'components/item'
+import IconizedText from 'components/icons'
 
-import Header, { Description } from './header'
+import { Item } from './base'
+import { Header, Descriptions, Description, HeaderItems, HeaderItem,
+  Title } from './common'
 
 
-class CommentItem extends React.Component {
+class Comment extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -19,20 +21,24 @@ class CommentItem extends React.Component {
   render() {
     return (
         <Item>
-          <Header
-            title={this.props.name}
-            descriptions={[this.props.comment]}
-            items={[
-              {
-                  id: 'date_created',
-                  text: this.props.date_created,
-                  icon: faCalendarAlt
-              },
-            ]}
-          />
+          <Header>
+            <Title>{this.props.name}</Title>
+            <HeaderItems>
+              <HeaderItem>
+                <IconizedText
+                  text={this.props.date_created}
+                  icon={faCalendarAlt}
+                  size={12}
+                />
+              </HeaderItem>
+            </HeaderItems>
+          </Header>
+          <Descriptions>
+            <Description>{this.props.comment}</Description>
+          </Descriptions>
         </Item>
     )
   }
 }
 
-export default CommentItem;
+export default Comment;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { LandingCommentForm } from 'components/forms'
 import Comments from './comments'
 
 
@@ -21,14 +22,13 @@ const LandingBodyContent = styled.div`
 
 const Intro = styled.h3`
   font-style: italic;
-  color: ${props => props.theme.colors.textsecondary};
+  color: ${props => props.theme.colors.textSecondary};
   font-weight: 400;
   line-height: 22px;
   font-size: 16px;
   margin-bottom: 32px;
   text-align: center;
 `;
-
 
 class LandingBody extends React.Component {
   static propTypes = {
@@ -41,7 +41,10 @@ class LandingBody extends React.Component {
       <LandingBodyContainer>
         <LandingBodyContent>
           <Intro>{this.props.intro}</Intro>
-          <Comments/>
+          <div style={{marginBottom: "20px"}}>
+            <Comments/>
+          </div>
+          <LandingCommentForm />
         </LandingBodyContent>
       </LandingBodyContainer>
     )

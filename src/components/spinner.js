@@ -23,13 +23,13 @@ const ComponentSpinnerContainer = styled(PageSpinnerContainer)`
 
 export class PageSpinner extends React.Component {
   static propTypes = {
-    loading: PropTypes.bool.isRequired,
+    show: PropTypes.bool.isRequired,
   }
   static defaultProps = {
-    loading: false,
+    show: false,
   }
   render() {
-    if (this.props.loading) {
+    if (this.props.show) {
       return (
         <React.Fragment>
         <PageSpinnerContainer>
@@ -56,10 +56,10 @@ export class ComponentSpinner extends React.Component {
     show: PropTypes.bool.isRequired,
   }
   static defaultProps = {
-    show: true,
+    show: false,
   }
   render() {
-    if (this.props.loading) {
+    if (this.props.show) {
       return (
         <ComponentSpinnerContainer>
           <Spinner animation="border" variant="primary" size="sm">

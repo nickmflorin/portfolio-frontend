@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getAllExperience } from 'services'
 import { Page } from 'pages/containers'
-import { ExperienceItem } from 'components/items'
+import { ItemsContainer, ExperienceItem } from 'components/items'
 import { sortExperienceEducation, formatDateRange } from 'utils'
 
 
@@ -31,9 +31,11 @@ class Experience extends React.Component {
   render() {
     return (
       <Page header="Experience" loading={this.state.loading}>
-        {this.state.items.map((item) => {
-          return <ExperienceItem key={item.id} {...item} />
-        })}
+        <ItemsContainer>
+          {this.state.items.map((item) => {
+            return <ExperienceItem key={item.id} {...item} />
+          })}
+        </ItemsContainer>
       </Page>
     )
   }

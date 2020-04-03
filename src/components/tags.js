@@ -9,10 +9,26 @@ import IconizedText from 'components/icons'
 
 const TagName = styled.p`
   font-family: ${props => (props.fontFamily || props.theme.fonts.roboto)};
-  font-size: ${props => (`${props.size}px`)};
-  line-height: ${props => (`${props.size + 2}px`)};
   font-weight: ${props => (props.fontWeight || props.theme.fontweights.regular)};
   color: ${props => (props.color || props.theme.colors.white)};
+
+  font-size: 10px;
+  line-height: 12px;
+
+  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  @media screen and (min-width: ${props => props.theme.responsive.breakLarge}){
+    font-size: 13px;
+    line-height: 15px;
+  }
 `;
 
 const TagContainer = styled.div`
@@ -35,24 +51,25 @@ class Tag extends React.Component {
   render() {
     return (
       <TagContainer color={this.props.color}>
-        <TagName size={this.props.size}>{this.props.children}</TagName>
+        <TagName>{this.props.children}</TagName>
       </TagContainer>
     )
   }
 }
 
-export class Tags extends React.Component {
+class Tags extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    size: PropTypes.number.isRequired
   }
   render(){
     return (
       <TagsContainer>
         {this.props.items.map((item, index) => {
-          return <Tag key={index} size={this.props.size}>{item}</Tag>
+          return <Tag key={index}>{item}</Tag>
         })}
       </TagsContainer>
     )
   }
 }
+
+export default Tags;

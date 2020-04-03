@@ -1,44 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
+import _ from 'underscore'
 
-import { faMapPin, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFire, faHammer, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
-import { formatDateRange } from 'utils'
 import { getExperience } from 'services'
+import { formatDateRange } from 'utils'
 
-import Item from 'components/item'
+import IconizedText from 'components/icons'
+import Tags from 'components/tags'
 
-import Header from './Header'
-import Skills from './skills'
-import Projects from './projects'
+import { Item } from './base'
+import Project from './project'
+import { Header, Body, Descriptions, Description, LeftContainer, RightContainer,
+  HeaderItems, HeaderItem, Logo, Title, SubTitle } from './common'
 
 
-const LogoContainer = styled.a`
-  min-width: 80px;
-  min-height: 80px;
-  max-width: 80px;
-  max-height: 80px;
-  padding: 10px;
-  display: inline-block;
-`;
-
-const Logo = styled.img`
-  height: 100%;
-  width: 100%;
-`;
-
-const DetailContainer = styled.div`
-  padding: 12px;
-  text-align: left;
-  display: inline-block;
-
-  div:last-child {
-    margin-bottom: 0px !important;
-  }
-`;
-
-class ExperienceItem extends React.Component {
+class Experience extends React.Component {
   static propTypes = {
     company: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
@@ -75,39 +54,53 @@ class ExperienceItem extends React.Component {
   render() {
     return (
       <Item loading={this.state.loading}>
-        <div style={{display: 'flex'}}>
-          <LogoContainer href={this.props.company.url}>
+        <Header style={{display: 'flex'}}>
+          <LeftContainer>
             <Logo alt="Could not Load" src={this.props.company.logo}/>
-          </LogoContainer>
-          <DetailContainer>
-            <Header
-              title={this.props.title}
-              sub_title={this.props.company.name}
-              descriptions={[this.props.description]}
-              items={[
-                {
-                    id: 'location',
-                    text: `${this.props.company.city}, ${this.props.company.state}`,
-                    icon: faMapPin
-                },
-                {
-                    id: 'dates',
-                    text: formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month),
-                    icon: faCalendarAlt
-                },
-              ]}
-            />
-            {(this.state.projects.length != 0) && (
-              <Projects projects={this.state.projects} />
-            )}
-            {(this.state.skills.length != 0) && (
-              <Skills skills={this.state.skills} />
-            )}
-          </DetailContainer>
-        </div>
+          </LeftContainer>
+          <RightContainer>
+            <Title>{this.props.title}</Title>
+            <SubTitle>{this.props.company.name}</SubTitle>
+            <HeaderItems>
+              <HeaderItem>
+                <IconizedText
+                  text={`${this.props.company.city}, ${this.props.company.state}`}
+                  icon={faMapPin}
+                  size={12}
+                />
+              </HeaderItem>
+              <HeaderItem>
+                <IconizedText
+                  text={formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month)}
+                  icon={faCalendarAlt}
+                  size={12}
+                />
+              </HeaderItem>
+            </HeaderItems>
+          </RightContainer>
+        </Header>
+        <Body>
+          <Descriptions>
+            <Description>{this.props.description}</Description>
+          </Descriptions>
+          {(this.state.projects.length != 0) && (
+            <React.Fragment>
+              <IconizedText size={14} text={"Projects"} icon={faHammer} marginBottom={12}/>
+              {this.state.projects.map((project, index) => {
+                return <Project key={index} {...project}/>
+              })}
+            </React.Fragment>
+          )}
+          {(this.state.skills.length != 0) && (
+            <React.Fragment>
+              <IconizedText size={14} text={"Skills"} icon={faFire} marginBottom={12}/>
+              <Tags items={_.pluck(this.state.skills, 'name')} />
+            </React.Fragment>
+          )}
+        </Body>
       </Item>
     )
   }
 }
 
-export default withTheme(ExperienceItem);
+export default Experience;

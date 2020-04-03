@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Page } from 'pages/containers'
-import { EducationItem } from 'components/items'
+import { EducationItem, ItemsContainer } from 'components/items'
 import { getAllEducation } from 'services'
 import { sortExperienceEducation, formatDateRange } from 'utils'
 
@@ -31,9 +31,11 @@ class Education extends React.Component {
   render() {
     return (
       <Page header="Education" loading={this.state.loading}>
-        {this.state.items.map((item) => {
-          return <EducationItem key={item.id} {...item} />
-        })}
+        <ItemsContainer>
+          {this.state.items.map((item) => {
+            return <EducationItem key={item.id} {...item} />
+          })}
+        </ItemsContainer>
       </Page>
     )
   }

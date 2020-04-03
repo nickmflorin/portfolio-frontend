@@ -3,24 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { getComments } from 'services'
-import { LandingCommentForm } from 'components/forms'
-import { CommentItem } from 'components/items'
-
-
-const CommentsContainer = styled.div`
-
-`;
-
-
-const RequestForComment = styled.h3`
-  font-weight: 400;
-  line-height: 22px;
-  text-align: center;
-  margin-bottom: 28px;
-  font-size: 14px;
-  color: ${props => props.theme.colors.textsecondary};
-`;
-
+import { CommentItem, ItemsContainer } from 'components/items'
 
 
 class Comments extends React.Component {
@@ -48,7 +31,7 @@ class Comments extends React.Component {
   render(){
     // TODO: Build In Loading Wheel for API Request
     return (
-      <CommentsContainer>
+      <ItemsContainer>
         {this.state.comments.map((comment) => {
           return (
             <CommentItem key={comment.id}
@@ -59,9 +42,7 @@ class Comments extends React.Component {
             />
           )
         })}
-        <RequestForComment>Feel free to drop a note, comment or question!</RequestForComment>
-        <LandingCommentForm />
-      </CommentsContainer>
+      </ItemsContainer>
     )
   }
 }

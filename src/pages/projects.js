@@ -3,7 +3,7 @@ import _ from 'underscore'
 
 import { getProjects } from 'services'
 import { Page } from 'pages/containers'
-import { ProjectItem } from 'components/items'
+import { ProjectItem, ItemsContainer } from 'components/items'
 
 
 class Projects extends React.Component {
@@ -32,9 +32,11 @@ class Projects extends React.Component {
   render() {
     return (
       <Page header="Projects" maxWidth={"1200px"} loading={this.state.loading}>
-        {this.state.items && this.state.items.map((item, index) => {
-          return <ProjectItem key={item.id} {...item} />
-        })}
+        <ItemsContainer>
+          {this.state.items && this.state.items.map((item, index) => {
+            return <ProjectItem key={item.id} {...item} />
+          })}
+        </ItemsContainer>
       </Page>
     )
   }

@@ -6,10 +6,6 @@ import styled from 'styled-components';
 const StyledFileLink = styled.a`
   display: block;
   margin-bottom: 2px;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 
@@ -20,7 +16,10 @@ class FileLink extends React.Component {
   }
   render() {
       return (
-        <StyledFileLink href={this.props.url}>{this.props.label}</StyledFileLink>
+        <StyledFileLink
+          className='smaller'
+          href={this.props.url}
+        >{this.props.label}</StyledFileLink>
       )
   }
 }

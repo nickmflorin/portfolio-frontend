@@ -18,7 +18,7 @@ const StyledInternalLink = styled(Link)`
 
   &:hover {
     background: ${props => props.theme.colors.white};
-    color: ${props => props.theme.colors.textgray1};
+    color: ${props => props.theme.colors.textGray1};
   }
 `;
 

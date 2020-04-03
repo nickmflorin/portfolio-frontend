@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-//
+
 import BootstrapForm from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
-import Item from 'components/item';
+import { Item } from 'components/items';
 import { createComment } from 'services';
 
 
@@ -22,7 +22,7 @@ const HelpText = styled.p`
   font-size: 10px;
   font-family: ${props => props.theme.fonts.roboto};
   font-weight: ${props => props.theme.fontweights.light};
-  color: ${props => props.theme.colors.texttertiary};
+  color: ${props => props.theme.colors.textTertiary};
   margin-left: 2px;
   margin-top: 2px;
 `;

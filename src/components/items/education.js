@@ -1,46 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
+import _ from 'underscore'
 
-import { faMapPin, faCalendarAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
+  faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
-import { formatDateRange } from 'utils'
 import { getEducation } from 'services'
+import { formatDateRange } from 'utils'
 
-import Item from 'components/item'
+import IconizedText from 'components/icons'
+import Tags from 'components/tags'
 
-import Header from './Header'
-import Skills from './skills'
-import Projects from './projects'
-import Courses from './courses'
-
-
-const LogoContainer = styled.a`
-  min-width: 80px;
-  min-height: 80px;
-  max-width: 80px;
-  max-height: 80px;
-  padding: 10px;
-  display: inline-block;
-`;
-
-const Logo = styled.img`
-  height: 100%;
-  width: 100%;
-`;
-
-const DetailContainer = styled.div`
-  padding: 12px;
-  text-align: left;
-  display: inline-block;
-
-  div:last-child {
-    margin-bottom: 0px !important;
-  }
-`;
+import { Item } from './base'
+import Project from './project'
+import { Header, Body, Descriptions, Description, LeftContainer, RightContainer,
+  HeaderItems, HeaderItem, Logo, Title, SubTitle } from './common'
 
 
-class EducationItem extends React.Component {
+class Education extends React.Component {
+
   static propTypes = {
     id: PropTypes.number.isRequired,
     school: PropTypes.object.isRequired,
@@ -55,6 +34,7 @@ class EducationItem extends React.Component {
     end_year: PropTypes.number,
     end_month: PropTypes.number,
   }
+
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -88,51 +68,77 @@ class EducationItem extends React.Component {
     }
     return (
       <Item loading={this.state.loading}>
-        <div style={{display: 'flex'}}>
-          <LogoContainer>
+        <Header style={{display: 'flex'}}>
+          <LeftContainer>
             <Logo alt="Could not Load" src={this.props.school.logo}/>
-          </LogoContainer>
-          <DetailContainer>
-            <Header
-              title={degree}
-              sub_title={this.props.school.name}
-              descriptions={[
-                this.props.description,
-                (this.props.minor && `Minor in ${this.props.minor}`),
-                (this.props.concentration && `Concentration in ${this.props.concentration}`)
-              ]}
-              items={[
-                {
-                    id: 'location',
-                    text: `${this.props.school.city}, ${this.props.school.state}`,
-                    icon: faMapPin
-                },
-                {
-                    id: 'dates',
-                    text: formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month),
-                    icon: faCalendarAlt
-                },
-                {
-                    id: 'gpa',
-                    text: `${this.props.gpa.toFixed(2)}/4.00`,
-                    icon:faPaperPlane
-                }
-              ]}
-            />
-            {(this.state.projects.length != 0) && (
-              <Projects projects={this.state.projects} />
-            )}
-            {(this.state.skills.length != 0) && (
-              <Skills skills={this.state.skills} />
-            )}
-            {(this.state.courses.length != 0) && (
-              <Courses courses={this.state.courses} />
-            )}
-          </DetailContainer>
-        </div>
+          </LeftContainer>
+          <RightContainer>
+            <Title>{degree}</Title>
+            <SubTitle>{this.props.school.name}</SubTitle>
+            <HeaderItems>
+              <HeaderItem>
+                <IconizedText
+                  text={`${this.props.school.city}, ${this.props.school.state}`}
+                  icon={faMapPin}
+                  size={12}
+                />
+              </HeaderItem>
+              <HeaderItem>
+                <IconizedText
+                  text={formatDateRange(
+                    this.props.start_year,
+                    this.props.start_month,
+                    this.props.end_year,
+                    this.props.end_month
+                  )}
+                  icon={faCalendarAlt}
+                  size={12}
+                />
+              </HeaderItem>
+              <HeaderItem>
+                <IconizedText
+                  text={`${this.props.gpa.toFixed(2)}/4.00`}
+                  icon={faPaperPlane}
+                  size={12}
+                />
+              </HeaderItem>
+            </HeaderItems>
+          </RightContainer>
+        </Header>
+        <Body>
+          <Descriptions>
+            <Description>{this.props.description}</Description>
+            {(this.props.minor && (
+                <Description>{this.props.minor && `Minor in ${this.props.minor}`}</Description>
+            ))}
+            {(this.props.concentration && (
+                <Description>{this.props.concentration && `Concentration in ${this.props.concentration}`}</Description>
+            ))}
+          </Descriptions>
+          {(this.state.projects.length != 0) && (
+            <React.Fragment>
+              <IconizedText size={14} text={"Projects"} icon={faHammer} marginBottom={12}/>
+              {this.state.projects.map((project, index) => {
+                return <Project key={index} {...project}/>
+              })}
+            </React.Fragment>
+          )}
+          {(this.state.skills.length != 0) && (
+            <React.Fragment>
+              <IconizedText size={14} text={"Skills"} icon={faFire} marginBottom={12}/>
+              <Tags items={_.pluck(this.state.skills, 'name')} />
+            </React.Fragment>
+          )}
+          {(this.state.courses.length != 0) && (
+            <React.Fragment>
+              <IconizedText size={14} text={"Courses"} icon={faSchool} marginBottom={12}/>
+              <Tags items={_.pluck(this.state.courses, 'name')} />
+            </React.Fragment>
+          )}
+        </Body>
       </Item>
     )
   }
 }
 
-export default withTheme(EducationItem);
+export default Education;

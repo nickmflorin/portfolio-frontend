@@ -43,14 +43,11 @@ const BannerBodyContent = styled.div`
   text-align: center;
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
   font-family: ${props => props.theme.fonts.opensans};
   font-weight: ${props => props.theme.fontweights.regular};
   color: ${props => props.theme.colors.white};
-  font-size: 28px;
   width: 100%;
-  letter-spacing: -0.02em;
-  margin: 12px auto;
   display: inline-block;
 `;
 
@@ -58,10 +55,7 @@ const SubTitle = styled.h3`
   font-family: ${props => props.theme.fonts.opensans};
   font-weight: ${props => props.theme.fontweights.regular};
   color: ${props => props.theme.colors.white};
-  font-size: 24px;
   width: 100%;
-  letter-spacing: -0.02em;
-  margin: 12px auto;
   display: inline-block;
 `;
 
