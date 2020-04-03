@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { Description } from '../common'
+
 
 const ProjectFileContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 `;
 
 const ProjectImage = styled.img`
@@ -13,12 +15,8 @@ const ProjectImage = styled.img`
   border: ${props => (props.theme.borders.light)}
 `;
 
-const FileDescription = styled.p`
-  margin-bottom: 15px;
-  font-family: ${props => props.theme.fonts.roboto};
-  font-weight: ${props => props.theme.fontweights.light};
-  color: ${props => props.theme.colors.textTertiary};
-  margin-bottom: 8px;
+const FileDescription = styled(Description)`
+  margin-bottom: 16px;
 `;
 
 const FileCaption = styled(FileDescription)`

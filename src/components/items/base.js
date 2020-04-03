@@ -12,18 +12,21 @@ export const ItemsContainer = styled.div`
 `;
 
 const StyledItem = styled.div`
-  max-width: ${props => props.maxWidth || "800px"};
+  max-width: 800px;
   margin: 0px auto 20px auto;
   border: ${props => props.theme.borders.regular};
   border-radius: 5px;
   background-color: ${props => props.theme.colors.white};
   position: relative;
   text-align: left;
-
-  padding: ${props => props.padding || "10px"};
+  padding: 10px;
 
   @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
-    padding: ${props => props.padding || "20px"};
+    padding: 15px;
+  }
+
+  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
+    padding: 20px;
   }
 `;
 

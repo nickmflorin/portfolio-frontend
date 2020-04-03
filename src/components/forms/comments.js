@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import * as yup from 'yup';
@@ -10,7 +11,6 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
 import { Item } from 'components/items';
-import { createComment } from 'services';
 
 
 const ItemForm = styled(Form)`
@@ -147,51 +147,18 @@ const Submit = (props) => {
 
 
 export class LandingCommentForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      loading: false,
-      validated: false,
-    }
-  }
-  submitted(event){
-    const form = event.currentTarget;
-    event.preventDefault();
-    event.stopPropagation();
-
-    console.log('submitted')
-    return
-
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    }
-    else {
-      var self = this
-      self.setState({loading: true})
-
-      createComment(this.state.form_data).then((response) => {
-        console.log(response)
-      }).catch((error) => {
-        console.error('There was an error submitting the comment.')
-        if (error.status == 400) {
-          const fields = Object.keys(error.body)
-          // Here is where we want to do the form validation for the fields that
-          // were provided.
-        }
-      }).finally(() => {
-        self.setState({loading: false})
-      })
-    }
-    // this.setState({ validated: true })
+  static propTypes = {
+    onSubmitComment: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
   }
   render() {
+      var self = this
       return (
         <Item>
           <Formik
             validationSchema={schema}
             onSubmit={values => {
-              // same shape as initial values
-              console.log(values);
+              self.props.onSubmitComment(values)
             }}
             initialValues={{
               name: '',
@@ -205,7 +172,7 @@ export class LandingCommentForm extends React.Component {
                 <EmailInput {...props}/>
                 <CommentInput {...props}/>
                 <PublicInput {...props}/>
-                <Submit loading={this.state.loading} {...props}/>
+                <Submit loading={this.props.loading} {...props}/>
               </ItemForm>
             )}
           </Formik>

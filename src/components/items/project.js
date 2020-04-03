@@ -7,7 +7,6 @@ import { faHammer } from '@fortawesome/free-solid-svg-icons'
 import { getProject } from 'services'
 import { getFileExtension } from 'utils'
 
-import IconizedText from 'components/icons'
 import { FileLink } from 'components/buttons'
 
 

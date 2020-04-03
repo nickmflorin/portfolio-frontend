@@ -21,7 +21,7 @@ class Comment extends React.Component {
   render() {
     return (
         <Item>
-          <Header>
+          <Header style={{display: "inline-block"}}>
             <Title>{this.props.name}</Title>
             <HeaderItems>
               <HeaderItem>

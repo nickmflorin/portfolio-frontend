@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import _ from 'underscore'
 
 import { faFire, faHammer, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
@@ -54,7 +54,7 @@ class Experience extends React.Component {
   render() {
     return (
       <Item loading={this.state.loading}>
-        <Header style={{display: 'flex'}}>
+        <Header>
           <LeftContainer>
             <Logo alt="Could not Load" src={this.props.company.logo}/>
           </LeftContainer>
@@ -66,14 +66,12 @@ class Experience extends React.Component {
                 <IconizedText
                   text={`${this.props.company.city}, ${this.props.company.state}`}
                   icon={faMapPin}
-                  size={12}
                 />
               </HeaderItem>
               <HeaderItem>
                 <IconizedText
                   text={formatDateRange(this.props.start_year, this.props.start_month, this.props.end_year, this.props.end_month)}
                   icon={faCalendarAlt}
-                  size={12}
                 />
               </HeaderItem>
             </HeaderItems>
@@ -85,7 +83,13 @@ class Experience extends React.Component {
           </Descriptions>
           {(this.state.projects.length != 0) && (
             <React.Fragment>
-              <IconizedText size={14} text={"Projects"} icon={faHammer} marginBottom={12}/>
+              <IconizedText
+                text="Projects"
+                icon={faHammer}
+                size='large'
+                style={{marginBottom: '12px'}}
+                color={this.props.theme.colors.textTertiary}
+              />
               {this.state.projects.map((project, index) => {
                 return <Project key={index} {...project}/>
               })}
@@ -93,7 +97,13 @@ class Experience extends React.Component {
           )}
           {(this.state.skills.length != 0) && (
             <React.Fragment>
-              <IconizedText size={14} text={"Skills"} icon={faFire} marginBottom={12}/>
+              <IconizedText
+                text="Skills"
+                icon={faFire}
+                size='large'
+                style={{marginBottom: '12px'}}
+                color={this.props.theme.colors.textTertiary}
+              />
               <Tags items={_.pluck(this.state.skills, 'name')} />
             </React.Fragment>
           )}
@@ -103,4 +113,4 @@ class Experience extends React.Component {
   }
 }
 
-export default Experience;
+export default withTheme(Experience);

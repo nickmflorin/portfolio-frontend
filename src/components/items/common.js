@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Header = styled.div`
-  display: ${props => (props.flex ? 'flex' : 'inline-block')};
-  text-align: ${props => props.textAlign || "left"};
+  display: flex;
+  text-align: left;
   margin-bottom: 8px;
 `;
 
@@ -10,7 +10,7 @@ export const Body = styled.div`
   margin-left: 0px;
   margin-top: 10px;
 
-  @media screen and (min-width: ${props => props.theme.responsive.breakMedium}){
+  @media screen and (min-width: ${props => props.theme.responsive.breakSmall}){
     margin-left: 95px;
     margin-top: 0px;
   }
@@ -56,7 +56,8 @@ export const LeftContainer = styled.a`
 `;
 
 export const RightContainer = styled.div`
-  padding: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
   div:last-child {
     margin-bottom: 0px !important;
   }

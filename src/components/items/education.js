@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import _ from 'underscore'
 
 import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
@@ -68,7 +68,7 @@ class Education extends React.Component {
     }
     return (
       <Item loading={this.state.loading}>
-        <Header style={{display: 'flex'}}>
+        <Header>
           <LeftContainer>
             <Logo alt="Could not Load" src={this.props.school.logo}/>
           </LeftContainer>
@@ -80,7 +80,6 @@ class Education extends React.Component {
                 <IconizedText
                   text={`${this.props.school.city}, ${this.props.school.state}`}
                   icon={faMapPin}
-                  size={12}
                 />
               </HeaderItem>
               <HeaderItem>
@@ -92,14 +91,12 @@ class Education extends React.Component {
                     this.props.end_month
                   )}
                   icon={faCalendarAlt}
-                  size={12}
                 />
               </HeaderItem>
               <HeaderItem>
                 <IconizedText
                   text={`${this.props.gpa.toFixed(2)}/4.00`}
                   icon={faPaperPlane}
-                  size={12}
                 />
               </HeaderItem>
             </HeaderItems>
@@ -117,7 +114,13 @@ class Education extends React.Component {
           </Descriptions>
           {(this.state.projects.length != 0) && (
             <React.Fragment>
-              <IconizedText size={14} text={"Projects"} icon={faHammer} marginBottom={12}/>
+              <IconizedText
+                text="Projects"
+                icon={faHammer}
+                size='large'
+                style={{marginBottom: '12px'}}
+                color={this.props.theme.colors.textTertiary}
+              />
               {this.state.projects.map((project, index) => {
                 return <Project key={index} {...project}/>
               })}
@@ -125,13 +128,25 @@ class Education extends React.Component {
           )}
           {(this.state.skills.length != 0) && (
             <React.Fragment>
-              <IconizedText size={14} text={"Skills"} icon={faFire} marginBottom={12}/>
+              <IconizedText
+                text="Skills"
+                icon={faFire}
+                size='large'
+                style={{marginBottom: '12px'}}
+                color={this.props.theme.colors.textTertiary}
+              />
               <Tags items={_.pluck(this.state.skills, 'name')} />
             </React.Fragment>
           )}
           {(this.state.courses.length != 0) && (
             <React.Fragment>
-              <IconizedText size={14} text={"Courses"} icon={faSchool} marginBottom={12}/>
+              <IconizedText
+                text="Courses"
+                icon={faSchool}
+                size='large'
+                style={{marginBottom: '12px'}}
+                color={this.props.theme.colors.textTertiary}
+              />
               <Tags items={_.pluck(this.state.courses, 'name')} />
             </React.Fragment>
           )}
@@ -141,4 +156,4 @@ class Education extends React.Component {
   }
 }
 
-export default Education;
+export default withTheme(Education);
