@@ -1,0 +1,44 @@
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
+
+
+.sidebar-button
+  font-size: 1em
+  padding: 6px 8px
+  line-height: 18px
+  width: 100%
+  margin: 0 auto
+  text-transform: uppercase
+  background: transparent
+  color: map-get($colors, "white")
+  text-align: center
+
+  &:hover
+    background: map-get($colors, "white")
+    color: map-get($colors, "text-gray1")
+
+
+.navbar-button
+  font-size: 1em
+  padding: 6px 8px
+  line-height: 18px
+  border: map-get($borders, "white")
+  border-radius: 4px !important
+  width: 100%
+  margin: 0 auto
+  text-transform: uppercase
+
+  background: transparent
+  color: map-get($colors, "white")
+
+  &:hover
+    background: map-get($colors, "white")
+    color: map-get($colors, "text-gray1")
+
+.menu-button
+
+  .icon
+    color: map-get($colors, "white")
+    line-height: 60px

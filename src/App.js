@@ -2,65 +2,73 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import styled from 'styled-components';
+import update from 'react-addons-update';
+import _ from 'underscore'
 
-import { pixelfy } from 'utils'
+import { faGraduationCap, faBriefcase, faHammer, faFilePdf } from '@fortawesome/free-solid-svg-icons'
 
+import { getProfile } from 'services'
+
+import { Landing, Projects, Experience, Education } from 'pages'
 import NavBar from 'components/nav'
 import SideBar from 'components/sidebar'
 import Footer from 'components/footer'
 
-import { Landing, Projects, Experience, Education } from 'pages'
-import { NavBarContext } from './context'
+import "./App.sass"
 
 const Theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/constants.scss');
 
-const Pages = {
-  landing: Landing,
-  projects: Projects,
-  experience: Experience,
-  education: Education
-}
-
-const AppContent = styled.div`
-  height: 100vh;
-`;
-
-const AppHeader = styled.header`
-  position: fixed;
-  z-index: 900;
-  top: 0;
-  width: 100%;
-  height: ${props => pixelfy(props.theme.heights.header)}
-`;
-
-const AppSection = styled.section`
-  width: 100%;
-  position: absolute;
-  background-color: ${props => props.theme.colors.background};
-  max-height: ${props => (`calc(100vh - ${pixelfy(props.theme.heights.footer)})`)};
-  overflow-y: scroll;
-`;
-
-
-class AppContext extends React.Component {
-  render() {
-    // ThemeProvider allows access to the SASS maps in styled-components.
-    return (
-      <ThemeProvider theme={Theme}>
-        <NavBarContext.Provider>
-          {this.props.children}
-        </NavBarContext.Provider>
-      </ThemeProvider>
-    )
+const NavBarItems = [
+  {
+    id : 'experience',
+    label : 'Experience',
+    url : '/experience',
+    external: false,
+    icon: faBriefcase,
+    page: Experience,
+  },
+  {
+    id : 'education',
+    label : 'Education',
+    url : '/education',
+    external: false,
+    icon: faGraduationCap,
+    page: Education,
+  },
+  {
+    id : 'projects',
+    label : 'Projects',
+    url : '/projects',
+    external: false,
+    icon: faHammer,
+    page: Projects,
+  },
+  {
+    id: 'resume',
+    label: 'Resume',
+    external: true,
+    icon: faFilePdf,
   }
-}
+]
 
 class App extends React.Component {
-  static contextType = NavBarContext;
 
   constructor(props, context) {
     super(props, context);
     this.sidebar = React.createRef();
+    this.state = { items: NavBarItems }
+  }
+  componentDidMount() {
+    var self = this
+    getProfile().then((response) => {
+      var index = _.findIndex(this.state.items, value => value.id == 'resume')
+      const items = update(this.state.items, {
+        [index]: {$merge: {url: response.resume}}
+      })
+      self.setState({ items : items })
+    }).catch((error) => {
+      console.error('There was an error loading the resume.')
+    })
   }
   onMenuClick(){
     this.sidebar.current.toggle()
@@ -73,50 +81,50 @@ class App extends React.Component {
   }
   render() {
     return (
-      <AppContext>
+      <ThemeProvider theme={Theme}>
         <BrowserRouter>
-          <AppContent>
-              <AppHeader>
-                <SideBar
-                  items={this.context}
-                  onSideBarClick={this.onSideBarClick.bind(this)}
-                  ref={this.sidebar}
-                />
-                <Switch>
-                  <Route exact path="/">
-                    <NavBar
-                      overlay={true}  // TODO: Remove
-                      items={this.context}
-                      onMenuClick={this.onMenuClick.bind(this)}
-                      onHomeClick={this.onHomeClick.bind(this)}
-                    />
-                  </Route>
-                  <Route>
-                    <NavBar
-                      overlay={true}  // TODO: Remove
-                      items={this.context}
-                      onMenuClick={this.onMenuClick.bind(this)}
-                      onHomeClick={this.onHomeClick.bind(this)}
-                    />
-                  </Route>
-                </Switch>
-              </AppHeader>
-              <AppSection>
-                  <Route exact path="/" component={Landing}></Route>
-                  {this.context.map((item) => {
-                    return (
-                      <Route
-                        key={item.id}
-                        exact path={item.link}
-                        component={Pages[item.id]}
-                      ></Route>
-                    )
-                  })}
-              </AppSection>
-              <Footer />
-          </AppContent>
+          <div className='app-content'>
+            <header>
+              <SideBar
+                items={this.state.items}
+                onSideBarClick={this.onSideBarClick.bind(this)}
+                ref={this.sidebar}
+              />
+              <Switch>
+                <Route exact path="/">
+                  <NavBar
+                    overlay={false}
+                    items={this.state.items}
+                    onMenuClick={this.onMenuClick.bind(this)}
+                    onHomeClick={this.onHomeClick.bind(this)}
+                  />
+                </Route>
+                <Route>
+                  <NavBar
+                    overlay={true}
+                    items={this.state.items}
+                    onMenuClick={this.onMenuClick.bind(this)}
+                    onHomeClick={this.onHomeClick.bind(this)}
+                  />
+                </Route>
+              </Switch>
+            </header>
+            <section>
+                <Route exact path="/" component={Landing}></Route>
+                {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
+                  return (
+                    <Route
+                      key={item.id}
+                      exact path={item.url}
+                      component={item.page}
+                    ></Route>
+                  )
+                })}
+            </section>
+            <Footer />
+          </div>
         </BrowserRouter>
-      </AppContext>
+      </ThemeProvider>
     );
   }
 }

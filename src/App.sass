@@ -1,0 +1,22 @@
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
+
+
+.app-content
+  height: 100vh
+
+  header
+    position: fixed
+    z-index: 900
+    top: 0
+    width: 100%
+    height: pixelfy(map-get($heights, "header"))
+
+  section
+    width: 100%
+    position: absolute
+    background-color: map-get($colors, "background")
+    max-height: unquote("calc(" + vhify(100) + " - " + pixelfy(map-get($heights, "footer")) + ")")
+    overflow-y: scroll

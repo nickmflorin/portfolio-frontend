@@ -16,7 +16,7 @@ module.exports = {
       style: path.resolve(__dirname, 'src/style/'),
       media: path.resolve(__dirname, 'src/media/'),
       utils: path.resolve(__dirname, 'src/utils/'),
-      config: path.resolve(__dirname, 'src/config/')
+      config: path.resolve(__dirname, 'src/config/'),
     }
   },
   module: {

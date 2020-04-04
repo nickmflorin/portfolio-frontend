@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-import { pixelfy } from 'utils'
-import { getProfile } from 'services'
 
 import { SideBarButton } from './buttons'
-
 import './sidebar.sass'
 
 var classNames = require('classNames')
@@ -21,18 +16,7 @@ class SideBar extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      resume_url: null,
-      visible: false,
-    }
-  }
-  componentDidMount() {
-    var self = this
-    getProfile().then((response) => {
-      self.setState({ resume_url: response.resume })
-    }).catch((error) => {
-      console.error('There was an error loading the resume.')
-    })
+    this.state = {visible: false}
   }
   toggle(){
     if (this.state.visible) {
@@ -55,8 +39,10 @@ class SideBar extends React.Component {
           return (
             <div className='button-container' key={item.id}>
               <SideBarButton
-                url={item.link}
+                url={item.url}
                 label={item.label}
+                external={item.external}
+                icon={item.icon}
                 onClick={this.props.onSideBarClick}
               />
             </div>
