@@ -1,0 +1,19 @@
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
+
+
+footer
+  width: 100%
+  position: fixed
+  bottom: 0
+  background-color: map-get($colors, "footer")
+  border-top: map-get($borders, "dark")
+  height: pixelfy(map-get($heights, "footer"))
+
+  .content
+    font-size: 12px
+    text-align: center
+    line-height: pixelfy(map-get($heights, "footer"))
+    color: map-get($colors, "white")
