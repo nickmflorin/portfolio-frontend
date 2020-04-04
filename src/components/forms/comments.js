@@ -127,11 +127,11 @@ export class CommentForm extends React.Component {
     return (
       <React.Fragment>
         <CommentSuccessModal
-          show={this.state.success}
+          show={this.state.show_success_modal}
           onHide={this.hideSuccessModal.bind(this)}
         />
         <CommentFailureModal
-          show={this.state.failure}
+          show={this.state.show_failure_modal}
           onHide={this.hideFailureModal.bind(this)}
           errors={this.state.errors}
         />
