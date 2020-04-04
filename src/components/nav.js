@@ -19,6 +19,7 @@ class NavBar extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     onMenuClick: PropTypes.func.isRequired,
+    onHomeClick: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
@@ -37,7 +38,7 @@ class NavBar extends React.Component {
     return (
       <div className={this.props.overlay ? classNames('navbar', 'overlay') : classNames('navbar')}>
         <div className='left'>
-          <LogoButton to="/" />
+          <LogoButton to="/" onClick={this.props.onHomeClick}/>
         </div>
         <div className='right'>
           <div className='buttons'>

@@ -17,11 +17,15 @@ class SideBar extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     visible: PropTypes.bool.isRequired,
+    onSideBarClick: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
     super(props, context);
-    this.state = { resume_url: null }
+    this.state = {
+      resume_url: null,
+      visible: props.visible || false,
+    }
   }
   componentWillMount() {
     var self = this
@@ -31,15 +35,30 @@ class SideBar extends React.Component {
       console.error('There was an error loading the resume.')
     })
   }
+  toggle(){
+    if (this.state.visible) {
+      this.hide()
+    }
+    else {
+      this.show()
+    }
+  }
+  hide(){
+    this.setState({ visible: false })
+  }
+  show(){
+    this.setState({ visible: true })
+  }
   render() {
     return (
-      <div className={classNames('sidebar', this.props.visible ? 'visible' : 'invisible')}>
+      <div className={classNames('sidebar', this.state.visible ? 'visible' : 'invisible')}>
         {this.props.items.map((item) => {
           return (
             <div className='button-container' key={item.id}>
               <SideBarButton
                 url={item.link}
                 label={item.label}
+                onClick={this.props.onSideBarClick}
               />
             </div>
           )

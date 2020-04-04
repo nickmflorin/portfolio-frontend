@@ -60,12 +60,17 @@ class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = { showSideNavBar: false }
+    this.sidebar = React.createRef();
   }
   onMenuClick(){
-    this.setState({
-      showSideNavBar: !this.state.showSideNavBar,
-    })
+    this.sidebar.current.toggle()
+  }
+  onSideBarClick(){
+    this.sidebar.current.hide()
+  }
+  onHomeClick(){
+    console.log('Home Clicked')
+    this.sidebar.current.hide()
   }
   render() {
     return (
@@ -75,14 +80,16 @@ class App extends React.Component {
               <AppHeader>
                 <SideBar
                   items={this.context}
-                  visible={this.state.showSideNavBar}
+                  onSideBarClick={this.onSideBarClick.bind(this)}
+                  ref={this.sidebar}
                 />
                 <Switch>
                   <Route exact path="/">
                     <NavBar
-                      overlay={false}  // TODO: Remove
+                      overlay={true}  // TODO: Remove
                       items={this.context}
                       onMenuClick={this.onMenuClick.bind(this)}
+                      onHomeClick={this.onHomeClick.bind(this)}
                     />
                   </Route>
                   <Route>
@@ -90,6 +97,7 @@ class App extends React.Component {
                       overlay={true}  // TODO: Remove
                       items={this.context}
                       onMenuClick={this.onMenuClick.bind(this)}
+                      onHomeClick={this.onHomeClick.bind(this)}
                     />
                   </Route>
                 </Switch>

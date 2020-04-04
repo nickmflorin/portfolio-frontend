@@ -30,7 +30,7 @@ class LogoButton extends React.Component {
   render() {
       return (
         <LogoLink to={this.props.to}>
-          <Logo src={LogoIcon}/>
+          <Logo src={LogoIcon} onClick={this.props.onClick}/>
         </LogoLink>
 
       )

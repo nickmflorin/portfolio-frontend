@@ -1,4 +1,4 @@
-import { LandingCommentForm } from './comments';
+import { CommentForm } from './comments';
 
 
-export { LandingCommentForm };
+export { CommentForm };

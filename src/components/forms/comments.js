@@ -10,157 +10,199 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
+import { createComment } from 'services'
 import { Item } from 'components/items';
+import { CommentSuccessModal, CommentFailureModal } from 'components/modals'
 
 import './forms.sass'
 
 
 const schema = yup.object({
-  name: yup.string().required(),
+  name: yup.string().required().min(2, 'Too Short!'),
   email: yup.string().email(),
-  comment: yup.string().required(),
+  comment: yup.string().required().min(5, 'Too Short!'),
   public: yup.boolean(),
 });
 
-
-const NameInput = (props) => {
-  return (
-    <BootstrapForm.Group as={BootstrapForm.Row}>
-      <BootstrapForm.Label>Name</BootstrapForm.Label>
-      <InputGroup>
-        <BootstrapForm.Control
-          required
-          type="text"
-          name='name'
-          placeholder="Please provide your name."
-          onChange={props.handleChange}
-          value={props.values.name}
-          isValid={props.touched.name && !props.errors.name}
-          isInvalid={props.errors.name}
-        />
-        <BootstrapForm.Control.Feedback type="invalid">
-          <div className='errors'>{props.errors.name}</div>
-        </BootstrapForm.Control.Feedback>
-      </InputGroup>
-    </BootstrapForm.Group>
-  )
-}
-
-const EmailInput = (props) => {
-  return (
-    <BootstrapForm.Group as={BootstrapForm.Row}>
-      <BootstrapForm.Label>Email Address</BootstrapForm.Label>
-      <InputGroup>
+const TextualInput = ({
+  field, // { name, value, onChange, onBlur }
+  form: { touched, errors },
+  bootstrapAs,
+  ...props
+}) => (
+  <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
+    {props.label && (
+      <BootstrapForm.Label>{props.label}</BootstrapForm.Label>
+    )}
+    <InputGroup>
+      {props.prepend && (
         <InputGroup.Prepend>
-          <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+          <InputGroup.Text>{props.prepend}</InputGroup.Text>
         </InputGroup.Prepend>
-        <BootstrapForm.Control
-          type="email"
-          name='email'
-          placeholder="name@example.com"
-          onChange={props.handleChange}
-          value={props.values.email}
-          isValid={props.values.email && props.touched.email && !props.errors.email}
-          isInvalid={props.errors.email || (props.touched.email && !props.values.public && !props.values.email)}
-        />
-        <BootstrapForm.Control.Feedback type="invalid">
-          <div className='errors'>{props.errors.email || "Must be provided if the submission is not public."}</div>
-        </BootstrapForm.Control.Feedback>
-      </InputGroup>
-      <p className='help-text'>Only required if the submission is non-public.  Will never be displayed online.</p>
-    </BootstrapForm.Group>
-  )
-}
-
-const CommentInput = (props) => {
-  return (
-    <BootstrapForm.Group as={BootstrapForm.Row}>
-      <BootstrapForm.Label>Question or Comment</BootstrapForm.Label>
+      )}
       <BootstrapForm.Control
-        required
-        name="comment"
-        as="textarea"
-        rows="3"
-        onChange={props.handleChange}
-        value={props.values.comment}
-        isValid={props.touched.comment && !props.errors.comment}
-        isInvalid={props.errors.comment}
+        isValid={touched[field.name] && !errors[field.name]}
+        isInvalid={errors[field.name]}
+        as={bootstrapAs}
+        {...field}
+        {...props}
       />
       <BootstrapForm.Control.Feedback type="invalid">
-        <div className='errors'>{props.errors.comment}</div>
+        {touched[field.name] &&
+          errors[field.name] && <div className="errors">{errors[field.name]}</div>}
       </BootstrapForm.Control.Feedback>
-    </BootstrapForm.Group>
-  )
-}
+    </InputGroup>
+    {props.help && (
+      <p className='help-text'>{props.help}</p>
+    )}
+  </BootstrapForm.Group>
+);
 
-const PublicInput = (props) => {
-  return (
-    <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
-      <BootstrapForm.Check
-        id="public"
-        type='switch'
-        name='public'
-        label="Public"
-        onChange={props.handleChange}
-        isValid={props.touched.public && !props.errors.public}
-      />
-      <p className='help-text'>Public questions/comments will be displayed online.</p>
-    </BootstrapForm.Group>
-  )
-}
-
-const Submit = (props) => {
-  return (
-    <BootstrapForm.Group as={BootstrapForm.Row}>
-      <Button variant="primary" type="submit">
-        {props.loading && (
-          <Spinner
-            as="span"
-            animation="border"
-            size="sm"
-            role="status"
-            aria-hidden="true"
+const CheckInput = ({
+  field, // { name, value, onChange, onBlur }
+  form: { touched, errors, dirty, status },
+  ...props
+}) => {
+    return (
+      <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
+        <InputGroup>
+          <BootstrapForm.Check
+            isValid={touched[field.name] && !errors[field.name]}
+            isInvalid={errors[field.name]}
+            {...field}
+            {...props}
           />
+          <BootstrapForm.Control.Feedback type="invalid">
+            {touched[field.name] &&
+              errors[field.name] && <div className="errors">{errors[field.name]}</div>}
+          </BootstrapForm.Control.Feedback>
+        </InputGroup>
+        {props.help && (
+          <p className='help-text'>{props.help}</p>
         )}
-        Submit
-      </Button>
-    </BootstrapForm.Group>
-  )
+      </BootstrapForm.Group>
+    );
 }
 
-
-
-export class LandingCommentForm extends React.Component {
+export class CommentForm extends React.Component {
   static propTypes = {
-    onSubmitComment: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
+    onSubmitted: PropTypes.func.isRequired,
+  }
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      loading: false,
+      success: false,
+      failure: false,
+    }
+  }
+  hideSuccessModal(){
+    console.log('we want to hide')
+    this.setState({ success: false })
+  }
+  hideFailureModal(){
+    this.setState({ failure: false })
+  }
+  submitComment(values, {setSubmitting, setErrors, setStatus, resetForm}){
+    this.setState({ loading: true })  // Use Formik Hook ?
+    setSubmitting(true)  // Not Sure What This Triggers w Formik.
+
+    var self = this
+    createComment(values).then((response) => {
+      console.log(`Comment ${response.id} Successfully Submitted`)
+      self.props.onSubmitted()  // Reload the Comments to Repopulate
+      resetForm()
+      self.setState({ failure: false, success: true })
+    }).catch((error) => {
+      // TODO: Set Errors with Formik Hook?
+      // TODO: Set Errors for Modal
+      console.error('There was an error submitting the comment.')
+      self.setState({ failure: true, success: false })
+    }).finally(() => {
+      self.setState({ loading: false })  // Use Formik Hook ?
+      setSubmitting(false)  // Not Sure What This Triggers w Formik.
+    })
   }
   render() {
-      var self = this
       return (
+        <React.Fragment>
+        <CommentSuccessModal
+          show={this.state.success}
+          onHide={this.hideSuccessModal.bind(this)}
+        />
+        <CommentFailureModal
+          show={this.state.failure}
+          onHide={this.hideFailureModal.bind(this)}
+        />
         <Item>
           <Formik
             validationSchema={schema}
-            onSubmit={values => {
-              self.props.onSubmitComment(values)
-            }}
+            onSubmit={this.submitComment.bind(this)}
             initialValues={{
               name: '',
               email: '',
               public: false,
+              comment: '',
             }}
           >
-          {({ handleSubmit, ...props }) => (
-              <Form noValidate onSubmit={handleSubmit}>
-                <NameInput {...props}/>
-                <EmailInput {...props}/>
-                <CommentInput {...props}/>
-                <PublicInput {...props}/>
-                <Submit loading={this.props.loading} {...props}/>
+          {({ values, handleSubmit, handleChange, isSubmitting, status, errors, ...props }) => (
+              <Form
+                onSubmit={handleSubmit}
+                loading={isSubmitting}
+                success={!!status && !!status.success}
+                error={!!errors.submit}
+              >
+                <Field
+                  name="name"
+                  label="Name"
+                  component={TextualInput}
+                  placeholder="Please provide your name."
+                  type='text'
+                />
+                <Field
+                  label="Email"
+                  name="email"
+                  type="email"
+                  component={TextualInput}
+                  placeholder="name@example.com"
+                  prepend="@"
+                  help="Only required if the submission is non-public.  Will never be displayed online."
+                />
+                <Field
+                  component={TextualInput}
+                  label="Question or Comment"
+                  name="comment"
+                  bootstrapAs="textarea"
+                  as="textarea"
+                  rows="3"
+                />
+                <Field
+                  component={CheckInput}
+                  id="public"
+                  type='switch'
+                  name='public'
+                  label="Public"
+                  help="Public questions/comments will be displayed online."
+                />
+                <BootstrapForm.Group as={BootstrapForm.Row}>
+                  <Button variant="primary" type="submit">
+                    {this.state.loading && (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                    )}
+                    Submit
+                  </Button>
+                </BootstrapForm.Group>
               </Form>
             )}
           </Formik>
         </Item>
+        </React.Fragment>
       )
   }
 }

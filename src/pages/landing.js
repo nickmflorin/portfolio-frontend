@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getProfile, getComments, createComment } from 'services'
 
 import { LandingPage } from 'pages/containers'
-import { LandingCommentForm } from 'components/forms'
+import { CommentForm } from 'components/forms'
 import LandingBanner from 'components/banner'
 import Comments from 'components/comments'
 
@@ -28,6 +28,7 @@ class Landing extends React.Component {
           headshot: null,
         }
     }
+    this.commentForm = React.createRef();
   }
   componentWillMount() {
     this.getProfile()
@@ -63,20 +64,6 @@ class Landing extends React.Component {
       self.setState({loading: false})
     })
   }
-  submitComment(values){
-    var self = this
-    self.setState({submitting: true})
-    createComment(values).then((response) => {
-      // Reload the Comments to Repopulate
-      // TODO: Pop up success message in a modal (or error message in a modal).
-      // TODO: Clear the form contents.
-      self.getComments()
-    }).catch((error) => {
-      console.error('There was an error submitting the comment.')
-    }).finally(() => {
-      self.setState({submitting: false})
-    })
-  }
   render(){
     return (
       <LandingPage loading={this.state.submitting || this.state.loading}>
@@ -88,13 +75,12 @@ class Landing extends React.Component {
         />
         <div className='landing-container'>
           <div className='content'>
-            <h3 className='intro'>{this.state.intro}</h3>
+            <h3 className='intro'>{this.state.profile.intro}</h3>
             <div className="comments">
               <Comments comments={this.state.comments}/>
             </div>
-            <LandingCommentForm
-              onSubmitComment={this.submitComment.bind(this)}
-              loading={this.state.submitting}
+            <CommentForm
+              onSubmitted={this.getComments.bind(this)}
             />
           </div>
         </div>

@@ -44,6 +44,7 @@ class SideBarButton extends React.Component {
     url: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     external: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -59,7 +60,10 @@ class SideBarButton extends React.Component {
       )
     }
     return (
-      <StyledInternalLink to={this.props.url} >
+      <StyledInternalLink
+        to={this.props.url}
+        onClick={this.props.onClick}
+      >
         {this.props.label}
       </StyledInternalLink>
     )
