@@ -3,75 +3,44 @@ import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
 
 import Spinner from 'react-bootstrap/Spinner'
+import './spinner.sass'
 
 
-const PageSpinnerContainer = styled.div`
-  position: fixed;
-  top: calc(50vh - 30px);
-  left: calc(50vw - 30px);
-  z-index: 10000;
-  width: 60px;
-  height: 60px;
-`;
-
-const ComponentSpinnerContainer = styled(PageSpinnerContainer)`
-  position: absolute;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
-`;
-
-
-export class PageSpinner extends React.Component {
-  static propTypes = {
-    show: PropTypes.bool.isRequired,
-  }
-  static defaultProps = {
-    show: false,
-  }
-  render() {
-    if (this.props.show) {
-      return (
-        <React.Fragment>
-        <PageSpinnerContainer>
+export const PageSpinner = (props) => {
+  if (props.show) {
+    return (
+      <React.Fragment>
+        <div className='spinner-container'>
           <Spinner animation="border" variant="primary" size="md">
             <span className="sr-only">Loading...</span>
           </Spinner>
-        </PageSpinnerContainer>
-        {this.props.children}
-        </React.Fragment>
-      )
-    }
-    else {
-      return (
-        <React.Fragment>
-          {this.props.children}
-        </React.Fragment>
-      )
-    }
+        </div>
+        {props.children}
+      </React.Fragment>
+    )
+  }
+  else {
+    return (
+      <React.Fragment>
+        {props.children}
+      </React.Fragment>
+    )
   }
 }
 
-export class ComponentSpinner extends React.Component {
-  static propTypes = {
-    show: PropTypes.bool.isRequired,
+export const ComponentSpinner = (props) => {
+  if (props.show) {
+    return (
+      <div className='spinner-container component'>
+        <Spinner animation="border" variant="primary" size="sm">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </div>
+    )
   }
-  static defaultProps = {
-    show: false,
-  }
-  render() {
-    if (this.props.show) {
-      return (
-        <ComponentSpinnerContainer>
-          <Spinner animation="border" variant="primary" size="sm">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        </ComponentSpinnerContainer>
-      )
-    }
-    else {
-      return (
-        <ComponentSpinnerContainer />
-      )
-    }
+  else {
+    return (
+      <ComponentSpinnerContainer />
+    )
   }
 }
