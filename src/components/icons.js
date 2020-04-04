@@ -2,58 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import styled from 'styled-components';
+import './icons.sass'
+var classNames = require('classNames')
 
 
-const IconText = styled.span`
-  font-family: ${props => (props.fontFamily || props.theme.fonts.roboto)};
-  font-weight: ${props => (props.fontWeight || props.theme.fontweights.regular)};
-  color: ${props => (props.color || props.theme.colors.textGray1)};
-
-  font-size: ${props => (props.size == 'large') ? "12px" : "10px"};
-  line-height: ${props => (props.size == 'large') ? "12px" : "10px"};
-
-  @media screen and (min-width: ${props => props.theme.screenMin.tablet}){
-    font-size: ${props => (props.size == 'large') ? "13px" : "11px"};
-    line-height: ${props => (props.size == 'large') ? "13px" : "11px"};
+const conditionalClassNames = (props, ...constantClassNames) => {
+  if (props.className) {
+    return classNames(props.className, ...constantClassNames)
   }
-
-  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
-    font-size: ${props => (props.size == 'large') ? "14px" : "12px"};
-    line-height: ${props => (props.size == 'large') ? "14px" : "12px"};
-  }
-`;
-
-const IconContainer = styled.span`
-  margin-right: 8px;
-  color: ${props => (props.color || props.theme.colors.textGray1)};
-  text-align: center;
-
-  height: ${props => (props.size == 'large') ? "12px" : "10px"};
-  width: ${props => (props.size == 'large') ? "12px" : "10px"};
-
-  @media screen and (min-width: ${props => props.theme.screenMin.tablet}){
-    height: ${props => (props.size == 'large') ? "13px" : "11px"};
-    width: ${props => (props.size == 'large') ? "13px" : "11px"};
-  }
-
-  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
-    height: ${props => (props.size == 'large') ? "14px" : "12px"};
-    width: ${props => (props.size == 'large') ? "14px" : "12px"};
-  }
-`;
-
-const Icon = styled(FontAwesomeIcon)`
-  line-height: 10px;
-
-  @media screen and (min-width: ${props => props.theme.screenMin.tablet}){
-    line-height: 12px;
-  }
-
-  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
-    line-height: ${props => (props.size == 'large') ? "14px" : "12px"};
-  }
-`;
+  return classNames(...constantClassNames)
+}
 
 
 class IconizedText extends React.Component {
@@ -64,13 +22,13 @@ class IconizedText extends React.Component {
   }
   render() {
     return (
-        <p style={this.props.style}>
-          <IconContainer size={this.props.size} color={this.props.color}>
-            <Icon icon={this.props.icon} color={this.props.color}/>
-          </IconContainer>
-          <IconText size={this.props.size} color={this.props.color}>
+        <p className={conditionalClassNames(this.props, 'iconized-text')} style={this.props.style}>
+          <span className='icon-container'>
+            <FontAwesomeIcon className='icon' icon={this.props.icon}/>
+          </span>
+          <span className='text'>
             {this.props.text}
-          </IconText>
+          </span>
         </p>
     )
   }

@@ -24,17 +24,9 @@ $background-color: rgb(250, 250, 250);
 $navbar-color: rgba(65, 65, 65, 0.4);
 $footer-color: rgba(65, 65, 65, 0.4);
 
-// Responsive
-$break-mobile: 0px;
-$break-tablet: 426px;  // Mobile Runs Up to 425px
-$break-laptop-s: 769px; // Tablet is 768px
-$break-laptop-l: 1025px;
-$break-full: 1441px;
-
 // Fonts
 $opensans:  'Open Sans', sans-serif;
 $roboto:  'Roboto', sans-serif;
-
 
 $colors: (
   "white": $white,

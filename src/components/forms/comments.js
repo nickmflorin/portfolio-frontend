@@ -26,55 +26,61 @@ const schema = yup.object({
 
 const TextualInput = ({
   field, // { name, value, onChange, onBlur }
-  form: { touched, errors },
+  form: { touched, errors, status },
   bootstrapAs,
   ...props
-}) => (
-  <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
-    {props.label && (
-      <BootstrapForm.Label>{props.label}</BootstrapForm.Label>
-    )}
-    <InputGroup>
-      {props.prepend && (
-        <InputGroup.Prepend>
-          <InputGroup.Text>{props.prepend}</InputGroup.Text>
-        </InputGroup.Prepend>
+}) => {
+  return (
+    <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
+      {props.label && (
+        <BootstrapForm.Label>{props.label}</BootstrapForm.Label>
       )}
-      <BootstrapForm.Control
-        isValid={touched[field.name] && !errors[field.name]}
-        isInvalid={errors[field.name]}
-        as={bootstrapAs}
-        {...field}
-        {...props}
-      />
-      <BootstrapForm.Control.Feedback type="invalid">
-        {touched[field.name] &&
-          errors[field.name] && <div className="errors">{errors[field.name]}</div>}
-      </BootstrapForm.Control.Feedback>
-    </InputGroup>
-    {props.help && (
-      <p className='help-text'>{props.help}</p>
-    )}
-  </BootstrapForm.Group>
-);
+      <InputGroup>
+        {props.prepend && (
+          <InputGroup.Prepend>
+            <InputGroup.Text>{props.prepend}</InputGroup.Text>
+          </InputGroup.Prepend>
+        )}
+        <BootstrapForm.Control
+          isValid={touched[field.name] && (!errors[field.name] && !(status && status[field.name]))}
+          isInvalid={touched[field.name] && (errors[field.name] || (status && status[field.name]))}
+          as={bootstrapAs}
+          {...field}
+          {...props}
+        />
+        <BootstrapForm.Control.Feedback type="invalid">
+          {touched[field.name] &&
+            errors[field.name] && <div className="errors">{errors[field.name]}</div>}
+          {status && status[field.name] &&
+            <div className="errors">{status[field.name][0]}</div>}
+        </BootstrapForm.Control.Feedback>
+      </InputGroup>
+      {props.help && (
+        <p className='help-text'>{props.help}</p>
+      )}
+    </BootstrapForm.Group>
+  )
+};
 
 const CheckInput = ({
   field, // { name, value, onChange, onBlur }
-  form: { touched, errors, dirty, status },
+  form: { touched, errors, status },
   ...props
 }) => {
     return (
       <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
         <InputGroup>
           <BootstrapForm.Check
-            isValid={touched[field.name] && !errors[field.name]}
-            isInvalid={errors[field.name]}
+          isValid={touched[field.name] && (!errors[field.name] && !(status && status[field.name]))}
+          isInvalid={touched[field.name] && (errors[field.name] || (status && status[field.name]))}
             {...field}
             {...props}
           />
           <BootstrapForm.Control.Feedback type="invalid">
             {touched[field.name] &&
               errors[field.name] && <div className="errors">{errors[field.name]}</div>}
+            {status && status[field.name] &&
+              status[field.name] && <div className="errors">{status[field.name][0]}</div>}
           </BootstrapForm.Control.Feedback>
         </InputGroup>
         {props.help && (
@@ -92,40 +98,34 @@ export class CommentForm extends React.Component {
     super(props, context);
     this.state = {
       loading: false,
-      success: false,
-      failure: false,
+      show_success_modal: false,
+      show_failure_modal: false,
+      errors: []
     }
   }
   hideSuccessModal(){
-    console.log('we want to hide')
-    this.setState({ success: false })
+    this.setState({ show_success_modal: false })
   }
   hideFailureModal(){
-    this.setState({ failure: false })
+    this.setState({ show_failure_modal: false })
   }
-  submitComment(values, {setSubmitting, setErrors, setStatus, resetForm}){
-    this.setState({ loading: true })  // Use Formik Hook ?
-    setSubmitting(true)  // Not Sure What This Triggers w Formik.
-
-    var self = this
-    createComment(values).then((response) => {
-      console.log(`Comment ${response.id} Successfully Submitted`)
-      self.props.onSubmitted()  // Reload the Comments to Repopulate
-      resetForm()
-      self.setState({ failure: false, success: true })
-    }).catch((error) => {
-      // TODO: Set Errors with Formik Hook?
-      // TODO: Set Errors for Modal
-      console.error('There was an error submitting the comment.')
-      self.setState({ failure: true, success: false })
-    }).finally(() => {
-      self.setState({ loading: false })  // Use Formik Hook ?
-      setSubmitting(false)  // Not Sure What This Triggers w Formik.
+  showFailureModal(errors){
+    this.setState({
+      show_failure_modal: true,
+      errors: errors || []
+    })
+  }
+  showSuccessModal(){
+    this.setState({
+      show_success_modal: true,
     })
   }
   render() {
-      return (
-        <React.Fragment>
+    // TODO: Add validation for email field and public switch instead of relying
+    // on API response.
+    var self = this
+    return (
+      <React.Fragment>
         <CommentSuccessModal
           show={this.state.success}
           onHide={this.hideSuccessModal.bind(this)}
@@ -133,16 +133,44 @@ export class CommentForm extends React.Component {
         <CommentFailureModal
           show={this.state.failure}
           onHide={this.hideFailureModal.bind(this)}
+          errors={this.state.errors}
         />
         <Item>
           <Formik
             validationSchema={schema}
-            onSubmit={this.submitComment.bind(this)}
             initialValues={{
               name: '',
               email: '',
               public: false,
               comment: '',
+            }}
+            onSubmit={(values, actions) => {
+              self.setState({ loading: true })
+              actions.setSubmitting(true)  // Not Sure What This Triggers w Formik.
+
+              createComment(values).then((response) => {
+                console.log(`Comment ${response.id} Successfully Submitted`)
+                self.props.onSubmitted()  // Reload the Comments to Repopulate
+                actions.resetForm()
+                self.showSuccessModal()
+              }).catch((error) => {
+                // TODO: Maybe we want to just show these as global form errors
+                // instead of using a modal.
+                if (error.body) {
+                  if (error.body.__all__) {
+                    self.showFailureModal(error.body.__all__)
+                  }
+                  else {
+                    actions.setStatus(error.body)
+                  }
+                }
+                else {
+                  self.showFailureModal(['Unknown error with API.'])
+                }
+              }).finally(() => {
+                self.setState({ loading: false })  // Use Formik Hook ?
+                actions.setSubmitting(false)  // Not Sure What This Triggers w Formik.
+              })
             }}
           >
           {({ values, handleSubmit, handleChange, isSubmitting, status, errors, ...props }) => (
@@ -202,7 +230,7 @@ export class CommentForm extends React.Component {
             )}
           </Formik>
         </Item>
-        </React.Fragment>
-      )
+      </React.Fragment>
+    )
   }
 }

@@ -1,0 +1,79 @@
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
+
+
+.iconized-text
+  color: map-get($colors, 'text-gray1')
+  font-family: map-get($fonts, "roboto")
+  font-weight: map-get($fontweights, "regular")
+
+  .icon-container
+    margin-right: 8px
+    text-align: center
+    height: 10px
+    width: 10px
+
+    @include set-responsive-above('tablet')
+      height: 11px
+      width: 11px
+
+    @include set-responsive-above('laptop-s')
+      height: 12px
+      width: 12px
+
+    .icon
+      line-height: 10px
+
+      @include set-responsive-above('tablet')
+        line-height: 11px
+
+      @include set-responsive-above('laptop-s')
+        line-height: 12px
+
+  .text
+    font-size: 10px
+    line-height: 10px
+
+    @include set-responsive-above('tablet')
+      font-size: 11px
+      line-height: 11px
+
+    @include set-responsive-above('laptop-s')
+      font-size: 12px
+      line-height: 12px
+
+  &.large
+    .icon-container
+      height: 12px
+      width: 12px
+
+      @include set-responsive-above('tablet')
+        height: 13px
+        width: 13px
+
+      @include set-responsive-above('laptop-s')
+        height: 14px
+        width: 14px
+
+      .icon
+        line-height: 12px
+
+        @include set-responsive-above('tablet')
+          line-height: 13px
+
+        @include set-responsive-above('laptop-s')
+          line-height: 14px
+
+    .text
+      font-size: 12px
+      line-height: 12px
+
+      @include set-responsive-above('tablet')
+        font-size: 13px
+        line-height: 13px
+
+      @include set-responsive-above('laptop-s')
+        font-size: 14px
+        line-height: 14px

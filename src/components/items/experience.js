@@ -88,9 +88,8 @@ class Experience extends React.Component {
               <IconizedText
                 text="Projects"
                 icon={faHammer}
-                size='large'
                 style={{marginBottom: '12px'}}
-                color={this.props.theme.colors.textTertiary}
+                className={'text-tertiary large'}
               />
               {this.state.projects.map((project, index) => {
                 return <Project key={index} {...project}/>
@@ -102,9 +101,8 @@ class Experience extends React.Component {
               <IconizedText
                 text="Skills"
                 icon={faFire}
-                size='large'
                 style={{marginBottom: '12px'}}
-                color={this.props.theme.colors.textTertiary}
+                className={'text-tertiary large'}
               />
               <Tags items={_.pluck(this.state.skills, 'name')} />
             </React.Fragment>

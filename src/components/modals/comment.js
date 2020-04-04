@@ -27,6 +27,9 @@ export const CommentFailureModal = props => {
       </Modal.Header>
       <Modal.Body>
         <p>There was an error submitting your comment/question.</p>
+        {props.errors.map((error, index) => {
+          return <p key={index}> {error} </p>
+        })}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={props.onHide}>Ok</Button>
