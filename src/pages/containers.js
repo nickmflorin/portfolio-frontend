@@ -63,7 +63,7 @@ export class Page extends React.Component {
   }
   render() {
     return (
-      <PageContainer>
+      <PageContainer style={this.props.style}>
         <PageSpinner show={this.props.loading}/>
         <HeaderContainer>
           <Header>{this.props.header}</Header>
