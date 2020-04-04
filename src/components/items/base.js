@@ -8,16 +8,10 @@ var classNames = require('classnames');
 
 
 class Item extends React.Component {
-  static propTypes = {
-    loading: PropTypes.bool.isRequired,
-  }
-  static defaultProps = {
-    loading: false
-  }
   render(){
     return (
       <div {...this.props} className={classNames('item', this.props.className)}>
-        <ComponentSpinner show={this.props.loading} />
+        <ComponentSpinner show={this.props.loading || false} />
         {this.props.children}
       </div>
     )

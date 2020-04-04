@@ -44,7 +44,8 @@ const StyledExternalLink = styled.a`
 class NavBarButton extends React.Component {
 
   static propTypes = {
-    url: PropTypes.string.isRequired,
+    // URL Cannot be Required Since We Are Populating with API Response for Resume URL
+    url: PropTypes.string,
     label: PropTypes.string.isRequired,
     external: PropTypes.bool.isRequired,
   }

@@ -16,7 +16,6 @@ class SideBar extends React.Component {
 
   static propTypes = {
     items: PropTypes.array.isRequired,
-    visible: PropTypes.bool.isRequired,
     onSideBarClick: PropTypes.func.isRequired,
   }
 
@@ -24,7 +23,7 @@ class SideBar extends React.Component {
     super(props, context);
     this.state = {
       resume_url: null,
-      visible: props.visible || false,
+      visible: false,
     }
   }
   componentWillMount() {

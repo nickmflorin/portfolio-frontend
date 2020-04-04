@@ -69,7 +69,6 @@ class App extends React.Component {
     this.sidebar.current.hide()
   }
   onHomeClick(){
-    console.log('Home Clicked')
     this.sidebar.current.hide()
   }
   render() {

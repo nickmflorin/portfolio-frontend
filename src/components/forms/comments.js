@@ -173,12 +173,9 @@ export class CommentForm extends React.Component {
               })
             }}
           >
-          {({ values, handleSubmit, handleChange, isSubmitting, status, errors, ...props }) => (
+          {( props ) => (
               <Form
-                onSubmit={handleSubmit}
-                loading={isSubmitting}
-                success={!!status && !!status.success}
-                error={!!errors.submit}
+                onSubmit={props.handleSubmit}
               >
                 <Field
                   name="name"
