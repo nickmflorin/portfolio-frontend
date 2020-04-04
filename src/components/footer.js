@@ -1,17 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { FOOTER } from 'config'
+import './footer.sass'
 
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer>
-        <div className='content'>{FOOTER}</div>
-      </footer>
-    )
-  }
+const Footer = (props) => {
+  return (
+    <footer>
+      <p className='content'>{FOOTER}</p>
+    </footer>
+  )
 }
 
 export default Footer;
