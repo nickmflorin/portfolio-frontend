@@ -15,24 +15,6 @@ import { Item } from 'components/items';
 import './forms.sass'
 
 
-const ItemForm = styled(Form)`
-  width: 100%;
-  padding: 5px;
-`;
-
-const HelpText = styled.p`
-  font-size: 10px;
-  font-family: ${props => props.theme.fonts.roboto};
-  font-weight: ${props => props.theme.fontweights.light};
-  color: ${props => props.theme.colors.textTertiary};
-  margin-left: 2px;
-  margin-top: 2px;
-`;
-
-const Errors = styled.div`
-  text-transform: capitalize;
-`;
-
 const schema = yup.object({
   name: yup.string().required(),
   email: yup.string().email(),
@@ -57,7 +39,7 @@ const NameInput = (props) => {
           isInvalid={props.errors.name}
         />
         <BootstrapForm.Control.Feedback type="invalid">
-          <Errors>{props.errors.name}</Errors>
+          <div className='errors'>{props.errors.name}</div>
         </BootstrapForm.Control.Feedback>
       </InputGroup>
     </BootstrapForm.Group>
@@ -82,10 +64,10 @@ const EmailInput = (props) => {
           isInvalid={props.errors.email || (props.touched.email && !props.values.public && !props.values.email)}
         />
         <BootstrapForm.Control.Feedback type="invalid">
-          <Errors>{props.errors.email || "Must be provided if the submission is not public."}</Errors>
+          <div className='errors'>{props.errors.email || "Must be provided if the submission is not public."}</div>
         </BootstrapForm.Control.Feedback>
       </InputGroup>
-      <HelpText>Only required if the submission is non-public.  Will never be displayed online.</HelpText>
+      <p className='help-text'>Only required if the submission is non-public.  Will never be displayed online.</p>
     </BootstrapForm.Group>
   )
 }
@@ -105,7 +87,7 @@ const CommentInput = (props) => {
         isInvalid={props.errors.comment}
       />
       <BootstrapForm.Control.Feedback type="invalid">
-        <Errors>{props.errors.comment}</Errors>
+        <div className='errors'>{props.errors.comment}</div>
       </BootstrapForm.Control.Feedback>
     </BootstrapForm.Group>
   )
@@ -122,7 +104,7 @@ const PublicInput = (props) => {
         onChange={props.handleChange}
         isValid={props.touched.public && !props.errors.public}
       />
-      <HelpText>Public questions/comments will be displayed online.</HelpText>
+      <p className='help-text'>Public questions/comments will be displayed online.</p>
     </BootstrapForm.Group>
   )
 }
@@ -169,13 +151,13 @@ export class LandingCommentForm extends React.Component {
             }}
           >
           {({ handleSubmit, ...props }) => (
-              <ItemForm noValidate onSubmit={handleSubmit}>
+              <Form noValidate onSubmit={handleSubmit}>
                 <NameInput {...props}/>
                 <EmailInput {...props}/>
                 <CommentInput {...props}/>
                 <PublicInput {...props}/>
                 <Submit loading={this.props.loading} {...props}/>
-              </ItemForm>
+              </Form>
             )}
           </Formik>
         </Item>
