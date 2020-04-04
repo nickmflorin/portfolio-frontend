@@ -8,8 +8,9 @@ import LinkedIn from 'media/icons/LinkedIn_White.png'
 
 import { urlify } from 'utils'
 import { TITLE_COMPONENTS } from 'config'
-import Headshot from 'components/headshot';
 import { SocialButton } from 'components/buttons'
+
+import './banner.sass'
 
 
 const BannerImage = styled.div`
@@ -76,6 +77,15 @@ const SubTitleComponent = (props) => {
   return <span>{props.text}</span>
 }
 
+class Headshot extends React.Component {
+  render() {
+      return (
+        <div className="headshot-container">
+          <img className="headshot" src={this.props.src}/>
+        </div>
+      )
+  }
+}
 
 class LandingBanner extends React.Component {
   static propTypes = {
@@ -84,6 +94,7 @@ class LandingBanner extends React.Component {
     title: PropTypes.string,
     github_url: PropTypes.string,
     linkedin_url: PropTypes.string,
+    headshot: PropTypes.string,
   }
   render(){
     return (
@@ -91,7 +102,7 @@ class LandingBanner extends React.Component {
         <BannerImage image={landing} />
         <BannerBody>
           <BannerBodyContent>
-            <Headshot />
+            <Headshot src={this.props.headshot} />
             <Title>{this.props.title}</Title>
             <SubTitle>
               {TITLE_COMPONENTS.map((text, index) =>

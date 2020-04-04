@@ -10,8 +10,8 @@
   background: white
   clip-path: circle(45px at center)
   -webkit-clip-path: circle(45px at center)
-  width: 90px
-  height: 90px
+  width: 100px
+  height: 100px
 
   @include set-responsive-above('mobile')
     width: 110px
@@ -20,16 +20,16 @@
     -webkit-clip-path: circle(55px at center)
 
   @include set-responsive-above('tablet')
+    width: 120px
+    height: 120px
+    clip-path: circle(60px at center)
+    -webkit-clip-path: circle(60px at center)
+
+  @include set-responsive-above('laptop-s')
     width: 130px
     height: 130px
     clip-path: circle(65px at center)
     -webkit-clip-path: circle(65px at center)
-
-  @include set-responsive-above('laptop-s')
-    width: 150px
-    height: 150px
-    clip-path: circle(75px at center)
-    -webkit-clip-path: circle(75px at center)
 
   .headshot
     position: absolute
@@ -38,8 +38,8 @@
 
     clip-path: circle(43px at center)
     -webkit-clip-path: circle(43px at center)
-    width: 86px
-    height: 86px
+    width: 96px
+    height: 96px
 
     &:hover
       filter: brightness(0.6)
@@ -51,13 +51,13 @@
       -webkit-clip-path: circle(53px at center)
 
     @include set-responsive-above('tablet')
+      width: 116px
+      height: 116px
+      clip-path: circle(58px at center)
+      -webkit-clip-path: circle(58px at center)
+
+    @include set-responsive-above('laptop-s')
       width: 126px
       height: 126px
       clip-path: circle(63px at center)
       -webkit-clip-path: circle(63px at center)
-
-    @include set-responsive-above('laptop-s')
-      width: 146px
-      height: 146px
-      clip-path: circle(73px at center)
-      -webkit-clip-path: circle(73px at center)
