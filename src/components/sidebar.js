@@ -26,7 +26,7 @@ class SideBar extends React.Component {
       visible: false,
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     var self = this
     getProfile().then((response) => {
       self.setState({ resume_url: response.resume })

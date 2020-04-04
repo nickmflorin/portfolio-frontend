@@ -26,7 +26,7 @@ class NavBar extends React.Component {
     super(props, context);
     this.state = { resume_url: null }
   }
-  componentWillMount() {
+  componentDidMount() {
     var self = this
     getProfile().then((response) => {
       self.setState({ resume_url: response.resume })

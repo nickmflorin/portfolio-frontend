@@ -14,10 +14,7 @@ class Education extends React.Component {
       loading: false,
     }
   }
-  componentWillMount() {
-    this.getEducation()
-  }
-  getEducation() {
+  componentDidMount() {
     var self = this
     getAllEducation().then((response) => {
       const ordered = sortExperienceEducation(response)

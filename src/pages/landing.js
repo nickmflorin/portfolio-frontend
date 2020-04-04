@@ -28,7 +28,7 @@ class Landing extends React.Component {
         }
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     this.getProfile()
     this.getComments()
   }

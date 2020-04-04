@@ -43,10 +43,7 @@ class Project extends React.Component {
         files: [],
     }
   }
-  componentWillMount() {
-    this.getProject()
-  }
-  getProject() {
+  componentDidMount() {
     var self = this
     getProject(this.props.id).then((response) => {
       const files = _.filter(response.files, (file) => {

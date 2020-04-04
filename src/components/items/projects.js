@@ -42,7 +42,7 @@ class Project extends React.Component {
         loading: true,
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     /**
     * TODO: We only need this API call to get the PDF files associated with
       the project.  Ideally, we want the projects attached with a given education

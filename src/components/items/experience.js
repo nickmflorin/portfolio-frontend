@@ -37,10 +37,7 @@ class Experience extends React.Component {
       loading: true,
     }
   }
-  componentWillMount() {
-    this.getExperience()
-  }
-  getExperience() {
+  componentDidMount() {
     var self = this
     getExperience(this.props.id).then((response) => {
       self.setState({

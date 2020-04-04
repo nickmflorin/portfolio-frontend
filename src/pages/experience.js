@@ -14,10 +14,7 @@ class Experience extends React.Component {
       loading: false,
     }
   }
-  componentWillMount() {
-    this.getExperience()
-  }
-  getExperience() {
+  componentDidMount() {
     var self = this
     getAllExperience().then((response) => {
       const ordered = sortExperienceEducation(response)

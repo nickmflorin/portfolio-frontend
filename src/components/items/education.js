@@ -44,10 +44,7 @@ class Education extends React.Component {
       loading: true,
     }
   }
-  componentWillMount() {
-    this.getEducation()
-  }
-  getEducation() {
+  componentDidMount() {
     var self = this
     getEducation(this.props.id).then((response) => {
       self.setState({

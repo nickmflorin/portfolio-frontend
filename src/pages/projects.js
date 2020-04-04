@@ -17,10 +17,7 @@ class Projects extends React.Component {
         loading: true,
     }
   }
-  componentWillMount() {
-    this.getProjects()
-  }
-  getProjects() {
+  componentDidMount() {
     var self = this
     getProjects().then((response) => {
       const projects = _.filter(response, (item) => item.showcase)
