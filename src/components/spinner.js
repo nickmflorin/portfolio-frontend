@@ -40,7 +40,7 @@ export const ComponentSpinner = (props) => {
   }
   else {
     return (
-      <ComponentSpinnerContainer />
+      <div className='spinner-container component'></div>
     )
   }
 }
