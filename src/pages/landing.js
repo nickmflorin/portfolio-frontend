@@ -28,7 +28,6 @@ class Landing extends React.Component {
           headshot: null,
         }
     }
-    this.commentForm = React.createRef();
   }
   componentWillMount() {
     this.getProfile()
