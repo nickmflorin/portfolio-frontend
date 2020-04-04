@@ -1,0 +1,63 @@
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
+
+
+.headshot-container
+  display: inline-block
+  position: relative
+  background: white
+  clip-path: circle(45px at center)
+  -webkit-clip-path: circle(45px at center)
+  width: 90px
+  height: 90px
+
+  @include set-responsive-above('mobile')
+    width: 110px
+    height: 110px
+    clip-path: circle(55px at center)
+    -webkit-clip-path: circle(55px at center)
+
+  @include set-responsive-above('tablet')
+    width: 130px
+    height: 130px
+    clip-path: circle(65px at center)
+    -webkit-clip-path: circle(65px at center)
+
+  @include set-responsive-above('laptop-s')
+    width: 150px
+    height: 150px
+    clip-path: circle(75px at center)
+    -webkit-clip-path: circle(75px at center)
+
+  .headshot
+    position: absolute
+    top: 2px
+    left: 2px
+
+    clip-path: circle(43px at center)
+    -webkit-clip-path: circle(43px at center)
+    width: 86px
+    height: 86px
+
+    &:hover
+      filter: brightness(0.6)
+
+    @include set-responsive-above('mobile')
+      width: 106px
+      height: 106px
+      clip-path: circle(53px at center)
+      -webkit-clip-path: circle(53px at center)
+
+    @include set-responsive-above('tablet')
+      width: 126px
+      height: 126px
+      clip-path: circle(63px at center)
+      -webkit-clip-path: circle(63px at center)
+
+    @include set-responsive-above('laptop-s')
+      width: 146px
+      height: 146px
+      clip-path: circle(73px at center)
+      -webkit-clip-path: circle(73px at center)
