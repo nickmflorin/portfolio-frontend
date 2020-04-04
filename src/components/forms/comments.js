@@ -12,10 +12,12 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import { Item } from 'components/items';
 
+import './forms.sass'
+
 
 const ItemForm = styled(Form)`
   width: 100%;
-  padding: 15px;
+  padding: 5px;
 `;
 
 const HelpText = styled.p`

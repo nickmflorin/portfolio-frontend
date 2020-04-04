@@ -1,0 +1,45 @@
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
+
+
+.navbar
+  height: 100%
+  width: 100%
+  display: flex
+  // Override for Bootstrap
+  padding: 0 !important
+  align-items: flex-start !important
+
+  &.overlay
+    background-color: map-get($colors, "navbar")
+
+  .left
+    flex-grow: 100
+    display: flex
+    padding-left: 6px
+
+  .right
+    display: flex
+    padding-right: 6px
+
+    .buttons
+      display: flex
+
+      @include set-responsive-below('tablet')
+        display: none !important
+
+    .button-container
+      margin-left: 10px
+      margin-right: 10px
+      padding-top: 15px
+      padding-bottom: 15px
+      display: flex
+
+      &.menu
+        padding-top: 9px
+        padding-bottom: 9px
+
+        @include set-responsive-above('laptop-s')
+          display: none !important

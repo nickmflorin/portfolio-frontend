@@ -9,51 +9,10 @@ import { pixelfy } from 'utils'
 import { getProfile } from 'services'
 import { NavBarButton, SideNavBarButton, LogoButton, MenuButton } from './buttons'
 
+import './nav.sass'
 
-const NavBarContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  background-color: ${props => (props.overlay && props.theme.colors.navbar)};
-`;
+var classNames = require('classNames')
 
-const NavBarLeftContainer = styled.div`
-  flex-grow: 100;
-  display: flex;
-  padding-left: 6px;
-`;
-
-const NavBarRightContainer = styled.div`
-  display: flex;
-  padding-right: 6px;
-`;
-
-const NavBarButtonsContainer = styled.div`
-  display: flex;
-
-  @media screen and (max-width: ${props => props.theme.screenMax.tablet}){
-    display: none !important;
-  }
-`;
-
-const NavBarButtonContainer = styled.div`
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  display: flex;
-`;
-
-const MenuButtonContainer = styled.div`
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-top: 9px;
-  padding-bottom: 9px;
-
-  @media screen and (min-width: ${props => props.theme.screenMin.laptopS}){
-    display: none !important;
-  }
-`;
 
 class NavBar extends React.Component {
 
@@ -76,35 +35,35 @@ class NavBar extends React.Component {
   }
   render() {
     return (
-      <NavBarContainer overlay={this.props.overlay}>
-        <NavBarLeftContainer>
+      <div className={this.props.overlay ? classNames('navbar', 'overlay') : classNames('navbar')}>
+        <div className='left'>
           <LogoButton to="/" />
-        </NavBarLeftContainer>
-        <NavBarRightContainer>
-          <NavBarButtonsContainer>
+        </div>
+        <div className='right'>
+          <div className='buttons'>
             {this.props.items.map((item) => {
               return (
-                <NavBarButtonContainer key={item.id}>
+                <div className='button-container' key={item.id}>
                   <NavBarButton
                     url={item.link}
                     label={item.label}
                   />
-                </NavBarButtonContainer>
+                </div>
               )
             })}
-            <NavBarButtonContainer>
+            <div className='button-container'>
               <NavBarButton
                 url={this.state.resume_url}
                 label={"Resume"}
                 external={true}
               />
-            </NavBarButtonContainer>
-          </NavBarButtonsContainer>
-          <MenuButtonContainer>
+            </div>
+          </div>
+          <div className='button-container menu'>
             <MenuButton onClick={this.props.onMenuClick}/>
-          </MenuButtonContainer>
-        </NavBarRightContainer>
-      </NavBarContainer>
+          </div>
+        </div>
+      </div>
     );
   }
 }
