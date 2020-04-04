@@ -16,7 +16,6 @@ class Landing extends React.Component {
     super(props, context);
     this.state = {
         loading: true,
-        submitting: false,
         comments: [],
         profile: {
           github_url: null,
@@ -65,7 +64,7 @@ class Landing extends React.Component {
   }
   render(){
     return (
-      <LandingPage loading={this.state.submitting || this.state.loading}>
+      <LandingPage loading={this.state.loading}>
         <LandingBanner
           title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
           github_url={this.state.profile.github_url}
