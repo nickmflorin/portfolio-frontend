@@ -71,7 +71,7 @@ export const LogoLink = (props) => (
 )
 
 export const FileLink = (props) => (
-  <a className='file-link smaller' href={props.url}>
+  <a className='file-link smaller' href={props.url} target="_blank">
     <div className='icon-container'>
       <FontAwesomeIcon className='icon' icon={faFileDownload}/>
     </div>
