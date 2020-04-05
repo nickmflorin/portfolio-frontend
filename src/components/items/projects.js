@@ -57,11 +57,11 @@ class Project extends React.Component {
       <div className='body-panel-object'>
         <p className='name smaller'>{this.props.name}</p>
         <p className='description'>{this.props.showcase_description || this.props.description}</p>
-        <p className='files'>
+        <div className='files'>
           {this.state.files.map((file) => {
             return <FileLink key={file.id} label={file.name} url={file.file} />
           })}
-        </p>
+        </div>
       </div>
     )
   }
