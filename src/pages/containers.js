@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { pixelfy } from 'utils'
-import { PageSpinner } from 'components/spinner'
+import { Loader } from 'semantic-ui-react'
 
 
 const HeaderContainer = styled.div`
@@ -46,7 +46,7 @@ export class LandingPage extends React.Component {
   render() {
     return (
       <LandingPageContainer>
-        <PageSpinner show={this.props.loading}/>
+        <Loader active={true}/>
         {this.props.children}
       </LandingPageContainer>
     )
@@ -64,7 +64,7 @@ export class Page extends React.Component {
   render() {
     return (
       <PageContainer style={this.props.style}>
-        <PageSpinner show={this.props.loading}/>
+        <Loader active={this.props.loading}/>
         <HeaderContainer>
           <Header>{this.props.header}</Header>
         </HeaderContainer>

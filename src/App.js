@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import update from 'react-addons-update';
 import _ from 'underscore'
 
-import { Button } from 'semantic-ui-react'
-
 import { faGraduationCap, faBriefcase, faHammer, faFilePdf, faHome
   } from '@fortawesome/free-solid-svg-icons'
 
