@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import './icons.sass'
-var classNames = require('classNames')
+var classNames = require('classnames')
 
 
 const conditionalClassNames = (props, ...constantClassNames) => {

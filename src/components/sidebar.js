@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { SideBarButton } from './buttons'
 import './sidebar.sass'
 
-var classNames = require('classNames')
+var classNames = require('classnames')
 
 
 class SideBar extends React.Component {

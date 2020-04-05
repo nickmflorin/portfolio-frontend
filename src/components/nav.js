@@ -9,7 +9,7 @@ import { NavBarButton, SideNavBarButton, LogoButton, MenuButton } from './button
 
 import './nav.sass'
 
-var classNames = require('classNames')
+var classNames = require('classnames')
 
 
 class NavBar extends React.Component {
