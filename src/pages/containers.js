@@ -46,7 +46,7 @@ export class LandingPage extends React.Component {
   render() {
     return (
       <LandingPageContainer>
-        <Loader active={true}/>
+        <Loader active={this.props.loading}/>
         {this.props.children}
       </LandingPageContainer>
     )
