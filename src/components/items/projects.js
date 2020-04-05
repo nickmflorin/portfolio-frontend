@@ -16,6 +16,7 @@ class Project extends React.Component {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    showcase_description: PropTypes.string,
     showcase: PropTypes.bool.isRequired,
   }
 
@@ -55,7 +56,7 @@ class Project extends React.Component {
     return (
       <div className='body-panel-object'>
         <p className='name smaller'>{this.props.name}</p>
-        <p className='description'>{this.props.description}</p>
+        <p className='description'>{this.props.showcase_description || this.props.description}</p>
         <p className='files'>
           {this.state.files.map((file) => {
             return <FileLink key={file.id} label={file.name} url={file.file} />
