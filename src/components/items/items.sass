@@ -75,59 +75,56 @@
       margin-left: 95px
       margin-top: 0px
 
-    > div
-      margin-bottom: 12px
+    > .panel
+      border-bottom: map-get($borders, 'light')
+      color: map-get($colors, 'text-tertiary')
+      margin-bottom: 8px
+      padding-bottom: 10px
+      text-align: left
 
-    > div:last-child
-      margin-bottom: 0px
-
-    &.project
-      margin-left: 0px !important
-
-    > .descriptions
+      &:last-child
+        border-bottom: none
+        margin-bottom: 0
+        padding-bottom: 0
 
       > p
-        font-family: map-get($fonts, 'roboto')
-        font-weight: map-get($fontweights, 'light')
-        color: map-get($colors, 'text-tertiary')
         margin-bottom: 8px
-        text-align: left
+        &:last-child
+          margin-bottom: 0px
 
-        :last-child
-          margin-bottom: 0px !important
+      > .panel-header
+        margin-bottom: 12px
 
-    > .body-panel
-      border-top: map-get($borders, 'light')
-      padding-top: 8px
+      > .panel-content
 
-      > .body-panel-objects
-
-        > .body-panel-object
+        > .panel-content-item
           margin-bottom: 10px
-
           &:last-child
             margin-bottom: 0px !important
 
+          > p
+            margin-bottom: 6px
+            &:last-child
+              margin-bottom: 0px
+
           > .name
-            margin-bottom: 8px
             font-family: map-get($fonts, 'opensans')
             font-weight: map-get($fontweights, 'regular')
 
           > .description
             color: map-get($colors, 'text-tertiary')
-            margin-bottom: 8px
 
           > .files
             > a
               font-weight: map-get($fontweights, 'light')
               margin-bottom: 4px
-
               &:last-child
                 margin-bottom: 0px !important
 
   &.project
     max-width: 1200px
     padding: 15px 20px
+    margin-left: 0px !important
 
     @include set-responsive-above("tablet")
       padding: 15px 30px
@@ -153,6 +150,13 @@
 
       @include set-responsive-above("laptop-s")
         margin-bottom: 14px
+
+      .descriptions
+        > p
+          margin-bottom: 8px
+          text-align: left
+          &:last-child
+            margin-bottom: 0px !important
 
       .files-container
         display: inline-block

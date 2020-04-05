@@ -54,7 +54,7 @@ class Project extends React.Component {
     // TODO: Include link icon next to text for project name if it has an associated
     // project showcased on the projects page.
     return (
-      <div className='body-panel-object'>
+      <div className='panel-content-item'>
         <p className='name smaller'>{this.props.name}</p>
         <p className='description'>{this.props.showcase_description || this.props.description}</p>
         <div className='files'>

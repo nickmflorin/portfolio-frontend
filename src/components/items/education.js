@@ -106,7 +106,7 @@ class Education extends React.Component {
         </div>
         <div className='body'>
 
-          <div className='descriptions'>
+          <div className='panel'>
             {(this.props.school.description) && (
               <p>{this.props.school.description}</p>
             )}
@@ -120,14 +120,15 @@ class Education extends React.Component {
           </div>
 
           {(this.state.projects.length != 0) && (
-            <div className='body-panel'>
-              <IconizedText
-                text="Projects"
-                icon={faHammer}
-                style={{marginBottom: '12px'}}
-                className={'text-tertiary large'}
-              />
-              <div className='body-panel-objects'>
+            <div className='panel'>
+              <div className='panel-header'>
+                <IconizedText
+                  text="Projects"
+                  icon={faHammer}
+                  className={'text-tertiary large'}
+                />
+              </div>
+              <div className='panel-content'>
                 {this.state.projects.map((project, index) => {
                   return <Project key={index} {...project}/>
                 })}
@@ -136,26 +137,30 @@ class Education extends React.Component {
           )}
 
           {(this.state.skills.length != 0) && (
-            <div className='body-panel'>
-              <IconizedText
-                text="Skills"
-                icon={faFire}
-                style={{marginBottom: '12px'}}
-                className={'text-tertiary large'}
-              />
-              <Tags items={_.pluck(this.state.skills, 'name')} />
+            <div className='panel'>
+              <div className='panel-header'>
+                <IconizedText
+                  text="Skills"
+                  icon={faFire}
+                  className={'text-tertiary large'}
+                />
+              </div>
+              <div className='panel-content'>
+                <Tags items={_.pluck(this.state.skills, 'name')} />
+              </div>
             </div>
           )}
 
           {(this.state.courses.length != 0) && (
-            <div className='body-panel'>
-              <IconizedText
-                text="Courses"
-                icon={faSchool}
-                style={{marginBottom: '12px'}}
-                className={'text-tertiary large'}
-              />
-              <div className='body-panel-objects'>
+            <div className='panel'>
+              <div className='panel-header'>
+                <IconizedText
+                  text="Courses"
+                  icon={faSchool}
+                  className={'text-tertiary large'}
+                />
+              </div>
+              <div className='panel-content'>
                 <Tags items={_.pluck(this.state.courses, 'name')} />
               </div>
             </div>

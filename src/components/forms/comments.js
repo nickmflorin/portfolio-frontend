@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
+import Alert from 'react-bootstrap/Alert';
 import BootstrapForm from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
@@ -12,7 +13,6 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import { createComment } from 'services'
 import { Item } from 'components/items';
-import { CommentSuccessModal, CommentFailureModal } from 'components/modals'
 
 import './forms.sass'
 
@@ -98,136 +98,140 @@ export class CommentForm extends React.Component {
     super(props, context);
     this.state = {
       loading: false,
-      show_success_modal: false,
-      show_failure_modal: false,
+      show_success: false,
+      show_failure: false,
       errors: []
     }
   }
-  hideSuccessModal(){
-    this.setState({ show_success_modal: false })
+  hideSuccess(){
+    this.setState({ show_success: false })
   }
-  hideFailureModal(){
-    this.setState({ show_failure_modal: false })
+  hideFailure(){
+    this.setState({ show_failure: false, errors: [] })
   }
-  showFailureModal(errors){
+  showFailure(errors){
     this.setState({
-      show_failure_modal: true,
-      errors: errors || []
+      show_failure: true,
+      errors: errors || [],
+      show_success: false
     })
   }
-  showSuccessModal(){
-    this.setState({
-      show_success_modal: true,
-    })
+  showSuccess(){
+    this.setState({show_success: true, show_failure: false})
   }
   render() {
-    // TODO: Add validation for email field and public switch instead of relying
-    // on API response.
     var self = this
     return (
-      <React.Fragment>
-        <CommentSuccessModal
-          show={this.state.show_success_modal}
-          onHide={this.hideSuccessModal.bind(this)}
-        />
-        <CommentFailureModal
-          show={this.state.show_failure_modal}
-          onHide={this.hideFailureModal.bind(this)}
-          errors={this.state.errors}
-        />
-        <Item>
-          <Formik
-            validationSchema={schema}
-            initialValues={{
-              name: '',
-              email: '',
-              public: false,
-              comment: '',
-            }}
-            onSubmit={(values, actions) => {
-              self.setState({ loading: true })
-              actions.setSubmitting(true)  // Not Sure What This Triggers w Formik.
+      <Item>
+        <Formik
+          validationSchema={schema}
+          initialValues={{
+            name: '',
+            email: '',
+            public: false,
+            comment: '',
+          }}
+          onSubmit={(values, actions) => {
+            self.setState({ loading: true })
+            actions.setSubmitting(true)  // Not Sure What This Triggers w Formik.
 
-              createComment(values).then((response) => {
-                console.log(`Comment ${response.id} Successfully Submitted`)
-                self.props.onSubmitted()  // Reload the Comments to Repopulate
-                actions.resetForm()
-                self.showSuccessModal()
-              }).catch((error) => {
-                // TODO: Maybe we want to just show these as global form errors
-                // instead of using a modal.
-                if (error.body) {
-                  if (error.body.__all__) {
-                    self.showFailureModal(error.body.__all__)
-                  }
-                  else {
-                    actions.setStatus(error.body)
-                  }
+            createComment(values).then((response) => {
+              console.log(`Comment ${response.id} Successfully Submitted`)
+              self.props.onSubmitted()  // Reload the Comments to Repopulate
+              actions.resetForm()
+              self.showSuccess()
+            }).catch((error) => {
+              // TODO: Maybe we want to just show these as global form errors
+              // instead of using a modal.
+              if (error.body) {
+                if (error.body.__all__) {
+                  self.showFailure(error.body.__all__)
                 }
                 else {
-                  self.showFailureModal(['Unknown error with API.'])
+                  actions.setStatus(error.body)
                 }
-              }).finally(() => {
-                self.setState({ loading: false })  // Use Formik Hook ?
-                actions.setSubmitting(false)  // Not Sure What This Triggers w Formik.
-              })
-            }}
-          >
-          {( props ) => (
-              <Form
-                onSubmit={props.handleSubmit}
-              >
-                <Field
-                  name="name"
-                  label="Name"
-                  component={TextualInput}
-                  placeholder="Please provide your name."
-                  type='text'
-                />
-                <Field
-                  label="Email"
-                  name="email"
-                  type="email"
-                  component={TextualInput}
-                  placeholder="name@example.com"
-                  prepend="@"
-                  help="Only required if the submission is non-public.  Will never be displayed online."
-                />
-                <Field
-                  component={TextualInput}
-                  label="Question or Comment"
-                  name="comment"
-                  bootstrapAs="textarea"
-                  as="textarea"
-                  rows="3"
-                />
-                <Field
-                  component={CheckInput}
-                  id="public"
-                  type='switch'
-                  name='public'
-                  label="Public"
-                  help="Public questions/comments will be displayed online."
-                />
+              }
+              else {
+                self.showFailure(['Unknown error with API.'])
+              }
+            }).finally(() => {
+              self.setState({ loading: false })  // Use Formik Hook ?
+              actions.setSubmitting(false)  // Not Sure What This Triggers w Formik.
+            })
+          }}
+        >
+        {( props ) => (
+            <Form
+              onSubmit={props.handleSubmit}
+            >
+              <Field
+                name="name"
+                label="Name"
+                component={TextualInput}
+                placeholder="Please provide your name."
+                type='text'
+              />
+              <Field
+                label="Email"
+                name="email"
+                type="email"
+                component={TextualInput}
+                placeholder="name@example.com"
+                prepend="@"
+                help="Only required if the submission is non-public.  Will never be displayed online."
+              />
+              <Field
+                component={TextualInput}
+                label="Question or Comment"
+                name="comment"
+                bootstrapAs="textarea"
+                as="textarea"
+                rows="3"
+              />
+              <Field
+                component={CheckInput}
+                id="public"
+                type='switch'
+                name='public'
+                label="Public"
+                help="Public questions/comments will be displayed online."
+              />
+              {this.state.show_failure && (
                 <BootstrapForm.Group as={BootstrapForm.Row}>
-                  <Button variant="primary" type="submit">
-                    {this.state.loading && (
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                      />
-                    )}
-                    Submit
-                  </Button>
+                  <Alert variant="danger" onClose={this.hideFailure.bind(this)} dismissible>
+                    <Alert.Heading>There was an error submitting your comment.</Alert.Heading>
+                    {this.state.errors.map((error, index) => {
+                      return <p key={index}>{error}</p>
+                    })}
+                  </Alert>
                 </BootstrapForm.Group>
-              </Form>
-            )}
-          </Formik>
-        </Item>
-      </React.Fragment>
+              )}
+              {this.state.show_success && (
+                <BootstrapForm.Group as={BootstrapForm.Row}>
+                  <Alert variant="success" onClose={this.hideSuccess.bind(this)} dismissible>
+                    <Alert.Heading>Awesome!</Alert.Heading>
+                    <p> Your comment/question has successfully been submitted. </p>
+                  </Alert>
+                </BootstrapForm.Group>
+              )}
+              <BootstrapForm.Group as={BootstrapForm.Row}>
+                <Button variant="primary" type="submit">
+                  {this.state.loading && (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}
+                  Submit
+                </Button>
+              </BootstrapForm.Group>
+            </Form>
+          )}
+        </Formik>
+      </Item>
     )
   }
 }

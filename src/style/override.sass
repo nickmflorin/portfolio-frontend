@@ -35,3 +35,26 @@ ul
 
 ul li:not(:last-child)
   margin-bottom: 12px
+
+.alert
+  width: 100%
+
+.alert-danger
+  background-color: rgba(map-get($colors, "red"), .2)
+  border-color: map-get($colors, "red")
+  color: map-get($colors, "red")
+
+.alert-success
+  background-color: rgba(map-get($colors, "green"), .2)
+  border-color: map-get($colors, "green")
+  color: map-get($colors, "green")
+
+.alert-heading
+  font-size: 14px
+  line-height: 14px
+  margin-bottom: 6px
+
+.alert
+  >p
+    font-size: 12px
+    line-height: 14px
