@@ -5,8 +5,9 @@ import { getProfile, getComments, createComment } from 'services'
 
 import { LandingPage } from 'pages/containers'
 import { CommentForm } from 'components/forms'
-import LandingBanner from 'components/banner'
-import Comments from 'components/comments'
+import { CommentItem } from 'components/items'
+
+import Banner from 'components/banner'
 
 import './pages.sass'
 
@@ -65,7 +66,7 @@ class Landing extends React.Component {
   render(){
     return (
       <LandingPage loading={this.state.loading}>
-        <LandingBanner
+        <Banner
           title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
           github_url={this.state.profile.github_url}
           linkedin_url={this.state.profile.linkedin_url}
@@ -75,7 +76,16 @@ class Landing extends React.Component {
           <div className='content'>
             <h3 className='intro'>{this.state.profile.intro}</h3>
             <div className="comments">
-              <Comments comments={this.state.comments}/>
+              {this.state.comments.map((comment) => {
+                return (
+                  <CommentItem key={comment.id}
+                    id={comment.id}
+                    name={comment.name}
+                    date_created={comment.date_created}
+                    comment={comment.comment}
+                  />
+                )
+              })}
             </div>
             <CommentForm
               onSubmitted={this.getComments.bind(this)}

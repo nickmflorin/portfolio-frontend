@@ -39,7 +39,7 @@ const Headshot = (props) => (
   </div>
 )
 
-const LandingBanner = (props) => (
+const Banner = (props) => (
   <React.Fragment>
     <BannerImage className='banner-image' image={landing} />
     <div className='banner-body'>
@@ -61,4 +61,4 @@ const LandingBanner = (props) => (
 )
 
 
-export default LandingBanner;
+export default Banner;
