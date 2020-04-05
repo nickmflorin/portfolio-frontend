@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
+import BrandLogo from 'media/icons/logo192_white.png'
+
+import { Logo } from 'components/image'
 import SocialButton from './social'
-import LogoButton from './logo'
 import FileLink from './file'
 
 import './buttons.sass'
 
-export { SocialButton, LogoButton, FileLink };
+export { SocialButton, FileLink };
 
 
 export const NavBarButton = (props) => {
@@ -56,5 +58,17 @@ export const SideBarButton = (props) => {
 export const MenuButton = (props) => (
   <a className='menu-button' onClick={props.onClick}>
     <FontAwesomeIcon className='icon' size="3x" icon={faBars}/>
+  </a>
+)
+
+export const BrandButton = (props) => (
+  <Link className='brand-button' to={props.to}>
+    <img className='logo' src={BrandLogo} onClick={props.onClick}/>
+  </Link>
+)
+
+export const LogoLink = (props) => (
+  <a className='logo-link' href={props.href}>
+    <Logo src={props.src} onError={props.onError} />
   </a>
 )

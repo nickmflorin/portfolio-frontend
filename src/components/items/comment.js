@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 import IconizedText from 'components/icons'
-
 import Item from './base'
-
 import './items.sass'
+
+var moment = require('moment');
 
 
 class Comment extends React.Component {
@@ -21,6 +21,11 @@ class Comment extends React.Component {
   }
 
   render() {
+    const date = moment(this.props.date_created);
+    if (!date.isValid()) {
+      throw new Error('Invalid Date!')
+    };
+    const date_formatted = date.format('dddd, MMM Do YYYY');
     return (
         <Item>
           <div className='header' style={{display: "inline-block"}}>
@@ -28,7 +33,7 @@ class Comment extends React.Component {
             <div className='header-items'>
               <div className='header-item'>
                 <IconizedText
-                  text={this.props.date_created}
+                  text={date_formatted}
                   icon={faCalendarAlt}
                   size={12}
                 />

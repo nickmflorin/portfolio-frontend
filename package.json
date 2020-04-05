@@ -14,6 +14,7 @@
     "classnames": "^2.2.6",
     "formik": "^2.1.4",
     "js-cookie": "^2.2.1",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-addons-update": "^15.6.2",
@@ -23,6 +24,8 @@
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",
     "react-scripts": "^3.4.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.0.1",
     "underscore": "^1.9.2",
     "yup": "^0.28.3"

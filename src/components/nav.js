@@ -5,7 +5,7 @@ import _ from 'underscore'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-import { NavBarButton, SideNavBarButton, LogoButton, MenuButton } from './buttons'
+import { NavBarButton, SideNavBarButton, BrandButton, MenuButton } from './buttons'
 
 import './nav.sass'
 
@@ -23,7 +23,7 @@ class NavBar extends React.Component {
     return (
       <div className={this.props.overlay ? classNames('navbar', 'overlay') : classNames('navbar')}>
         <div className='left'>
-          <LogoButton to="/" onClick={this.props.onHomeClick}/>
+          <BrandButton to="/" onClick={this.props.onHomeClick}/>
         </div>
         <div className='right'>
           <div className='buttons'>

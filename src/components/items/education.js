@@ -9,6 +9,8 @@ import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
 import { getEducation } from 'services'
 import { formatDateRange } from 'utils'
 
+import { LogoLink } from 'components/buttons'
+import { Logo } from 'components/image'
 import IconizedText from 'components/icons'
 import Tags from 'components/tags'
 
@@ -58,6 +60,11 @@ class Education extends React.Component {
       self.setState({loading: false})
     })
   }
+  onImageLoadError(event){
+    // TODO:  This will not handle cases where the company.url is not defined, but
+    // we should have it built in none the less.
+    console.log(event)
+  }
   render() {
     var degree = `${this.props.degree}, ${this.props.major}`
     if(this.props.degree.charAt(this.props.degree.length - 1) === "."){
@@ -67,7 +74,10 @@ class Education extends React.Component {
       <Item loading={this.state.loading}>
         <div className='header'>
           <div className='left'>
-            <img className='logo' alt="Could not Load" src={this.props.school.logo}/>
+            {this.props.school.url
+              ? <LogoLink src={this.props.school.logo} onError={this.onImageLoadError} href={this.props.school.url}/>
+              : <Logo src={this.props.school.logo} onError={this.onImageLoadError}/>
+            }
           </div>
           <div className='right'>
             <h3 className='title'>{degree}</h3>
