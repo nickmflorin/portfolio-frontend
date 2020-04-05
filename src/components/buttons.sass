@@ -73,3 +73,43 @@
 
   &:hover
     filter: opacity(0.7)
+
+.file-link
+  display: flex
+
+  .text
+    font-size: 12px
+    line-height: 14px
+
+    @include set-responsive-above('laptop-s')
+      font-size: 13px
+      line-height: 15px
+
+  .icon-container
+    margin-right: 4px
+
+    .icon
+      font-size: 12px
+      line-height: 14px
+
+      @include set-responsive-above('laptop-s')
+        font-size: 13px
+        line-height: 15px
+
+
+.social-link-container
+  height: 30px
+  width: 30px
+  margin-left: 10px
+  margin-right: 10px
+
+  .social-link
+    height: 30px
+    width: 30px
+
+    &:hover
+      opacity: 0.7
+
+    .icon
+      height: 30px
+      width: 30px

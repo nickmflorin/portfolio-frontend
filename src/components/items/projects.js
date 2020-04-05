@@ -10,28 +10,12 @@ import { getFileExtension } from 'utils'
 import { FileLink } from 'components/buttons'
 
 
-const StyledProject = styled.div`
-  margin-bottom: 10px;
-`;
-
-const ProjectName = styled.p`
-  font-family: ${props => props.theme.fonts.opensans};
-  font-weight: ${props => props.theme.fontweights.regular};
-`;
-
-const ProjectDescription = styled.p`
-  color: ${props => props.theme.colors.textTertiary};
-  margin-bottom: 6px;
-  margin-top: 8px;
-`;
-
-
 class Project extends React.Component {
 
   static propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    short_description: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     showcase: PropTypes.bool.isRequired,
   }
 
@@ -69,15 +53,15 @@ class Project extends React.Component {
     // TODO: Include link icon next to text for project name if it has an associated
     // project showcased on the projects page.
     return (
-      <StyledProject>
-        <ProjectName className='smaller'>{this.props.name}</ProjectName>
-        <ProjectDescription>{this.props.short_description}</ProjectDescription>
-        <div>
+      <div className='body-panel-object'>
+        <p className='name smaller'>{this.props.name}</p>
+        <p className='description'>{this.props.description}</p>
+        <p className='files'>
           {this.state.files.map((file) => {
             return <FileLink key={file.id} label={file.name} url={file.file} />
           })}
-        </div>
-      </StyledProject>
+        </p>
+      </div>
     )
   }
 }

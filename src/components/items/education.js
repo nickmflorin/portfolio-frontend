@@ -7,7 +7,7 @@ import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
   faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import { getEducation } from 'services'
-import { formatDateRange } from 'utils'
+import { formatDateRange, onImageLoadError } from 'utils'
 
 import { LogoLink } from 'components/buttons'
 import { Logo } from 'components/image'
@@ -60,11 +60,6 @@ class Education extends React.Component {
       self.setState({loading: false})
     })
   }
-  onImageLoadError(event){
-    // TODO:  This will not handle cases where the company.url is not defined, but
-    // we should have it built in none the less.
-    console.log(event)
-  }
   render() {
     var degree = `${this.props.degree}, ${this.props.major}`
     if(this.props.degree.charAt(this.props.degree.length - 1) === "."){
@@ -75,8 +70,8 @@ class Education extends React.Component {
         <div className='header'>
           <div className='left'>
             {this.props.school.url
-              ? <LogoLink src={this.props.school.logo} onError={this.onImageLoadError} href={this.props.school.url}/>
-              : <Logo src={this.props.school.logo} onError={this.onImageLoadError}/>
+              ? <LogoLink src={this.props.school.logo} onError={onImageLoadError} href={this.props.school.url}/>
+              : <Logo src={this.props.school.logo} onError={onImageLoadError}/>
             }
           </div>
           <div className='right'>
@@ -110,7 +105,11 @@ class Education extends React.Component {
           </div>
         </div>
         <div className='body'>
+
           <div className='descriptions'>
+            {(this.props.school.description) && (
+              <p>{this.props.school.description}</p>
+            )}
             <p>{this.props.description}</p>
             {(this.props.minor && (
                 <p>{this.props.minor && `Minor in ${this.props.minor}`}</p>
@@ -119,21 +118,25 @@ class Education extends React.Component {
                 <p>{this.props.concentration && `Concentration in ${this.props.concentration}`}</p>
             ))}
           </div>
+
           {(this.state.projects.length != 0) && (
-            <React.Fragment>
+            <div className='body-panel'>
               <IconizedText
                 text="Projects"
                 icon={faHammer}
                 style={{marginBottom: '12px'}}
                 className={'text-tertiary large'}
               />
-              {this.state.projects.map((project, index) => {
-                return <Project key={index} {...project}/>
-              })}
-            </React.Fragment>
+              <div className='body-panel-objects'>
+                {this.state.projects.map((project, index) => {
+                  return <Project key={index} {...project}/>
+                })}
+              </div>
+            </div>
           )}
+
           {(this.state.skills.length != 0) && (
-            <React.Fragment>
+            <div className='body-panel'>
               <IconizedText
                 text="Skills"
                 icon={faFire}
@@ -141,18 +144,22 @@ class Education extends React.Component {
                 className={'text-tertiary large'}
               />
               <Tags items={_.pluck(this.state.skills, 'name')} />
-            </React.Fragment>
+            </div>
           )}
+
           {(this.state.courses.length != 0) && (
-            <React.Fragment>
+            <div className='body-panel'>
               <IconizedText
                 text="Courses"
                 icon={faSchool}
                 style={{marginBottom: '12px'}}
                 className={'text-tertiary large'}
               />
-              <Tags items={_.pluck(this.state.courses, 'name')} />
-            </React.Fragment>
+              <div className='body-panel-objects'>
+                <Tags items={_.pluck(this.state.courses, 'name')} />
+              </div>
+            </div>
+
           )}
         </div>
       </Item>

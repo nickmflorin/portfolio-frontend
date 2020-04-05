@@ -8,7 +8,7 @@ import LinkedIn from 'media/icons/LinkedIn_White.png'
 
 import { urlify } from 'utils'
 import { TITLE_COMPONENTS } from 'config'
-import { SocialButton } from 'components/buttons'
+import { SocialLink } from 'components/buttons'
 
 import './banner.sass'
 
@@ -52,8 +52,8 @@ const LandingBanner = (props) => (
           )}
         </h3>
         <div className='social-container'>
-          <SocialButton icon={Github} url={props.github_url}/>
-          <SocialButton icon={LinkedIn} url={props.linkedin_url}/>
+          <SocialLink icon={Github} url={props.github_url}/>
+          <SocialLink icon={LinkedIn} url={props.linkedin_url}/>
         </div>
       </div>
     </div>

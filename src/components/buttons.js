@@ -1,18 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faFileDownload } from '@fortawesome/free-solid-svg-icons'
 
 import BrandLogo from 'media/icons/logo192_white.png'
 
 import { Logo } from 'components/image'
-import SocialButton from './social'
-import FileLink from './file'
 
 import './buttons.sass'
-
-export { SocialButton, FileLink };
 
 
 export const NavBarButton = (props) => {
@@ -71,4 +68,27 @@ export const LogoLink = (props) => (
   <a className='logo-link' href={props.href}>
     <Logo src={props.src} onError={props.onError} />
   </a>
+)
+
+export const FileLink = (props) => (
+  <a className='file-link smaller' href={props.url}>
+    <div className='icon-container'>
+      <FontAwesomeIcon className='icon' icon={faFileDownload}/>
+    </div>
+    <div className='text'>
+      {props.label}
+    </div>
+  </a>
+)
+
+const SocialIcon = styled.img`
+  content: ${props => 'url("' + props.icon + '")'};
+`
+
+export const SocialLink = (props) => (
+  <div className='social-link-container'>
+    <a className='social-link' href={props.url}>
+      <SocialIcon className='icon' icon={props.icon} />
+    </a>
+  </div>
 )

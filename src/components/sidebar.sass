@@ -8,10 +8,8 @@
   position: fixed
   transition-duration: 0.25s
   background-color: map-get($colors, "navbar")
-  border-bottom: map-get($borders, "white")
   border-top: map-get($borders, "white")
-
-  height: unquote("calc(" + vhify(100) + " - " + pixelfy(map-get($heights, "header")) + " - " + pixelfy(map-get($heights, "footer")) + ")")
+  border-left: map-get($borders, "white")
   top: pixelfy(map-get($heights, "header"))
   width: pixelfy(map-get($widths, "sidebar"))
 

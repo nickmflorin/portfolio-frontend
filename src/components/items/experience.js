@@ -6,7 +6,7 @@ import _ from 'underscore'
 import { faFire, faHammer, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 import { getExperience } from 'services'
-import { formatDateRange } from 'utils'
+import { formatDateRange, onImageLoadError } from 'utils'
 
 import { LogoLink } from 'components/buttons'
 import { Logo } from 'components/image'
@@ -52,19 +52,14 @@ class Experience extends React.Component {
       self.setState({loading: false})
     })
   }
-  onImageLoadError(event){
-    // TODO:  This will not handle cases where the company.url is not defined, but
-    // we should have it built in none the less.
-    console.log(event)
-  }
   render() {
     return (
       <Item loading={this.state.loading}>
         <div className='header'>
           <div className='left'>
             {this.props.company.url
-              ? <LogoLink src={this.props.company.logo} onError={this.onImageLoadError} href={this.props.company.url}/>
-              : <Logo src={this.props.company.logo} onError={this.onImageLoadError}/>
+              ? <LogoLink src={this.props.company.logo} onError={onImageLoadError} href={this.props.company.url}/>
+              : <Logo src={this.props.company.logo} onError={onImageLoadError}/>
             }
           </div>
           <div className='right'>
@@ -92,36 +87,44 @@ class Experience extends React.Component {
           </div>
         </div>
         <div className='body'>
+
           <div className='descriptions'>
             {(this.props.company.description) && (
               <p>{this.props.company.description}</p>
             )}
             <p>{this.props.description}</p>
           </div>
+
           {(this.state.projects.length != 0) && (
-            <React.Fragment>
+            <div className='body-panel'>
               <IconizedText
                 text="Projects"
                 icon={faHammer}
                 style={{marginBottom: '12px'}}
                 className={'text-tertiary large'}
               />
-              {this.state.projects.map((project, index) => {
-                return <Project key={index} {...project}/>
-              })}
-            </React.Fragment>
+              <div className='body-panel-objects'>
+                {this.state.projects.map((project, index) => {
+                  return <Project key={index} {...project}/>
+                })}
+              </div>
+            </div>
           )}
+
           {(this.state.skills.length != 0) && (
-            <React.Fragment>
+            <div className='body-panel'>
               <IconizedText
                 text="Skills"
                 icon={faFire}
                 style={{marginBottom: '12px'}}
                 className={'text-tertiary large'}
               />
-              <Tags items={_.pluck(this.state.skills, 'name')} />
-            </React.Fragment>
+              <div className='body-panel-objects'>
+                <Tags items={_.pluck(this.state.skills, 'name')} />
+              </div>
+            </div>
           )}
+
         </div>
       </Item>
     )
