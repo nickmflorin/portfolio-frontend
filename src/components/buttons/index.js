@@ -32,13 +32,23 @@ export const SideBarButton = (props) => {
   if (props.external) {
     return (
       <a className='sidebar-button' href={props.url} target="_blank">
-        {props.label}
+        <div className='icon-container'>
+          <FontAwesomeIcon icon={props.icon} />
+        </div>
+        <div className='text'>
+          {props.label}
+        </div>
       </a>
     )
   }
   return (
     <Link className='sidebar-button' to={props.url} onClick={props.onClick}>
-      {props.label}
+      <div className='icon-container'>
+        <FontAwesomeIcon icon={props.icon} />
+      </div>
+      <div className='text'>
+        {props.label}
+      </div>
     </Link>
   )
 }

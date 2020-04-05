@@ -15,13 +15,6 @@ import './banner.sass'
 
 const BannerImage = styled.div`
   background-image: ${props => urlify(props.image)};
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 50%;
-  max-height: ${props => (`${props.theme.heights.banner}vh`)};
-  padding-top: ${props => (`${0.5 * (props.theme.heights.banner)}vh`)};
-  padding-bottom: ${props => (`${0.5 * (props.theme.heights.banner)}vh`)};
-  border-bottom: ${props => props.theme.borders.dark};
 `;
 
 const SocialIconsContainer = styled.div`
@@ -31,35 +24,35 @@ const SocialIconsContainer = styled.div`
   margin-top: 12px;
 `;
 
-const BannerBody = styled.div`
-  position: relative;
-  top: ${props => (`${-1 * (props.theme.heights.banner)}vh`)};
-  height: ${props => (`${props.theme.heights.banner}vh`)};
-  display: flex;
-  flex-direction: column;
-`;
+// const BannerBody = styled.div`
+//   position: relative;
+//   top: ${props => (`${-1 * (props.theme.heights.banner)}vh`)};
+//   height: ${props => (`${props.theme.heights.banner}vh`)};
+//   display: flex;
+//   flex-direction: column;
+// `;
+//
+// const BannerBodyContent = styled.div`
+//   margin: auto;
+//   display: inline-block;
+//   text-align: center;
+// `;
 
-const BannerBodyContent = styled.div`
-  margin: auto;
-  display: inline-block;
-  text-align: center;
-`;
-
-const Title = styled.h1`
-  font-family: ${props => props.theme.fonts.opensans};
-  font-weight: ${props => props.theme.fontweights.regular};
-  color: ${props => props.theme.colors.white};
-  width: 100%;
-  display: inline-block;
-`;
-
-const SubTitle = styled.h3`
-  font-family: ${props => props.theme.fonts.opensans};
-  font-weight: ${props => props.theme.fontweights.regular};
-  color: ${props => props.theme.colors.white};
-  width: 100%;
-  display: inline-block;
-`;
+// const Title = styled.h1`
+//   font-family: ${props => props.theme.fonts.opensans};
+//   font-weight: ${props => props.theme.fontweights.regular};
+//   color: ${props => props.theme.colors.white};
+//   width: 100%;
+//   display: inline-block;
+// `;
+//
+// const SubTitle = styled.h3`
+//   font-family: ${props => props.theme.fonts.opensans};
+//   font-weight: ${props => props.theme.fontweights.regular};
+//   color: ${props => props.theme.colors.white};
+//   width: 100%;
+//   display: inline-block;
+// `;
 
 const Separator = styled.span`
   margin-left: 5px;
@@ -77,15 +70,12 @@ const SubTitleComponent = (props) => {
   return <span>{props.text}</span>
 }
 
-class Headshot extends React.Component {
-  render() {
-      return (
-        <div className="headshot-container">
-          <img className="headshot" src={this.props.src}/>
-        </div>
-      )
-  }
-}
+const Headshot = (props) => (
+  <div className="headshot-container">
+    <img className="headshot" src={props.src}/>
+  </div>
+)
+
 
 class LandingBanner extends React.Component {
   static propTypes = {
@@ -99,22 +89,22 @@ class LandingBanner extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <BannerImage image={landing} />
-        <BannerBody>
-          <BannerBodyContent>
+        <BannerImage className='banner-image' image={landing} />
+        <div className='banner-body'>
+          <div className='banner-body-content'>
             <Headshot src={this.props.headshot} />
-            <Title>{this.props.title}</Title>
-            <SubTitle>
+            <h1 className='title'>{this.props.title}</h1>
+            <h3 className='sub-title'>
               {TITLE_COMPONENTS.map((text, index) =>
                 <SubTitleComponent key={index} text={text} index={index} total={3}/>
               )}
-            </SubTitle>
-            <SocialIconsContainer>
+            </h3>
+            <div className='social-container'>
               <SocialButton icon={Github} url={this.props.github_url}/>
               <SocialButton icon={LinkedIn} url={this.props.linkedin_url}/>
-            </SocialIconsContainer>
-          </BannerBodyContent>
-        </BannerBody>
+            </div>
+          </div>
+        </div>
       </React.Fragment>
     )
   }

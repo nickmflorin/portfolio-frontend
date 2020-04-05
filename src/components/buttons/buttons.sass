@@ -6,26 +6,35 @@
 
 .sidebar-button
   font-size: 1em
-  padding: 6px 8px
-  line-height: 18px
-  width: 100%
-  margin: 0 auto
-  text-transform: uppercase
-  background: transparent
   color: map-get($colors, "white")
-  text-align: center
+  display: flex
+  line-height: 18px
+  height: 38px
+  padding: 10px 8px
+  justify-content: center
 
   &:hover
     background: map-get($colors, "white")
     color: map-get($colors, "text-gray1")
 
+.icon-container
+  width: 18px
+  text-align: center
+  vertical-align: middle
+  margin-right: 6px
+
+.text
+  background: transparent
+  text-align: left
+
+
 
 .navbar-button
   font-size: 1em
-  padding: 6px 8px
+  padding: 6px 10px
   line-height: 18px
   border: map-get($borders, "white")
-  border-radius: 4px !important
+  border-radius: 2px !important
   width: 100%
   margin: 0 auto
   text-transform: uppercase

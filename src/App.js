@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import update from 'react-addons-update';
 import _ from 'underscore'
 
-import { faGraduationCap, faBriefcase, faHammer, faFilePdf } from '@fortawesome/free-solid-svg-icons'
+import { faGraduationCap, faBriefcase, faHammer, faFilePdf, faHome
+  } from '@fortawesome/free-solid-svg-icons'
 
 import { getProfile } from 'services'
 
@@ -19,6 +20,14 @@ import "./App.sass"
 const Theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/constants.scss');
 
 const NavBarItems = [
+  {
+    id : 'home',
+    label : 'Home',
+    url : '/',
+    external: false,
+    icon: faHome,
+    page: Landing,
+  },
   {
     id : 'experience',
     label : 'Experience',
@@ -110,16 +119,15 @@ class App extends React.Component {
               </Switch>
             </header>
             <section>
-                <Route exact path="/" component={Landing}></Route>
-                {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
-                  return (
-                    <Route
-                      key={item.id}
-                      exact path={item.url}
-                      component={item.page}
-                    ></Route>
-                  )
-                })}
+              {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
+                return (
+                  <Route
+                    key={item.id}
+                    exact path={item.url}
+                    component={item.page}
+                  ></Route>
+                )
+              })}
             </section>
             <Footer />
           </div>

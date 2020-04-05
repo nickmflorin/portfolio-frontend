@@ -3,61 +3,100 @@
 @use "sass:map"
 @use "sass:string"
 
+.banner-image
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: 50% 50%
+  max-height: vhify(map-get($heights, 'banner'))
+  padding-top: vhify(0.5 * map-get($heights, 'banner'))
+  padding-bottom: vhify(0.5 * map-get($heights, 'banner'))
+  border-bottom: map-get($borders, 'dark')
+  filter: brightness(60%)
 
-.headshot-container
-  display: inline-block
+.banner-body
   position: relative
-  background: white
-  clip-path: circle(45px at center)
-  -webkit-clip-path: circle(45px at center)
-  width: 100px
-  height: 100px
+  top: vhify(-1 * map-get($heights, 'banner'))
+  height: vhify(map-get($heights, 'banner'))
+  display: flex
+  flex-direction: column
 
-  @include set-responsive-above('mobile')
-    width: 110px
-    height: 110px
-    clip-path: circle(55px at center)
-    -webkit-clip-path: circle(55px at center)
+  .banner-body-content
+    margin: auto
+    display: inline-block
+    text-align: center
 
-  @include set-responsive-above('tablet')
-    width: 120px
-    height: 120px
-    clip-path: circle(60px at center)
-    -webkit-clip-path: circle(60px at center)
+    h1.title
+      font-weight: map-get($fontweights, "regular")
+      color: map-get($colors, "white")
+      width: 100%
+      display: inline-block
 
-  @include set-responsive-above('laptop-s')
-    width: 130px
-    height: 130px
-    clip-path: circle(65px at center)
-    -webkit-clip-path: circle(65px at center)
+    h3.sub-title
+      font-weight: map-get($fontweights, "regular")
+      color: map-get($colors, "white")
+      width: 100%
+      display: inline-block
 
-  .headshot
-    position: absolute
-    top: 2px
-    left: 2px
+    .social-container
+      display: flex
+      width: 100%
+      justify-content: center
+      margin-top: 12px
 
-    clip-path: circle(43px at center)
-    -webkit-clip-path: circle(43px at center)
-    width: 96px
-    height: 96px
+    .headshot-container
+      display: inline-block
+      position: relative
+      background: white
+      clip-path: circle(45px at center)
+      -webkit-clip-path: circle(45px at center)
+      width: 100px
+      height: 100px
 
-    &:hover
-      filter: brightness(0.6)
+      @include set-responsive-above('mobile')
+        width: 110px
+        height: 110px
+        clip-path: circle(55px at center)
+        -webkit-clip-path: circle(55px at center)
 
-    @include set-responsive-above('mobile')
-      width: 106px
-      height: 106px
-      clip-path: circle(53px at center)
-      -webkit-clip-path: circle(53px at center)
+      @include set-responsive-above('tablet')
+        width: 120px
+        height: 120px
+        clip-path: circle(60px at center)
+        -webkit-clip-path: circle(60px at center)
 
-    @include set-responsive-above('tablet')
-      width: 116px
-      height: 116px
-      clip-path: circle(58px at center)
-      -webkit-clip-path: circle(58px at center)
+      @include set-responsive-above('laptop-s')
+        width: 130px
+        height: 130px
+        clip-path: circle(65px at center)
+        -webkit-clip-path: circle(65px at center)
 
-    @include set-responsive-above('laptop-s')
-      width: 126px
-      height: 126px
-      clip-path: circle(63px at center)
-      -webkit-clip-path: circle(63px at center)
+      .headshot
+        position: absolute
+        top: 2px
+        left: 2px
+
+        clip-path: circle(43px at center)
+        -webkit-clip-path: circle(43px at center)
+        width: 96px
+        height: 96px
+
+        &:hover
+          filter: brightness(0.6)
+
+        @include set-responsive-above('mobile')
+          width: 106px
+          height: 106px
+          clip-path: circle(53px at center)
+          -webkit-clip-path: circle(53px at center)
+
+        @include set-responsive-above('tablet')
+          width: 116px
+          height: 116px
+          clip-path: circle(58px at center)
+          -webkit-clip-path: circle(58px at center)
+
+        @include set-responsive-above('laptop-s')
+          width: 126px
+          height: 126px
+          clip-path: circle(63px at center)
+          -webkit-clip-path: circle(63px at center)
