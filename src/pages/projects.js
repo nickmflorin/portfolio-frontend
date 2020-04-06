@@ -21,7 +21,7 @@ class Projects extends React.Component {
     var self = this
     getProjects().then((response) => {
       const projects = _.filter(response, (item) => item.showcase)
-      self.setState({project: projects})
+      self.setState({projects: projects})
     }).catch((error) => {
       console.error('There was an error loading projects.')
     }).finally(() => {

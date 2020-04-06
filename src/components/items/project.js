@@ -34,7 +34,7 @@ class Project extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    showcase_description: PropTypes.string.isRequired,
   }
   constructor(props, context) {
     super(props, context);
@@ -50,7 +50,7 @@ class Project extends React.Component {
         return isImageFile(file.file)
       })
       self.setState({
-          description: response.long_description,
+          showcase_description: response.showcase_description,
           files: files,
       })
     }).catch((error) => {
@@ -71,7 +71,7 @@ class Project extends React.Component {
           </div>
           <div className='body project'>
             <div className='descriptions'>
-              <p>{this.props.description}</p>
+              <p>{this.state.showcase_description}</p>
             </div>
             <div className='files-container'>
               {this.state.files.map((file) => {
