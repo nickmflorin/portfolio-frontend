@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore'
 
 import { getProjects } from 'services'
-import { Page } from 'pages/containers'
+import { Page } from 'pages/page'
 import { ProjectItem } from 'components/items'
 
 import "./pages.sass"

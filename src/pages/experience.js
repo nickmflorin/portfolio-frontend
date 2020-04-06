@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getAllExperience } from 'services'
-import { Page } from 'pages/containers'
+import { Page } from 'pages/page'
 import { ExperienceItem } from 'components/items'
 import { sortExperienceEducation, formatDateRange } from 'utils'
 

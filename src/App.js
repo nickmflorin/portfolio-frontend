@@ -92,7 +92,7 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={Theme}>
         <BrowserRouter>
-          <div className='app-content'>
+          <div className='app'>
             <header>
               <SideBar
                 items={this.state.items}
@@ -118,7 +118,7 @@ class App extends React.Component {
                 </Route>
               </Switch>
             </header>
-            <section>
+            <div className='content'>
               {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
                 return (
                   <Route
@@ -128,7 +128,7 @@ class App extends React.Component {
                   ></Route>
                 )
               })}
-            </section>
+            </div>
             <Footer />
           </div>
         </BrowserRouter>

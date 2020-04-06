@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Page } from 'pages/containers'
+import { Page } from 'pages/page'
 import { EducationItem } from 'components/items'
 import { getAllEducation } from 'services'
 import { sortExperienceEducation, formatDateRange } from 'utils'

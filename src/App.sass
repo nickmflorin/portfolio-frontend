@@ -4,7 +4,7 @@
 @use "sass:string"
 
 
-.app-content
+.app
   height: 100vh
 
   header
@@ -14,9 +14,12 @@
     width: 100%
     height: pixelfy(map-get($heights, "header"))
 
-  section
+  .content
     width: 100%
-    position: absolute
+    position: relative
     background-color: map-get($colors, "background")
-    max-height: unquote("calc(" + vhify(100) + " - " + pixelfy(map-get($heights, "footer")) + ")")
-    overflow-y: scroll
+    max-height: unquote("calc(" + vhify(100) + " - " + pixelfy(map-get($heights, "footer")) + " - " + pixelfy(map-get($heights, "header")) + ")")
+    top: pixelfy(map-get($heights, 'header'))
+    display: flex
+    flex-direction: column
+    overflow-y: visible
