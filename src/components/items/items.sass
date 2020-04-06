@@ -4,25 +4,13 @@
   max-width: 800px
   position: relative
   text-align: left
-
-  border-radius: 5px
-  border: map-get($borders, "regular")
-  background-color: map-get($colors, "white")
-
+  border-top: map-get($borders, 'light')
   max-width: 100%
   padding: 10px
   margin: 0px auto 10px auto
 
   &:last-child
     margin-bottom: 0px !important
-
-  @include set-responsive-above("tablet")
-    padding: 15px
-    margin: 0px auto 15px auto
-
-  @include set-responsive-above("laptop-l")
-    padding: 20px
-    margin: 0px auto 20px auto
 
   .header
     display: flex
