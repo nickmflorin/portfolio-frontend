@@ -3,6 +3,23 @@
 @use "sass:map"
 @use "sass:string"
 
+.custom-container
+  margin: 0 auto
+  padding: 10px
+
+  @media (min-width: 576px)
+    max-width: 540px
+
+  @include set-responsive-above("tablet")
+    max-width: 720px
+
+  @media (min-width: 992px)
+    max-width: 960px
+
+  @media (min-width: 1200px)
+    max-width: 1140px
+
+
 .page
   position: relative
   max-height: 100%
@@ -11,37 +28,33 @@
   flex-direction: column
   // If we move the overflow-y to the .page-content class, the content will flow
   // underneath the header but the scrollbar won't go from header to footer.
-  // overflow-y: scroll
+  overflow-y: scroll
 
   .page-content
     // If we move the overflow-y to the .page class, the scroll bar will only go
     // from header to footer but the content won't float underneath the opacity of
     // the header.
-    overflow-y: scroll
+    // overflow-y: scroll
 
     // We only need this property if the overflow-y is in the .page-content class,
     // otherwise it should be commented out.
-    margin-bottom: pixelfy(map-get($heights, 'footer'))
+    // margin-bottom: pixelfy(map-get($heights, 'footer'))
 
-    .container
-      padding: 25px
-      margin: 0 auto
-      max-width: 800px
+    .custom-container
 
       .header-container
-        margin: 0px auto 20px auto
         border: map-get($borders, 'regular')
         border-radius: 5px
         background-color: map-get($colors, 'white')
         padding: 8px
+        margin: 0px auto 10px auto
+
+        @include set-responsive-above("laptop-s")
+          margin: 0px auto 20px auto
 
         .header
           margin: 0
           text-align: center
-
-      .container-content
-        text-align: center
-        margin: 20px auto 0px auto
 
 
 .landing-page
@@ -63,10 +76,7 @@
     height: unquote("calc(" + vhify(100) + " - " + vhify($banner-height) + ")")
     margin-top: vhify($inverse-banner-height)
 
-    .container
-      max-width: 800px
-      margin: 0 auto
-      padding: 20px
+    .custom-container
 
       h3.intro
         font-style: italic

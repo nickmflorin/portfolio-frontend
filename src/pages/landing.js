@@ -74,7 +74,7 @@ class Landing extends React.Component {
           headshot={this.state.profile.headshot}
         />
         <div className='page-content'>
-          <div className='container'>
+          <div className='custom-container'>
             <h3 className='intro'>{this.state.profile.intro}</h3>
             <div className="comments">
               {this.state.comments.map((comment) => {

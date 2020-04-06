@@ -84,16 +84,11 @@ $theme-colors: (
     "success": $green,
 );
 
-$screen-min: (
-  "laptop-l": 1025px,
-  "laptop-s": 769px,
-  "tablet": 426px,
-  "mobile": 0px,
-);
-
-$screen-max: (
-  "laptop-l": 1440px,
-  "laptop-s": 1024px,
-  "tablet": 768px,
-  "mobile": 425px,
+$screen-sizes: (
+  "mobile-s": 320,
+  "mobile-m": 375,
+  "mobile-l": 425,
+  "tablet": 768,
+  "laptop-s": 1024,
+  "laptop-l": 1440,
 );

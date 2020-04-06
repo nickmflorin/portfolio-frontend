@@ -2,6 +2,7 @@
 
 @use "sass:map"
 @use "sass:string"
+@use "sass:list"
 
 
 @function pixelfy($value)
@@ -12,16 +13,46 @@
   @return unquote("#{$value}vh")
 
 
+$screens: "mobile-s", "mobile-m", "mobile-l", "tablet", "laptop-s", "laptop-l"
+
+
+@mixin set-responsive-below-including($size)
+    @if not index($screens, $size)
+      @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
+
+    $index: index($screens, $size) + 1
+    $numeric-size: map-get($screen-sizes, $size) - 1
+    @media screen and (max-width: #{pixelfy($numeric-size)})
+      @content
+
+
 @mixin set-responsive-below($size)
-  $break-size: map-get($screen-max, #{$size})
-  @media screen and (max-width: #{$break-size})
+  @if not index($screens, $size)
+    @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
+
+  $numeric-size: map-get($screen-sizes, $size)
+  @media screen and (max-width: #{pixelfy($numeric-size)})
     @content
+
+
+@mixin set-responsive-above-including($size)
+    @if not index($screens, $size)
+      @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
+
+    $index: index($screens, $size) - 1
+    $numeric-size: map-get($screen-sizes, $size) + 1
+    @media screen and (min-width: #{pixelfy($numeric-size)})
+      @content
 
 
 @mixin set-responsive-above($size)
-  $break-size: map-get($screen-min, #{$size})
-  @media screen and (min-width: #{$break-size})
+  @if not index($screens, $size)
+    @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
+
+  $numeric-size: map-get($screen-sizes, $size)
+  @media screen and (min-width: #{pixelfy($numeric-size)})
     @content
+
 
 .text-primary
   color: $text-primary !important
