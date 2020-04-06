@@ -21,7 +21,7 @@ class Projects extends React.Component {
     var self = this
     getProjects().then((response) => {
       const projects = _.filter(response, (item) => item.showcase)
-      self.setState({items: projects})
+      self.setState({project: projects})
     }).catch((error) => {
       console.error('There was an error loading projects.')
     }).finally(() => {
@@ -31,8 +31,8 @@ class Projects extends React.Component {
   render() {
     return (
       <Page header="Projects" loading={this.state.loading}>
-        {this.state.projects.map((item, index) => {
-          return <ProjectItem key={item.id} {...item} />
+        {this.state.projects.map((project, index) => {
+          return <ProjectItem key={project.id} {...project} />
         })}
       </Page>
     )
