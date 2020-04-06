@@ -122,7 +122,7 @@ export class CommentForm extends React.Component {
   render() {
     var self = this
     return (
-      <Item>
+      <Item className='bordered'>
         <Formik
           validationSchema={schema}
           initialValues={{
