@@ -28,11 +28,9 @@ class Education extends React.Component {
   render() {
     return (
       <Page header="Education" loading={this.state.loading}>
-        <div>
-          {this.state.items.map((item) => {
-            return <EducationItem key={item.id} {...item} />
-          })}
-        </div>
+        {this.state.items.map((item) => {
+          return <EducationItem key={item.id} {...item} />
+        })}
       </Page>
     )
   }

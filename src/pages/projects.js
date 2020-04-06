@@ -13,7 +13,7 @@ class Projects extends React.Component {
     super(props, context);
     this.references = []
     this.state = {
-        items: [],
+        projects: [],
         loading: true,
     }
   }
@@ -31,11 +31,9 @@ class Projects extends React.Component {
   render() {
     return (
       <Page header="Projects" loading={this.state.loading}>
-        <div>
-          {this.state.items && this.state.items.map((item, index) => {
-            return <ProjectItem key={item.id} {...item} />
-          })}
-        </div>
+        {this.state.projects.map((item, index) => {
+          return <ProjectItem key={item.id} {...item} />
+        })}
       </Page>
     )
   }

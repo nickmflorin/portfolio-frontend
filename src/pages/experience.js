@@ -28,11 +28,9 @@ class Experience extends React.Component {
   render() {
     return (
       <Page header="Experience" loading={this.state.loading}>
-        <div>
-          {this.state.items.map((item) => {
-            return <ExperienceItem key={item.id} {...item} />
-          })}
-        </div>
+        {this.state.items.map((item) => {
+          return <ExperienceItem key={item.id} {...item} />
+        })}
       </Page>
     )
   }
