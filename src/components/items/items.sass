@@ -2,7 +2,6 @@
 
 .item
   max-width: 800px
-  margin: 0px auto 10px auto
   position: relative
   text-align: left
 
@@ -11,19 +10,19 @@
   background-color: map-get($colors, "white")
 
   max-width: 100%
-  padding: 15px
-
-  @include set-responsive-above("laptop-s")
-    margin-bottom: 0px auto 20px auto
+  padding: 10px
+  margin: 0px auto 10px auto
 
   &:last-child
     margin-bottom: 0px !important
 
   @include set-responsive-above("tablet")
     padding: 15px
+    margin: 0px auto 15px auto
 
-  @include set-responsive-above("laptop-s")
+  @include set-responsive-above("laptop-l")
     padding: 20px
+    margin: 0px auto 20px auto
 
   .header
     display: flex

@@ -8,7 +8,7 @@ var classNames = require('classnames');
 
 
 const Container = (props) => (
-  <div className='custom-container' style={props.style}>
+  <div className='custom-container'>
     {props.header && (
       <div className='header-container'>
         <h3 className='header'>{props.header}</h3>

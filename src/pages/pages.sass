@@ -3,23 +3,6 @@
 @use "sass:map"
 @use "sass:string"
 
-.custom-container
-  margin: 0 auto
-  padding: 10px
-
-  @media (min-width: 576px)
-    max-width: 540px
-
-  @include set-responsive-above("tablet")
-    max-width: 720px
-
-  @media (min-width: 992px)
-    max-width: 960px
-
-  @media (min-width: 1200px)
-    max-width: 1140px
-
-
 .page
   position: relative
   max-height: 100%
@@ -41,6 +24,19 @@
     // margin-bottom: pixelfy(map-get($heights, 'footer'))
 
     .custom-container
+      margin: 0 auto
+      padding: 10px
+      max-width: 100%
+
+      @include set-responsive-above("tablet")
+        max-width: 720px
+        padding: 15px
+
+      @include set-responsive-above("laptop-s")
+        max-width: 900px
+
+      @include set-responsive-above("laptop-l")
+        padding: 20px
 
       .header-container
         border: map-get($borders, 'regular')
@@ -49,7 +45,10 @@
         padding: 8px
         margin: 0px auto 10px auto
 
-        @include set-responsive-above("laptop-s")
+        @include set-responsive-above("tablet")
+          margin: 0px auto 15px auto
+
+        @include set-responsive-above("laptop-l")
           margin: 0px auto 20px auto
 
         .header
@@ -77,6 +76,20 @@
     margin-top: vhify($inverse-banner-height)
 
     .custom-container
+      margin: 0 auto
+      padding: 10px
+      max-width: 100%
+
+      @include set-responsive-above("tablet")
+        max-width: 540px
+        padding: 15px
+
+      @include set-responsive-above("laptop-s")
+        max-width: 720px
+
+      @include set-responsive-above('laptop-l')
+        max-width: 900px
+        padding: 20px
 
       h3.intro
         font-style: italic
@@ -86,6 +99,10 @@
 
         font-size: 12px
         line-height: 18px
+
+        @include set-responsive-above("mobile-l")
+          font-size: 13px
+          line-height: 19px
 
         @include set-responsive-above("tablet")
           font-size: 14px

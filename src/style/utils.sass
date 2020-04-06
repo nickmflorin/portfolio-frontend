@@ -16,16 +16,6 @@
 $screens: "mobile-s", "mobile-m", "mobile-l", "tablet", "laptop-s", "laptop-l"
 
 
-@mixin set-responsive-below-including($size)
-    @if not index($screens, $size)
-      @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
-
-    $index: index($screens, $size) + 1
-    $numeric-size: map-get($screen-sizes, $size) - 1
-    @media screen and (max-width: #{pixelfy($numeric-size)})
-      @content
-
-
 @mixin set-responsive-below($size)
   @if not index($screens, $size)
     @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
@@ -33,16 +23,6 @@ $screens: "mobile-s", "mobile-m", "mobile-l", "tablet", "laptop-s", "laptop-l"
   $numeric-size: map-get($screen-sizes, $size)
   @media screen and (max-width: #{pixelfy($numeric-size)})
     @content
-
-
-@mixin set-responsive-above-including($size)
-    @if not index($screens, $size)
-      @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
-
-    $index: index($screens, $size) - 1
-    $numeric-size: map-get($screen-sizes, $size) + 1
-    @media screen and (min-width: #{pixelfy($numeric-size)})
-      @content
 
 
 @mixin set-responsive-above($size)
