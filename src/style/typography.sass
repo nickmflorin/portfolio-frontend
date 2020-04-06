@@ -46,10 +46,13 @@ a.smaller, p.smaller
     line-height: 15px
 
 h1, h2, h3
-  letter-spacing: -0.02em
+  letter-spacing: 0em
+  font-family: $lato
+
+h4, h5, h6
+  font-family: $opensans
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
-  font-family: $opensans
   margin: 0 auto
   margin-top: 0px
 
@@ -62,7 +65,7 @@ h1, .h1
   line-height: 22px
   margin-bottom: 10px
 
-  @include set-responsive-above('tablet') 
+  @include set-responsive-above('tablet')
     font-size: 24px
     line-height: 24px
     margin-bottom: 12px

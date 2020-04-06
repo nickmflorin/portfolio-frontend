@@ -10,7 +10,7 @@ $text-primary: #282828;
 $text-secondary: #3C3C3C;
 $text-tertiary: #474747;
 $text-gray1: #5F5F5F;
-$text-gray2: #838383;
+$text-gray2: #696969;
 
 // Borders
 $border-color: #DEDEDE;
@@ -25,6 +25,7 @@ $navbar-color: rgba(65, 65, 65, 0.4);
 $footer-color: rgba(65, 65, 65, 0.4);
 
 // Fonts
+$lato:  'Lato', sans-serif;
 $opensans:  'Open Sans', sans-serif;
 $roboto:  'Roboto', sans-serif;
 
@@ -55,7 +56,8 @@ $borders: (
 
 $fonts: (
   'opensans': $opensans,
-  'roboto': $roboto
+  'roboto': $roboto,
+  'lato': $lato
 );
 
 $heights: (
