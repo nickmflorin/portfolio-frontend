@@ -7,7 +7,7 @@ import './footer.sass'
 const Footer = (props) => {
   return (
     <footer>
-      <p className='content'>{FOOTER}</p>
+      <p className='footer-content'>{FOOTER}</p>
     </footer>
   )
 }
