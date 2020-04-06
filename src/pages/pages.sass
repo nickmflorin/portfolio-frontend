@@ -9,41 +9,14 @@
   display: flex
   flex-grow: 1
   flex-direction: column
-  // If we move the overflow-y to the .page-content class, the content will flow
-  // underneath the header but the scrollbar won't go from header to footer.
   overflow-y: scroll
 
-  .page-content
-    // If we move the overflow-y to the .page class, the scroll bar will only go
-    // from header to footer but the content won't float underneath the opacity of
-    // the header.
-    // overflow-y: scroll
+  .header-container
+    margin: 0px auto 20px auto
 
-    // We only need this property if the overflow-y is in the .page-content class,
-    // otherwise it should be commented out.
-    // margin-bottom: pixelfy(map-get($heights, 'footer'))
-
-    .custom-container
-      margin: 0 auto
-      padding: 10px
-      max-width: 100%
-
-      @include set-responsive-above("tablet")
-        max-width: 720px
-        padding: 15px
-
-      @include set-responsive-above("laptop-s")
-        max-width: 900px
-
-      @include set-responsive-above("laptop-l")
-        padding: 20px
-
-      .header-container
-        margin: 0px auto 10px auto
-
-        .header
-          margin: 0
-          text-align: center
+    .header
+      margin: 0
+      text-align: center
 
 
 .landing-page
@@ -53,9 +26,7 @@
   position: absolute
   width: 100%
 
-  .page-content
-    position: relative
-    overflow-y: scroll
+  .page
     background-color: map-get($colors, "background")
 
     $banner-height: map-get($heights, "banner")
@@ -66,52 +37,36 @@
     height: unquote("calc(" + vhify(100) + " - " + vhify($banner-height) + ")")
     margin-top: vhify($inverse-banner-height)
 
-    .custom-container
-      margin: 0 auto
-      padding: 10px
-      max-width: 100%
+    h3.intro
+      font-style: italic
+      font-weight: map-get($fontweights, "regular")
+      text-align: center
+      margin-bottom: 10px
+
+      font-size: 12px
+      line-height: 18px
+
+      @include set-responsive-above("mobile-l")
+        font-size: 13px
+        line-height: 19px
 
       @include set-responsive-above("tablet")
-        max-width: 540px
-        padding: 15px
+        font-size: 14px
+        line-height: 20px
+        margin-bottom: 15px
 
       @include set-responsive-above("laptop-s")
-        max-width: 720px
+        font-size: 16px
+        line-height: 22px
 
-      @include set-responsive-above('laptop-l')
-        max-width: 900px
-        padding: 20px
+      @include set-responsive-above("laptop-l")
+        margin-bottom: 20px
 
-      h3.intro
-        font-style: italic
-        font-weight: map-get($fontweights, "regular")
-        text-align: center
-        margin-bottom: 10px
+    .comments
+      margin-bottom: 10px
 
-        font-size: 12px
-        line-height: 18px
+      @include set-responsive-above("tablet")
+        margin-bottom: 15px
 
-        @include set-responsive-above("mobile-l")
-          font-size: 13px
-          line-height: 19px
-
-        @include set-responsive-above("tablet")
-          font-size: 14px
-          line-height: 20px
-          margin-bottom: 15px
-
-        @include set-responsive-above("laptop-s")
-          font-size: 16px
-          line-height: 22px
-
-        @include set-responsive-above("laptop-l")
-          margin-bottom: 20px
-
-      .comments
-        margin-bottom: 10px
-
-        @include set-responsive-above("tablet")
-          margin-bottom: 15px
-
-        @include set-responsive-above("laptop-l")
-          margin-bottom: 20px
+      @include set-responsive-above("laptop-l")
+        margin-bottom: 20px

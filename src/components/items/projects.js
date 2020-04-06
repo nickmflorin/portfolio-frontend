@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { faHammer } from '@fortawesome/free-solid-svg-icons'
 
 import { getProject } from 'services'
@@ -57,7 +58,7 @@ class Project extends React.Component {
       <div className='panel-content-item'>
         <p className='name smaller'>{this.props.name}</p>
         <p className='description'>{this.props.showcase_description || this.props.description}</p>
-        <div className='files'>
+        <div className='files' id='project-1'>
           {this.state.files.map((file) => {
             return <FileLink key={file.id} label={file.name} url={file.file} />
           })}

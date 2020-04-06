@@ -15,15 +15,13 @@
 
 $screens: "mobile-s", "mobile-m", "mobile-l", "tablet", "laptop-s", "laptop-l"
 
-
 @mixin set-responsive-below($size)
   @if not index($screens, $size)
     @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
 
-  $numeric-size: map-get($screen-sizes, $size)
+  $numeric-size: map-get($screen-sizes, $size) + 1
   @media screen and (max-width: #{pixelfy($numeric-size)})
     @content
-
 
 @mixin set-responsive-above($size)
   @if not index($screens, $size)

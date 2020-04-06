@@ -6,8 +6,9 @@ import { Loader } from 'semantic-ui-react'
 
 import { CommentForm } from 'components/forms'
 import { CommentItem } from 'components/items'
-
 import Banner from 'components/banner'
+
+import { Page } from './page'
 
 import './pages.sass'
 
@@ -66,33 +67,30 @@ class Landing extends React.Component {
   render(){
     return (
       <div className='landing-page'>
-        <Loader active={this.state.loading}/>
         <Banner
           title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
           github_url={this.state.profile.github_url}
           linkedin_url={this.state.profile.linkedin_url}
           headshot={this.state.profile.headshot}
         />
-        <div className='page-content'>
-          <div className='custom-container'>
-            <h3 className='intro'>{this.state.profile.intro}</h3>
-            <div className="comments">
-              {this.state.comments.map((comment) => {
-                return (
-                  <CommentItem key={comment.id}
-                    id={comment.id}
-                    name={comment.name}
-                    date_created={comment.date_created}
-                    comment={comment.comment}
-                  />
-                )
-              })}
-            </div>
-            <CommentForm
-              onSubmitted={this.getComments.bind(this)}
-            />
+        <Page style={{maxWidth: 720}}>
+          <h3 className='intro'>{this.state.profile.intro}</h3>
+          <div className="comments">
+            {this.state.comments.map((comment) => {
+              return (
+                <CommentItem key={comment.id}
+                  id={comment.id}
+                  name={comment.name}
+                  date_created={comment.date_created}
+                  comment={comment.comment}
+                />
+              )
+            })}
           </div>
-        </div>
+          <CommentForm
+            onSubmitted={this.getComments.bind(this)}
+          />
+        </Page>
       </div>
     )
   }

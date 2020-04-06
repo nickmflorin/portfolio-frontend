@@ -6,8 +6,8 @@
   text-align: left
   border-top: map-get($borders, 'light')
   max-width: 100%
-  padding: 10px
   margin: 0px auto 10px auto
+  padding-top: 10px
 
   &:last-child
     margin-bottom: 0px !important
@@ -16,6 +16,7 @@
     border-radius: 5px
     border: map-get($borders, "regular")
     background-color: map-get($colors, "white")
+    padding: 10px
 
     @include set-responsive-above("tablet")
       padding: 15px
@@ -84,9 +85,6 @@
       margin-bottom: 10px
       text-align: left
 
-      @include set-responsive-above("laptop-s")
-        margin-bottom: 12px
-
       &:last-child
         border-bottom: none
         margin-bottom: 0
@@ -130,33 +128,17 @@
 
   &.project
     max-width: 1200px
-    padding: 15px 20px
     margin-left: 0px !important
 
-    @include set-responsive-above("tablet")
-      padding: 15px 30px
-
-    @include set-responsive-above("laptop-s")
-      padding: 15px 40px
-
-    @include set-responsive-above("laptop-l")
-      padding: 15px 60px
-
     .header
-      text-align: center !important
+      display: inline-block
       margin-bottom: 10px
-
-      @include set-responsive-above("tablet")
-        margin-bottom: 12px
 
       .title
         margin-bottom: 0px !important
 
     .body
       margin-left: 0px !important
-
-      @include set-responsive-above("laptop-s")
-        margin-bottom: 14px
 
       .descriptions
         margin-bottom: 8px
