@@ -49,7 +49,7 @@ class Project extends React.Component {
     // project showcased on the projects page.
     return (
       <div className='panel-content-item'>
-        <p className='name smaller'>{this.props.name}</p>
+        <h5>{this.props.name}</h5>
         <p className='description'>{this.props.showcase_description || this.props.description}</p>
         <div className='files' id='project-1'>
           {this.state.files.map((file) => {

@@ -9,7 +9,7 @@ import { formatDateRange, onImageLoadError } from 'utils'
 
 import { LogoLink } from 'components/buttons'
 import { Logo } from 'components/image'
-import IconizedText from 'components/icons'
+import { IconizedHeader, IconizedText } from 'components/icons'
 import Tags from 'components/tags'
 
 import Item from './base'
@@ -66,22 +66,15 @@ class Experience extends React.Component {
             <h5 className='subtitle'>{this.props.company.name}</h5>
             <div className='header-items'>
               <div className='header-item'>
-                <IconizedText
-                  text={`${this.props.company.city}, ${this.props.company.state}`}
-                  icon={faMapPin}
-                />
+                <IconizedText icon={faMapPin}>{`${this.props.company.city}, ${this.props.company.state}`}</IconizedText>
               </div>
               <div className='header-item'>
-                <IconizedText
-                  text={formatDateRange(
-                    this.props.start_year,
-                    this.props.start_month,
-                    this.props.end_year,
-                    this.props.end_month,
-                    true
-                  )}
-                  icon={faCalendarAlt}
-                />
+                <IconizedText icon={faCalendarAlt}>{formatDateRange(
+                  this.props.start_year,
+                  this.props.start_month,
+                  this.props.end_year,
+                  this.props.end_month
+                )}</IconizedText>
               </div>
             </div>
           </div>
@@ -98,13 +91,7 @@ class Experience extends React.Component {
 
           {(this.state.projects.length !== 0) && (
             <div className='panel'>
-              <div className='panel-header'>
-                <IconizedText
-                  text="Projects"
-                  icon={faHammer}
-                  className={'text-tertiary large'}
-                />
-              </div>
+              <IconizedHeader icon={faHammer}>Projects</IconizedHeader>
               <div className='panel-content'>
                 {this.state.projects.map((project, index) => {
                   return <Project key={index} {...project}/>
@@ -115,13 +102,7 @@ class Experience extends React.Component {
 
           {(this.state.skills.length !== 0) && (
             <div className='panel'>
-              <div className='panel-header'>
-                <IconizedText
-                  text="Skills"
-                  icon={faFire}
-                  className={'text-tertiary large'}
-                />
-              </div>
+              <IconizedHeader icon={faFire}>Skills</IconizedHeader>
               <div className='panel-content'>
                 <Tags items={_.pluck(this.state.skills, 'name')} />
               </div>

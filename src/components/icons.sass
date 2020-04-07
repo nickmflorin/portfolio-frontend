@@ -4,54 +4,36 @@
 @use "sass:string"
 
 
-.iconized-text
-  color: map-get($colors, 'icon')
-  font-family: map-get($fonts, "roboto")
-  font-weight: map-get($fontweights, "regular")
+.iconized
 
   .icon-container
     margin-right: 8px
     text-align: center
-    height: 10px
-    width: 10px
 
-    @include set-responsive-above('laptop-s')
-      height: 11px
-      width: 11px
+  &.iconized-text
+    color: map-get($colors, 'icon')
+    font-weight: map-get($fontweights, 'regular')
 
-    .icon
+    .icon-container
+      height: 10px
+      width: 10px
+
+      @include set-responsive-above('laptop-s')
+        height: 11px
+        width: 11px
+
+      .icon
+        line-height: 10px
+        @include set-responsive-above('laptop-s')
+          line-height: 11px
+
+    .text
+      font-size: 10px
       line-height: 10px
 
       @include set-responsive-above('laptop-s')
+        font-size: 11px
         line-height: 11px
 
-  .text
-    font-size: 10px
-    line-height: 10px
-
-    @include set-responsive-above('laptop-s')
-      font-size: 11px
-      line-height: 11px
-
-  &.large
-    .icon-container
-      height: 12px
-      width: 12px
-
-      @include set-responsive-above('laptop-s')
-        height: 13px
-        width: 13px
-
-      .icon
-        line-height: 12px
-
-        @include set-responsive-above('laptop-s')
-          line-height: 13px
-
-    .text
-      font-size: 12px
-      line-height: 12px
-
-      @include set-responsive-above('laptop-s')
-        font-size: 13px
-        line-height: 13px
+  &.iconized-header
+    font-weight: map-get($fontweights, 'regular')

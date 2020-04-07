@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
-import IconizedText from 'components/icons'
+import { IconizedText } from 'components/icons'
 import Item from './base'
 import './items.sass'
 
