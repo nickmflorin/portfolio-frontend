@@ -11,7 +11,6 @@ import "./pages.sass"
 class Projects extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.references = []
     this.state = {
         projects: [],
         loading: true,
