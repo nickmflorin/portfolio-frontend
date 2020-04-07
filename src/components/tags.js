@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styled, { withTheme } from 'styled-components';
-import { faMapPin, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
-
-import IconizedText from 'components/icons'
-
 import './tags.sass'
 
 

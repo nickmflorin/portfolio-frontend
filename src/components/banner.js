@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import landing from 'media/landing.png';
@@ -26,7 +25,6 @@ const Separator = styled.span`
 `;
 
 const SubTitleComponent = (props) => {
-  const separator = "|"
   if (props.index !== (props.total - 1)) {
     return <span>{props.text}<Separator /></span>
   }

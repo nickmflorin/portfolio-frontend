@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { withTheme } from 'styled-components';
 import _ from 'underscore'
 
 import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
@@ -119,7 +118,7 @@ class Education extends React.Component {
             ))}
           </div>
 
-          {(this.state.projects.length != 0) && (
+          {(this.state.projects.length !== 0) && (
             <div className='panel'>
               <div className='panel-header'>
                 <IconizedText
@@ -136,7 +135,7 @@ class Education extends React.Component {
             </div>
           )}
 
-          {(this.state.skills.length != 0) && (
+          {(this.state.skills.length !== 0) && (
             <div className='panel'>
               <div className='panel-header'>
                 <IconizedText
@@ -151,7 +150,7 @@ class Education extends React.Component {
             </div>
           )}
 
-          {(this.state.courses.length != 0) && (
+          {(this.state.courses.length !== 0) && (
             <div className='panel'>
               <div className='panel-header'>
                 <IconizedText
@@ -172,4 +171,4 @@ class Education extends React.Component {
   }
 }
 
-export default withTheme(Education);
+export default Education;

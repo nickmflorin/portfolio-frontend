@@ -1,7 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
-import styled from 'styled-components';
 import update from 'react-addons-update';
 import _ from 'underscore'
 
@@ -67,7 +65,7 @@ class App extends React.Component {
   componentDidMount() {
     var self = this
     getProfile().then((response) => {
-      var index = _.findIndex(this.state.items, value => value.id == 'resume')
+      var index = _.findIndex(this.state.items, value => value.id === 'resume')
       const items = update(this.state.items, {
         [index]: {$merge: {url: response.resume}}
       })

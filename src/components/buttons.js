@@ -15,7 +15,7 @@ import './buttons.sass'
 export const NavBarButton = (props) => {
   if (props.external) {
     return (
-      <a className='navbar-button' href={props.url} target="_blank">
+      <a className='navbar-button' href={props.url} target="_blank" rel="noopener noreferrer">
         {props.label}
       </a>
     )
@@ -30,7 +30,7 @@ export const NavBarButton = (props) => {
 export const SideBarButton = (props) => {
   if (props.external) {
     return (
-      <a className='sidebar-button' href={props.url} target="_blank">
+      <a className='sidebar-button' href={props.url} target="_blank" rel="noopener noreferrer">
         <div className='icon-container'>
           <FontAwesomeIcon icon={props.icon} />
         </div>
@@ -53,9 +53,9 @@ export const SideBarButton = (props) => {
 }
 
 export const MenuButton = (props) => (
-  <a className='menu-button' onClick={props.onClick}>
+  <button className='menu-button' onClick={props.onClick}>
     <FontAwesomeIcon className='icon' size="3x" icon={faBars}/>
-  </a>
+  </button>
 )
 
 export const BrandButton = (props) => (
@@ -71,7 +71,7 @@ export const LogoLink = (props) => (
 )
 
 export const FileLink = (props) => (
-  <a className='file-link smaller' href={props.url} target="_blank">
+  <a className='file-link smaller' href={props.url} target="_blank" rel="noopener noreferrer">
     <div className='icon-container'>
       <FontAwesomeIcon className='icon' icon={faFileDownload}/>
     </div>

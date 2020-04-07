@@ -3,7 +3,7 @@ import React from 'react';
 import { getAllExperience } from 'services'
 import { Page } from 'pages/page'
 import { ExperienceItem } from 'components/items'
-import { sortExperienceEducation, formatDateRange } from 'utils'
+import { sortExperienceEducation } from 'utils'
 
 
 class Experience extends React.Component {

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import _ from 'underscore'
-
-import { faHammer } from '@fortawesome/free-solid-svg-icons'
 
 import { getProject } from 'services'
 import { getFileExtension } from 'utils'
@@ -38,7 +35,7 @@ class Project extends React.Component {
     getProject(this.props.id).then((response) => {
       var files = _.filter(response.files, (file) => {
         var extension = getFileExtension(file.file)
-        return extension == 'pdf'
+        return extension === 'pdf'
       })
       self.setState({files: files})
     }).catch((error) => {

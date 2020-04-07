@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { withTheme } from 'styled-components';
 import _ from 'underscore'
 
 import { faFire, faHammer, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
@@ -97,7 +96,7 @@ class Experience extends React.Component {
             )}
           </div>
 
-          {(this.state.projects.length != 0) && (
+          {(this.state.projects.length !== 0) && (
             <div className='panel'>
               <div className='panel-header'>
                 <IconizedText
@@ -114,7 +113,7 @@ class Experience extends React.Component {
             </div>
           )}
 
-          {(this.state.skills.length != 0) && (
+          {(this.state.skills.length !== 0) && (
             <div className='panel'>
               <div className='panel-header'>
                 <IconizedText
@@ -134,4 +133,4 @@ class Experience extends React.Component {
   }
 }
 
-export default withTheme(Experience);
+export default Experience;

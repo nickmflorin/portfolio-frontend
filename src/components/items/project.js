@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import _ from 'underscore'
-
-import { faFire } from '@fortawesome/free-solid-svg-icons'
 
 import { getProject } from 'services'
 import { isImageFile } from 'utils'
 
-import IconizedText from 'components/icons'
 import Tags from 'components/tags'
 import Item from './base'
 
@@ -81,7 +77,7 @@ class Project extends React.Component {
             <div className='panel descriptions'>
               <p>{this.state.showcase_description}</p>
             </div>
-            {(this.state.skills.length != 0) && (
+            {(this.state.skills.length !== 0) && (
               <div className='panel'>
                 <div className='panel-content'>
                   <Tags items={_.pluck(this.state.skills, 'name')} />

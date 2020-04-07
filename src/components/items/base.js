@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader, Dimmer } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 
 var classNames = require('classnames');
 

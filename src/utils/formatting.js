@@ -9,9 +9,6 @@ export const formatMonthYear = (year, mth) => {
 
 
 export const formatDateRange = (start_year, start_month, end_year, end_month, include_duration=false) => {
-  var start_string = null;
-  var end_string = null;
-
   if (!(start_year && start_month)){
     throw new Error("Both start_year and start_month must be defined.")
   }

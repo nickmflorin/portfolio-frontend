@@ -3,7 +3,7 @@ import React from 'react';
 import { Page } from 'pages/page'
 import { EducationItem } from 'components/items'
 import { getAllEducation } from 'services'
-import { sortExperienceEducation, formatDateRange } from 'utils'
+import { sortExperienceEducation } from 'utils'
 
 
 class Education extends React.Component {

@@ -1,8 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { getProfile, getComments, createComment } from 'services'
-import { Loader } from 'semantic-ui-react'
+import { getProfile, getComments } from 'services'
 
 import { CommentForm } from 'components/forms'
 import { CommentItem } from 'components/items'
