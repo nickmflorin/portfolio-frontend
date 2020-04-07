@@ -15,9 +15,6 @@ import NavBar from 'components/nav'
 import SideBar from 'components/sidebar'
 import Footer from 'components/footer'
 
-import "./App.sass"
-
-const Theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./style/constants.scss');
 
 const NavBarItems = [
   {
@@ -90,49 +87,47 @@ class App extends React.Component {
   }
   render() {
     return (
-      <ThemeProvider theme={Theme}>
-        <BrowserRouter>
-          <div className='app'>
-            <header>
-              <SideBar
-                items={this.state.items}
-                onSideBarClick={this.onSideBarClick.bind(this)}
-                ref={this.sidebar}
-              />
-              <Switch>
-                <Route exact path="/">
-                  <NavBar
-                    overlay={false}
-                    items={this.state.items}
-                    onMenuClick={this.onMenuClick.bind(this)}
-                    onHomeClick={this.onHomeClick.bind(this)}
-                  />
-                </Route>
-                <Route>
-                  <NavBar
-                    overlay={true}
-                    items={this.state.items}
-                    onMenuClick={this.onMenuClick.bind(this)}
-                    onHomeClick={this.onHomeClick.bind(this)}
-                  />
-                </Route>
-              </Switch>
-            </header>
-            <div className='content'>
-              {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
-                return (
-                  <Route
-                    key={item.id}
-                    exact path={item.url}
-                    component={item.page}
-                  ></Route>
-                )
-              })}
-            </div>
-            <Footer />
+      <BrowserRouter>
+        <div className='app'>
+          <header>
+            <SideBar
+              items={this.state.items}
+              onSideBarClick={this.onSideBarClick.bind(this)}
+              ref={this.sidebar}
+            />
+            <Switch>
+              <Route exact path="/">
+                <NavBar
+                  overlay={false}
+                  items={this.state.items}
+                  onMenuClick={this.onMenuClick.bind(this)}
+                  onHomeClick={this.onHomeClick.bind(this)}
+                />
+              </Route>
+              <Route>
+                <NavBar
+                  overlay={true}
+                  items={this.state.items}
+                  onMenuClick={this.onMenuClick.bind(this)}
+                  onHomeClick={this.onHomeClick.bind(this)}
+                />
+              </Route>
+            </Switch>
+          </header>
+          <div className='content'>
+            {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
+              return (
+                <Route
+                  key={item.id}
+                  exact path={item.url}
+                  component={item.page}
+                ></Route>
+              )
+            })}
           </div>
-        </BrowserRouter>
-      </ThemeProvider>
+          <Footer />
+        </div>
+      </BrowserRouter>
     );
   }
 }

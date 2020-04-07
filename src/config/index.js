@@ -1,6 +1,0 @@
-import { IMAGE_EXTENSIONS } from './constants'
-import { API_HOST, REQUEST_CONFIGURATION } from './api'
-import { FOOTER, TITLE_COMPONENTS } from './ui'
-
-
-export { IMAGE_EXTENSIONS, API_HOST, REQUEST_CONFIGURATION, FOOTER, TITLE_COMPONENTS }

@@ -1,14 +1,14 @@
 import Cookies from 'js-cookie'
 
-import { API_HOST, REQUEST_CONFIGURATION } from 'config'
+import { REQUEST_CONFIGURATION } from 'config'
 import { ApiError } from './errors'
 
 
 export const api_fetch = async (url) => {
   var request_config = { ...REQUEST_CONFIGURATION };
   request_config.method = "GET"
-
-  var response = await fetch(`${API_HOST}${url}`, request_config)
+  console.log(process.env)
+  var response = await fetch(`${process.env.REACT_APP_API_HOST}${url}`, request_config)
   const body = await response.json()
   if (response.status !== 200){
     throw new ApiError(response.status, body);
@@ -25,7 +25,7 @@ export const api_post = async (url, data) => {
   request_config.headers = { ...REQUEST_CONFIGURATION.headers };
   request_config.headers['X-CSRFToken'] = Cookies.get('csrftoken');
 
-  var response = await fetch(`${API_HOST}${url}`, request_config)
+  var response = await fetch(`${process.env.REACT_APP_API_HOST}${url}`, request_config)
   const body = await response.json()
 
   // TODO: For 400 responses, might want to incorporate the errors (which will

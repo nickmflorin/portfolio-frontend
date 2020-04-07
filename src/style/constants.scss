@@ -8,16 +8,15 @@ $red: rgba(255, 92, 80, 1.0);
 // Text
 $text-primary: #282828;
 $text-secondary: #3C3C3C;
-$text-tertiary: #474747;
-$text-gray1: #5F5F5F;
-$text-gray2: #696969;
+$text-tertiary: #5F5F5F;
+$text-gray: #696969;
 
 // Borders
 $border-color: #DEDEDE;
 $border-color-light: #EFEFEF;
 
 // Icons
-$icon-color: $text-gray2;
+$icon-color: $text-gray;
 
 // Branding
 $background-color: #f9f9f9;
@@ -35,8 +34,7 @@ $colors: (
   "text-primary": $text-primary,
   "text-secondary": $text-secondary,
   "text-tertiary": $text-tertiary,
-  "text-gray1": $text-gray1,
-  "text-gray2": $text-gray2,
+  "text-gray": $text-gray,
   "blue": $blue,
   "green": $green,
   "red": $red,

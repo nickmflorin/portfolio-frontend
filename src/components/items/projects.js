@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import _ from 'underscore'
 
-import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { faHammer } from '@fortawesome/free-solid-svg-icons'
 
 import { getProject } from 'services'
@@ -36,14 +36,10 @@ class Project extends React.Component {
     */
     var self = this
     getProject(this.props.id).then((response) => {
-      var files = []
-      for(var i=0; i<response.files.length; i++){
-        var filename = response.files[i].file
-        var extension = getFileExtension(filename)
-        if(extension == 'pdf'){
-          files.push(response.files[i])
-        }
-      }
+      var files = _.filter(response.files, (file) => {
+        var extension = getFileExtension(file.file)
+        return extension == 'pdf'
+      })
       self.setState({files: files})
     }).catch((error) => {
       console.error(`There was an error retrieving project ${this.props.id}.`)

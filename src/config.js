@@ -1,5 +1,12 @@
-// TODO: We want to eventually put this in a config file or an environment variable.
-export const API_HOST = "http://localhost:8000/api/v1"
+export const IMAGE_EXTENSIONS = ['png', 'jpeg', 'jpg', 'gif']
+
+export const FOOTER = "Copyright © 2020 Nick Florin All rights reserved."
+
+export const TITLE_COMPONENTS = [
+  'Engineer',
+  'Technologist',
+  'Developer',
+]
 
 export const REQUEST_CONFIGURATION = {
   mode: 'cors', // no-cors, *cors, same-origin
