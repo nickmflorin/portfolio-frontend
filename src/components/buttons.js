@@ -60,7 +60,7 @@ export const MenuButton = (props) => (
 
 export const BrandButton = (props) => (
   <Link className='brand-button' to={props.to}>
-    <img className='logo' src={BrandLogo} onClick={props.onClick}/>
+    <img className='logo' alt="Cannot Load" src={BrandLogo} onClick={props.onClick}/>
   </Link>
 )
 

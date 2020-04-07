@@ -23,7 +23,7 @@ class ProjectFile extends React.Component {
       <div className='file'>
         <p className='description'> {this.props.description} </p>
         <div className='image-container'>
-          <img src={this.props.file}/>
+          <img src={this.props.file} alt="Cannot Load"/>
         </div>
         <p className='caption'> {this.props.caption} </p>
       </div>

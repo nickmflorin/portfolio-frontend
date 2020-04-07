@@ -33,7 +33,7 @@ const SubTitleComponent = (props) => {
 
 const Headshot = (props) => (
   <div className="headshot-container">
-    <img className="headshot" src={props.src}/>
+    <img className="headshot" alt="Cannot Load" src={props.src}/>
   </div>
 )
 
