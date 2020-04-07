@@ -106,7 +106,7 @@ class Education extends React.Component {
         </div>
         <div className='body'>
 
-          <div className='panel'>
+          <div className='panel descriptions'>
             {(this.props.school.description) && (
               <p>{this.props.school.description}</p>
             )}
