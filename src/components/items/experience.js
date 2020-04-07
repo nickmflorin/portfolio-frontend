@@ -78,7 +78,8 @@ class Experience extends React.Component {
                     this.props.start_year,
                     this.props.start_month,
                     this.props.end_year,
-                    this.props.end_month
+                    this.props.end_month,
+                    true
                   )}
                   icon={faCalendarAlt}
                 />
@@ -87,7 +88,7 @@ class Experience extends React.Component {
           </div>
         </div>
         <div className='body'>
-          <div className='panel'>
+          <div className='panel descriptions'>
             {(this.props.company.description) && (
               <p>{this.props.company.description}</p>
             )}

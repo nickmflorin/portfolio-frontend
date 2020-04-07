@@ -8,7 +8,7 @@ export const formatMonthYear = (year, mth) => {
 }
 
 
-export const formatDateRange = (start_year, start_month, end_year, end_month) => {
+export const formatDateRange = (start_year, start_month, end_year, end_month, include_duration=false) => {
   var start_string = null;
   var end_string = null;
 
@@ -25,16 +25,20 @@ export const formatDateRange = (start_year, start_month, end_year, end_month) =>
     const end_date = new Date(end_year, end_month - 1, 1);
     const end_mmt = moment(end_date);
 
-    const duration = moment.duration(end_mmt.diff(start_mmt)).asYears().toFixed(2)
-    if (duration >= 0.25) {
-        return `${start_mmt.format('MMMM YYYY')} - ${end_mmt.format('MMMM YYYY')} (${duration} years)`
+    if (include_duration) {
+      const duration = moment.duration(end_mmt.diff(start_mmt)).asYears().toFixed(2)
+      if (duration >= 0.25) {
+          return `${start_mmt.format('MMMM YYYY')} - ${end_mmt.format('MMMM YYYY')} (${duration} years)`
+      }
     }
     return `${start_mmt.format('MMMM YYYY')} - ${end_mmt.format('MMMM YYYY')}`
   }
   else {
-    const duration = moment.duration(moment().diff(start_mmt)).asYears().toFixed(2)
-    if (duration >= 0.25) {
-        return `${start_mmt.format('MMMM YYYY')} - Current (${duration} years)`
+    if (include_duration) {
+      const duration = moment.duration(moment().diff(start_mmt)).asYears().toFixed(2)
+      if (duration >= 0.25) {
+          return `${start_mmt.format('MMMM YYYY')} - Current (${duration} years)`
+      }
     }
     return `${start_mmt.format('MMMM YYYY')} - Current`
   }

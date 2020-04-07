@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore'
 
+import { faFire } from '@fortawesome/free-solid-svg-icons'
+
 import { getProject } from 'services'
 import { isImageFile } from 'utils'
 
+import IconizedText from 'components/icons'
+import Tags from 'components/tags'
 import Item from './base'
 
 import './items.sass'
@@ -22,7 +26,9 @@ class ProjectFile extends React.Component {
     return (
       <div className='file'>
         <p className='description'> {this.props.description} </p>
-        <img src={this.props.file}/>
+        <div className='image-container'>
+          <img src={this.props.file}/>
+        </div>
         <p className='caption'> {this.props.caption} </p>
       </div>
     )
@@ -34,12 +40,13 @@ class Project extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    showcase_description: PropTypes.string.isRequired,
   }
   constructor(props, context) {
     super(props, context);
     this.state = {
         loading: true,
+        showcase_description: null,
+        skills: [],
         files: [],
     }
   }
@@ -52,6 +59,7 @@ class Project extends React.Component {
       self.setState({
           showcase_description: response.showcase_description,
           files: files,
+          skills: response.skills,
       })
     }).catch((error) => {
       console.error(`There was an error loading project ${this.props.id}.`)
@@ -70,9 +78,16 @@ class Project extends React.Component {
             <h3 className='title'>{this.props.name}</h3>
           </div>
           <div className='body project'>
-            <div className='descriptions'>
+            <div className='panel descriptions'>
               <p>{this.state.showcase_description}</p>
             </div>
+            {(this.state.skills.length != 0) && (
+              <div className='panel'>
+                <div className='panel-content'>
+                  <Tags items={_.pluck(this.state.skills, 'name')} />
+                </div>
+              </div>
+            )}
             <div className='files-container'>
               {this.state.files.map((file) => {
                 return (

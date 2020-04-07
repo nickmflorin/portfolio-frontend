@@ -129,7 +129,6 @@
                 margin-bottom: 0px !important
 
   &.project
-    max-width: 1200px
     margin-left: 0px !important
 
     .header
@@ -142,24 +141,20 @@
     .body
       margin-left: 0px !important
 
-      .descriptions
-        margin-bottom: 8px
-        > p
-          text-align: left
-          margin-bottom: 8px
-          &:last-child
-            margin-bottom: 0px !important
-
       .files-container
         display: inline-block
 
         .file
           margin-bottom: 16px
+          display: flex
+          flex-direction: column
 
-          img
-            max-width: 100%
-            margin-bottom: 8px
-            border: map-get($borders, "light")
+          .image-container
+            text-align: center
+            img
+              max-width: 100%
+              margin-bottom: 8px
+              border: map-get($borders, "light")
 
           p.description
             margin-bottom: 16px
