@@ -14,13 +14,13 @@ class Tag extends React.Component {
   }
 }
 
-class Tags extends React.Component {
+class Tags extends React.Component {  // eslint-disable-line
   static propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.array.isRequired,  // eslint-disable-line
   }
   render(){
     return (
-      <div className='tags'>
+      <div className="tags">
         {this.props.items.map((item, index) => {
           return <Tag key={index}>{item}</Tag>
         })}

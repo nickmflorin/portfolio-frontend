@@ -64,23 +64,23 @@ class Landing extends React.Component {
   }
   render(){
     return (
-      <div className='landing-page'>
+      <div className="landing-page">
         <Banner
-          title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
           github_url={this.state.profile.github_url}
-          linkedin_url={this.state.profile.linkedin_url}
           headshot={this.state.profile.headshot}
+          linkedin_url={this.state.profile.linkedin_url}
+          title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
         />
         <Page style={{maxWidth: 720}}>
-          <h3 className='intro'>{this.state.profile.intro}</h3>
+          <h3 className="intro">{this.state.profile.intro}</h3>
           <div className="comments">
             {this.state.comments.map((comment) => {
               return (
-                <CommentItem key={comment.id}
-                  id={comment.id}
-                  name={comment.name}
+                <CommentItem comment={comment.comment}
                   date_created={comment.date_created}
-                  comment={comment.comment}
+                  id={comment.id}
+                  key={comment.id}
+                  name={comment.name}
                 />
               )
             })}

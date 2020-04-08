@@ -12,70 +12,70 @@ import { Logo } from 'components/image'
 import './buttons.sass'
 
 
-export const NavBarButton = (props) => {
+export const NavBarButton = (props) => {  // eslint-disable-line
   if (props.external) {
     return (
-      <a className='navbar-button' href={props.url} target="_blank" rel="noopener noreferrer">
+      <a className="navbar-button" href={props.url} rel="noopener noreferrer" target="_blank">
         {props.label}
       </a>
     )
   }
   return (
-    <Link className='navbar-button' to={props.url} >
+    <Link className="navbar-button" to={props.url} >
       {props.label}
     </Link>
   )
 }
 
-export const SideBarButton = (props) => {
+export const SideBarButton = (props) => {  // eslint-disable-line
   if (props.external) {
     return (
-      <a className='sidebar-button' href={props.url} target="_blank" rel="noopener noreferrer">
-        <div className='icon-container'>
+      <a className="sidebar-button" href={props.url} rel="noopener noreferrer" target="_blank">
+        <div className="icon-container">
           <FontAwesomeIcon icon={props.icon} />
         </div>
-        <div className='text'>
+        <div className="text">
           {props.label}
         </div>
       </a>
     )
   }
   return (
-    <Link className='sidebar-button' to={props.url} onClick={props.onClick}>
-      <div className='icon-container'>
+    <Link className="sidebar-button" onClick={props.onClick} to={props.url}>
+      <div className="icon-container">
         <FontAwesomeIcon icon={props.icon} />
       </div>
-      <div className='text'>
+      <div className="text">
         {props.label}
       </div>
     </Link>
   )
 }
 
-export const MenuButton = (props) => (
-  <button className='menu-button' onClick={props.onClick}>
-    <FontAwesomeIcon className='icon' size="3x" icon={faBars}/>
+export const MenuButton = (props) => (  // eslint-disable-line
+  <button className="menu-button" onClick={props.onClick}>
+    <FontAwesomeIcon className="icon" icon={faBars} size="3x"/>
   </button>
 )
 
-export const BrandButton = (props) => (
-  <Link className='brand-button' to={props.to}>
-    <img className='logo' alt="Cannot Load" src={BrandLogo} onClick={props.onClick}/>
+export const BrandButton = (props) => (  // eslint-disable-line
+  <Link className="brand-button" to={props.to}>
+    <img alt="Cannot Load" className="logo" onClick={props.onClick} src={BrandLogo}/>
   </Link>
 )
 
-export const LogoLink = (props) => (
-  <a className='logo-link' href={props.href}>
-    <Logo src={props.src} onError={props.onError} />
+export const LogoLink = (props) => (  // eslint-disable-line
+  <a className="logo-link" href={props.href}>
+    <Logo onError={props.onError} src={props.src} />
   </a>
 )
 
-export const FileLink = (props) => (
-  <a className='file-link smaller' href={props.url} target="_blank" rel="noopener noreferrer">
-    <div className='icon-container'>
-      <FontAwesomeIcon className='icon' icon={faFileDownload}/>
+export const FileLink = (props) => (  // eslint-disable-line
+  <a className="file-link smaller" href={props.url} rel="noopener noreferrer" target="_blank">
+    <div className="icon-container">
+      <FontAwesomeIcon className="icon" icon={faFileDownload}/>
     </div>
-    <div className='text'>
+    <div className="text">
       {props.label}
     </div>
   </a>
@@ -85,10 +85,10 @@ const SocialIcon = styled.img`
   content: ${props => 'url("' + props.icon + '")'};
 `
 
-export const SocialLink = (props) => (
-  <div className='social-link-container'>
-    <a className='social-link' href={props.url}>
-      <SocialIcon className='icon' icon={props.icon} />
+export const SocialLink = (props) => (  // eslint-disable-line
+  <div className="social-link-container">
+    <a className="social-link" href={props.url}>
+      <SocialIcon className="icon" icon={props.icon} />
     </a>
   </div>
 )

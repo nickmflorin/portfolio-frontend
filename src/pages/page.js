@@ -11,8 +11,8 @@ export const Page = (props) => (
     <Loader active={props.loading}/>
     <Container fluid="sm" style={props.style || {}}>
       {props.header && (
-        <div className='header-container'>
-          <h1 className='header bold'>{props.header}</h1>
+        <div className="header-container">
+          <h1 className="header bold">{props.header}</h1>
         </div>
       )}
       {props.children}

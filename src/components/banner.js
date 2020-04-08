@@ -31,25 +31,25 @@ const SubTitleComponent = (props) => {
   return <span>{props.text}</span>
 }
 
-const Headshot = (props) => (
+const Headshot = (props) => (  // eslint-disable-line
   <div className="headshot-container">
-    <img className="headshot" alt="Cannot Load" src={props.src}/>
+    <img alt="Cannot Load" className="headshot" src={props.src}/>
   </div>
 )
 
-const Banner = (props) => (
+const Banner = (props) => (  // eslint-disable-line
   <React.Fragment>
-    <BannerImage className='banner-image' image={landing} />
-    <div className='banner-body'>
-      <div className='banner-body-content'>
+    <BannerImage className="banner-image" image={landing} />
+    <div className="banner-body">
+      <div className="banner-body-content">
         <Headshot src={props.headshot} />
-        <h1 className='title'>{props.title}</h1>
-        <h2 className='sub-title'>
+        <h1 className="title">{props.title}</h1>
+        <h2 className="sub-title">
           {TITLE_COMPONENTS.map((text, index) =>
-            <SubTitleComponent key={index} text={text} index={index} total={3}/>
+            <SubTitleComponent index={index} key={index} text={text} total={3}/>
           )}
         </h2>
-        <div className='social-container'>
+        <div className="social-container">
           <SocialLink icon={Github} url={props.github_url}/>
           <SocialLink icon={LinkedIn} url={props.linkedin_url}/>
         </div>

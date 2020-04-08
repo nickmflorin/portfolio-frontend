@@ -68,21 +68,21 @@ class Education extends React.Component {
     }
     return (
       <Item loading={this.state.loading}>
-        <div className='header'>
-          <div className='left'>
+        <div className="header">
+          <div className="left">
             {this.props.school.url
-              ? <LogoLink src={this.props.school.logo} onError={onImageLoadError} href={this.props.school.url}/>
-              : <Logo src={this.props.school.logo} onError={onImageLoadError}/>
+              ? <LogoLink href={this.props.school.url} onError={onImageLoadError} src={this.props.school.logo}/>
+              : <Logo onError={onImageLoadError} src={this.props.school.logo}/>
             }
           </div>
-          <div className='right'>
-            <h3 className='title'>{degree}</h3>
-            <h6 className='subtitle'>{this.props.school.name}</h6>
-            <div className='header-items'>
-              <div className='header-item'>
+          <div className="right">
+            <h3 className="title">{degree}</h3>
+            <h6 className="subtitle">{this.props.school.name}</h6>
+            <div className="header-items">
+              <div className="header-item">
                 <IconizedText icon={faMapPin}>{`${this.props.school.city}, ${this.props.school.state}`}</IconizedText>
               </div>
-              <div className='header-item'>
+              <div className="header-item">
                 <IconizedText icon={faCalendarAlt}>{formatDateRange(
                   this.props.start_year,
                   this.props.start_month,
@@ -90,14 +90,13 @@ class Education extends React.Component {
                   this.props.end_month
                 )}</IconizedText>
               </div>
-              <div className='header-item'>
+              <div className="header-item">
                 <IconizedText icon={faPaperPlane}>{`${this.props.gpa.toFixed(2)}/4.00`}</IconizedText>
               </div>
             </div>
           </div>
         </div>
-        <div className='body'>
-
+        <div className="body">
           <Panel>
             {(this.props.school.description) && (
               <HtmlDescription>{this.props.school.description}</HtmlDescription>
@@ -106,13 +105,12 @@ class Education extends React.Component {
               <HtmlDescription>{this.props.description}</HtmlDescription>
             )}
             {(this.props.minor && (
-                <p className='description'>{`Minor in ${this.props.minor}`}</p>
+                <p className="description">{`Minor in ${this.props.minor}`}</p>
             ))}
             {(this.props.concentration && (
-                <p className='description'>{`Concentration in ${this.props.concentration}`}</p>
+                <p className="description">{`Concentration in ${this.props.concentration}`}</p>
             ))}
           </Panel>
-
           {(this.state.projects.length !== 0) && (
             <Panel header="Projects" icon={faHammer}>
               {this.state.projects.map((project, index) => {
@@ -120,13 +118,11 @@ class Education extends React.Component {
               })}
             </Panel>
           )}
-
           {(this.state.skills.length !== 0) && (
             <Panel header="Skills" icon={faFire}>
               <Tags items={_.pluck(this.state.skills, 'name')}/>
             </Panel>
           )}
-
           {(this.state.courses.length !== 0) && (
             <Panel header="Courses" icon={faSchool}>
               <Tags items={_.pluck(this.state.courses, 'name')} />

@@ -7,7 +7,7 @@ var classNames = require('classnames');
 const Item = (props) => {
   return (
     <div className={classNames('item', props.className)}>
-      <Loader size="mini" active={props.loading}/>
+      <Loader active={props.loading} size="mini"/>
       {props.children}
     </div>
   )

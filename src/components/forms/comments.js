@@ -41,9 +41,9 @@ const TextualInput = ({
           </InputGroup.Prepend>
         )}
         <BootstrapForm.Control
-          isValid={touched[field.name] && (!errors[field.name] && !(status && status[field.name]))}
-          isInvalid={touched[field.name] && (errors[field.name] || (status && status[field.name]))}
           as={bootstrapAs}
+          isInvalid={touched[field.name] && (errors[field.name] || (status && status[field.name]))}
+          isValid={touched[field.name] && (!errors[field.name] && !(status && status[field.name]))}
           {...field}
           {...props}
         />
@@ -55,13 +55,13 @@ const TextualInput = ({
         </BootstrapForm.Control.Feedback>
       </InputGroup>
       {props.help && (
-        <p className='help-text'>{props.help}</p>
+        <p className="help-text">{props.help}</p>
       )}
     </BootstrapForm.Group>
   )
 };
 
-const CheckInput = ({
+const CheckInput = ({  // eslint-disable-line
   field, // { name, value, onChange, onBlur }
   form: { touched, errors, status },
   ...props
@@ -70,8 +70,8 @@ const CheckInput = ({
       <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
         <InputGroup>
           <BootstrapForm.Check
-          isValid={touched[field.name] && (!errors[field.name] && !(status && status[field.name]))}
           isInvalid={touched[field.name] && (errors[field.name] || (status && status[field.name]))}
+          isValid={touched[field.name] && (!errors[field.name] && !(status && status[field.name]))}
             {...field}
             {...props}
           />
@@ -83,13 +83,13 @@ const CheckInput = ({
           </BootstrapForm.Control.Feedback>
         </InputGroup>
         {props.help && (
-          <p className='help-text'>{props.help}</p>
+          <p className="help-text">{props.help}</p>
         )}
       </BootstrapForm.Group>
     );
 }
 
-export class CommentForm extends React.Component {
+export class CommentForm extends React.Component {  // eslint-disable-line
   static propTypes = {
     onSubmitted: PropTypes.func.isRequired,
   }
@@ -121,9 +121,8 @@ export class CommentForm extends React.Component {
   render() {
     var self = this
     return (
-      <Item className='bordered'>
+      <Item className="bordered">
         <Formik
-          validationSchema={schema}
           initialValues={{
             name: '',
             email: '',
@@ -158,47 +157,48 @@ export class CommentForm extends React.Component {
               actions.setSubmitting(false)  // Not Sure What This Triggers w Formik.
             })
           }}
+          validationSchema={schema}
         >
         {( props ) => (
             <Form
               onSubmit={props.handleSubmit}
             >
               <Field
-                name="name"
-                label="Name"
                 component={TextualInput}
+                label="Name"
+                name="name"
                 placeholder="Please provide your name."
-                type='text'
+                type="text"
               />
               <Field
+                component={TextualInput}
+                help="Only required if the submission is non-public.  Will never be displayed online."
                 label="Email"
                 name="email"
-                type="email"
-                component={TextualInput}
                 placeholder="name@example.com"
                 prepend="@"
-                help="Only required if the submission is non-public.  Will never be displayed online."
+                type="email"
               />
               <Field
+                as="textarea"
+                bootstrapAs="textarea"
                 component={TextualInput}
                 label="Question or Comment"
                 name="comment"
-                bootstrapAs="textarea"
-                as="textarea"
                 rows="3"
               />
               <Field
                 component={CheckInput}
-                id="public"
-                type='switch'
-                name='public'
-                label="Public"
                 help="Public questions/comments will be displayed online."
+                id="public"
+                label="Public"
+                name="public"
+                type="switch"
               />
               {this.state.show_failure && (
                 <BootstrapForm.Group as={BootstrapForm.Row}>
-                  <Alert variant="danger" onClose={this.hideFailure.bind(this)} dismissible>
-                    <Alert.Heading>There was an error submitting your comment.</Alert.Heading>
+                  <Alert dismissible onClose={this.hideFailure.bind(this)} variant="danger">
+                    <Alert.Heading>{"There was an error submitting your comment."}</Alert.Heading>
                     {this.state.errors.map((error, index) => {
                       return <p key={index}>{error}</p>
                     })}
@@ -207,24 +207,24 @@ export class CommentForm extends React.Component {
               )}
               {this.state.show_success && (
                 <BootstrapForm.Group as={BootstrapForm.Row}>
-                  <Alert variant="success" onClose={this.hideSuccess.bind(this)} dismissible>
-                    <Alert.Heading>Awesome!</Alert.Heading>
-                    <p> Your comment/question has successfully been submitted. </p>
+                  <Alert dismissible onClose={this.hideSuccess.bind(this)} variant="success">
+                    <Alert.Heading>{"Awesome!"}</Alert.Heading>
+                    <p>{"Your comment/question has successfully been submitted."}</p>
                   </Alert>
                 </BootstrapForm.Group>
               )}
               <BootstrapForm.Group as={BootstrapForm.Row}>
-                <Button variant="primary" type="submit">
+                <Button type="submit" variant="primary">
                   {this.state.loading && (
                     <Spinner
-                      as="span"
                       animation="border"
-                      size="sm"
-                      role="status"
                       aria-hidden="true"
+                      as="span"
+                      role="status"
+                      size="sm"
                     />
                   )}
-                  Submit
+                  {"Submit"}
                 </Button>
               </BootstrapForm.Group>
             </Form>

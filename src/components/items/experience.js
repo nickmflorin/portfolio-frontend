@@ -23,6 +23,7 @@ import './items.sass'
 class Experience extends React.Component {
 
   static propTypes = {
+    id: PropTypes.number.isRequired,
     company: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
@@ -56,21 +57,21 @@ class Experience extends React.Component {
   render() {
     return (
       <Item loading={this.state.loading}>
-        <div className='header'>
-          <div className='left'>
+        <div className="header">
+          <div className="left">
             {this.props.company.url
-              ? <LogoLink src={this.props.company.logo} onError={onImageLoadError} href={this.props.company.url}/>
-              : <Logo src={this.props.company.logo} onError={onImageLoadError}/>
+              ? <LogoLink href={this.props.company.url} onError={onImageLoadError} src={this.props.company.logo}/>
+              : <Logo onError={onImageLoadError} src={this.props.company.logo}/>
             }
           </div>
-          <div className='right'>
-            <h2 className='title'>{this.props.title}</h2>
-            <h5 className='subtitle'>{this.props.company.name}</h5>
-            <div className='header-items'>
-              <div className='header-item'>
+          <div className="right">
+            <h2 className="title">{this.props.title}</h2>
+            <h5 className="subtitle">{this.props.company.name}</h5>
+            <div className="header-items">
+              <div className="header-item">
                 <IconizedText icon={faMapPin}>{`${this.props.company.city}, ${this.props.company.state}`}</IconizedText>
               </div>
-              <div className='header-item'>
+              <div className="header-item">
                 <IconizedText icon={faCalendarAlt}>{formatDateRange(
                   this.props.start_year,
                   this.props.start_month,
@@ -81,7 +82,7 @@ class Experience extends React.Component {
             </div>
           </div>
         </div>
-        <div className='body'>
+        <div className="body">
           <Panel>
             {(this.props.company.description) && (
               <HtmlDescription>{this.props.company.description}</HtmlDescription>
@@ -91,14 +92,14 @@ class Experience extends React.Component {
             )}
           </Panel>
           {(this.state.projects.length !== 0) && (
-            <Panel icon={faHammer} header="Projects">
+            <Panel header="Projects" icon={faHammer}>
               {this.state.projects.map((project, index) => {
                 return <Project key={index} {...project}/>
               })}
             </Panel>
           )}
           {(this.state.skills.length !== 0) && (
-            <Panel icon={faFire} header="Skills">
+            <Panel header="Skills" icon={faFire}>
               <Tags items={_.pluck(this.state.skills, 'name')} />
             </Panel>
           )}

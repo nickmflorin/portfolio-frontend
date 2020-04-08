@@ -5,9 +5,9 @@ import './image.sass'
 
 export const Logo = (props) => (
   <img
-    className='logo'
     alt="Could not load."
-    src={props.src}
+    className="logo"
     onError={props.onError}
+    src={props.src}
   />
 )

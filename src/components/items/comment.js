@@ -26,20 +26,20 @@ class Comment extends React.Component {
     };
     const date_formatted = date.format('dddd, MMM Do YYYY');
     return (
-        <Item className='bordered'>
-          <div className='header' style={{display: "inline-block"}}>
-            <h3 className='title'>{this.props.name}</h3>
-            <div className='header-items'>
-              <div className='header-item'>
+        <Item className="bordered">
+          <div className="header" style={{display: "inline-block"}}>
+            <h3 className="title">{this.props.name}</h3>
+            <div className="header-items">
+              <div className="header-item">
                 <IconizedText
-                  text={date_formatted}
                   icon={faCalendarAlt}
                   size={12}
+                  text={date_formatted}
                 />
               </div>
             </div>
           </div>
-          <div className='descriptions'>
+          <div className="descriptions">
             <p>{this.props.comment}</p>
           </div>
         </Item>

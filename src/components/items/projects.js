@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'underscore'
+import _ from 'underscore';
 
-import { getProject } from 'services'
-import { getFileExtension } from 'utils'
+import { getProject } from 'services';
+import { getFileExtension } from 'utils';
 
-import { HtmlDescription } from 'components/html'
-import { FileLink } from 'components/buttons'
+import { HtmlDescription } from 'components/html';
+import { FileLink } from 'components/buttons';
 
 
 class Project extends React.Component {
@@ -53,9 +53,15 @@ class Project extends React.Component {
         <h8>{this.props.name}</h8>
         <HtmlDescription>{this.props.showcase_description || this.props.description}</HtmlDescription>
         {this.state.files.length !== 0 && (
-          <div className='files'>
+          <div className="files">
             {this.state.files.map((file) => {
-              return <FileLink key={file.id} label={file.name} url={file.file} />
+              return (
+                  <FileLink
+                    key={file.id}
+                    label={file.name}
+                    url={file.file}
+                  />
+              )
             })}
           </div>
         )}

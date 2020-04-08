@@ -10,7 +10,7 @@ var classNames = require('classnames')
 class SideBar extends React.Component {
 
   static propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.array.isRequired,  // eslint-disable-line
     onSideBarClick: PropTypes.func.isRequired,
   }
 
@@ -37,13 +37,13 @@ class SideBar extends React.Component {
       <div className={classNames('sidebar', this.state.visible ? 'visible' : 'invisible')}>
         {this.props.items.map((item) => {
           return (
-            <div className='button-container' key={item.id}>
+            <div className="button-container" key={item.id}>
               <SideBarButton
-                url={item.url}
-                label={item.label}
                 external={item.external}
                 icon={item.icon}
+                label={item.label}
                 onClick={this.props.onSideBarClick}
+                url={item.url}
               />
             </div>
           )

@@ -8,29 +8,9 @@ import { isImageFile } from 'utils'
 import Tags from 'components/tags'
 import Item from './base'
 import Panel from './panel'
+import ProjectFile from './file'
 
 import './items.sass'
-
-
-class ProjectFile extends React.Component {
-  static propTypes = {
-    id: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    file: PropTypes.string.isRequired,
-    caption: PropTypes.string.isRequired,
-  }
-  render() {
-    return (
-      <div className='file'>
-        <p className='description'> {this.props.description} </p>
-        <div className='image-container'>
-          <img src={this.props.file} alt="Cannot Load"/>
-        </div>
-        <p className='caption'> {this.props.caption} </p>
-      </div>
-    )
-  }
-}
 
 
 class Project extends React.Component {
@@ -67,14 +47,14 @@ class Project extends React.Component {
   render() {
     return (
         <Item
+          className="project"
           id={`project-${this.props.id}`}
           loading={this.state.loading}
-          className='project'
         >
-          <div className='header'>
-            <h2 className='title'>{this.props.name}</h2>
+          <div className="header">
+            <h2 className="title">{this.props.name}</h2>
           </div>
-          <div className='body project'>
+          <div className="body project">
             <Panel>
               <p>{this.state.showcase_description}</p>
             </Panel>
@@ -83,15 +63,16 @@ class Project extends React.Component {
                 <Tags items={_.pluck(this.state.skills, 'name')} />
               </Panel>
             )}
-            <div className='files-container'>
-              {this.state.files.map((file) => {
+            <div className="files-container">
+              {this.state.files.map((file, index) => {
                 return (
                   <ProjectFile
-                    id={file.id}
-                    key={file.id}
-                    file={file.file}
                     caption={file.caption}
+                    className="project"
                     description={file.description}
+                    id={`project-${this.props.id}`}
+                    key={index}
+                    loading={this.state.loading}
                   />
                 )
               })}
