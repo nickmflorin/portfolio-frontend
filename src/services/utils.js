@@ -7,7 +7,6 @@ import { ApiError } from './errors'
 export const api_fetch = async (url) => {
   var request_config = { ...REQUEST_CONFIGURATION };
   request_config.method = "GET"
-  console.log(process.env)
   var response = await fetch(`${process.env.REACT_APP_API_HOST}${url}`, request_config)
   const body = await response.json()
   if (response.status !== 200){

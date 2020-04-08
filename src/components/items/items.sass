@@ -55,67 +55,85 @@
         margin-bottom: 0px !important
 
     .title
-      margin-bottom: 8px
+      margin-bottom: 6px
+
+      @include set-responsive-above('tablet')
+        margin-bottom: 7px
+
+      @include set-responsive-above('laptop-s')
+        margin-bottom: 8px
 
     .subtitle
-      margin-bottom: 6px
+      margin-bottom: 5px
+
+      @include set-responsive-above('tablet')
+        margin-bottom: 6px
+
+      @include set-responsive-above('laptop-s')
+        margin-bottom: 6px
 
     .header-items
       margin-bottom: 10px
       display: flex
-      flex-direction: row
+      flex-direction: column
       flex-wrap: wrap
 
-      > div.header-item
-        margin-bottom: 4px
+      @include set-responsive-above("tablet")
+        flex-direction: row
+
+      > .header-item
+        margin-bottom: 2px
         margin-right: 12px
 
-      > div.header-item:last-child
-        margin-bottom: 0px
+        &:last-child
+          margin-bottom: 0px
+
+        // For when the items are not nested one on top of the other.
+        @include set-responsive-above("tablet")
+          margin-bottom: 0px
 
   .body
-    margin-left: 0px
-    margin-top: 10px
+    padding-left: 0px
+    padding-top: 10px
+    padding-right: 20px
 
     @include set-responsive-above("tablet")
-      margin-left: 85px
-      margin-top: 0px
+      padding-left: 85px
+      padding-top: 0px
+      padding-right: 40px
+
+    @include set-responsive-above("laptop-s")
+      padding-right: 60px
 
     > .panel
-      margin-bottom: 10px
+      display: flex
+      flex-direction: column
+      margin-bottom: 14px
       text-align: left
-
-      &.descriptions
-        margin-bottom: 14px
 
       &:last-child
         margin-bottom: 0
 
-      > p
-        margin-bottom: 8px
+      > .panel-item
+        display: flex
+        flex-direction: column
+        margin-bottom: 10px
+
         &:last-child
-          margin-bottom: 0px
+          margin-bottom: 0px !important
 
-      > .panel-content
-
-        > .panel-content-item
-          margin-bottom: 10px
+        > p
+          margin-bottom: 6px
           &:last-child
-            margin-bottom: 0px !important
+            margin-bottom: 0px
 
-          > p
-            margin-bottom: 6px
+        > .files
+          margin-top: 2px
+          > a
+            font-weight: map-get($fontweights, 'light')
+            margin-bottom: 4px
             &:last-child
-              margin-bottom: 0px
-
-          > .files
-            margin-top: 12px
-            margin-bottom: 14px
-            > a
-              font-weight: map-get($fontweights, 'light')
-              margin-bottom: 4px
-              &:last-child
-                margin-bottom: 0px !important
+              margin-bottom: 0px !important
 
   &.project
     margin-left: 0px !important
@@ -148,8 +166,8 @@
               margin-bottom: 8px
               border: map-get($borders, "light")
 
-          p.description
-            margin-bottom: 16px
+          // p.description
+          //   margin-bottom: 16px
 
           p.caption
             font-size: 12px

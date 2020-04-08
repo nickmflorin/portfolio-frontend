@@ -44,11 +44,11 @@ const Banner = (props) => (
       <div className='banner-body-content'>
         <Headshot src={props.headshot} />
         <h1 className='title'>{props.title}</h1>
-        <h3 className='sub-title'>
+        <h2 className='sub-title'>
           {TITLE_COMPONENTS.map((text, index) =>
             <SubTitleComponent key={index} text={text} index={index} total={3}/>
           )}
-        </h3>
+        </h2>
         <div className='social-container'>
           <SocialLink icon={Github} url={props.github_url}/>
           <SocialLink icon={LinkedIn} url={props.linkedin_url}/>

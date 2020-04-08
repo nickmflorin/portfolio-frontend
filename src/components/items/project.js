@@ -7,6 +7,7 @@ import { isImageFile } from 'utils'
 
 import Tags from 'components/tags'
 import Item from './base'
+import Panel from './panel'
 
 import './items.sass'
 
@@ -71,18 +72,16 @@ class Project extends React.Component {
           className='project'
         >
           <div className='header'>
-            <h3 className='title'>{this.props.name}</h3>
+            <h2 className='title'>{this.props.name}</h2>
           </div>
           <div className='body project'>
-            <div className='panel descriptions'>
+            <Panel>
               <p>{this.state.showcase_description}</p>
-            </div>
+            </Panel>
             {(this.state.skills.length !== 0) && (
-              <div className='panel'>
-                <div className='panel-content'>
-                  <Tags items={_.pluck(this.state.skills, 'name')} />
-                </div>
-              </div>
+              <Panel>
+                <Tags items={_.pluck(this.state.skills, 'name')} />
+              </Panel>
             )}
             <div className='files-container'>
               {this.state.files.map((file) => {

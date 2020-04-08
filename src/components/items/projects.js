@@ -5,6 +5,7 @@ import _ from 'underscore'
 import { getProject } from 'services'
 import { getFileExtension } from 'utils'
 
+import { HtmlDescription } from 'components/html'
 import { FileLink } from 'components/buttons'
 
 
@@ -48,15 +49,17 @@ class Project extends React.Component {
     // TODO: Include link icon next to text for project name if it has an associated
     // project showcased on the projects page.
     return (
-      <div className='panel-content-item'>
-        <h5>{this.props.name}</h5>
-        <p className='description'>{this.props.showcase_description || this.props.description}</p>
-        <div className='files' id='project-1'>
-          {this.state.files.map((file) => {
-            return <FileLink key={file.id} label={file.name} url={file.file} />
-          })}
-        </div>
-      </div>
+      <React.Fragment>
+        <h8>{this.props.name}</h8>
+        <HtmlDescription>{this.props.showcase_description || this.props.description}</HtmlDescription>
+        {this.state.files.length !== 0 && (
+          <div className='files'>
+            {this.state.files.map((file) => {
+              return <FileLink key={file.id} label={file.name} url={file.file} />
+            })}
+          </div>
+        )}
+      </React.Fragment>
     )
   }
 }

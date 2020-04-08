@@ -8,12 +8,14 @@ import { getExperience } from 'services'
 import { formatDateRange, onImageLoadError } from 'utils'
 
 import { LogoLink } from 'components/buttons'
+import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedHeader, IconizedText } from 'components/icons'
 import Tags from 'components/tags'
 
 import Item from './base'
 import Project from './projects'
+import Panel from './panel'
 
 import './items.sass'
 
@@ -62,7 +64,7 @@ class Experience extends React.Component {
             }
           </div>
           <div className='right'>
-            <h3 className='title'>{this.props.title}</h3>
+            <h2 className='title'>{this.props.title}</h2>
             <h5 className='subtitle'>{this.props.company.name}</h5>
             <div className='header-items'>
               <div className='header-item'>
@@ -80,33 +82,25 @@ class Experience extends React.Component {
           </div>
         </div>
         <div className='body'>
-          <div className='panel descriptions'>
+          <Panel>
             {(this.props.company.description) && (
-              <p>{this.props.company.description}</p>
+              <HtmlDescription>{this.props.company.description}</HtmlDescription>
             )}
             {(this.props.description) && (
-              <p>{this.props.description}</p>
+              <HtmlDescription>{this.props.description}</HtmlDescription>
             )}
-          </div>
-
+          </Panel>
           {(this.state.projects.length !== 0) && (
-            <div className='panel'>
-              <IconizedHeader icon={faHammer}>Projects</IconizedHeader>
-              <div className='panel-content'>
-                {this.state.projects.map((project, index) => {
-                  return <Project key={index} {...project}/>
-                })}
-              </div>
-            </div>
+            <Panel icon={faHammer} header="Projects">
+              {this.state.projects.map((project, index) => {
+                return <Project key={index} {...project}/>
+              })}
+            </Panel>
           )}
-
           {(this.state.skills.length !== 0) && (
-            <div className='panel'>
-              <IconizedHeader icon={faFire}>Skills</IconizedHeader>
-              <div className='panel-content'>
-                <Tags items={_.pluck(this.state.skills, 'name')} />
-              </div>
-            </div>
+            <Panel icon={faFire} header="Skills">
+              <Tags items={_.pluck(this.state.skills, 'name')} />
+            </Panel>
           )}
         </div>
       </Item>

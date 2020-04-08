@@ -12,7 +12,7 @@ export const Page = (props) => (
     <Container fluid="sm" style={props.style || {}}>
       {props.header && (
         <div className='header-container'>
-          <h3 className='header'>{props.header}</h3>
+          <h1 className='header bold'>{props.header}</h1>
         </div>
       )}
       {props.children}

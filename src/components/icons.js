@@ -16,12 +16,12 @@ export const IconizedText = (props) => (
 )
 
 export const IconizedHeader = (props) => (
-  <h5 className="iconized iconized-header">
+  <h7 className="iconized iconized-header">
     <span className='icon-container'>
       <FontAwesomeIcon className='icon' icon={props.icon}/>
     </span>
     <span className='text'>
       {props.children}
     </span>
-  </h5>
+  </h7>
 )

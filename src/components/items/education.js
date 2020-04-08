@@ -9,12 +9,14 @@ import { getEducation } from 'services'
 import { formatDateRange, onImageLoadError } from 'utils'
 
 import { LogoLink } from 'components/buttons'
+import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedHeader, IconizedText } from 'components/icons'
 import Tags from 'components/tags'
 
 import Item from './base'
 import Project from './projects'
+import Panel from './panel'
 
 import './items.sass'
 
@@ -75,7 +77,7 @@ class Education extends React.Component {
           </div>
           <div className='right'>
             <h3 className='title'>{degree}</h3>
-            <h5 className='subtitle'>{this.props.school.name}</h5>
+            <h6 className='subtitle'>{this.props.school.name}</h6>
             <div className='header-items'>
               <div className='header-item'>
                 <IconizedText icon={faMapPin}>{`${this.props.school.city}, ${this.props.school.state}`}</IconizedText>
@@ -96,47 +98,39 @@ class Education extends React.Component {
         </div>
         <div className='body'>
 
-          <div className='panel descriptions'>
+          <Panel>
             {(this.props.school.description) && (
-              <p>{this.props.school.description}</p>
+              <HtmlDescription>{this.props.school.description}</HtmlDescription>
             )}
-            <p>{this.props.description}</p>
+            {(this.props.description) && (
+              <HtmlDescription>{this.props.description}</HtmlDescription>
+            )}
             {(this.props.minor && (
-                <p>{this.props.minor && `Minor in ${this.props.minor}`}</p>
+                <p className='description'>{`Minor in ${this.props.minor}`}</p>
             ))}
             {(this.props.concentration && (
-                <p>{this.props.concentration && `Concentration in ${this.props.concentration}`}</p>
+                <p className='description'>{`Concentration in ${this.props.concentration}`}</p>
             ))}
-          </div>
+          </Panel>
 
           {(this.state.projects.length !== 0) && (
-            <div className='panel'>
-              <IconizedHeader icon={faHammer}>Projects</IconizedHeader>
-              <div className='panel-content'>
-                {this.state.projects.map((project, index) => {
-                  return <Project key={index} {...project}/>
-                })}
-              </div>
-            </div>
+            <Panel header="Projects" icon={faHammer}>
+              {this.state.projects.map((project, index) => {
+                return <Project key={index} {...project}/>
+              })}
+            </Panel>
           )}
 
           {(this.state.skills.length !== 0) && (
-            <div className='panel'>
-              <IconizedHeader icon={faFire}>Skills</IconizedHeader>
-              <div className='panel-content'>
-                <Tags items={_.pluck(this.state.skills, 'name')}/>
-              </div>
-            </div>
+            <Panel header="Skills" icon={faFire}>
+              <Tags items={_.pluck(this.state.skills, 'name')}/>
+            </Panel>
           )}
 
           {(this.state.courses.length !== 0) && (
-            <div className='panel'>
-              <IconizedHeader icon={faSchool}>Courses</IconizedHeader>
-              <div className='panel-content'>
-                <Tags items={_.pluck(this.state.courses, 'name')} />
-              </div>
-            </div>
-
+            <Panel header="Courses" icon={faSchool}>
+              <Tags items={_.pluck(this.state.courses, 'name')} />
+            </Panel>
           )}
         </div>
       </Item>
