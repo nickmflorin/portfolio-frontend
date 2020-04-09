@@ -36,7 +36,7 @@ class Experience extends React.Component {
             <List>
               {this.state.items.map((item) => (
                 <List.Item key={item.id}>
-                  <HashLink to={`#experience-${item.id}`}>{item.title}</HashLink>
+                  <HashLink smooth to={`#experience-${item.id}`}>{item.title}</HashLink>
                 </List.Item>
               ))}
             </List>

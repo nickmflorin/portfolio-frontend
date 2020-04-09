@@ -40,7 +40,7 @@ class Education extends React.Component {
             <List>
               {this.state.items.map((item) => (
                 <List.Item key={item.id}>
-                  <HashLink to={`#education-${item.id}`}>{item.major}</HashLink>
+                  <HashLink smooth to={`#education-${item.id}`}>{item.major}</HashLink>
                 </List.Item>
               ))}
             </List>
