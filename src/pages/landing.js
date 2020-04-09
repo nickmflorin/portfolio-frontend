@@ -4,6 +4,8 @@ import { getProfile, getComments } from 'services'
 
 import { CommentForm } from 'components/forms'
 import { CommentItem } from 'components/items'
+import { HtmlHeader } from 'components/html'
+
 import Banner from 'components/banner'
 
 import { Page } from './page'
@@ -72,7 +74,11 @@ class Landing extends React.Component {
           title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
         />
         <Page style={{maxWidth: 720}}>
-          <h3 className="intro">{this.state.profile.intro}</h3>
+          <HtmlHeader
+            className="intro"
+            tag="h3"
+          >{this.state.profile.intro}
+          </HtmlHeader>
           <div className="comments">
             {this.state.comments.map((comment) => {
               return (

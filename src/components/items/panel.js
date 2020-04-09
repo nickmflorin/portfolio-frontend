@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { IconizedHeader } from 'components/icons'
 
 
@@ -9,6 +8,9 @@ const Panel = (props) => {
     child = props.children.map((cl) => {
       if (cl) {
         return <div className="panel-item">{cl}</div>
+      }
+      else {
+        return <React.Fragment />
       }
     })
   }

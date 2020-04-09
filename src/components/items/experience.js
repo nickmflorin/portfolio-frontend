@@ -10,7 +10,7 @@ import { formatDateRange, onImageLoadError } from 'utils'
 import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
-import { IconizedHeader, IconizedText } from 'components/icons'
+import { IconizedText } from 'components/icons'
 import Tags from 'components/tags'
 
 import Item from './base'

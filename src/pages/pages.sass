@@ -14,7 +14,7 @@
   .header-container
     margin: 0px auto 20px auto
 
-    .header
+    .title
       margin: 0
       text-align: center
 
@@ -38,7 +38,6 @@
     margin-top: vhify($inverse-banner-height)
 
     h3.intro
-      font-style: italic
       font-weight: map-get($fontweights, "regular")
       text-align: center
       margin-bottom: 10px
@@ -54,10 +53,6 @@
         font-size: 14px
         line-height: 20px
         margin-bottom: 15px
-
-      @include set-responsive-above("laptop-s")
-        font-size: 16px
-        line-height: 22px
 
       @include set-responsive-above("laptop-l")
         margin-bottom: 20px

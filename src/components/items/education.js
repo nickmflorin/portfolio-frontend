@@ -11,7 +11,7 @@ import { formatDateRange, onImageLoadError } from 'utils'
 import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
-import { IconizedHeader, IconizedText } from 'components/icons'
+import { IconizedText } from 'components/icons'
 import Tags from 'components/tags'
 
 import Item from './base'
@@ -66,6 +66,18 @@ class Education extends React.Component {
     if(this.props.degree.charAt(this.props.degree.length - 1) === "."){
       degree = `${this.props.degree} ${this.props.major}`
     }
+
+    var description = ""
+    if (this.props.description) {
+      description = description + this.props.description
+    }
+    if (this.props.minor) {
+      description = description + `<p>Minor in ${this.props.minor}</p>`
+    }
+    if (this.props.concentration) {
+      description = description + `<p>Concentration in ${this.props.concentration}</p>`
+    }
+
     return (
       <Item loading={this.state.loading}>
         <div className="header">
@@ -97,20 +109,11 @@ class Education extends React.Component {
           </div>
         </div>
         <div className="body">
-          <Panel>
-            {(this.props.school.description) && (
-              <HtmlDescription>{this.props.school.description}</HtmlDescription>
-            )}
-            {(this.props.description) && (
-              <HtmlDescription>{this.props.description}</HtmlDescription>
-            )}
-            {(this.props.minor && (
-                <p className="description">{`Minor in ${this.props.minor}`}</p>
-            ))}
-            {(this.props.concentration && (
-                <p className="description">{`Concentration in ${this.props.concentration}`}</p>
-            ))}
-          </Panel>
+          {description !== "" && (
+            <Panel>
+              <HtmlDescription>{description}</HtmlDescription>
+            </Panel>
+          )}
           {(this.state.projects.length !== 0) && (
             <Panel header="Projects" icon={faHammer}>
               {this.state.projects.map((project, index) => {

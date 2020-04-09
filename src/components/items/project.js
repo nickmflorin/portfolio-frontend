@@ -68,11 +68,10 @@ class Project extends React.Component {
                 return (
                   <ProjectFile
                     caption={file.caption}
-                    className="project"
                     description={file.description}
-                    id={`project-${this.props.id}`}
+                    id={file.id}
+                    file={file.file}
                     key={index}
-                    loading={this.state.loading}
                   />
                 )
               })}

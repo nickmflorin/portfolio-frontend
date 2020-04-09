@@ -1,10 +1,37 @@
 import React from 'react';
 import dompurify from 'dompurify';
 
-import { IconizedHeader } from 'components/icons'
 
+const SafeInjection = (html) => {
+  const sanitizer = dompurify.sanitize;
+  return {__html: sanitizer(html)}
+}
 
 export const HtmlDescription = (props) => {
-  const sanitizer = dompurify.sanitize;
-  return <p className="description" dangerouslySetInnerHTML={{__html: sanitizer(props.children)}} />  // eslint-disable-line
+  return (
+    <p
+      className="description"
+      dangerouslySetInnerHTML={SafeInjection(props.children)}
+    />
+  )
+}
+
+
+export const HtmlHeader = (props) => {
+  const CustomTag = `${props.tag}`
+  return (
+    <CustomTag
+      dangerouslySetInnerHTML={SafeInjection(props.children)}
+      className={props.className}
+    />
+  )
+}
+
+export const HtmlCaption = (props) => {
+  return (
+    <p
+      className="caption"
+      dangerouslySetInnerHTML={SafeInjection(props.children)}
+    />
+  )
 }
