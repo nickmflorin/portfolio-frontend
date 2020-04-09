@@ -50,7 +50,7 @@ class Project extends React.Component {
     // project showcased on the projects page.
     return (
       <React.Fragment>
-        <h8>{this.props.name}</h8>
+        <h6 className="h8">{this.props.name}</h6>
         <HtmlDescription>{this.props.showcase_description || this.props.description}</HtmlDescription>
         {this.state.files.length !== 0 && (
           <div className="files">
