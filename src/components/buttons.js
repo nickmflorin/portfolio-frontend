@@ -53,9 +53,9 @@ export const SideBarButton = (props) => {  // eslint-disable-line
 }
 
 export const MenuButton = (props) => (  // eslint-disable-line
-  <button className="menu-button" onClick={props.onClick}>
+  <a className="menu-button" onClick={props.onClick}>
     <FontAwesomeIcon className="icon" icon={faBars} size="3x"/>
-  </button>
+  </a>
 )
 
 export const BrandButton = (props) => (  // eslint-disable-line

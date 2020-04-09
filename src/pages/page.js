@@ -29,19 +29,21 @@ export const LandingPage = (props) => (  // eslint-disable-line
 )
 
 export const PageContent = (props) => ( // eslint-disable-line
-  <Row lg={12} md={12} sm={12} xl={12}>
+  <Row>
     {props.children}
   </Row>
 )
 
+Page.Content = PageContent
+
 PageContent.Left = (props) => ( // eslint-disable-line
-  <Col lg={2} md={3} sm={0} xl={2}>
+  <Col lg={2} md={2} xl={2}>
     {props.children}
   </Col>
 )
 
 PageContent.Right = (props) => ( // eslint-disable-line
-  <Col lg={10} md={9} sm={12} xl={10}>
+  <Col lg={10} md={10} sm={12} xl={10}>
     {props.children}
   </Col>
 )

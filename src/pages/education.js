@@ -4,7 +4,7 @@ import _ from 'underscore'
 import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
 
-import { Page, PageContent } from 'pages/page'
+import { Page } from 'pages/page'
 import { EducationItem } from 'components/items'
 import { getAllEducation } from 'services'
 import { sortExperienceEducation, formatDegree } from 'utils'
@@ -35,8 +35,8 @@ class Education extends React.Component {
   render() {
     return (
       <Page header="Education" loading={this.state.loading}>
-        <PageContent>
-          <PageContent.Left>
+        <Page.Content>
+          <Page.Content.Left>
             <List>
               {this.state.items.map((item) => (
                 <List.Item key={item.id}>
@@ -44,13 +44,13 @@ class Education extends React.Component {
                 </List.Item>
               ))}
             </List>
-          </PageContent.Left>
-          <PageContent.Right>
+          </Page.Content.Left>
+          <Page.Content.Right>
             {this.state.items.map((item) => {
               return <EducationItem key={item.id} {...item} />
             })}
-          </PageContent.Right>
-        </PageContent>
+          </Page.Content.Right>
+        </Page.Content>
       </Page>
     )
   }

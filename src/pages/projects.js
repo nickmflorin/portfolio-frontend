@@ -5,7 +5,7 @@ import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
 
 import { getProjects } from 'services'
-import { Page, PageContent } from 'pages/page'
+import { Page } from 'pages/page'
 import { ProjectItem } from 'components/items'
 
 import "./pages.sass"
@@ -33,8 +33,8 @@ class Projects extends React.Component {
   render() {
     return (
       <Page header="Projects" loading={this.state.loading}>
-        <PageContent>
-          <PageContent.Left>
+        <Page.Content>
+          <Page.Content.Left>
             <List>
               {this.state.projects.map((item) => (
                 <List.Item key={item.id}>
@@ -42,13 +42,13 @@ class Projects extends React.Component {
                 </List.Item>
               ))}
             </List>
-          </PageContent.Left>
-          <PageContent.Right>
+          </Page.Content.Left>
+          <Page.Content.Right>
             {this.state.projects.map((project, index) => {
               return <ProjectItem key={project.id} {...project} />
             })}
-          </PageContent.Right>
-        </PageContent>
+          </Page.Content.Right>
+        </Page.Content>
       </Page>
     )
   }
