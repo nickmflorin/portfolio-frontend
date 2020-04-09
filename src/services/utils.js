@@ -27,8 +27,6 @@ export const api_post = async (url, data) => {
   var response = await fetch(`${process.env.REACT_APP_API_HOST}${url}`, request_config)
   const body = await response.json()
 
-  // TODO: For 400 responses, might want to incorporate the errors (which will
-  // be a series of errors for certain fields) into the form validation.
   if (response.status !== 201){
     throw new ApiError(response.status, body);
   }
