@@ -1,6 +1,6 @@
 @import 'style/utils.sass'
 
-.item
+.page-item
   max-width: 800px
   position: relative
   text-align: left
@@ -152,19 +152,21 @@
           display: flex
           flex-direction: column
 
-          margin-bottom: 10px
+          margin-bottom: 16px
           &:last-child
             margin-bottom: 0
 
           .image-container
             text-align: center
+            border: map-get($borders, "light")
+            margin-bottom: 8px
+            padding: 1px
+
             img
               max-width: 100%
-              margin-bottom: 8px
-              border: map-get($borders, "light")
 
-          // p.description
-          //   margin-bottom: 16px
+          p.description
+            margin-bottom: 16px
 
           p.caption
             font-size: 12px

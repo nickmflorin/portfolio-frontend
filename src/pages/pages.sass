@@ -18,6 +18,26 @@
       margin: 0
       text-align: center
 
+  .page-content
+      display: flex
+
+      >.left
+        min-width: 160px
+        margin-right: 40px
+
+        @include set-responsive-below("tablet")
+          display: none
+
+        .list
+          .item
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+
+      >.right
+        display: flex
+        flex-direction: column
+
 
 .landing-page
   display: flex

@@ -4,13 +4,14 @@ import { Loader } from 'semantic-ui-react'
 var classNames = require('classnames');
 
 
-const Item = (props) => {
+const PageItem = (props) => {
+  const {className, loading, children, ...otherProps} = props;
   return (
-    <div className={classNames('item', props.className)}>
-      <Loader active={props.loading} size="mini"/>
-      {props.children}
+    <div className={classNames('page-item', className)} {...otherProps}>
+      <Loader active={loading} size="mini"/>
+      {children}
     </div>
   )
 }
 
-export default Item;
+export default PageItem;

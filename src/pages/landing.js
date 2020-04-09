@@ -8,7 +8,7 @@ import { HtmlHeader } from 'components/html'
 
 import Banner from 'components/banner'
 
-import { Page } from './page'
+import { Page, LandingPage } from './page'
 
 import './pages.sass'
 
@@ -66,7 +66,7 @@ class Landing extends React.Component {
   }
   render(){
     return (
-      <div className="landing-page">
+      <LandingPage>
         <Banner
           github_url={this.state.profile.github_url}
           headshot={this.state.profile.headshot}
@@ -95,7 +95,7 @@ class Landing extends React.Component {
             onSubmitted={this.getComments.bind(this)}
           />
         </Page>
-      </div>
+      </LandingPage>
     )
   }
 }

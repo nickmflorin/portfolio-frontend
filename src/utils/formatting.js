@@ -1,12 +1,13 @@
 var moment = require('moment')
 
 
-export const formatMonthYear = (year, mth) => {
-  const date = new Date(year, mth, 1);
-  const mmt = moment(date);
-  return mmt.format('MMMM YYYY')
+export const formatDegree = (degree, major) => {
+  var formatted = `${degree}, ${major}`
+  if(degree.charAt(degree.length - 1) === "."){
+    formatted = `${degree} ${major}`
+  }
+  return formatted
 }
-
 
 export const formatDateRange = (start_year, start_month, end_year, end_month, include_duration=false) => {
   if (!(start_year && start_month)){

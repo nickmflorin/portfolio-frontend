@@ -19,3 +19,27 @@ export const Page = (props) => (
     </Container>
   </div>
 )
+
+export const LandingPage = (props) => (  // eslint-disable-line
+  <div className="landing-page">
+    {props.children}
+  </div>
+)
+
+export const PageContent = (props) => ( // eslint-disable-line
+  <div className="page-content">
+    {props.children}
+  </div>
+)
+
+PageContent.Left = (props) => ( // eslint-disable-line
+  <div className="left">
+    {props.children}
+  </div>
+)
+
+PageContent.Right = (props) => ( // eslint-disable-line
+  <div className="right">
+    {props.children}
+  </div>
+)

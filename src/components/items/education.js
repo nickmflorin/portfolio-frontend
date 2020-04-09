@@ -14,7 +14,7 @@ import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
 import Tags from 'components/tags'
 
-import Item from './base'
+import PageItem from './base'
 import Project from './projects'
 import Panel from './panel'
 
@@ -26,8 +26,7 @@ class Education extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     school: PropTypes.object.isRequired,
-    degree: PropTypes.string.isRequired,
-    major: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     minor: PropTypes.string,
     concentration: PropTypes.string,
     gpa: PropTypes.number,
@@ -62,11 +61,6 @@ class Education extends React.Component {
     })
   }
   render() {
-    var degree = `${this.props.degree}, ${this.props.major}`
-    if(this.props.degree.charAt(this.props.degree.length - 1) === "."){
-      degree = `${this.props.degree} ${this.props.major}`
-    }
-
     var description = ""
     if (this.props.description) {
       description = description + this.props.description
@@ -79,7 +73,7 @@ class Education extends React.Component {
     }
 
     return (
-      <Item loading={this.state.loading}>
+      <PageItem id={`education-${this.props.id}`} loading={this.state.loading}>
         <div className="header">
           <div className="left">
             {this.props.school.url
@@ -88,7 +82,7 @@ class Education extends React.Component {
             }
           </div>
           <div className="right">
-            <h3 className="title">{degree}</h3>
+            <h3 className="title">{this.props.title}</h3>
             <h6 className="subtitle">{this.props.school.name}</h6>
             <div className="header-items">
               <div className="header-item">
@@ -132,7 +126,7 @@ class Education extends React.Component {
             </Panel>
           )}
         </div>
-      </Item>
+      </PageItem>
     )
   }
 }

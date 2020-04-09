@@ -19,7 +19,7 @@ $screens: "mobile-s", "mobile-m", "mobile-l", "tablet", "laptop-s", "laptop-l"
   @if not index($screens, $size)
     @error "#{$size} is not a valid screen size. Expected one of #{$screen-sizes}."
 
-  $numeric-size: map-get($screen-sizes, $size) + 1
+  $numeric-size: map-get($screen-sizes, $size)
   @media screen and (max-width: #{pixelfy($numeric-size)})
     @content
 

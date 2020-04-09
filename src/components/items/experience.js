@@ -13,7 +13,7 @@ import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
 import Tags from 'components/tags'
 
-import Item from './base'
+import PageItem from './base'
 import Project from './projects'
 import Panel from './panel'
 
@@ -56,7 +56,7 @@ class Experience extends React.Component {
   }
   render() {
     return (
-      <Item loading={this.state.loading}>
+      <PageItem id={`experience-${this.props.id}`} loading={this.state.loading}>
         <div className="header">
           <div className="left">
             {this.props.company.url
@@ -104,7 +104,7 @@ class Experience extends React.Component {
             </Panel>
           )}
         </div>
-      </Item>
+      </PageItem>
     )
   }
 }

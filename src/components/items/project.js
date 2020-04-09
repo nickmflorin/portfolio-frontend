@@ -6,7 +6,7 @@ import { getProject } from 'services'
 import { isImageFile } from 'utils'
 
 import Tags from 'components/tags'
-import Item from './base'
+import PageItem from './base'
 import Panel from './panel'
 import ProjectFile from './file'
 
@@ -46,7 +46,7 @@ class Project extends React.Component {
   }
   render() {
     return (
-        <Item
+        <PageItem
           className="project"
           id={`project-${this.props.id}`}
           loading={this.state.loading}
@@ -69,15 +69,15 @@ class Project extends React.Component {
                   <ProjectFile
                     caption={file.caption}
                     description={file.description}
-                    id={file.id}
                     file={file.file}
+                    id={file.id}
                     key={index}
                   />
                 )
               })}
             </div>
           </div>
-        </Item>
+        </PageItem>
     )
   }
 }
