@@ -16,23 +16,28 @@
     margin-bottom: 0px
 
     .icon-container
-      height: 10px
-      width: 10px
 
-      @include set-responsive-above('laptop-s')
+      @include breakpoint($mobile)
+        height: 10px
+        width: 10px
+
+      @include breakpoint($laptop-up)
         height: 11px
         width: 11px
 
       .icon
-        line-height: 10px
-        @include set-responsive-above('laptop-s')
+        @include breakpoint($mobile)
+          line-height: 10px
+  
+        @include breakpoint($laptop-up)
           line-height: 11px
 
     .text
-      font-size: 10px
-      line-height: 10px
+      @include breakpoint($mobile)
+        font-size: 10px
+        line-height: 10px
 
-      @include set-responsive-above('laptop-s')
+      @include breakpoint($laptop-up)
         font-size: 11px
         line-height: 11px
 

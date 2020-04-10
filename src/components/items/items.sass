@@ -18,12 +18,7 @@
     border: map-get($borders, "regular")
     background-color: map-get($colors, "white")
     padding: 15px
-
-    @include set-responsive-above("tablet")
-      margin: 0px auto 15px auto
-
-    @include set-responsive-above("laptop-l")
-      margin: 0px auto 20px auto
+    margin: 0px auto 15px auto
 
   .header
     display: flex
@@ -38,7 +33,7 @@
       max-width: 60px
       max-height: 60px
 
-      @include set-responsive-above("tablet")
+      @include breakpoint($tablet-up)
         margin-right: 10px
         min-width: 70px
         min-height: 70px
@@ -53,21 +48,20 @@
         margin-bottom: 0px !important
 
     .title
-      margin-bottom: 6px
+      @include breakpoint($mobile)
+        margin-bottom: 6px
 
-      @include set-responsive-above('tablet')
+      @include breakpoint($tablet)
         margin-bottom: 7px
 
-      @include set-responsive-above('laptop-s')
+      @include breakpoint($laptop-up)
         margin-bottom: 8px
 
     .subtitle
-      margin-bottom: 5px
+      @include breakpoint($mobile)
+        margin-bottom: 5px
 
-      @include set-responsive-above('tablet')
-        margin-bottom: 6px
-
-      @include set-responsive-above('laptop-s')
+      @include breakpoint($tablet-up)
         margin-bottom: 6px
 
     .header-items
@@ -76,7 +70,7 @@
       flex-direction: column
       flex-wrap: wrap
 
-      @include set-responsive-above("tablet")
+      @include breakpoint($tablet-up)
         flex-direction: row
 
       > .header-item
@@ -87,14 +81,14 @@
           margin-bottom: 0px
 
         // For when the items are not nested one on top of the other.
-        @include set-responsive-above("tablet")
+        @include breakpoint($tablet)
           margin-bottom: 0px
 
   .body
     padding-left: 0px
     padding-top: 10px
 
-    @include set-responsive-above("tablet")
+    @include breakpoint($tablet)
       padding-left: 85px
       padding-top: 0px
 

@@ -79,10 +79,12 @@
   display: flex
 
   .text
-    font-size: 12px
-    line-height: 14px
 
-    @include set-responsive-above('laptop-s')
+    @include breakpoint($mobile)
+      font-size: 12px
+      line-height: 14px
+
+    @include breakpoint($laptop-up)
       font-size: 13px
       line-height: 15px
 
@@ -90,10 +92,12 @@
     margin-right: 4px
 
     .icon
-      font-size: 12px
-      line-height: 14px
 
-      @include set-responsive-above('laptop-s')
+      @include breakpoint($mobile)
+        font-size: 12px
+        line-height: 14px
+
+      @include breakpoint($laptop-up)
         font-size: 13px
         line-height: 15px
 

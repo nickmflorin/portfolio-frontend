@@ -21,18 +21,16 @@
       font-family: map-get($fonts, "roboto")
       font-weight: map-get($fontweights, "regular")
       color: map-get($colors, "white")
-      font-size: 10px
-      line-height: 12px
       margin-bottom: 0px
 
-      @include set-responsive-above("tablet")
+      @include breakpoint($mobile)
         font-size: 11px
         line-height: 13px
 
-      @include set-responsive-above("laptop-s")
+      @include breakpoint($tablet)
         font-size: 12px
         line-height: 14px
 
-      @include set-responsive-above("laptop-l")
+      @include breakpoint($laptop-up)
         font-size: 13px
         line-height: 15px

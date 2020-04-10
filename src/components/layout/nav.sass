@@ -25,10 +25,14 @@
     padding-right: 6px
 
     .buttons
-      display: none
-      @media screen and (min-width: 960px)
-        display: flex
+      display: flex
 
+      @include breakpoint($mobile)
+        display: none
+
+      @include breakpoint($tablet)
+        display: none
+  
     .button-container
       margin-left: 8px
       margin-right: 8px

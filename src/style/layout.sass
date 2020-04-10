@@ -1,7 +1,6 @@
 @use "sass:map"
 @use "sass:string"
 
-$banner-height: vhify(map-get($heights, "banner"))
 $footer-height: pixelfy(map-get($heights, "footer"))
 $header-height: pixelfy(map-get($heights, "header"))
 
@@ -38,10 +37,18 @@ $header-height: pixelfy(map-get($heights, "header"))
 
       &.landing
         background-color: map-get($colors, "background")
+        position: absolute
+
+        $banner-height: vhify(map-get($banner-heights, 'regular'))
         max-height: unquote("calc(" + vhify(100) + " - " + $banner-height + " - " + $footer-height + ")")
         height: unquote("calc(" + vhify(100) + " - " + $banner-height + " - " + $footer-height + ")")
         top: $banner-height
-        position: absolute
+
+        @include breakpoint($mobile)
+          $banner-height: vhify(map-get($banner-heights, 'mobile'))
+          max-height: unquote("calc(" + vhify(100) + " - " + $banner-height + " - " + $footer-height + ")")
+          height: unquote("calc(" + vhify(100) + " - " + $banner-height + " - " + $footer-height + ")")
+          top: $banner-height
 
         .container
           max-width: 720px
@@ -50,16 +57,17 @@ $header-height: pixelfy(map-get($heights, "header"))
           font-weight: map-get($fontweights, "regular")
           text-align: center
           margin-bottom: 10px
-
-          font-size: 12px
-          line-height: 18px
           margin-bottom: 15px
 
-          @include set-responsive-above("mobile-l")
+          @include breakpoint($mobile)
+            font-size: 12px
+            line-height: 18px
+
+          @include breakpoint($tablet)
             font-size: 13px
             line-height: 19px
 
-          @include set-responsive-above("tablet")
+          @include breakpoint($laptop-up)
             font-size: 14px
             line-height: 20px
 

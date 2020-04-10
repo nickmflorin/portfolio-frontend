@@ -7,7 +7,7 @@ import { CommentItem } from 'components/items'
 import { HtmlHeader } from 'components/html'
 
 import Banner from 'components/landing/banner'
-import PoweredBy from 'components/landing/poweredBy'
+// import PoweredBy from 'components/landing/poweredBy'
 
 import Page from './page'
 
@@ -73,7 +73,6 @@ class Landing extends React.Component {
           title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
         />
         <Page className="landing">
-          <PoweredBy/>
           <HtmlHeader
             className="intro"
             tag="h3"

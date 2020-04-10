@@ -30,27 +30,31 @@ p
     margin-bottom: 0px
 
 a, p
-  font-size: 13px
-  line-height: 15px
   font-family: $roboto
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
     font-size: 13px
     line-height: 15px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($tablet)
+    font-size: 13px
+    line-height: 15px
+
+  @include breakpoint($laptop-up)
     font-size: 14px
     line-height: 16px
 
 a.smaller, p.smaller
-  font-size: 12px
-  line-height: 14px
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
     font-size: 12px
     line-height: 14px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($tablet)
+    font-size: 12px
+    line-height: 14px
+
+  @include breakpoint($laptop-up)
     font-size: 13px
     line-height: 15px
 
@@ -66,77 +70,86 @@ h1, h2, h3, h4, h5, h6, h7, h8, .h1, .h2, .h3, .h4, .h5, .h6, .h7, .h8
     font-weight: map-get($fontweights, "medium")
 
 h1, .h1
-  font-size: 18px
-  line-height: 18px
-  margin-bottom: 16px
   color: map-get($colors, "text-primary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
+    font-size: 18px
+    line-height: 18px
+    margin-bottom: 16px
+
+  @include breakpoint($tablet)
     font-size: 20px
     line-height: 20px
     margin-bottom: 18px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($laptop-up)
     font-size: 22px
     line-height: 22px
     margin-bottom: 20px
 
   &.title
-    font-size: 20px
-    line-height: 20px
+    @include breakpoint($mobile)
+      font-size: 20px
+      line-height: 20px
 
-    @include set-responsive-above('tablet')
+    @include breakpoint($tablet)
       font-size: 22px
       line-height: 22px
 
-    @include set-responsive-above('laptop-s')
+    @include breakpoint($laptop-up)
       font-size: 24px
       line-height: 24px
 
 h2, .h2
-  font-size: 16px
-  line-height: 16px
-  margin-bottom: 16px
   color: map-get($colors, "text-primary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
+    font-size: 16px
+    line-height: 16px
+    margin-bottom: 16px
+
+  @include breakpoint($tablet)
     font-size: 18px
     line-height: 18px
     margin-bottom: 18px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($laptop-up)
     font-size: 20px
     line-height: 20px
     margin-bottom: 20px
 
 h3, .h3
-  font-size: 16px
-  line-height: 16px
-  margin-bottom: 16px
   color: map-get($colors, "text-secondary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
+    font-size: 16px
+    line-height: 16px
+    margin-bottom: 16px
+
+  @include breakpoint($tablet)
     font-size: 17px
     line-height: 17px
     margin-bottom: 18px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($laptop-up)
     font-size: 18px
     line-height: 18px
     margin-bottom: 20px
 
 h4, .h4
-  font-size: 15px
-  line-height: 15px
-  margin-bottom: 14px
   color: map-get($colors, "text-secondary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
+    font-size: 15px
+    line-height: 15px
+    margin-bottom: 14px
+
+  @include breakpoint($tablet)
     font-size: 16px
     line-height: 16px
     margin-bottom: 16px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($laptop-up)
     font-size: 17px
     line-height: 17px
     margin-bottom: 18px
@@ -146,65 +159,73 @@ h4, .h4
     font-weight: map-get($fontweights, "medium")
 
 h5, .h5
-  font-size: 14px
-  line-height: 14px
-  margin-bottom: 12px
   color: map-get($colors, "text-tertiary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
+    font-size: 14px
+    line-height: 14px
+    margin-bottom: 12px
+
+  @include breakpoint($tablet)
     font-size: 15px
     line-height: 15px
     margin-bottom: 14px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($laptop-up)
     font-size: 16px
     line-height: 16px
     margin-bottom: 16px
 
 h6, .h6
-  font-size: 13px
-  line-height: 13px
-  margin-bottom: 10px
   color: map-get($colors, "text-tertiary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
+    font-size: 13px
+    line-height: 13px
+    margin-bottom: 10px
+
+  @include breakpoint($tablet)
     font-size: 14px
     line-height: 14px
     margin-bottom: 12px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($laptop-up)
     font-size: 15px
     line-height: 15px
     margin-bottom: 14px
 
 .h7
-  font-size: 12px
-  line-height: 12px
-  margin-bottom: 10px
   color: map-get($colors, "text-tertiary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
+    font-size: 12px
+    line-height: 12px
+    margin-bottom: 10px
+
+  @include breakpoint($tablet)
     font-size: 13px
     line-height: 13px
     margin-bottom: 12px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($laptop-up)
     font-size: 14px
     line-height: 14px
     margin-bottom: 12px
 
 .h8
-  font-size: 12px
-  line-height: 12px
-  margin-bottom: 10px
   color: map-get($colors, "text-tertiary")
 
-  @include set-responsive-above('tablet')
+  @include breakpoint($mobile)
     font-size: 12px
     line-height: 12px
     margin-bottom: 10px
 
-  @include set-responsive-above('laptop-s')
+  @include breakpoint($tablet)
+    font-size: 12px
+    line-height: 12px
+    margin-bottom: 10px
+
+  @include breakpoint($laptop-up)
     font-size: 13px
     line-height: 13px
     margin-bottom: 10px

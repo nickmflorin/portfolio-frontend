@@ -1,0 +1,15 @@
+@import '~breakpoint-sass/stylesheets/breakpoint'
+
+$break-mobile-s: 320px
+$break-mobile-m: 375px
+$break-mobile-l: 425px
+$break-tablet: 768px
+$break-laptop-s: 1024px
+$break-laptop-l: 1440px
+
+$mobile: 0px $break-mobile-l
+$tablet: $break-tablet $break-laptop-s - 1
+$tablet-up: min-width $break-tablet
+$laptop: $break-laptop-s $break-laptop-l
+$laptop-up: min-width $break-laptop-s
+$wide: min-width $break-laptop-l + 1
