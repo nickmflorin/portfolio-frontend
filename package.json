@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "webpack --mode production"
+    "build": "react-app-rewired build"
   },
   "eslintConfig": {
     "extends": "react-app"
