@@ -24,12 +24,11 @@ class Comment extends React.Component {
     if (!date.isValid()) {
       throw new Error('Invalid Date!')
     };
-    console.log(date)
     const date_formatted = date.format('dddd, MMM Do YYYY');
     return (
         <Item className="bordered">
           <div className="header" style={{display: "inline-block"}}>
-            <h3 className="title">{this.props.name}</h3>
+            <h1 className="thick">{this.props.name}</h1>
             <div className="header-items">
               <div className="header-item">
                 <IconizedText
