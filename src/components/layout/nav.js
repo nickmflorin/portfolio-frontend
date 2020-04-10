@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { NavBarButton, BrandButton, MenuButton } from './buttons'
-
+import { NavBarButton, BrandButton, MenuButton } from 'components/buttons'
 import './nav.sass'
 
 var classNames = require('classnames')

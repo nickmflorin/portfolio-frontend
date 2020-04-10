@@ -8,8 +8,6 @@ import { getProjects } from 'services'
 import { Page } from 'pages/page'
 import { ProjectItem } from 'components/items'
 
-import "./pages.sass"
-
 
 class Projects extends React.Component {
   constructor(props, context) {

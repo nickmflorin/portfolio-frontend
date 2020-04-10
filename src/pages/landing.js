@@ -6,11 +6,9 @@ import { CommentForm } from 'components/forms'
 import { CommentItem } from 'components/items'
 import { HtmlHeader } from 'components/html'
 
-import Banner from 'components/banner'
+import Banner from 'components/landing/banner'
 
 import { Page, LandingPage } from './page'
-
-import './pages.sass'
 
 
 class Landing extends React.Component {

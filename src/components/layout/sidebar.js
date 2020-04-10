@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { SideBarButton } from './buttons'
+import { SideBarButton } from 'components/buttons'
 import './sidebar.sass'
 
 var classNames = require('classnames')

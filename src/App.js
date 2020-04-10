@@ -9,9 +9,7 @@ import { faGraduationCap, faBriefcase, faHammer, faFilePdf, faHome
 import { getProfile } from 'services'
 
 import { Landing, Projects, Experience, Education } from 'pages'
-import NavBar from 'components/nav'
-import SideBar from 'components/sidebar'
-import Footer from 'components/footer'
+import { NavBar, SideBar, Footer } from 'components/layout'
 
 
 const NavBarItems = [
