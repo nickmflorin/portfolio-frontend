@@ -14,7 +14,7 @@ export const Page = (props) => (
     <Container>
       {props.header && (
         <div className="header-container">
-          <h2 className="title">{props.header}</h2>
+          <h2 className="thick">{props.header}</h2>
         </div>
       )}
       {props.children}

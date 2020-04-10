@@ -65,8 +65,8 @@ class Experience extends React.Component {
             }
           </div>
           <div className="right">
-            <h2 className="title">{this.props.title}</h2>
-            <h5 className="subtitle">{this.props.company.name}</h5>
+            <h1 className="thick">{this.props.title}</h1>
+            <h3>{this.props.company.name}</h3>
             <div className="header-items">
               <div className="header-item">
                 <IconizedText icon={faMapPin}>{`${this.props.company.city}, ${this.props.company.state}`}</IconizedText>

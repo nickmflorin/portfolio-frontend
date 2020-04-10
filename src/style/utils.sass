@@ -12,3 +12,41 @@
 
 @function vhify($value)
   @return unquote("#{$value}vh")
+
+
+@mixin text-sizes-small
+
+  @include breakpoint($mobile)
+    font-size: 10px
+    line-height: 12px
+
+  @include breakpoint($tablet)
+    font-size: 11px
+    line-height: 13px
+
+  @include breakpoint($laptop-s)
+    font-size: 12px
+    line-height: 14px
+
+  @include breakpoint($wide)
+    font-size: 13px
+    line-height: 15px
+
+
+@mixin text-sizes-regular
+
+  @include breakpoint($mobile)
+    font-size: 12px
+    line-height: 14px
+
+  @include breakpoint($tablet)
+    font-size: 12px
+    line-height: 14px
+
+  @include breakpoint($laptop-s)
+    font-size: 13px
+    line-height: 15px
+
+  @include breakpoint($wide)
+    font-size: 14px
+    line-height: 16px

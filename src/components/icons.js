@@ -16,12 +16,12 @@ export const IconizedText = (props) => (  // eslint-disable-line
 )
 
 export const IconizedHeader = (props) => (  // eslint-disable-line
-  <h6 className="h7 iconized iconized-header">
+  <h4 className="iconized iconized-header">
     <span className="icon-container">
       <FontAwesomeIcon className="icon" icon={props.icon}/>
     </span>
     <span className="text">
       {props.children}
     </span>
-  </h6>
+  </h4>
 )

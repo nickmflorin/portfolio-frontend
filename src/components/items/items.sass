@@ -47,23 +47,6 @@
       > div:last-child
         margin-bottom: 0px !important
 
-    .title
-      @include breakpoint($mobile)
-        margin-bottom: 6px
-
-      @include breakpoint($tablet)
-        margin-bottom: 7px
-
-      @include breakpoint($laptop-up)
-        margin-bottom: 8px
-
-    .subtitle
-      @include breakpoint($mobile)
-        margin-bottom: 5px
-
-      @include breakpoint($tablet-up)
-        margin-bottom: 6px
-
     .header-items
       margin-bottom: 10px
       display: flex
@@ -88,7 +71,7 @@
     padding-left: 0px
     padding-top: 10px
 
-    @include breakpoint($tablet)
+    @include breakpoint($tablet-up)
       padding-left: 85px
       padding-top: 0px
 
@@ -119,13 +102,6 @@
 
   &.project
     margin-left: 0px !important
-
-    .header
-      display: inline-block
-      margin-bottom: 10px
-
-      .title
-        margin-bottom: 0px !important
 
     .body
       margin-left: 0px !important

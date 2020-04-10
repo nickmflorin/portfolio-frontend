@@ -24,6 +24,7 @@ class Comment extends React.Component {
     if (!date.isValid()) {
       throw new Error('Invalid Date!')
     };
+    console.log(date)
     const date_formatted = date.format('dddd, MMM Do YYYY');
     return (
         <Item className="bordered">
@@ -34,8 +35,8 @@ class Comment extends React.Component {
                 <IconizedText
                   icon={faCalendarAlt}
                   size={12}
-                  text={date_formatted}
-                />
+                >{date_formatted}
+                </IconizedText>
               </div>
             </div>
           </div>

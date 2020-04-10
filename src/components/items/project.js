@@ -51,9 +51,7 @@ class Project extends React.Component {
           id={`project-${this.props.id}`}
           loading={this.state.loading}
         >
-          <div className="header">
-            <h2 className="title">{this.props.name}</h2>
-          </div>
+          <h1 className="thick">{this.props.name}</h1>
           <div className="body project">
             <Panel>
               <p>{this.state.showcase_description}</p>

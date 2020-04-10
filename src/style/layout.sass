@@ -7,6 +7,7 @@ $header-height: pixelfy(map-get($heights, "header"))
 .app
   height: 100vh
   display: flex
+  overflow-y: hidden
 
   header
     position: fixed
@@ -18,7 +19,7 @@ $header-height: pixelfy(map-get($heights, "header"))
   .content
     width: 100%
     position: relative
-    overflow-y: visible
+    // overflow-y: visible
 
     .page
       max-height: unquote("calc(" + vhify(100) + " - " + $footer-height + " - " + $header-height + ")")
@@ -31,7 +32,7 @@ $header-height: pixelfy(map-get($heights, "header"))
         .header-container
           margin: 0px auto 20px auto
 
-          .title
+          h2
             margin: 0
             text-align: center
 

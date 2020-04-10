@@ -12,10 +12,25 @@
     flex-wrap: wrap
     margin-right: 3px
     margin-bottom: 3px
-    padding: 6px 8px
     background-color: map-get($colors, "blue")
     border: map-get($borders, "blue")
     flex-wrap: wrap
+
+    @include breakpoint($mobile)
+      padding: 4px 6px
+      border-radius: 6px
+
+    @include breakpoint($tablet)
+      padding: 5px 7px
+      border-radius: 7px
+
+    @include breakpoint($laptop-s)
+      padding: 6px 8px
+      border-radius: 8px
+
+    @include breakpoint($wide)
+      padding: 6px 8px
+      border-radius: 8px
 
     p
       font-family: map-get($fonts, "roboto")
@@ -24,13 +39,17 @@
       margin-bottom: 0px
 
       @include breakpoint($mobile)
+        font-size: 10px
+        line-height: 12px
+
+      @include breakpoint($tablet)
         font-size: 11px
         line-height: 13px
 
-      @include breakpoint($tablet)
+      @include breakpoint($laptop-s)
         font-size: 12px
         line-height: 14px
 
-      @include breakpoint($laptop-up)
+      @include breakpoint($wide)
         font-size: 13px
         line-height: 15px

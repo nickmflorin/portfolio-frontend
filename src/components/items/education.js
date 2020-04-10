@@ -82,8 +82,8 @@ class Education extends React.Component {
             }
           </div>
           <div className="right">
-            <h3 className="title">{this.props.title}</h3>
-            <h6 className="subtitle">{this.props.school.name}</h6>
+            <h1 className="thick">{this.props.title}</h1>
+            <h3>{this.props.school.name}</h3>
             <div className="header-items">
               <div className="header-item">
                 <IconizedText icon={faMapPin}>{`${this.props.school.city}, ${this.props.school.state}`}</IconizedText>
