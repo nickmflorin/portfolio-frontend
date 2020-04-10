@@ -4,9 +4,10 @@ import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
 
 import { getAllExperience } from 'services'
-import { Page } from 'pages/page'
 import { ExperienceItem } from 'components/items'
 import { sortExperienceEducation } from 'utils'
+
+import Page from './page'
 
 
 class Experience extends React.Component {
@@ -33,7 +34,7 @@ class Experience extends React.Component {
       <Page header="Experience" loading={this.state.loading}>
         <Page.Content>
           <Page.Content.Left>
-            <List>
+            <List className="accordion">
               {this.state.items.map((item) => (
                 <List.Item key={item.id}>
                   <HashLink smooth to={`#experience-${item.id}`}>

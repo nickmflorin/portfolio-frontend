@@ -11,7 +11,7 @@ var classNames = require('classnames');
 export const Page = (props) => (
   <div className={props.className ? classNames('page', props.className) : 'page'}>
     <Loader active={props.loading}/>
-    <Container style={props.style || {}}>
+    <Container>
       {props.header && (
         <div className="header-container">
           <h2 className="title">{props.header}</h2>
@@ -19,12 +19,6 @@ export const Page = (props) => (
       )}
       {props.children}
     </Container>
-  </div>
-)
-
-export const LandingPage = (props) => (  // eslint-disable-line
-  <div className="landing-page">
-    {props.children}
   </div>
 )
 
@@ -47,3 +41,5 @@ PageContent.Right = (props) => ( // eslint-disable-line
     {props.children}
   </Col>
 )
+
+export default Page;

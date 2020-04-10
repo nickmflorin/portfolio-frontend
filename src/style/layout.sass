@@ -1,6 +1,10 @@
 @use "sass:map"
 @use "sass:string"
 
+$banner-height: vhify(map-get($heights, "banner"))
+$footer-height: pixelfy(map-get($heights, "footer"))
+$header-height: pixelfy(map-get($heights, "header"))
+
 .app
   height: 100vh
   display: flex
@@ -15,24 +19,49 @@
   .content
     width: 100%
     position: relative
-    max-height: unquote("calc(" + vhify(100) + " - " + pixelfy(map-get($heights, "footer")) + " - " + pixelfy(map-get($heights, "header")) + ")")
-    top: pixelfy(map-get($heights, 'header'))
-    display: flex
-    flex-direction: column
     overflow-y: visible
-    flex-grow: 1
 
     .page
+      max-height: unquote("calc(" + vhify(100) + " - " + $footer-height + " - " + $header-height + ")")
+      top: $header-height
       position: relative
-      max-height: 100%
-      display: flex
-      flex-grow: 1
-      flex-direction: column
       overflow-y: scroll
+      width: 100%
 
-      .header-container
-        margin: 0px auto 20px auto
+      .container
+        .header-container
+          margin: 0px auto 20px auto
 
-        .title
-          margin: 0
+          .title
+            margin: 0
+            text-align: center
+
+      &.landing
+        background-color: map-get($colors, "background")
+        max-height: unquote("calc(" + vhify(100) + " - " + $banner-height + " - " + $footer-height + ")")
+        height: unquote("calc(" + vhify(100) + " - " + $banner-height + " - " + $footer-height + ")")
+        top: $banner-height
+        position: absolute
+
+        .container
+          max-width: 720px
+
+        h3.intro
+          font-weight: map-get($fontweights, "regular")
           text-align: center
+          margin-bottom: 10px
+
+          font-size: 12px
+          line-height: 18px
+          margin-bottom: 15px
+
+          @include set-responsive-above("mobile-l")
+            font-size: 13px
+            line-height: 19px
+
+          @include set-responsive-above("tablet")
+            font-size: 14px
+            line-height: 20px
+
+        .comments
+          margin-bottom: 15px

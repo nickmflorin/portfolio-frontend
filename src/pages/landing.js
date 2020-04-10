@@ -7,8 +7,7 @@ import { CommentItem } from 'components/items'
 import { HtmlHeader } from 'components/html'
 import Banner from 'components/landing/banner'
 
-import { Page, LandingPage } from './page'
-import './landing.sass'
+import Page from './page'
 
 
 class Landing extends React.Component {
@@ -64,14 +63,14 @@ class Landing extends React.Component {
   }
   render(){
     return (
-      <LandingPage>
+      <React.Fragment>
         <Banner
           github_url={this.state.profile.github_url}
           headshot={this.state.profile.headshot}
           linkedin_url={this.state.profile.linkedin_url}
           title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
         />
-        <Page>
+        <Page className="landing">
           <HtmlHeader
             className="intro"
             tag="h3"
@@ -93,7 +92,7 @@ class Landing extends React.Component {
             onSubmitted={this.getComments.bind(this)}
           />
         </Page>
-      </LandingPage>
+      </React.Fragment>
     )
   }
 }

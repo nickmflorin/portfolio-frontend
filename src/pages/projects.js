@@ -5,8 +5,9 @@ import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
 
 import { getProjects } from 'services'
-import { Page } from 'pages/page'
 import { ProjectItem } from 'components/items'
+
+import Page from './page'
 
 
 class Projects extends React.Component {
@@ -33,7 +34,7 @@ class Projects extends React.Component {
       <Page header="Projects" loading={this.state.loading}>
         <Page.Content>
           <Page.Content.Left>
-            <List>
+            <List className="accordion">
               {this.state.projects.map((item) => (
                 <List.Item key={item.id}>
                   <HashLink smooth to={`#project-${item.id}`}>{item.name}</HashLink>
