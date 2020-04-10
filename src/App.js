@@ -84,7 +84,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div className='app'>
+        <div className="app">
           <header>
             <SideBar
               items={this.state.items}
@@ -94,30 +94,30 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
                 <NavBar
-                  overlay={false}
                   items={this.state.items}
-                  onMenuClick={this.onMenuClick.bind(this)}
                   onHomeClick={this.onHomeClick.bind(this)}
+                  onMenuClick={this.onMenuClick.bind(this)}
+                  overlay={false}
                 />
               </Route>
               <Route>
                 <NavBar
-                  overlay={true}
                   items={this.state.items}
-                  onMenuClick={this.onMenuClick.bind(this)}
                   onHomeClick={this.onHomeClick.bind(this)}
+                  onMenuClick={this.onMenuClick.bind(this)}
+                  overlay
                 />
               </Route>
             </Switch>
           </header>
-          <div className='content'>
+          <div className="content">
             {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
               return (
                 <Route
-                  key={item.id}
-                  exact path={item.url}
                   component={item.page}
-                ></Route>
+                  exact key={item.id}
+                  path={item.url}
+                />
               )
             })}
           </div>
