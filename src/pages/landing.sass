@@ -1,0 +1,43 @@
+@import 'style/utils.sass'
+
+@use "sass:map"
+@use "sass:string"
+
+
+.landing-page
+  // display: flex
+  // flex-direction: column
+  top: pixelfy(-1 * map-get($heights, 'header'))
+  position: absolute
+  width: 100%
+
+  .page
+    background-color: map-get($colors, "background")
+
+    $banner-height: map-get($heights, "banner")
+    $footer-height: map-get($heights, "footer")
+    $inverse-banner-height: -1 * map-get($heights, 'banner')
+
+    max-height: unquote("calc(" + vhify($banner-height) + " - " + pixelfy($footer-height) + ")")
+    height: unquote("calc(" + vhify(100) + " - " + vhify($banner-height) + ")")
+    margin-top: vhify($inverse-banner-height)
+
+    h3.intro
+      font-weight: map-get($fontweights, "regular")
+      text-align: center
+      margin-bottom: 10px
+
+      font-size: 12px
+      line-height: 18px
+      margin-bottom: 15px
+
+      @include set-responsive-above("mobile-l")
+        font-size: 13px
+        line-height: 19px
+
+      @include set-responsive-above("tablet")
+        font-size: 14px
+        line-height: 20px
+
+    .comments
+      margin-bottom: 15px
