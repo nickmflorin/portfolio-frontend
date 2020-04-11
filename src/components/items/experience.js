@@ -92,14 +92,14 @@ class Experience extends React.Component {
             )}
           </Panel>
           {(this.state.projects.length !== 0) && (
-            <Panel header="Projects" icon={faHammer}>
+            <Panel className="bordered-top" header="Projects" icon={faHammer}>
               {this.state.projects.map((project, index) => {
                 return <Project key={index} {...project}/>
               })}
             </Panel>
           )}
           {(this.state.skills.length !== 0) && (
-            <Panel header="Skills" icon={faFire}>
+            <Panel className="bordered-top" header="Skills" icon={faFire}>
               <Tags items={_.pluck(this.state.skills, 'name')} />
             </Panel>
           )}

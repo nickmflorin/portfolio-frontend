@@ -4,28 +4,31 @@
 @use "sass:string"
 
 
+@mixin inverse
+  color: $white
+
+  &:hover
+    background: $white
+    color: $text-gray
+
 .sidebar-button
   font-size: 1em
-  color: map-get($colors, "white")
   display: flex
   line-height: 18px
   height: 38px
   padding: 10px 8px
   justify-content: center
+  @include inverse
 
-  &:hover
-    background: map-get($colors, "white")
-    color: map-get($colors, "text-gray")
+  .icon-container
+    width: 18px
+    text-align: center
+    vertical-align: middle
+    margin-right: 6px
 
-.icon-container
-  width: 18px
-  text-align: center
-  vertical-align: middle
-  margin-right: 6px
-
-.text
-  background: transparent
-  text-align: left
+  .text
+    background: transparent
+    text-align: left
 
 .navbar-button
   font-size: 14px
@@ -36,18 +39,12 @@
   width: 100%
   margin: 0 auto
   text-transform: uppercase
-
   background: transparent
-  color: map-get($colors, "white")
-
-  &:hover
-    background: map-get($colors, "white")
-    color: map-get($colors, "text-gray")
+  @include inverse
 
 .menu-button
-
   .icon
-    color: map-get($colors, "white")
+    color: $white
     line-height: 60px
 
 .brand-button
@@ -79,27 +76,13 @@
   display: flex
 
   .text
-
-    @include breakpoint($mobile)
-      font-size: 12px
-      line-height: 14px
-
-    @include breakpoint($laptop-up)
-      font-size: 13px
-      line-height: 15px
+    @include text-sizes-regular
 
   .icon-container
-    margin-right: 4px
+    margin-right: 8px
 
     .icon
-
-      @include breakpoint($mobile)
-        font-size: 12px
-        line-height: 14px
-
-      @include breakpoint($laptop-up)
-        font-size: 13px
-        line-height: 15px
+      @include text-sizes-regular
 
 
 .social-link-container

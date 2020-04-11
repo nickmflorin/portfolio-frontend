@@ -13,7 +13,7 @@
   align-items: flex-start !important
 
   &.overlay
-    background-color: map-get($colors, "navbar")
+    background-color: $navbar-color
 
   .left
     flex-grow: 100
@@ -32,7 +32,7 @@
 
       @include breakpoint($tablet)
         display: none
-  
+
     .button-container
       margin-left: 8px
       margin-right: 8px

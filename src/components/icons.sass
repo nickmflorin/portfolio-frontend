@@ -11,7 +11,7 @@
     text-align: center
 
   &.iconized-text
-    color: map-get($colors, 'icon')
+    color: $icon-color
     font-weight: map-get($fontweights, 'regular')
     margin-bottom: 0px
 
@@ -21,25 +21,36 @@
         height: 10px
         width: 10px
 
-      @include breakpoint($laptop-up)
+      @include breakpoint($tablet)
         height: 11px
         width: 11px
+
+      @include breakpoint($laptop-up)
+        height: 12px
+        width: 12px
 
       .icon
         @include breakpoint($mobile)
           line-height: 10px
-  
-        @include breakpoint($laptop-up)
+
+        @include breakpoint($tablet)
           line-height: 11px
+
+        @include breakpoint($laptop-up)
+          line-height: 12px
 
     .text
       @include breakpoint($mobile)
         font-size: 10px
         line-height: 10px
 
-      @include breakpoint($laptop-up)
+      @include breakpoint($tablet)
         font-size: 11px
         line-height: 11px
+
+      @include breakpoint($laptop-up)
+        font-size: 12px
+        line-height: 12px
 
   &.iconized-header
     font-weight: map-get($fontweights, 'regular')

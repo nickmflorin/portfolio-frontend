@@ -1,26 +1,6 @@
 @import './colors.sass';
 @import './fonts.sass';
 
-
-// Colors
-$colors: (
-  "white": $white,
-  "black": $black,
-  "text-primary": $text-primary,
-  "text-secondary": $text-secondary,
-  "text-tertiary": $text-tertiary,
-  "text-gray": $text-gray,
-  "blue": $blue,
-  "green": $green,
-  "red": $red,
-  "icon": $icon-color,
-  "navbar": $navbar-color,
-  "footer": $footer-color,
-  "background": $background-color,
-  "border": $border-color,
-);
-
-// Borders
 $borders: (
   'regular': 1px solid $border_color,
   'light': 1px solid $border_color_light,
@@ -28,7 +8,6 @@ $borders: (
   'blue': 1px solid $blue,
 );
 
-// Fonts
 $fonts: (
   'opensans': $opensans,
   'roboto': $roboto,

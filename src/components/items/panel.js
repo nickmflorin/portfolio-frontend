@@ -1,6 +1,8 @@
 import React from 'react';
 import { IconizedHeader } from 'components/icons'
 
+var classNames = require('classnames')
+
 
 const Panel = (props) => {
   var child = <div className="panel-item">{props.children}</div>
@@ -15,7 +17,7 @@ const Panel = (props) => {
     })
   }
   return (
-    <div className="panel">
+    <div className={props.className ? classNames('panel', props.className) : 'panel'}>
       {props.header && (
         <IconizedHeader icon={props.icon}>{props.header}</IconizedHeader>
       )}

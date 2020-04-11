@@ -12,7 +12,7 @@
     flex-wrap: wrap
     margin-right: 3px
     margin-bottom: 3px
-    background-color: map-get($colors, "blue")
+    background-color: $blue
     border: map-get($borders, "blue")
     flex-wrap: wrap
 
@@ -35,21 +35,6 @@
     p
       font-family: map-get($fonts, "roboto")
       font-weight: map-get($fontweights, "regular")
-      color: map-get($colors, "white")
+      color: $white
       margin-bottom: 0px
-
-      @include breakpoint($mobile)
-        font-size: 10px
-        line-height: 12px
-
-      @include breakpoint($tablet)
-        font-size: 11px
-        line-height: 13px
-
-      @include breakpoint($laptop-s)
-        font-size: 12px
-        line-height: 14px
-
-      @include breakpoint($wide)
-        font-size: 13px
-        line-height: 15px
+      @include text-sizes-small
