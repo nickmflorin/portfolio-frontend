@@ -6,8 +6,9 @@ import { getProject } from 'services'
 import { isImageFile } from 'utils'
 
 import { HtmlDescription } from 'components/html'
-
 import Tags from 'components/tags'
+import ErrorBoundary from 'components/errorBoundary'
+
 import PageItem from './base'
 import Panel from './panel'
 import ProjectFile from './file'
@@ -59,20 +60,24 @@ class Project extends React.Component {
               <HtmlDescription>{this.state.showcase_description}</HtmlDescription>
             </Panel>
             {(this.state.skills.length !== 0) && (
-              <Panel>
-                <Tags items={_.pluck(this.state.skills, 'name')} />
-              </Panel>
+              <ErrorBoundary>
+                <Panel>
+                  <Tags items={_.pluck(this.state.skills, 'name')} />
+                </Panel>
+              </ErrorBoundary>
             )}
             <div className="files-container">
               {this.state.files.map((file, index) => {
                 return (
-                  <ProjectFile
-                    caption={file.caption}
-                    description={file.description}
-                    file={file.file}
-                    id={file.id}
-                    key={index}
-                  />
+                  <ErrorBoundary key={index}>
+                    <ProjectFile
+                      caption={file.caption}
+                      description={file.description}
+                      file={file.file}
+                      id={file.id}
+                      key={index}
+                    />
+                  </ErrorBoundary>
                 )
               })}
             </div>

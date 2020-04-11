@@ -12,6 +12,7 @@ import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
 import Tags from 'components/tags'
+import ErrorBoundary from 'components/errorBoundary'
 
 import PageItem from './base'
 import Project from './projects'
@@ -83,25 +84,35 @@ class Experience extends React.Component {
           </div>
         </div>
         <div className="body">
-          <Panel>
-            {(this.props.company.description) && (
-              <HtmlDescription>{this.props.company.description}</HtmlDescription>
-            )}
-            {(this.props.description) && (
-              <HtmlDescription>{this.props.description}</HtmlDescription>
-            )}
-          </Panel>
-          {(this.state.projects.length !== 0) && (
-            <Panel className="bordered-top" header="Projects" icon={faHammer}>
-              {this.state.projects.map((project, index) => {
-                return <Project key={index} {...project}/>
-              })}
+          <ErrorBoundary>
+            <Panel>
+              {(this.props.company.description) && (
+                <HtmlDescription>{this.props.company.description}</HtmlDescription>
+              )}
+              {(this.props.description) && (
+                <HtmlDescription>{this.props.description}</HtmlDescription>
+              )}
             </Panel>
+          </ErrorBoundary>
+          {(this.state.projects.length !== 0) && (
+            <ErrorBoundary>
+              <Panel className="bordered-top" header="Projects" icon={faHammer}>
+                {this.state.projects.map((project, index) => {
+                  return (
+                    <ErrorBoundary key={index}>
+                      <Project {...project}/>
+                    </ErrorBoundary>
+                  )
+                })}
+              </Panel>
+            </ErrorBoundary>
           )}
           {(this.state.skills.length !== 0) && (
-            <Panel className="bordered-top" header="Skills" icon={faFire}>
-              <Tags items={_.pluck(this.state.skills, 'name')} />
-            </Panel>
+            <ErrorBoundary>
+              <Panel className="bordered-top" header="Skills" icon={faFire}>
+                <Tags items={_.pluck(this.state.skills, 'name')} />
+              </Panel>
+            </ErrorBoundary>
           )}
         </div>
       </PageItem>

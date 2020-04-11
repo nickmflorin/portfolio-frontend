@@ -6,11 +6,12 @@ import { HashLink } from 'react-router-hash-link';
 
 import { getProjects } from 'services'
 import { ProjectItem } from 'components/items'
+import ErrorBoundary from 'components/errorBoundary'
 
 import Page from './page'
 
 
-class Projects extends React.Component {
+class Projects extends React.Component {  // eslint-disable-line
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -42,11 +43,15 @@ class Projects extends React.Component {
               ))}
             </List>
           </Page.Content.Left>
-          <Page.Content.Right>
-            {this.state.projects.map((project, index) => {
-              return <ProjectItem key={project.id} {...project} />
-            })}
-          </Page.Content.Right>
+          <ErrorBoundary>
+            <Page.Content.Right>
+              {this.state.projects.map((project, index) => (
+                <ErrorBoundary key={project.id}>
+                  <ProjectItem {...project} />
+                </ErrorBoundary>
+              ))}
+            </Page.Content.Right>
+          </ErrorBoundary>
         </Page.Content>
       </Page>
     )

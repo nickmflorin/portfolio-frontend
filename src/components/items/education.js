@@ -13,6 +13,7 @@ import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
 import Tags from 'components/tags'
+import ErrorBoundary from 'components/errorBoundary'
 
 import PageItem from './base'
 import Project from './projects'
@@ -89,12 +90,14 @@ class Education extends React.Component {
                 <IconizedText icon={faMapPin}>{`${this.props.school.city}, ${this.props.school.state}`}</IconizedText>
               </div>
               <div className="header-item">
-                <IconizedText icon={faCalendarAlt}>{formatDateRange(
-                  this.props.start_year,
-                  this.props.start_month,
-                  this.props.end_year,
-                  this.props.end_month
-                )}</IconizedText>
+                <ErrorBoundary>
+                  <IconizedText icon={faCalendarAlt}>{formatDateRange(
+                    this.props.start_year,
+                    this.props.start_month,
+                    this.props.end_year,
+                    this.props.end_month
+                  )}</IconizedText>
+                </ErrorBoundary>
               </div>
               <div className="header-item">
                 <IconizedText icon={faPaperPlane}>{`${this.props.gpa.toFixed(2)}/4.00`}</IconizedText>
@@ -109,21 +112,27 @@ class Education extends React.Component {
             </Panel>
           )}
           {(this.state.projects.length !== 0) && (
-            <Panel className="bordered-top" header="Projects" icon={faHammer}>
-              {this.state.projects.map((project, index) => {
-                return <Project key={index} {...project}/>
-              })}
-            </Panel>
+            <ErrorBoundary>
+              <Panel className="bordered-top" header="Projects" icon={faHammer}>
+                {this.state.projects.map((project, index) => {
+                  return <Project key={index} {...project}/>
+                })}
+              </Panel>
+            </ErrorBoundary>
           )}
           {(this.state.skills.length !== 0) && (
-            <Panel className="bordered-top" header="Skills" icon={faFire}>
-              <Tags items={_.pluck(this.state.skills, 'name')}/>
-            </Panel>
+            <ErrorBoundary>
+              <Panel className="bordered-top" header="Skills" icon={faFire}>
+                <Tags items={_.pluck(this.state.skills, 'name')}/>
+              </Panel>
+            </ErrorBoundary>
           )}
           {(this.state.courses.length !== 0) && (
-            <Panel className="bordered-top" header="Courses" icon={faSchool}>
-              <Tags items={_.pluck(this.state.courses, 'name')} />
-            </Panel>
+            <ErrorBoundary>
+              <Panel className="bordered-top" header="Courses" icon={faSchool}>
+                <Tags items={_.pluck(this.state.courses, 'name')} />
+              </Panel>
+            </ErrorBoundary>
           )}
         </div>
       </PageItem>

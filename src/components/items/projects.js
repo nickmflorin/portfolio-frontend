@@ -7,6 +7,7 @@ import { getFileExtension } from 'utils';
 
 import { HtmlDescription } from 'components/html';
 import { FileLink } from 'components/buttons';
+import ErrorBoundary from 'components/errorBoundary'
 
 
 class Project extends React.Component {
@@ -56,11 +57,12 @@ class Project extends React.Component {
           <div className="files">
             {this.state.files.map((file) => {
               return (
-                  <FileLink
-                    key={file.id}
-                    label={file.name}
-                    url={file.file}
-                  />
+                  <ErrorBoundary key={file.id}>
+                    <FileLink
+                      label={file.name}
+                      url={file.file}
+                    />
+                  </ErrorBoundary>
               )
             })}
           </div>
