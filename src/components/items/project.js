@@ -5,6 +5,8 @@ import _ from 'underscore'
 import { getProject } from 'services'
 import { isImageFile } from 'utils'
 
+import { HtmlDescription } from 'components/html'
+
 import Tags from 'components/tags'
 import PageItem from './base'
 import Panel from './panel'
@@ -54,7 +56,7 @@ class Project extends React.Component {
           <h1 className="thick">{this.props.name}</h1>
           <div className="body project">
             <Panel>
-              <p>{this.state.showcase_description}</p>
+              <HtmlDescription>{this.state.showcase_description}</HtmlDescription>
             </Panel>
             {(this.state.skills.length !== 0) && (
               <Panel>

@@ -51,7 +51,7 @@ class Project extends React.Component {
     return (
       <React.Fragment>
         <h6>{this.props.name}</h6>
-        <HtmlDescription>{this.props.showcase_description || this.props.description}</HtmlDescription>
+        <HtmlDescription>{this.props.description}</HtmlDescription>
         {this.state.files.length !== 0 && (
           <div className="files">
             {this.state.files.map((file) => {
