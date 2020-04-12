@@ -81,6 +81,7 @@ class App extends React.Component {
   onHomeClick(){
     this.sidebar.current.hide()
   }
+
   render() {
     return (
       <BrowserRouter>
