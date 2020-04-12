@@ -14,4 +14,17 @@ const PageItem = (props) => {
   )
 }
 
+PageItem.Header = (props) => (
+  <div className={props.className ? classNames('header', props.className) : 'header'}>
+    {props.children}
+  </div>
+)
+
+PageItem.Body = (props) => (
+  <div className={props.className ? classNames('body', props.className) : 'body'}>
+    {props.children}
+  </div>
+)
+
+
 export default PageItem;

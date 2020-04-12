@@ -4,7 +4,7 @@ import { IconizedHeader } from 'components/icons'
 var classNames = require('classnames')
 
 
-const Panel = (props) => {
+export const Panel = (props) => {
   var child = <div className="panel-item">{props.children}</div>
   if (props.children && props.children.constructor === Array){
     child = props.children.map((cl, index) => {
@@ -25,5 +25,6 @@ const Panel = (props) => {
     </div>
   )
 }
+
 
 export default Panel;

@@ -2,21 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 
-import { faFire, faHammer, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
+import { faFire, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 import { getExperience } from 'services'
 import { formatDateRange, onImageLoadError } from 'utils'
+
+import ErrorBoundary from 'components/errorBoundary'
 
 import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
-import Tags from 'components/tags'
-import ErrorBoundary from 'components/errorBoundary'
+import { Panel, ProjectsPanel, SkillsPanel } from 'components/panels'
 
-import PageItem from './base'
-import Project from './projects'
-import Panel from './panel'
+import PageItem from './pageItem'
 
 import './items.sass'
 
@@ -58,7 +57,7 @@ class Experience extends React.Component {
   render() {
     return (
       <PageItem id={`experience-${this.props.id}`} loading={this.state.loading}>
-        <div className="header">
+        <PageItem.Header>
           <div className="left">
             {this.props.company.url
               ? <LogoLink href={this.props.company.url} onError={onImageLoadError} src={this.props.company.logo}/>
@@ -82,8 +81,8 @@ class Experience extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="body">
+        </PageItem.Header>
+        <PageItem.Body>
           <ErrorBoundary>
             <Panel>
               {(this.props.company.description) && (
@@ -96,25 +95,15 @@ class Experience extends React.Component {
           </ErrorBoundary>
           {(this.state.projects.length !== 0) && (
             <ErrorBoundary>
-              <Panel className="bordered-top" header="Projects" icon={faHammer}>
-                {this.state.projects.map((project, index) => {
-                  return (
-                    <ErrorBoundary key={index}>
-                      <Project {...project}/>
-                    </ErrorBoundary>
-                  )
-                })}
-              </Panel>
+              <ProjectsPanel projects={this.state.projects} />
             </ErrorBoundary>
           )}
           {(this.state.skills.length !== 0) && (
             <ErrorBoundary>
-              <Panel className="bordered-top" header="Skills" icon={faFire}>
-                <Tags items={_.pluck(this.state.skills, 'name')} />
-              </Panel>
+              <SkillsPanel skills={this.state.skills} />
             </ErrorBoundary>
           )}
-        </div>
+        </PageItem.Body>
       </PageItem>
     )
   }

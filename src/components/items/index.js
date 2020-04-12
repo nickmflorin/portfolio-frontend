@@ -1,4 +1,4 @@
-import Item from './base'
+import Item from './pageItem'
 import ProjectItem from './project'
 import ExperienceItem from './experience'
 import EducationItem from './education'

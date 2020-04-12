@@ -8,16 +8,15 @@ import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
 import { getEducation } from 'services'
 import { formatDateRange, onImageLoadError } from 'utils'
 
+import ErrorBoundary from 'components/errorBoundary'
+
 import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
-import Tags from 'components/tags'
-import ErrorBoundary from 'components/errorBoundary'
+import { Panel, ProjectsPanel, SkillsPanel, CoursesPanel } from 'components/panels'
 
-import PageItem from './base'
-import Project from './projects'
-import Panel from './panel'
+import PageItem from './pageItem'
 
 import './items.sass'
 
@@ -75,7 +74,7 @@ class Education extends React.Component {
 
     return (
       <PageItem id={`education-${this.props.id}`} loading={this.state.loading}>
-        <div className="header">
+        <PageItem.Header>
           <div className="left">
             {this.props.school.url
               ? <LogoLink href={this.props.school.url} onError={onImageLoadError} src={this.props.school.logo}/>
@@ -104,8 +103,8 @@ class Education extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="body">
+        </PageItem.Header>
+        <PageItem.Body>
           {description !== "" && (
             <Panel>
               <HtmlDescription>{description}</HtmlDescription>
@@ -113,28 +112,20 @@ class Education extends React.Component {
           )}
           {(this.state.projects.length !== 0) && (
             <ErrorBoundary>
-              <Panel className="bordered-top" header="Projects" icon={faHammer}>
-                {this.state.projects.map((project, index) => {
-                  return <Project key={index} {...project}/>
-                })}
-              </Panel>
+              <ProjectsPanel projects={this.state.projects} />
             </ErrorBoundary>
           )}
           {(this.state.skills.length !== 0) && (
             <ErrorBoundary>
-              <Panel className="bordered-top" header="Skills" icon={faFire}>
-                <Tags items={_.pluck(this.state.skills, 'name')}/>
-              </Panel>
+              <SkillsPanel skills={this.state.skills} />
             </ErrorBoundary>
           )}
           {(this.state.courses.length !== 0) && (
             <ErrorBoundary>
-              <Panel className="bordered-top" header="Courses" icon={faSchool}>
-                <Tags items={_.pluck(this.state.courses, 'name')} />
-              </Panel>
+              <CoursesPanel courses={this.state.courses} />
             </ErrorBoundary>
           )}
-        </div>
+        </PageItem.Body>
       </PageItem>
     )
   }

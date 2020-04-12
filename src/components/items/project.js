@@ -3,18 +3,42 @@ import PropTypes from 'prop-types';
 import _ from 'underscore'
 
 import { getProject } from 'services'
-import { isImageFile } from 'utils'
+import { isImageFile, onImageLoadError } from 'utils'
 
-import { HtmlDescription } from 'components/html'
 import Tags from 'components/tags'
 import ErrorBoundary from 'components/errorBoundary'
 
-import PageItem from './base'
-import Panel from './panel'
-import ProjectFile from './file'
+import { HtmlDescription, HtmlCaption } from 'components/html'
+import { Panel } from 'components/panels'
+
+import PageItem from './pageItem'
 
 import './items.sass'
 
+
+class ProjectFile extends React.Component {
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string,
+    file: PropTypes.string.isRequired,
+    caption: PropTypes.string,
+  }
+  render() {
+    return (
+      <div className="file">
+        {this.props.description && (
+          <HtmlDescription>{this.props.description}</HtmlDescription>
+        )}
+        <div className="image-container">
+          <img alt="Cannot Load" onError={onImageLoadError} src={this.props.file}/>
+        </div>
+        {this.props.caption && (
+          <HtmlCaption>{this.props.caption}</HtmlCaption>
+        )}
+      </div>
+    )
+  }
+}
 
 class Project extends React.Component {
   static propTypes = {
@@ -55,7 +79,7 @@ class Project extends React.Component {
           loading={this.state.loading}
         >
           <h1 className="thick">{this.props.name}</h1>
-          <div className="body project">
+          <PageItem.Body className="project">
             <Panel>
               <HtmlDescription>{this.state.showcase_description}</HtmlDescription>
             </Panel>
@@ -81,7 +105,7 @@ class Project extends React.Component {
                 )
               })}
             </div>
-          </div>
+          </PageItem.Body>
         </PageItem>
     )
   }

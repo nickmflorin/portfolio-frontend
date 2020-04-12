@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { IconizedText } from 'components/icons'
-import Item from './base'
+import PageItem from './pageItem'
 import './items.sass'
 
 var moment = require('moment');
@@ -26,7 +26,7 @@ class Comment extends React.Component {
     };
     const date_formatted = date.format('dddd, MMM Do YYYY');
     return (
-        <Item className="bordered">
+        <PageItem className="bordered">
           <div className="header" style={{display: "inline-block"}}>
             <h1 className="thick">{this.props.name}</h1>
             <div className="header-items">
@@ -42,7 +42,7 @@ class Comment extends React.Component {
           <div className="descriptions">
             <p>{this.props.comment}</p>
           </div>
-        </Item>
+        </PageItem>
     )
   }
 }

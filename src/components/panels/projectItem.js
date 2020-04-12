@@ -10,7 +10,7 @@ import { FileLink } from 'components/buttons';
 import ErrorBoundary from 'components/errorBoundary'
 
 
-class Project extends React.Component {
+class ProjectPanelItem extends React.Component {
 
   static propTypes = {
     id: PropTypes.number.isRequired,
@@ -72,4 +72,4 @@ class Project extends React.Component {
   }
 }
 
-export default Project;
+export default ProjectPanelItem;
