@@ -60,13 +60,13 @@ export const MenuButton = (props) => (  // eslint-disable-line
 
 export const BrandButton = (props) => (  // eslint-disable-line
   <Link className="brand-button" to={props.to}>
-    <img alt="Cannot Load" className="logo" onClick={props.onClick} src={BrandLogo}/>
+    <Logo onClick={props.onClick} src={BrandLogo}/>
   </Link>
 )
 
 export const LogoLink = (props) => (  // eslint-disable-line
   <a className="logo-link" href={props.href}>
-    <Logo onError={props.onError} src={props.src} />
+    <Logo src={props.src} />
   </a>
 )
 

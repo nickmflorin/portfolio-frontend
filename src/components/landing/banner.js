@@ -8,6 +8,7 @@ import LinkedIn from 'media/icons/LinkedIn_White.png'
 import { urlify } from 'utils'
 import { TITLE_COMPONENTS } from 'config'
 import { SocialLink } from 'components/buttons'
+import { Headshot } from 'components/image'
 
 import './banner.sass'
 
@@ -31,19 +32,15 @@ const SubTitleComponent = (props) => {
   return <span>{props.text}</span>
 }
 
-const Headshot = (props) => (  // eslint-disable-line
-  <div className="headshot-container">
-    <img alt="Cannot Load" className="headshot" src={props.src}/>
-  </div>
-)
-
 const Banner = (props) => (  // eslint-disable-line
   <React.Fragment>
     <BannerImage className="banner-image" image={landing} />
     <div className="banner-body">
       <div className="banner-body-content">
-        <Headshot src={props.headshot} />
-        <h1 className="title">{props.title}</h1>
+        <Headshot src={props.headshot}/>
+        {props.title &&
+          <h1 className="title">{props.title}</h1>
+        }
         <h2 className="sub-title">
           {TITLE_COMPONENTS.map((text, index) =>
             <SubTitleComponent index={index} key={index} text={text} total={3}/>

@@ -5,7 +5,7 @@ import _ from 'underscore'
 import { faFire, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 import { getExperience } from 'services'
-import { formatDateRange, onImageLoadError } from 'utils'
+import { formatDateRange } from 'utils'
 
 import ErrorBoundary from 'components/errorBoundary'
 
@@ -60,8 +60,8 @@ class Experience extends React.Component {
         <PageItem.Header>
           <div className="left">
             {this.props.company.url
-              ? <LogoLink href={this.props.company.url} onError={onImageLoadError} src={this.props.company.logo}/>
-              : <Logo onError={onImageLoadError} src={this.props.company.logo}/>
+              ? <LogoLink href={this.props.company.url} src={this.props.company.logo}/>
+              : <Logo src={this.props.company.logo}/>
             }
           </div>
           <div className="right">

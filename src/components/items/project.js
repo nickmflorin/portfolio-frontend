@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import _ from 'underscore'
 
 import { getProject } from 'services'
-import { isImageFile, onImageLoadError } from 'utils'
+import { isImageFile } from 'utils'
 
 import Tags from 'components/tags'
 import ErrorBoundary from 'components/errorBoundary'
 
+import { Image } from 'components/image'
 import { HtmlDescription, HtmlCaption } from 'components/html'
 import { Panel, SkillsPanel } from 'components/panels'
 
@@ -30,7 +31,7 @@ class ProjectFile extends React.Component {
           <HtmlDescription>{this.props.description}</HtmlDescription>
         )}
         <div className="image-container">
-          <img alt="Cannot Load" onError={onImageLoadError} src={this.props.file}/>
+          <Image src={this.props.file}/>
         </div>
         {this.props.caption && (
           <HtmlCaption>{this.props.caption}</HtmlCaption>

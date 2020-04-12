@@ -9,3 +9,19 @@
 @import './typography.sass'
 @import './override.sass'
 @import './layout.sass'
+
+
+.list
+  .item
+    padding-bottom: 6px !important
+    padding-top: 6px !important
+    border-top: map-get($borders, 'light')
+
+    &:last-child
+      border-bottom: map-get($borders, 'light')
+
+      @include breakpoint($mobile)
+        border-bottom: none !important
+
+  &.accordion
+    margin-bottom: 15px !important

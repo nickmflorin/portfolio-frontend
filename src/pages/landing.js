@@ -64,13 +64,19 @@ class Landing extends React.Component {
     })
   }
   render(){
+    var title = null;
+    if (this.state.profile &&
+      this.state.profile.first_name &&
+      this.state.profile.middle_name && this.state.profile.last_name) {
+        title = `${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`
+    }
     return (
       <React.Fragment>
         <Banner
           github_url={this.state.profile.github_url}
           headshot={this.state.profile.headshot}
           linkedin_url={this.state.profile.linkedin_url}
-          title={`${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`}
+          title={title}
         />
         <Page className="landing">
           <HtmlHeader

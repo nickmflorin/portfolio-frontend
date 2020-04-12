@@ -6,7 +6,7 @@ import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
   faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import { getEducation } from 'services'
-import { formatDateRange, onImageLoadError } from 'utils'
+import { formatDateRange } from 'utils'
 
 import ErrorBoundary from 'components/errorBoundary'
 
@@ -77,8 +77,8 @@ class Education extends React.Component {
         <PageItem.Header>
           <div className="left">
             {this.props.school.url
-              ? <LogoLink href={this.props.school.url} onError={onImageLoadError} src={this.props.school.logo}/>
-              : <Logo onError={onImageLoadError} src={this.props.school.logo}/>
+              ? <LogoLink href={this.props.school.url} src={this.props.school.logo}/>
+              : <Logo src={this.props.school.logo}/>
             }
           </div>
           <div className="right">

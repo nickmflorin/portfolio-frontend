@@ -68,10 +68,14 @@
           margin-bottom: 0px
 
   .body
-    padding-left: 0px
+
+    @include breakpoint($mobile)
+      padding-left: 15px
+      padding-right: 15px
 
     @include breakpoint($tablet-up)
       padding-left: 85px
+      padding-right: 15px
 
     > .panel
       display: flex
