@@ -9,7 +9,7 @@ import ProjectPanelItem from './projectItem'
 
 
 const ProjectsPanel = (props) => (
-  <Panel className="bordered-top" header="Projects" icon={faHammer}>
+  <Panel className={props.bordered ? "bordered-top" : ""} header={props.header} icon={faHammer}>
     {props.projects.map((project, index) => {
       return (
         <ErrorBoundary key={index}>

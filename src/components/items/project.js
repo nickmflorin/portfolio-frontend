@@ -9,7 +9,7 @@ import Tags from 'components/tags'
 import ErrorBoundary from 'components/errorBoundary'
 
 import { HtmlDescription, HtmlCaption } from 'components/html'
-import { Panel } from 'components/panels'
+import { Panel, SkillsPanel } from 'components/panels'
 
 import PageItem from './pageItem'
 
@@ -85,9 +85,7 @@ class Project extends React.Component {
             </Panel>
             {(this.state.skills.length !== 0) && (
               <ErrorBoundary>
-                <Panel>
-                  <Tags items={_.pluck(this.state.skills, 'name')} />
-                </Panel>
+                <SkillsPanel skills={this.state.skills}/>
               </ErrorBoundary>
             )}
             <div className="files-container">

@@ -112,17 +112,17 @@ class Education extends React.Component {
           )}
           {(this.state.projects.length !== 0) && (
             <ErrorBoundary>
-              <ProjectsPanel projects={this.state.projects} />
+              <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />
             </ErrorBoundary>
           )}
           {(this.state.skills.length !== 0) && (
             <ErrorBoundary>
-              <SkillsPanel skills={this.state.skills} />
+              <SkillsPanel bordered header={"Skills"} skills={this.state.skills} />
             </ErrorBoundary>
           )}
           {(this.state.courses.length !== 0) && (
             <ErrorBoundary>
-              <CoursesPanel courses={this.state.courses} />
+              <CoursesPanel bordered courses={this.state.courses} header={"Courses"}/>
             </ErrorBoundary>
           )}
         </PageItem.Body>

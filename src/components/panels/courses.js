@@ -9,7 +9,7 @@ import Panel from './panel'
 
 
 const CoursesPanel = (props) => (
-  <Panel className="bordered-top" header="Courses" icon={faSchool}>
+  <Panel className={props.bordered ? "bordered-top" : ""} header={props.header} icon={faSchool}>
     <Tags items={_.pluck(props.courses, 'name')} />
   </Panel>
 )
