@@ -58,6 +58,7 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.sidebar = React.createRef();
+    this.state = { items: NavBarItems }
   }
   componentDidMount() {
     var self = this
@@ -96,7 +97,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
                 <NavBar
-                  items={NavBarItems}
+                  items={this.state.items}
                   onHomeClick={this.onHomeClick.bind(this)}
                   onMenuClick={this.onMenuClick.bind(this)}
                   overlay={false}
@@ -104,7 +105,7 @@ class App extends React.Component {
               </Route>
               <Route>
                 <NavBar
-                  items={NavBarItems}
+                  items={this.state.items}
                   onHomeClick={this.onHomeClick.bind(this)}
                   onMenuClick={this.onMenuClick.bind(this)}
                   overlay
@@ -113,7 +114,7 @@ class App extends React.Component {
             </Switch>
           </header>
           <div className="content">
-            {_.map(_.filter(NavBarItems, (item) => (item.id !== 'resume')), (item) => {
+            {_.map(_.filter(this.state.items, (item) => (item.id !== 'resume')), (item) => {
               const PageComponent = item.page
               return (
                 <Route
