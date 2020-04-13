@@ -33,18 +33,15 @@ export class Page extends React.Component {
         className={this.props.className ? classNames('page', this.props.className) : 'page'}
         ref={this.ref}
       >
-        <Loader active style={{position: 'fixed'}}/>
-        <Dimmer.Dimmable blurring dimmed={this.props.loading}>
-          <Dimmer inverted active={this.props.loading}/>
-          <Container>
-            {this.props.header && (
-              <div className="header-container">
-                <h2 className="thick">{this.props.header}</h2>
-              </div>
-            )}
-            {this.props.children}
-          </Container>
-        </Dimmer.Dimmable>
+        <Loader active={this.props.loading} style={{position: 'fixed'}}/>
+        <Container>
+          {this.props.header && (
+            <div className="header-container">
+              <h2 className="thick">{this.props.header}</h2>
+            </div>
+          )}
+          {this.props.children}
+        </Container>
       </div>
     )
   }
