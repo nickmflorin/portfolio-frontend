@@ -113,6 +113,7 @@ class App extends React.Component {
           </header>
           <div className="content">
             <Route component={Landing} exact path={"/"}/>
+            <Route component={Landing} exact path={"/index.html"}/>
             <Route component={Experience} exact path={"/experience"}/>
             <Route component={Education} exact path={"/education"}/>
             <Route component={Projects} exact path={"/projects"}/>
