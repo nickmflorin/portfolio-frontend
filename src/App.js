@@ -112,15 +112,10 @@ class App extends React.Component {
             </Switch>
           </header>
           <div className="content">
-            {_.filter(this.state.items, item => item.id !== 'resume').map((item) => {
-              return (
-                <Route
-                  component={item.page}
-                  exact key={item.id}
-                  path={item.url}
-                />
-              )
-            })}
+            <Route component={Landing} exact path={"/"}/>
+            <Route component={Experience} exact path={"/experience"}/>
+            <Route component={Education} exact path={"/education"}/>
+            <Route component={Projects} exact path={"/projects"}/>
           </div>
           <Footer />
         </div>
