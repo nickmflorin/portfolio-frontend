@@ -90,7 +90,7 @@ class App extends React.Component {
         <div className="app">
           <header>
             <SideBar
-              items={NavBarItems}
+              items={this.state.items}
               onSideBarItemClick={this.onSideBarItemClick.bind(this)}
               ref={this.sidebar}
             />

@@ -31,7 +31,7 @@ class Experience extends React.Component {
   }
   render() {
     return (
-      <Page header="Experience" loading={this.state.loading} {...this.props}>
+      <Page header="Experience" loading={true} {...this.props}>
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">

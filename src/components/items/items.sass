@@ -14,11 +14,13 @@
     margin-bottom: 0px !important
 
   &.bordered
-    border-radius: 5px
-    border: map-get($borders, "regular")
     background-color: $white
+    -webkit-box-shadow: 0 1px 2px 0 rgba(34,36,38,.35)
+    box-shadow: 1px 1px 1px 0 rgba(34, 36, 38, 0.35)
     padding: 15px
     margin: 0px auto 15px auto
+    border-radius: .28571429rem
+    border: map-get($borders, 'light')
 
   .header
     display: flex

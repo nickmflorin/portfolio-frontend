@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+import { Button, Dimmer, Image, Segment } from 'semantic-ui-react'
 import { Loader } from 'semantic-ui-react'
 
 var classNames = require('classnames');
@@ -32,15 +33,18 @@ export class Page extends React.Component {
         className={this.props.className ? classNames('page', this.props.className) : 'page'}
         ref={this.ref}
       >
-        <Loader active={this.props.loading}/>
-        <Container>
-          {this.props.header && (
-            <div className="header-container">
-              <h2 className="thick">{this.props.header}</h2>
-            </div>
-          )}
-          {this.props.children}
-        </Container>
+        <Loader active style={{position: 'fixed'}}/>
+        <Dimmer.Dimmable blurring dimmed={this.props.loading}>
+          <Dimmer inverted active={this.props.loading}/>
+          <Container>
+            {this.props.header && (
+              <div className="header-container">
+                <h2 className="thick">{this.props.header}</h2>
+              </div>
+            )}
+            {this.props.children}
+          </Container>
+        </Dimmer.Dimmable>
       </div>
     )
   }
