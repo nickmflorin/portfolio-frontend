@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import { HashRouter, Switch, Route} from 'react-router-dom'
 import update from 'react-addons-update';
 import _ from 'underscore'
 
@@ -84,7 +84,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className="app">
           <header>
             <SideBar
@@ -120,7 +120,7 @@ class App extends React.Component {
           </div>
           <Footer />
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
