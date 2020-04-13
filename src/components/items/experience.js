@@ -76,7 +76,8 @@ class Experience extends React.Component {
                   this.props.start_year,
                   this.props.start_month,
                   this.props.end_year,
-                  this.props.end_month
+                  this.props.end_month,
+                  true
                 )}</IconizedText>
               </div>
             </div>
