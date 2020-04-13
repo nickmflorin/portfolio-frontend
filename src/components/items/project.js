@@ -73,6 +73,10 @@ class Project extends React.Component {
     })
   }
   render() {
+    var files = []
+    if (this.state.files) {
+      files = _.sortBy(this.state.files, 'relative_order')
+    }
     return (
         <PageItem
           className="project"
@@ -90,7 +94,7 @@ class Project extends React.Component {
               </ErrorBoundary>
             )}
             <div className="files-container">
-              {this.state.files.map((file, index) => {
+              {files.map((file, index) => {
                 return (
                   <ErrorBoundary key={index}>
                     <ProjectFile
