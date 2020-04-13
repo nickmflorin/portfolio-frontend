@@ -58,7 +58,6 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.sidebar = React.createRef();
-    this.state = { items: NavBarItems }
   }
   componentDidMount() {
     var self = this
@@ -75,27 +74,29 @@ class App extends React.Component {
   onMenuClick(){
     this.sidebar.current.toggle()
   }
-  onSideBarClick(){
-    this.sidebar.current.hide()
+  onSideBarItemClick(){
+    this.sidebar.current.hideIfShowing()
   }
   onHomeClick(){
-    this.sidebar.current.hide()
+    this.sidebar.current.hideIfShowing()
   }
-
+  onPageAreaClick(){
+    this.sidebar.current.hideIfShowing()
+  }
   render() {
     return (
       <HashRouter>
         <div className="app">
           <header>
             <SideBar
-              items={this.state.items}
-              onSideBarClick={this.onSideBarClick.bind(this)}
+              items={NavBarItems}
+              onSideBarItemClick={this.onSideBarItemClick.bind(this)}
               ref={this.sidebar}
             />
             <Switch>
               <Route exact path="/">
                 <NavBar
-                  items={this.state.items}
+                  items={NavBarItems}
                   onHomeClick={this.onHomeClick.bind(this)}
                   onMenuClick={this.onMenuClick.bind(this)}
                   overlay={false}
@@ -103,7 +104,7 @@ class App extends React.Component {
               </Route>
               <Route>
                 <NavBar
-                  items={this.state.items}
+                  items={NavBarItems}
                   onHomeClick={this.onHomeClick.bind(this)}
                   onMenuClick={this.onMenuClick.bind(this)}
                   overlay
@@ -112,10 +113,21 @@ class App extends React.Component {
             </Switch>
           </header>
           <div className="content">
-            <Route component={Landing} exact path={"/"}/>
-            <Route component={Experience} exact path={"/experience"}/>
-            <Route component={Education} exact path={"/education"}/>
-            <Route component={Projects} exact path={"/projects"}/>
+            {_.map(_.filter(NavBarItems, (item) => (item.id !== 'resume')), (item) => {
+              const PageComponent = item.page
+              return (
+                <Route
+                  exact key={item.id}
+                  path={item.url}
+                  render={(props) => (
+                      <PageComponent
+                        onPageAreaClick={this.onPageAreaClick.bind(this)}
+                        {...props}
+                      />
+                  )}
+                />
+              )
+            })}
           </div>
           <Footer />
         </div>

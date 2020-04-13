@@ -8,19 +8,43 @@ import { Loader } from 'semantic-ui-react'
 var classNames = require('classnames');
 
 
-export const Page = (props) => (
-  <div className={props.className ? classNames('page', props.className) : 'page'}>
-    <Loader active={props.loading}/>
-    <Container>
-      {props.header && (
-        <div className="header-container">
-          <h2 className="thick">{props.header}</h2>
-        </div>
-      )}
-      {props.children}
-    </Container>
-  </div>
-)
+export class Page extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleClickInside = this.handleClickInside.bind(this);
+    this.ref = React.createRef()
+  }
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickInside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickInside);
+  }
+  handleClickInside(event) {
+    if (this.ref.current && this.ref.current.contains(event.target)) {
+      this.props.onPageAreaClick(event)
+    }
+  }
+  render() {
+    return (
+      <div
+        className={this.props.className ? classNames('page', this.props.className) : 'page'}
+        ref={this.ref}
+      >
+        <Loader active={this.props.loading}/>
+        <Container>
+          {this.props.header && (
+            <div className="header-container">
+              <h2 className="thick">{this.props.header}</h2>
+            </div>
+          )}
+          {this.props.children}
+        </Container>
+      </div>
+    )
+  }
+}
 
 export const PageContent = (props) => ( // eslint-disable-line
   <Row>

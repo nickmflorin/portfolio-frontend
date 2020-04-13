@@ -11,7 +11,7 @@ class SideBar extends React.Component {
 
   static propTypes = {
     items: PropTypes.array.isRequired,  // eslint-disable-line
-    onSideBarClick: PropTypes.func.isRequired,
+    onSideBarItemClick: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
@@ -20,17 +20,21 @@ class SideBar extends React.Component {
   }
   toggle(){
     if (this.state.visible) {
-      this.hide()
+      this.setState({ visible: false })
     }
     else {
-      this.show()
+      this.setState({ visible: true })
     }
   }
-  hide(){
-    this.setState({ visible: false })
+  showIfHidden(){
+    if (this.state.visible === false) {
+      this.setState({ visible: true })
+    }
   }
-  show(){
-    this.setState({ visible: true })
+  hideIfShowing(){
+    if (this.state.visible === true) {
+      this.setState({ visible: false })
+    }
   }
   render() {
     return (
@@ -42,7 +46,7 @@ class SideBar extends React.Component {
                 external={item.external}
                 icon={item.icon}
                 label={item.label}
-                onClick={this.props.onSideBarClick}
+                onClick={this.props.onSideBarItemClick}
                 url={item.url}
               />
             </div>

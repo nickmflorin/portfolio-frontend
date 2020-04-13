@@ -78,7 +78,7 @@ class Landing extends React.Component {
           linkedin_url={this.state.profile.linkedin_url}
           title={title}
         />
-        <Page className="landing">
+        <Page className="landing" {...this.props}>
           <HtmlHeader
             className="intro"
             tag="h3"

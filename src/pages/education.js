@@ -35,7 +35,7 @@ class Education extends React.Component {
   }
   render() {
     return (
-      <Page header="Education" loading={this.state.loading}>
+      <Page header="Education" loading={this.state.loading} {...this.props}>
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">
