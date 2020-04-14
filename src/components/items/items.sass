@@ -1,5 +1,6 @@
 @import 'style/utils.sass'
 
+
 .page-item
   max-width: 800px
   position: relative
@@ -22,10 +23,14 @@
     border-radius: .28571429rem
     border: map-get($borders, 'light')
 
-  .header
+  .page-item-header
     display: flex
     text-align: left
     margin-bottom: 8px
+
+    &.placeholder
+      display: flex
+      margin-bottom: 0px
 
     .left
       display: inline-block

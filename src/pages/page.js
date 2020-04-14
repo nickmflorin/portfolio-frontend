@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-import { Button, Dimmer, Image, Segment } from 'semantic-ui-react'
 import { Loader } from 'semantic-ui-react'
 
 var classNames = require('classnames');

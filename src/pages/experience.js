@@ -46,7 +46,7 @@ class Experience extends React.Component {
           </Page.Content.Left>
           <Page.Content.Right>
             {this.state.items.map((item) => {
-              return <ExperienceItem key={item.id} {...item} />
+              return <ExperienceItem id={item.id} key={item.id} />
             })}
           </Page.Content.Right>
         </Page.Content>

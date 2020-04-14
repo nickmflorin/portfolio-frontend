@@ -1,5 +1,6 @@
 import React from 'react';
-import { HashRouter, Switch, Route} from 'react-router-dom'
+import { HashRouter, Switch, Route, withRouter} from 'react-router-dom'
+import { Transition, CSSTransition } from "react-transition-group";
 import update from 'react-addons-update';
 import _ from 'underscore'
 
@@ -53,6 +54,56 @@ const NavBarItems = [
   }
 ]
 
+const Content = withRouter((props) => (
+  <div className="content">
+    <Switch location={props.location}>
+      {_.map(_.filter(props.items, (item) => (item.id !== 'resume')), (item) => {
+        const PageComponent = item.page
+        return (
+          <Route
+            exact key={item.id}
+            path={item.url}
+            render={(props) => (
+              <PageComponent
+                onPageAreaClick={props.onPageAreaClick}
+                {...props}
+              />
+            )}
+          />
+        )
+      })}
+    </Switch>
+  </div>
+))
+
+const Header = (props) => (
+  <header>
+    <SideBar
+      items={props.items}
+      onSideBarItemClick={props.onSideBarItemClick}
+      ref={props.sidebar}
+    />
+    <Switch>
+      <Route exact path="/">
+        <NavBar
+          items={props.items}
+          onHomeClick={props.onHomeClick}
+          onMenuClick={props.onMenuClick}
+        />
+      </Route>
+      <Route>
+        <NavBar
+          items={props.items}
+          onHomeClick={props.onHomeClick}
+          onMenuClick={props.onMenuClick}
+          overlay
+        />
+      </Route>
+    </Switch>
+  </header>
+)
+
+
 class App extends React.Component {
 
   constructor(props, context) {
@@ -88,48 +139,17 @@ class App extends React.Component {
     return (
       <HashRouter>
         <div className="app">
-          <header>
-            <SideBar
-              items={this.state.items}
-              onSideBarItemClick={this.onSideBarItemClick.bind(this)}
-              ref={this.sidebar}
-            />
-            <Switch>
-              <Route exact path="/">
-                <NavBar
-                  items={this.state.items}
-                  onHomeClick={this.onHomeClick.bind(this)}
-                  onMenuClick={this.onMenuClick.bind(this)}
-                  overlay={false}
-                />
-              </Route>
-              <Route>
-                <NavBar
-                  items={this.state.items}
-                  onHomeClick={this.onHomeClick.bind(this)}
-                  onMenuClick={this.onMenuClick.bind(this)}
-                  overlay
-                />
-              </Route>
-            </Switch>
-          </header>
-          <div className="content">
-            {_.map(_.filter(this.state.items, (item) => (item.id !== 'resume')), (item) => {
-              const PageComponent = item.page
-              return (
-                <Route
-                  exact key={item.id}
-                  path={item.url}
-                  render={(props) => (
-                      <PageComponent
-                        onPageAreaClick={this.onPageAreaClick.bind(this)}
-                        {...props}
-                      />
-                  )}
-                />
-              )
-            })}
-          </div>
+          <Header
+            items={this.state.items}
+            onHomeClick={this.onHomeClick.bind(this)}
+            onMenuClick={this.onMenuClick.bind(this)}
+            onSideBarItemClick={this.onSideBarItemClick.bind(this)}
+            sidebar={this.ref}
+          />
+          <Content
+            items={this.state.items}
+            onPageAreaClick={this.onPageAreaClick.bind(this)}
+          />
           <Footer />
         </div>
       </HashRouter>

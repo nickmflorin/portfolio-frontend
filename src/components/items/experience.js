@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 
+import { Placeholder, Grid } from 'semantic-ui-react'
 import { faFire, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 import { getExperience } from 'services'
@@ -24,13 +25,6 @@ class Experience extends React.Component {
 
   static propTypes = {
     id: PropTypes.number.isRequired,
-    company: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    start_year: PropTypes.number.isRequired,
-    start_month: PropTypes.number.isRequired,
-    end_year: PropTypes.number,
-    end_month: PropTypes.number,
   }
 
   constructor(props, context) {
@@ -38,6 +32,13 @@ class Experience extends React.Component {
     this.state = {
       skills: [],
       projects: [],
+      start_year: null,
+      end_year: null,
+      start_month: null,
+      end_month: null,
+      company: null,
+      title: null,
+      description: null,
       loading: true,
     }
   }
@@ -47,6 +48,13 @@ class Experience extends React.Component {
       self.setState({
         skills: response.skills,
         projects: response.projects,
+        company: response.company,
+        start_year: response.start_year,
+        end_year: response.end_year,
+        start_month: response.start_month,
+        end_month: response.end_month,
+        title: response.title,
+        description: response.description,
       })
     }).catch((error) => {
       console.error(`There was an error loading experience ${this.props.id}.`)
@@ -55,58 +63,68 @@ class Experience extends React.Component {
     })
   }
   render() {
-    return (
-      <PageItem id={`experience-${this.props.id}`} loading={this.state.loading}>
-        <PageItem.Header>
-          <div className="left">
-            {this.props.company.url
-              ? <LogoLink href={this.props.company.url} src={this.props.company.logo}/>
-              : <Logo src={this.props.company.logo}/>
-            }
-          </div>
-          <div className="right">
-            <h1 className="thick">{this.props.title}</h1>
-            <h3>{this.props.company.name}</h3>
-            <div className="header-items">
-              <div className="header-item">
-                <IconizedText icon={faMapPin}>{`${this.props.company.city}, ${this.props.company.state}`}</IconizedText>
-              </div>
-              <div className="header-item">
-                <IconizedText icon={faCalendarAlt}>{formatDateRange(
-                  this.props.start_year,
-                  this.props.start_month,
-                  this.props.end_year,
-                  this.props.end_month,
-                  true
-                )}</IconizedText>
+    if (this.state.loading) {
+      return (
+        <PageItem id={`experience-${this.props.id}`} loading>
+            <PageItem.Header.Placeholder/>
+            <PageItem.Body.Placeholder/>
+        </PageItem>
+      )
+    }
+    else {
+      return (
+        <PageItem id={`experience-${this.props.id}`}>
+          <PageItem.Header>
+            <div className="left">
+              {this.state.company.url
+                ? <LogoLink href={this.state.company.url} src={this.state.company.logo}/>
+                : <Logo src={this.state.company.logo}/>
+              }
+            </div>
+            <div className="right">
+              <h1 className="thick">{this.state.title}</h1>
+              <h3>{this.state.company.name}</h3>
+              <div className="header-items">
+                <div className="header-item">
+                  <IconizedText icon={faMapPin}>{`${this.state.company.city}, ${this.state.company.state}`}</IconizedText>
+                </div>
+                <div className="header-item">
+                  <IconizedText icon={faCalendarAlt}>{formatDateRange(
+                    this.state.start_year,
+                    this.state.start_month,
+                    this.state.end_year,
+                    this.state.end_month,
+                    true
+                  )}</IconizedText>
+                </div>
               </div>
             </div>
-          </div>
-        </PageItem.Header>
-        <PageItem.Body>
-          <ErrorBoundary>
-            <Panel>
-              {(this.props.company.description) && (
-                <HtmlDescription>{this.props.company.description}</HtmlDescription>
-              )}
-              {(this.props.description) && (
-                <HtmlDescription>{this.props.description}</HtmlDescription>
-              )}
-            </Panel>
-          </ErrorBoundary>
-          {(this.state.projects.length !== 0) && (
+          </PageItem.Header>
+          <PageItem.Body>
             <ErrorBoundary>
-              <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />
+              <Panel>
+                {(this.state.company.description) && (
+                  <HtmlDescription>{this.state.company.description}</HtmlDescription>
+                )}
+                {(this.props.description) && (
+                  <HtmlDescription>{this.state.description}</HtmlDescription>
+                )}
+              </Panel>
             </ErrorBoundary>
-          )}
-          {(this.state.skills.length !== 0) && (
-            <ErrorBoundary>
-              <SkillsPanel bordered header={"Skills"} skills={this.state.skills} />
-            </ErrorBoundary>
-          )}
-        </PageItem.Body>
-      </PageItem>
-    )
+            {(this.state.projects.length !== 0) && (
+              <ErrorBoundary>
+                <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />
+              </ErrorBoundary>
+            )}
+            {(this.state.skills.length !== 0) && (
+              <ErrorBoundary>
+                <SkillsPanel bordered header={"Skills"} skills={this.state.skills} />
+              </ErrorBoundary>
+            )}
+          </PageItem.Body>
+        </PageItem>
+      )
+    }
   }
 }
 

@@ -25,16 +25,6 @@ class Education extends React.Component {
 
   static propTypes = {
     id: PropTypes.number.isRequired,
-    school: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired,
-    minor: PropTypes.string,
-    concentration: PropTypes.string,
-    gpa: PropTypes.number,
-    description: PropTypes.string,
-    start_year: PropTypes.number.isRequired,
-    start_month: PropTypes.number.isRequired,
-    end_year: PropTypes.number,
-    end_month: PropTypes.number,
   }
 
   constructor(props, context) {
@@ -43,6 +33,16 @@ class Education extends React.Component {
       skills: [],
       projects: [],
       courses: [],
+      school: null,
+      title: null,
+      minor: null,
+      concentration: null,
+      gpa: null,
+      description: null,
+      start_year: null,
+      end_year: null,
+      start_month: null,
+      end_month: null,
       loading: true,
     }
   }
@@ -53,6 +53,16 @@ class Education extends React.Component {
         skills: response.skills,
         projects: response.projects,
         courses: response.courses,
+        school: response.school,
+        title: response.title,
+        minor: response.minor,
+        concentration: response.concentration,
+        gpa: response.gpa,
+        description: response.description,
+        start_year: response.start_year,
+        end_year: response.end_year,
+        start_month: response.start_month,
+        end_month: response.end_month,
       })
     }).catch((error) => {
       console.error(`There was an error loading education ${this.props.id}.`)
@@ -61,73 +71,82 @@ class Education extends React.Component {
     })
   }
   render() {
-    var description = ""
-    if (this.props.description) {
-      description = description + this.props.description
+    if (this.state.loading) {
+      return (
+        <PageItem id={`education-${this.props.id}`} loading>
+            <PageItem.Header.Placeholder/>
+            <PageItem.Body.Placeholder/>
+        </PageItem>
+      )
     }
-    if (this.props.minor) {
-      description = description + `<p>Minor in ${this.props.minor}</p>`
-    }
-    if (this.props.concentration) {
-      description = description + `<p>Concentration in ${this.props.concentration}</p>`
-    }
-
-    return (
-      <PageItem id={`education-${this.props.id}`} loading={this.state.loading}>
-        <PageItem.Header>
-          <div className="left">
-            {this.props.school.url
-              ? <LogoLink href={this.props.school.url} src={this.props.school.logo}/>
-              : <Logo src={this.props.school.logo}/>
-            }
-          </div>
-          <div className="right">
-            <h1 className="thick">{this.props.title}</h1>
-            <h3>{this.props.school.name}</h3>
-            <div className="header-items">
-              <div className="header-item">
-                <IconizedText icon={faMapPin}>{`${this.props.school.city}, ${this.props.school.state}`}</IconizedText>
-              </div>
-              <div className="header-item">
-                <ErrorBoundary>
-                  <IconizedText icon={faCalendarAlt}>{formatDateRange(
-                    this.props.start_year,
-                    this.props.start_month,
-                    this.props.end_year,
-                    this.props.end_month
-                  )}</IconizedText>
-                </ErrorBoundary>
-              </div>
-              <div className="header-item">
-                <IconizedText icon={faPaperPlane}>{`${this.props.gpa.toFixed(2)}/4.00`}</IconizedText>
+    else {
+      var description = ""
+      if (this.props.description) {
+        description = description + this.props.description
+      }
+      if (this.props.minor) {
+        description = description + `<p>Minor in ${this.props.minor}</p>`
+      }
+      if (this.props.concentration) {
+        description = description + `<p>Concentration in ${this.props.concentration}</p>`
+      }
+      return (
+        <PageItem id={`education-${this.props.id}`}>
+          <PageItem.Header>
+            <div className="left">
+              {this.props.school.url
+                ? <LogoLink href={this.props.school.url} src={this.props.school.logo}/>
+                : <Logo src={this.props.school.logo}/>
+              }
+            </div>
+            <div className="right">
+              <h1 className="thick">{this.props.title}</h1>
+              <h3>{this.props.school.name}</h3>
+              <div className="header-items">
+                <div className="header-item">
+                  <IconizedText icon={faMapPin}>{`${this.props.school.city}, ${this.props.school.state}`}</IconizedText>
+                </div>
+                <div className="header-item">
+                  <ErrorBoundary>
+                    <IconizedText icon={faCalendarAlt}>{formatDateRange(
+                      this.props.start_year,
+                      this.props.start_month,
+                      this.props.end_year,
+                      this.props.end_month
+                    )}</IconizedText>
+                  </ErrorBoundary>
+                </div>
+                <div className="header-item">
+                  <IconizedText icon={faPaperPlane}>{`${this.props.gpa.toFixed(2)}/4.00`}</IconizedText>
+                </div>
               </div>
             </div>
-          </div>
-        </PageItem.Header>
-        <PageItem.Body>
-          {description !== "" && (
-            <Panel>
-              <HtmlDescription>{description}</HtmlDescription>
-            </Panel>
-          )}
-          {(this.state.projects.length !== 0) && (
-            <ErrorBoundary>
-              <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />
-            </ErrorBoundary>
-          )}
-          {(this.state.skills.length !== 0) && (
-            <ErrorBoundary>
-              <SkillsPanel bordered header={"Skills"} skills={this.state.skills} />
-            </ErrorBoundary>
-          )}
-          {(this.state.courses.length !== 0) && (
-            <ErrorBoundary>
-              <CoursesPanel bordered courses={this.state.courses} header={"Courses"}/>
-            </ErrorBoundary>
-          )}
-        </PageItem.Body>
-      </PageItem>
-    )
+          </PageItem.Header>
+          <PageItem.Body>
+            {description !== "" && (
+              <Panel>
+                <HtmlDescription>{description}</HtmlDescription>
+              </Panel>
+            )}
+            {(this.state.projects.length !== 0) && (
+              <ErrorBoundary>
+                <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />
+              </ErrorBoundary>
+            )}
+            {(this.state.skills.length !== 0) && (
+              <ErrorBoundary>
+                <SkillsPanel bordered header={"Skills"} skills={this.state.skills} />
+              </ErrorBoundary>
+            )}
+            {(this.state.courses.length !== 0) && (
+              <ErrorBoundary>
+                <CoursesPanel bordered courses={this.state.courses} header={"Courses"}/>
+              </ErrorBoundary>
+            )}
+          </PageItem.Body>
+        </PageItem>
+      )
+    }
   }
 }
 

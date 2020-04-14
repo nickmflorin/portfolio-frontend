@@ -1,0 +1,43 @@
+@import './utils.sass'
+
+
+.filler
+    position: static
+    overflow: hidden
+    -webkit-animation: placeholderShimmer 2s linear
+    animation: placeholderShimmer 2s linear
+    -webkit-animation-iteration-count: infinite
+    animation-iteration-count: infinite
+    background-color: #fff
+    background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.08)),color-stop(15%,rgba(0,0,0,.15)),color-stop(30%,rgba(0,0,0,.08)))
+    background-image: -webkit-linear-gradient(left,rgba(0,0,0,.08) 0,rgba(0,0,0,.15) 15%,rgba(0,0,0,.08) 30%)
+    background-image: linear-gradient(to right,rgba(0,0,0,.08) 0,rgba(0,0,0,.15) 15%,rgba(0,0,0,.08) 30%)
+    background-size: 1200px 100%
+    width: 100%
+    height: 100%
+
+.line
+  height: 8px
+  margin-bottom: 14px
+  min-width: 300px
+  max-width: 300px
+
+  &.sm
+    min-width: 80px
+    max-width: 80px
+
+  &.md
+    min-width: 120px
+    max-width: 120px
+
+  &.lg
+    min-width: 200px
+    max-width: 200px
+
+  &.xlg
+    min-width: 300px
+    max-width: 300px
+
+  &.full
+    min-width: 100%
+    max-width: 100%
