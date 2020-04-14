@@ -14,8 +14,8 @@ import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
-import { Panel, ProjectsPanel, SkillsPanel, CoursesPanel } from 'components/panels'
 
+import { Panel, ProjectsPanel, SkillsPanel, CoursesPanel } from './panels'
 import PageItem from './pageItem'
 
 import './items.sass'
@@ -63,12 +63,25 @@ class Education extends React.Component {
         end_year: response.end_year,
         start_month: response.start_month,
         end_month: response.end_month,
+        open: false,
+        dimmer: false,
       })
     }).catch((error) => {
       console.error(`There was an error loading education ${this.props.id}.`)
     }).finally(() => {
       self.setState({loading: false})
     })
+  }
+  onCourseClick(id){
+    console.log('Course Clicked')
+    this.setState({ open: true })
+  }
+  onSkillClick(id){
+    console.log('Skill Clicked')
+    this.setState({ open: true })
+  }
+  close(){
+    this.setState({ open: false })
   }
   render() {
     if (this.state.loading) {
@@ -135,12 +148,22 @@ class Education extends React.Component {
             )}
             {(this.state.skills.length !== 0) && (
               <ErrorBoundary>
-                <SkillsPanel bordered header={"Skills"} skills={this.state.skills} />
+                <SkillsPanel
+                  bordered
+                  header={"Skills"}
+                  onSkillClick={this.onSkillClick.bind(this)}
+                  skills={this.state.skills}
+                />
               </ErrorBoundary>
             )}
             {(this.state.courses.length !== 0) && (
               <ErrorBoundary>
-                <CoursesPanel bordered courses={this.state.courses} header={"Courses"}/>
+                <CoursesPanel
+                  bordered
+                  courses={this.state.courses}
+                  header={"Courses"}
+                  onCourseClick={this.onCourseClick.bind(this)}
+                />
               </ErrorBoundary>
             )}
           </PageItem.Body>

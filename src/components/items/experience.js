@@ -14,8 +14,8 @@ import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
-import { Panel, ProjectsPanel, SkillsPanel } from 'components/panels'
 
+import { Panel, ProjectsPanel, SkillsPanel } from './panels'
 import PageItem from './pageItem'
 
 import './items.sass'

@@ -5,13 +5,12 @@ import _ from 'underscore'
 import { getProject } from 'services'
 import { isImageFile } from 'utils'
 
-import Tags from 'components/tags'
 import ErrorBoundary from 'components/errorBoundary'
 
 import { Image } from 'components/image'
 import { HtmlDescription, HtmlCaption } from 'components/html'
-import { Panel, SkillsPanel } from 'components/panels'
 
+import { Panel, SkillsPanel } from './panels'
 import PageItem from './pageItem'
 
 import './items.sass'

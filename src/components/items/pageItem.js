@@ -1,7 +1,7 @@
 import React from 'react';
 import { Placeholder, Loader } from 'semantic-ui-react'
 
-import { Panel } from 'components/panels'
+import { Panel } from './panels'
 
 var classNames = require('classnames');
 
