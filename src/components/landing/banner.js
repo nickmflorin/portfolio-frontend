@@ -37,7 +37,9 @@ const Banner = (props) => (  // eslint-disable-line
     <BannerImage className="banner-image" image={landing} />
     <div className="banner-body">
       <div className="banner-body-content">
-        <Headshot src={props.headshot}/>
+        {props.headshot &&
+          <Headshot src={props.headshot}/>
+        }
         {props.title &&
           <h1 className="title">{props.title}</h1>
         }
@@ -47,8 +49,12 @@ const Banner = (props) => (  // eslint-disable-line
           )}
         </h2>
         <div className="social-container">
-          <SocialLink icon={Github} url={props.github_url}/>
-          <SocialLink icon={LinkedIn} url={props.linkedin_url}/>
+          {props.github_url &&
+            <SocialLink icon={Github} url={props.github_url}/>
+          }
+          {props.linkedin_url &&
+            <SocialLink icon={LinkedIn} url={props.linkedin_url}/>
+          }
         </div>
       </div>
     </div>
