@@ -48,7 +48,7 @@ class Education extends React.Component {
           </Page.Content.Left>
           <Page.Content.Right>
             {this.state.items.map((item) => {
-              return <EducationItem key={item.id} {...item} />
+              return <EducationItem id={item.id} key={item.id} />
             })}
           </Page.Content.Right>
         </Page.Content>
