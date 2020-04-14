@@ -11,17 +11,27 @@ import { Logo } from 'components/image'
 
 import './buttons.sass'
 
+var classNames = require('classnames')
+
 
 export const NavBarButton = (props) => {  // eslint-disable-line
   if (props.external) {
     return (
-      <a className="navbar-button" href={props.url} rel="noopener noreferrer" target="_blank">
+      <a
+        className={props.location.pathname === props.url ? classNames('navbar-button', 'active') : 'navbar-button'}
+        href={props.url}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
         {props.label}
       </a>
     )
   }
   return (
-    <Link className="navbar-button" to={props.url} >
+    <Link
+      className={props.location.pathname === props.url ? classNames('navbar-button', 'active') : 'navbar-button'}
+      to={props.url}
+    >
       {props.label}
     </Link>
   )

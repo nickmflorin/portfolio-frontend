@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 import { NavBarButton, BrandButton, MenuButton } from 'components/buttons'
@@ -30,6 +31,7 @@ class NavBar extends React.Component {
                     icon={item.icon}
                     label={item.label}
                     url={item.url}
+                    location={this.props.location}
                   />
                 </div>
               )
@@ -44,4 +46,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);
