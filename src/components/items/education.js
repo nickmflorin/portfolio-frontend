@@ -6,7 +6,7 @@ import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
   faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import { getEducation } from 'services'
-import { formatDateRange } from 'utils'
+import { formatDateRange, formatDegree } from 'utils'
 
 import ErrorBoundary from 'components/errorBoundary'
 
@@ -54,7 +54,7 @@ class Education extends React.Component {
         projects: response.projects,
         courses: response.courses,
         school: response.school,
-        title: response.title,
+        title: formatDegree(response.degree, response.major),
         minor: response.minor,
         concentration: response.concentration,
         gpa: response.gpa,

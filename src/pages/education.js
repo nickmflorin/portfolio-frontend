@@ -6,7 +6,7 @@ import { HashLink } from 'react-router-hash-link';
 
 import { EducationItem } from 'components/items'
 import { getAllEducation } from 'services'
-import { sortExperienceEducation, formatDegree } from 'utils'
+import { sortExperienceEducation } from 'utils'
 
 import Page from './page'
 
@@ -23,9 +23,6 @@ class Education extends React.Component {
     var self = this
     getAllEducation().then((response) => {
       const ordered = sortExperienceEducation(response)
-      _.each(ordered, (item) => {
-        item.title = formatDegree(item.degree, item.major)
-      })
       self.setState({items: ordered})
     }).catch((error) => {
       console.error('There was an error loading education history.')
