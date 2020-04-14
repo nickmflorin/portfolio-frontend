@@ -26,17 +26,12 @@ $header-height: pixelfy(map-get($heights, "header"))
       position: relative
       overflow-y: scroll
       width: 100%
+      background-color: $background-color
 
       .container
-        .header-container
-          margin: 0px auto 20px auto
-
-          h2
-            margin: 0
-            text-align: center
+        margin-top: 15px
 
       &.landing
-        background-color: $background-color
         position: absolute
 
         $banner-height: vhify(map-get($banner-heights, 'regular'))

@@ -26,7 +26,7 @@ class Comment extends React.Component {
     };
     const date_formatted = date.format('dddd, MMM Do YYYY');
     return (
-        <PageItem className="bordered">
+        <PageItem>
           <div className="page-item-header" style={{display: "inline-block"}}>
             <h1 className="thick">{this.props.name}</h1>
             <div className="header-items">

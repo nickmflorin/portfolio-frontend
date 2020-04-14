@@ -32,7 +32,7 @@ class Projects extends React.Component {  // eslint-disable-line
   }
   render() {
     return (
-      <Page header="Projects" loading={this.state.loading} {...this.props}>
+      <Page loading={this.state.loading} {...this.props}>
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">

@@ -34,11 +34,6 @@ export class Page extends React.Component {
       >
         <Loader active={this.props.loading} style={{position: 'fixed'}}/>
         <Container>
-          {this.props.header && (
-            <div className="header-container">
-              <h2 className="thick">{this.props.header}</h2>
-            </div>
-          )}
           {this.props.children}
         </Container>
       </div>

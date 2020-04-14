@@ -5,23 +5,15 @@
   max-width: 800px
   position: relative
   text-align: left
-  border-top: map-get($borders, 'light')
   max-width: 100%
   margin: 0px auto 10px auto
-  padding-top: 10px
-  padding-bottom: 10px
-
-  &:last-child
-    margin-bottom: 0px !important
-
-  &.bordered
-    background-color: $white
-    -webkit-box-shadow: 0 1px 2px 0 rgba(34,36,38,.35)
-    box-shadow: 1px 1px 1px 0 rgba(34, 36, 38, 0.35)
-    padding: 15px
-    margin: 0px auto 15px auto
-    border-radius: .28571429rem
-    border: map-get($borders, 'light')
+  background-color: $white
+  -webkit-box-shadow: 1px 1px 1px 0 $shadow-color
+  box-shadow: 1px 1px 1px 0 $shadow-color
+  padding: 15px
+  margin: 0px auto 15px auto
+  border-radius: .25rem
+  border: map-get($borders, 'light')
 
   .page-item-header
     display: flex
