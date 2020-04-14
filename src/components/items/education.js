@@ -81,43 +81,43 @@ class Education extends React.Component {
     }
     else {
       var description = ""
-      if (this.props.description) {
-        description = description + this.props.description
+      if (this.state.description) {
+        description = description + this.state.description
       }
-      if (this.props.minor) {
-        description = description + `<p>Minor in ${this.props.minor}</p>`
+      if (this.state.minor) {
+        description = description + `<p>Minor in ${this.state.minor}</p>`
       }
-      if (this.props.concentration) {
-        description = description + `<p>Concentration in ${this.props.concentration}</p>`
+      if (this.state.concentration) {
+        description = description + `<p>Concentration in ${this.state.concentration}</p>`
       }
       return (
         <PageItem id={`education-${this.props.id}`}>
           <PageItem.Header>
             <div className="left">
-              {this.props.school.url
-                ? <LogoLink href={this.props.school.url} src={this.props.school.logo}/>
-                : <Logo src={this.props.school.logo}/>
+              {this.state.school.url
+                ? <LogoLink href={this.state.school.url} src={this.state.school.logo}/>
+                : <Logo src={this.state.school.logo}/>
               }
             </div>
             <div className="right">
-              <h1 className="thick">{this.props.title}</h1>
-              <h3>{this.props.school.name}</h3>
+              <h1 className="thick">{this.state.title}</h1>
+              <h3>{this.state.school.name}</h3>
               <div className="header-items">
                 <div className="header-item">
-                  <IconizedText icon={faMapPin}>{`${this.props.school.city}, ${this.props.school.state}`}</IconizedText>
+                  <IconizedText icon={faMapPin}>{`${this.state.school.city}, ${this.state.school.state}`}</IconizedText>
                 </div>
                 <div className="header-item">
                   <ErrorBoundary>
                     <IconizedText icon={faCalendarAlt}>{formatDateRange(
-                      this.props.start_year,
-                      this.props.start_month,
-                      this.props.end_year,
-                      this.props.end_month
+                      this.state.start_year,
+                      this.state.start_month,
+                      this.state.end_year,
+                      this.state.end_month
                     )}</IconizedText>
                   </ErrorBoundary>
                 </div>
                 <div className="header-item">
-                  <IconizedText icon={faPaperPlane}>{`${this.props.gpa.toFixed(2)}/4.00`}</IconizedText>
+                  <IconizedText icon={faPaperPlane}>{`${this.state.gpa.toFixed(2)}/4.00`}</IconizedText>
                 </div>
               </div>
             </div>

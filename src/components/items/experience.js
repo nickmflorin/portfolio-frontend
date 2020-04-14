@@ -106,7 +106,7 @@ class Experience extends React.Component {
                 {(this.state.company.description) && (
                   <HtmlDescription>{this.state.company.description}</HtmlDescription>
                 )}
-                {(this.props.description) && (
+                {(this.state.description) && (
                   <HtmlDescription>{this.state.description}</HtmlDescription>
                 )}
               </Panel>

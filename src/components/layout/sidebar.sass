@@ -8,11 +8,12 @@
   position: fixed
   transition-duration: 0.25s
   background-color: $sidebar-color
-  border-top: map-get($borders, "white")
-  border-left: map-get($borders, "white")
+  // border-top: map-get($borders, "white")
+  // border-left: map-get($borders, "white")
   top: pixelfy(map-get($heights, "header"))
   width: pixelfy(map-get($widths, "sidebar"))
   display: none
+  box-shadow: -1px 1px 2px 0 $shadow-color
 
   @include breakpoint($mobile)
     display: block
@@ -31,3 +32,6 @@
     border-bottom: map-get($borders, "white")
     display: flex
     flex-direction: column
+
+    &:last-child
+      border-bottom: none
