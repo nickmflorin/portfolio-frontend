@@ -31,6 +31,12 @@ $header-height: pixelfy(map-get($heights, "header"))
       .container
         margin-top: 15px
 
+        .page-items
+          > *
+            margin-bottom: 15px
+            &:last-child
+              margin-bottom: 0px
+
       &.landing
         position: absolute
 
@@ -47,12 +53,16 @@ $header-height: pixelfy(map-get($heights, "header"))
 
         .container
           max-width: 720px
+          margin-top: 0px
+
+          > *
+            margin-bottom: 15px
+            &:last-child
+              margin-bottom: 0px
 
         h3.intro
           font-weight: map-get($fontweights, "regular")
           text-align: center
-          margin-bottom: 10px
-          margin-bottom: 15px
 
           @include breakpoint($mobile)
             font-size: 12px
@@ -65,6 +75,3 @@ $header-height: pixelfy(map-get($heights, "header"))
           @include breakpoint($laptop-up)
             font-size: 14px
             line-height: 20px
-
-        .comments
-          margin-bottom: 15px

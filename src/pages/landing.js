@@ -84,7 +84,7 @@ class Landing extends React.Component {
             tag="h3"
           >{this.state.profile.intro}
           </HtmlHeader>
-          <div className="comments">
+          <div>
             {this.state.comments.map((comment) => {
               return (
                 <CommentItem comment={comment.comment}

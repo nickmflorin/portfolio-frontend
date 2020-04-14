@@ -56,7 +56,7 @@ PageContent.Left = (props) => ( // eslint-disable-line
 )
 
 PageContent.Right = (props) => ( // eslint-disable-line
-  <Col lg={10} md={10} sm={12} xl={10}>
+  <Col className="page-items" lg={10} md={10} sm={12} xl={10}>
     {props.children}
   </Col>
 )
