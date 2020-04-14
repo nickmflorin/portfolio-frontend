@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'underscore'
 
 import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';

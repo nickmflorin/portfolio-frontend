@@ -1,5 +1,5 @@
 import React from 'react';
-import { Placeholder, Loader } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 
 import { Panel } from './panels'
 

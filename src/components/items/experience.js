@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'underscore'
 
-import { Placeholder, Grid } from 'semantic-ui-react'
-import { faFire, faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 import { getExperience } from 'services'
 import { formatDateRange } from 'utils'

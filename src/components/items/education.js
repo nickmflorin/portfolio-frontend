@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'underscore'
 
-import { faSchool, faFire, faHammer, faCalendarAlt, faMapPin,
-  faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt, faMapPin, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import { getEducation } from 'services'
 import { formatDateRange, formatDegree } from 'utils'

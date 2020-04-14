@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/Button';
-import { Header, Modal } from 'semantic-ui-react'
+import { Modal } from 'semantic-ui-react'
 
 import './tags.sass'
 
