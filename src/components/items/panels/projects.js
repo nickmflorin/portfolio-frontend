@@ -53,8 +53,6 @@ class ProjectPanelItem extends React.Component {
     })
   }
   render() {
-    // TODO: Include link icon next to text for project name if it has an associated
-    // project showcased on the projects page.
     return (
       <React.Fragment>
         <ProjectHeader
