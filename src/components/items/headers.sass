@@ -1,0 +1,25 @@
+@import 'style/utils.sass'
+
+
+.project-header
+  display: flex
+  margin-bottom: 8px
+
+  h6
+    margin-bottom: 0px
+
+  // Text Sizes and Line Heights Must be Same as H6
+  .project-link
+    margin-left: 8px
+
+    @include breakpoint($mobile)
+      font-size: 12px
+      line-height: 12px
+
+    @include breakpoint($tablet)
+      font-size: 12px
+      line-height: 12px
+
+    @include breakpoint($laptop-up)
+      font-size: 13px
+      line-height: 13px
