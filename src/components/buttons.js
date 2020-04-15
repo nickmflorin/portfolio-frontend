@@ -15,13 +15,11 @@ var classNames = require('classnames')
 
 
 export const NavBarButton = (props) => {  // eslint-disable-line
-  if (props.external) {
+  if (props.onClick) {
     return (
       <a
-        className={props.location.pathname === props.url ? classNames('navbar-button', 'active') : 'navbar-button'}
-        href={props.url}
-        rel="noopener noreferrer"
-        target="_blank"
+        className="navbar-button"
+        onClick={props.onClick}
       >
         {props.label}
       </a>

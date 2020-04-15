@@ -8,6 +8,7 @@ import { faGraduationCap, faBriefcase, faHammer, faFilePdf, faHome
   } from '@fortawesome/free-solid-svg-icons'
 
 import { getProfile } from 'services'
+import { generateResume } from 'utils'
 
 import { Landing, Projects, Experience, Education } from 'pages'
 import { NavBar, SideBar, Footer } from 'components/layout'
@@ -18,7 +19,6 @@ const NavBarItems = [
     id : 'home',
     label : 'Home',
     url : '/',
-    external: false,
     icon: faHome,
     page: Landing,
   },
@@ -26,7 +26,6 @@ const NavBarItems = [
     id : 'experience',
     label : 'Experience',
     url : '/experience',
-    external: false,
     icon: faBriefcase,
     page: Experience,
   },
@@ -34,7 +33,6 @@ const NavBarItems = [
     id : 'education',
     label : 'Education',
     url : '/education',
-    external: false,
     icon: faGraduationCap,
     page: Education,
   },
@@ -42,14 +40,12 @@ const NavBarItems = [
     id : 'projects',
     label : 'Projects',
     url : '/projects',
-    external: false,
     icon: faHammer,
     page: Projects,
   },
   {
     id: 'resume',
     label: 'Resume',
-    external: true,
     icon: faFilePdf,
   }
 ]
@@ -107,7 +103,11 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.sidebar = React.createRef();
-    this.state = { items: NavBarItems, loading: false }
+
+    const items = [...NavBarItems]
+    var resume_item = _.findWhere(items, { id: 'resume' })
+    resume_item['onClick'] = this.onResumeClick.bind(this)
+    this.state = { items: items }
   }
   componentDidMount() {
     this.isLoading(true)
@@ -127,6 +127,19 @@ class App extends React.Component {
   }
   isLoading(value){
     this.setState({ loading: value })
+  }
+  onResumeClick(){
+    this.isLoading(true)
+
+    var self = this
+    generateResume().then(() => {
+      console.log('Resume successfully generated.')
+    }).catch((error) => {
+      console.log(error)
+      console.error('There was an error generating the resume.')
+    }).finally(() => {
+      self.isLoading(false)
+    })
   }
   onMenuClick(){
     this.sidebar.current.toggle()

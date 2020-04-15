@@ -27,11 +27,11 @@ class NavBar extends React.Component {
               return (
                 <div className="button-container" key={item.id}>
                   <NavBarButton
-                    external={item.external}
                     icon={item.icon}
                     label={item.label}
-                    url={item.url}
                     location={this.props.location}
+                    onClick={item.onClick}  // eslint-disable-line
+                    url={item.url}
                   />
                 </div>
               )

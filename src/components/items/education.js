@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { faCalendarAlt, faMapPin, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import { getEducation } from 'services'
-import { formatDateRange, formatDegree, formatGpa } from 'utils'
+import { formatDateRange, formatDegree, formatGpa, formatEducationDescription } from 'utils'
 
 import ErrorBoundary from 'components/errorBoundary'
 
@@ -91,16 +91,6 @@ class Education extends React.Component {
       )
     }
     else {
-      var description = ""
-      if (this.state.description) {
-        description = description + this.state.description
-      }
-      if (this.state.minor) {
-        description = description + `<p>Minor in ${this.state.minor}</p>`
-      }
-      if (this.state.concentration) {
-        description = description + `<p>Concentration in ${this.state.concentration}</p>`
-      }
       return (
         <PageItem id={`education-${this.props.id}`}>
           <PageItem.Header>
@@ -134,16 +124,20 @@ class Education extends React.Component {
             </div>
           </PageItem.Header>
           <PageItem.Body>
-            {description !== "" && (
-              <Panel>
-                {this.state.school.description && (
-                  <HtmlDescription>{this.state.school.description}</HtmlDescription>
-                )}
-                {description && (
-                  <HtmlDescription>{description}</HtmlDescription>
-                )}
-              </Panel>
-            )}
+            <Panel>
+              {this.state.school.description && (
+                <HtmlDescription>
+                  {this.state.school.description}
+                </HtmlDescription>
+              )}
+              {formatEducationDescription(
+                  this.state.description, this.state.minor, this.state.concentration) && (
+                <HtmlDescription>
+                  {formatEducationDescription(
+                    this.state.description, this.state.minor, this.state.concentration)}
+                </HtmlDescription>
+              )}
+            </Panel>
             {(this.state.projects.length !== 0) && (
               <ErrorBoundary>
                 <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />

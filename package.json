@@ -17,6 +17,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "formik": "^2.1.4",
     "js-cookie": "^2.2.1",
+    "jspdf": "^1.5.3",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",

@@ -13,6 +13,20 @@ export const formatGpa = (value) => {
   return `${value.toFixed(2)}/4.00`
 }
 
+export const formatEducationDescription = (description, minor, concentration) => {
+  var formatted = ""
+  if (description) {
+    formatted = formatted + description
+  }
+  if (minor) {
+    formatted = formatted + `<p>Minor in ${minor}</p>`
+  }
+  if (concentration) {
+    formatted = formatted + `<p>Concentration in ${concentration}</p>`
+  }
+  return formatted
+}
+
 export const formatDateRange = (start_year, start_month, end_year, end_month, include_duration=false) => {
   if (!(start_year && start_month)){
     throw new Error("Both start_year and start_month must be defined.")
