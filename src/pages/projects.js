@@ -21,6 +21,8 @@ class Projects extends React.Component {  // eslint-disable-line
     }
   }
   componentDidMount() {
+    this.props.isLoading(true)
+
     var self = this
     getProjects().then((response) => {
       const projects = _.filter(response, (item) => item.showcase)
@@ -28,7 +30,7 @@ class Projects extends React.Component {  // eslint-disable-line
     }).catch((error) => {
       console.error('There was an error loading projects.')
     }).finally(() => {
-      self.setState({loading: false})
+      self.props.isLoading(false)
     })
   }
   scrollToProject(element, behavior, timeout){
@@ -38,7 +40,7 @@ class Projects extends React.Component {  // eslint-disable-line
   }
   render() {
     return (
-      <Page loading={this.state.loading} {...this.props}>
+      <Page {...this.props}>
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">

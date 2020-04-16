@@ -16,7 +16,6 @@ class Landing extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-        loading: true,
         comments: [],
         profile: {
           github_url: null,
@@ -34,6 +33,8 @@ class Landing extends React.Component {
     this.getComments()
   }
   getProfile() {
+    this.props.isLoading(true)
+
     var self = this
     getProfile().then((response) => {
       self.setState({
@@ -50,17 +51,19 @@ class Landing extends React.Component {
     }).catch((error) => {
       console.error('There was an error loading the resume.')
     }).finally(() => {
-      self.setState({loading: false})
+      self.props.isLoading(false)
     })
   }
   getComments() {
+    this.props.isLoading(true)
+
     var self = this
     getComments().then((response) => {
       self.setState({comments: response})
     }).catch((error) => {
       console.error(`There was an error loading comments.`)
     }).finally(() => {
-      self.setState({loading: false})
+      self.props.isLoading(false)
     })
   }
   render(){

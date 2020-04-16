@@ -3,8 +3,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-import { Loader } from 'semantic-ui-react'
-
 var classNames = require('classnames');
 
 
@@ -32,7 +30,6 @@ export class Page extends React.Component {
         className={this.props.className ? classNames('page', this.props.className) : 'page'}
         ref={this.ref}
       >
-        <Loader active={this.props.loading} style={{position: 'fixed'}}/>
         <Container>
           {this.props.children}
         </Container>
@@ -41,21 +38,19 @@ export class Page extends React.Component {
   }
 }
 
-export const PageContent = (props) => ( // eslint-disable-line
+Page.Content = (props) => ( // eslint-disable-line
   <Row>
     {props.children}
   </Row>
 )
 
-Page.Content = PageContent
-
-PageContent.Left = (props) => ( // eslint-disable-line
+Page.Content.Left = (props) => ( // eslint-disable-line
   <Col lg={2} md={2} xl={2}>
     {props.children}
   </Col>
 )
 
-PageContent.Right = (props) => ( // eslint-disable-line
+Page.Content.Right = (props) => ( // eslint-disable-line
   <Col className="page-items" lg={10} md={10} sm={12} xl={10}>
     {props.children}
   </Col>

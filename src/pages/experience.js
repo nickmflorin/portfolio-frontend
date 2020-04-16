@@ -13,12 +13,11 @@ import Page from './page'
 class Experience extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      items: [],
-      loading: false,
-    }
+    this.state = { items: [] }
   }
   componentDidMount() {
+    this.props.isLoading(true)
+
     var self = this
     getAllExperience().then((response) => {
       const ordered = sortExperienceEducation(response)
@@ -26,12 +25,12 @@ class Experience extends React.Component {
     }).catch((error) => {
       console.error('There was an error loading experience history.')
     }).finally(() => {
-      self.setState({loading: false})
+      self.props.isLoading(false)
     })
   }
   render() {
     return (
-      <Page loading={this.state.loading} {...this.props}>
+      <Page {...this.props}>
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">

@@ -89,10 +89,11 @@ const AppContent = (props) => (
         <Route
           exact key={item.id}
           path={item.url}
-          render={(props) => (
+          render={(pps) => (
             <PageComponent
+              isLoading={props.isLoading}
               onPageAreaClick={props.onPageAreaClick}
-              {...props}
+              {...pps}
             />
           )}
         />
@@ -101,13 +102,12 @@ const AppContent = (props) => (
   </div>
 )
 
-
 class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
     this.sidebar = React.createRef();
-    this.state = { items: NavBarItems }
+    this.state = { items: NavBarItems, loading: false }
   }
   componentDidMount() {
     var self = this
@@ -120,6 +120,9 @@ class App extends React.Component {
     }).catch((error) => {
       console.error('There was an error loading the resume.')
     })
+  }
+  isLoading(value){
+    this.setState({ loading: value })
   }
   onMenuClick(){
     this.sidebar.current.toggle()
@@ -144,9 +147,13 @@ class App extends React.Component {
             onSideBarItemClick={this.onSideBarItemClick.bind(this)}
             sidebar={this.sidebar}
           />
+          <Loader active={this.state.loading} style={{position: 'fixed'}}/>
           <AppContent
+            isLoading={this.isLoading.bind(this)}
             items={this.state.items}
-            onPageAreaClick={this.onPageAreaClick.bind(this)}
+            onPageAreaClick={() => {
+              this.onPageAreaClick()
+            }}
           />
           <Footer />
         </div>
