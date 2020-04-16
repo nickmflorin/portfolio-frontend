@@ -3,6 +3,7 @@ import { HashRouter, Switch, Route} from 'react-router-dom'
 import update from 'react-addons-update';
 import _ from 'underscore'
 
+import { Loader } from 'semantic-ui-react'
 import { faGraduationCap, faBriefcase, faHammer, faFilePdf, faHome
   } from '@fortawesome/free-solid-svg-icons'
 
@@ -53,6 +54,54 @@ const NavBarItems = [
   }
 ]
 
+const AppHeader = (props) => (
+  <header>
+    <SideBar
+      items={props.items}
+      onSideBarItemClick={props.onSideBarItemClick}
+      ref={props.sidebar}
+    />
+    <Switch>
+      <Route exact path="/">
+        <NavBar
+          items={props.items}
+          onHomeClick={props.onHomeClick}
+          onMenuClick={props.onMenuClick}
+        />
+      </Route>
+      <Route>
+        <NavBar
+          items={props.items}
+          onHomeClick={props.onHomeClick}
+          onMenuClick={props.onMenuClick}
+          overlay
+        />
+      </Route>
+    </Switch>
+  </header>
+)
+
+const AppContent = (props) => (
+  <div className="content">
+    {_.map(_.filter(props.items, (item) => (item.id !== 'resume')), (item) => {
+      const PageComponent = item.page
+      return (
+        <Route
+          exact key={item.id}
+          path={item.url}
+          render={(props) => (
+            <PageComponent
+              onPageAreaClick={props.onPageAreaClick}
+              {...props}
+            />
+          )}
+        />
+      )
+    })}
+  </div>
+)
+
+
 class App extends React.Component {
 
   constructor(props, context) {
@@ -88,47 +137,17 @@ class App extends React.Component {
     return (
       <HashRouter>
         <div className="app">
-          <header>
-            <SideBar
-              items={this.state.items}
-              onSideBarItemClick={this.onSideBarItemClick.bind(this)}
-              ref={this.sidebar}
-            />
-            <Switch>
-              <Route exact path="/">
-                <NavBar
-                  items={this.state.items}
-                  onHomeClick={this.onHomeClick.bind(this)}
-                  onMenuClick={this.onMenuClick.bind(this)}
-                />
-              </Route>
-              <Route>
-                <NavBar
-                  items={this.state.items}
-                  onHomeClick={this.onHomeClick.bind(this)}
-                  onMenuClick={this.onMenuClick.bind(this)}
-                  overlay
-                />
-              </Route>
-            </Switch>
-          </header>
-          <div className="content">
-            {_.map(_.filter(this.state.items, (item) => (item.id !== 'resume')), (item) => {
-              const PageComponent = item.page
-              return (
-                <Route
-                  exact key={item.id}
-                  path={item.url}
-                  render={(props) => (
-                    <PageComponent
-                      onPageAreaClick={this.onPageAreaClick.bind(this)}
-                      {...props}
-                    />
-                  )}
-                />
-              )
-            })}
-          </div>
+          <AppHeader
+            items={this.state.items}
+            onHomeClick={this.onHomeClick.bind(this)}
+            onMenuClick={this.onMenuClick.bind(this)}
+            onSideBarItemClick={this.onSideBarItemClick.bind(this)}
+            sidebar={this.sidebar}
+          />
+          <AppContent
+            items={this.state.items}
+            onPageAreaClick={this.onPageAreaClick.bind(this)}
+          />
           <Footer />
         </div>
       </HashRouter>
