@@ -110,6 +110,8 @@ class App extends React.Component {
     this.state = { items: NavBarItems, loading: false }
   }
   componentDidMount() {
+    this.isLoading(true)
+
     var self = this
     getProfile().then((response) => {
       var index = _.findIndex(this.state.items, value => value.id === 'resume')
@@ -119,6 +121,8 @@ class App extends React.Component {
       self.setState({ items : items })
     }).catch((error) => {
       console.error('There was an error loading the resume.')
+    }).finally(() => {
+      self.isLoading(false)
     })
   }
   isLoading(value){
