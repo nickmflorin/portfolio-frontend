@@ -136,7 +136,12 @@ class Education extends React.Component {
           <PageItem.Body>
             {description !== "" && (
               <Panel>
-                <HtmlDescription>{description}</HtmlDescription>
+                {this.state.school.description && (
+                  <HtmlDescription>{this.state.school.description}</HtmlDescription>
+                )}
+                {description && (
+                  <HtmlDescription>{description}</HtmlDescription>
+                )}
               </Panel>
             )}
             {(this.state.projects.length !== 0) && (
