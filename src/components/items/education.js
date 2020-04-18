@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { faCalendarAlt, faMapPin, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import { getEducation } from 'services'
-import { formatDateRange, formatDegree } from 'utils'
+import { formatDateRange, formatDegree, formatGpa } from 'utils'
 
 import ErrorBoundary from 'components/errorBoundary'
 
@@ -128,7 +128,7 @@ class Education extends React.Component {
                   </ErrorBoundary>
                 </div>
                 <div className="header-item">
-                  <IconizedText icon={faPaperPlane}>{`${this.state.gpa.toFixed(2)}/4.00`}</IconizedText>
+                  <IconizedText icon={faPaperPlane}>{formatGpa(this.state.gpa)}</IconizedText>
                 </div>
               </div>
             </div>

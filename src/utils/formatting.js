@@ -9,6 +9,10 @@ export const formatDegree = (degree, major) => {
   return formatted
 }
 
+export const formatGpa = (value) => {
+  return `${value.toFixed(2)}/4.00`
+}
+
 export const formatDateRange = (start_year, start_month, end_year, end_month, include_duration=false) => {
   if (!(start_year && start_month)){
     throw new Error("Both start_year and start_month must be defined.")
