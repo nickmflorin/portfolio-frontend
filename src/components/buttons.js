@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faFileDownload } from '@fortawesome/free-solid-svg-icons'
 
-import BrandLogo from 'media/icons/logo192_white.png'
+import BrandLogo from 'media/icons/BrandLogo.png'
 
 import { Logo } from 'components/image'
 
