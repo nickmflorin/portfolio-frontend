@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import landing from 'media/landing.png';
-import Github from 'media/icons/Github.png'
-import LinkedIn from 'media/icons/LinkedIn.png'
+import Github from 'media/icons/Github_White.png'
+import LinkedIn from 'media/icons/LinkedIn_White.png'
 
 import { urlify } from 'utils'
 import { TITLE_COMPONENTS } from 'config'
