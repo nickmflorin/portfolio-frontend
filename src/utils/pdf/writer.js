@@ -451,7 +451,7 @@ class Section extends Writer {
 
   header = async(text, { marginBottom = 0 }) => {
     const width = this.textWidth(text, { ...Styles.sectionTitle })
-    const x0 = 0.5 * this.frames.page.width - 0.5 * width
+    const x0 = 0.5 * this.frames.page.width - 0.5 * width + this.frames.page.x0
     const height = this.textHeight(text, { ...Styles.sectionTitle })
 
     await this.lines(x0, height, width)
