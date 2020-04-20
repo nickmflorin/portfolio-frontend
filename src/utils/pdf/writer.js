@@ -122,10 +122,10 @@ class Writer extends AbstractDoc {
     }
   }
 
-  totalTextHeight = (value) => {
+  totalTextHeight = (value, { x0: x0, ...style }) => {
     // Note that this calculation is problematic for inline text!
-    const split = this.doc.splitTextToSize(value, this.frames.textContent.width);
-    const height = this.doc.getTextDimensions(value).h
+    const split = this.doc.splitTextToSize(value, this.frames.textContent.x1 - x0);
+    const height = this.textHeight(value, { ...style })
     return split.length * height
   }
 
@@ -177,7 +177,7 @@ class Writer extends AbstractDoc {
 
   blockText = async (value, { x0 = 0, marginBottom = 0, ...style }) => {
     await this.text(value, { x0: x0, ...style })
-    const totalHeight = this.totalTextHeight(value)
+    const totalHeight = this.totalTextHeight(value, { x0: x0, ...style })
     this.carriage.increment(marginBottom + totalHeight)
   }
 
@@ -185,7 +185,7 @@ class Writer extends AbstractDoc {
     await this.text(value, { x0: x0, ...style })
   }
 
-  description = async (value, { x0 = Gutters.page.left, marginBottom = 0 }) => {
+  description = async (value, { x0 = 0, marginBottom = 0 }) => {
     await this.blockText(strip(value), { x0: x0, marginBottom: marginBottom })
   }
 
@@ -211,12 +211,14 @@ class Writer extends AbstractDoc {
   }
 
   drawInlines = async (inlines, { x0 = 0, marginBottom = 0, iconMargin = 0, spacing = 0, ...style }) => {
+    var fullText = ""
     for (var i = 0; i < inlines.length; i++ ){
       await this.drawInline(inlines[i], { x0: x0, spacing: iconMargin, ...style })
       const width = this.textWidth(inlines[i].text, { ...style })
       x0 = x0 + width + Sizes.icon.width + iconMargin + spacing
+      fullText = fullText + inlines[i].text
     }
-    var lineHeight = this.textHeight(inlines[0].text, { ...style })  // Use First Text as Approximation
+    var lineHeight = this.textHeight(fullText, { ...style })  // Use First Text as Approximation
     this.carriage.increment(lineHeight)
     this.carriage.increment(marginBottom + Sizes.icon.height)
   }
@@ -233,7 +235,7 @@ class Project extends Writer {
   peg = async ({ x0 = 0 }) => {
     const y0 = this.carriage.y // Store Ref for Lines
     const nameHeight = this.textHeight(this.name, Styles.projectTitle)
-    const descHeight = this.totalTextHeight(this.desc)
+    const descHeight = this.totalTextHeight(this.desc, { x0: x0, ...Styles.body })
 
     const line_x1 = x0 - 4
     const mid = y0 + 0.5 * (nameHeight + descHeight)
@@ -242,7 +244,7 @@ class Project extends Writer {
   write = async ({ x0 = 0, marginBottom=0 }) => {
     const rung = await this.peg({ x0: x0 })
     await this.blockText(this.name, { x0: x0, ...Styles.projectTitle})
-    await this.description(this.desc, { x0: x0 })
+    await this.description(this.desc, { x0: x0, ...Styles.body })
     this.carriage.increment(marginBottom)
     this.conditionalPageBreak()
     return rung
@@ -308,7 +310,7 @@ class Item extends Writer {
         x0: x0,
         iconMargin: 3,
         spacing: 8,
-        ...Styles.headerItems
+        ...Styles.inlines
       })
     }
     this.carriage.increment(marginBottom)
@@ -322,7 +324,7 @@ class Item extends Writer {
       this.frames.content.x0 + 0.5 * Sizes.logo.width, this.carriage.y, this.doc)
 
     x0 = x0 + Sizes.logo.width + Margins.logo
-    await this.desc({ marginBottom: 6, x0: x0 })
+    await this.desc({ marginBottom: 6, x0: x0, ...Styles.body })
 
     await this.writeProjects({ marginBottom: 6, x0: x0 })
     this.carriage.increment(marginBottom)
@@ -405,10 +407,15 @@ class EducationItem extends Item {
       await this.description(`Minor in ${this.obj.minor}`, {
         x0: options.x0,
         marginBottom: 0,
+        // ...options
       })
     }
     if (this.obj.concentration) {
-      await this.description(`Concentration in ${this.obj.concentration}`, options)
+      await this.description(`Concentration in ${this.obj.concentration}`, {
+        x0: options.x0,
+        marginBottom: 0,
+        // ...options
+      })
     }
   }
 }
@@ -554,19 +561,20 @@ export class PdfWriter extends Writer {
 
     this.carriage.increment(4) // Spacing Between Name and Tagline
     await this.blockText(profile.tagline, { x0: this.frames.page.x0 + Sizes.brand.width + 3, ...Styles.tagline })
-    this.carriage.increment(6) // Spacing Between Tagline and Inlines
+    this.carriage.increment(4) // Spacing Between Tagline and Inlines
 
     await this.drawInlines(this.inlines(profile)[0], {
       x0: this.frames.page.x0 + Sizes.brand.width + 3,
-      iconMargin: 4,
-      spacing: 8,
-      ...Styles.headerItems
+      iconMargin: 3,
+      spacing: 6,
+      ...Styles.pageInlines
     })
+    this.carriage.increment(-2) // Inline rows are spaced too far apart...
     await this.drawInlines(this.inlines(profile)[1], {
       x0: this.frames.page.x0 + Sizes.brand.width + 3,
-      iconMargin: 4,
-      spacing: 8,
-      ...Styles.headerItems
+      iconMargin: 3,
+      spacing: 6,
+      ...Styles.pageInlines
     })
   }
 
@@ -577,7 +585,7 @@ export class PdfWriter extends Writer {
     ]
     await this.header({ marginBottom: 0 })
     for (var i = 0; i < sections.length; i++ ){
-      await sections[i].write({ marginBottom: 0 })
+      await sections[i].write({ marginBottom: -2 })
     }
   }
 }

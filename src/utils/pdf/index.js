@@ -32,6 +32,7 @@ export const generateResume = async () => {
     width: content.width - Gutters.textContent.left - Gutters.textContent.right,
     height: content.height - Gutters.textContent.top - Gutters.textContent.bottom
   })
+
   const carriage = new Carriage(page.coordinates.y0)
   const writer = new PdfWriter(doc, carriage, {
     page: page,

@@ -19,8 +19,8 @@ export const Sizes = {
     height: 6,
   },
   logo: {
-    width: 30,
-    height: 30,
+    width: 24,
+    height: 24,
   }
 }
 
@@ -30,10 +30,10 @@ export const Margins = {
 
 export const Gutters = {
   page: {
-    left: 5,
-    right: 5,
-    top: 5,
-    bottom: 5
+    left: 10,
+    right: 10,
+    top: 10,
+    bottom: 10
   },
   content: {
     left: 25,
@@ -109,14 +109,14 @@ export const Styles = {
   title: {
     marginBottom: 3,
     font: Fonts.LatoBold,
-    size: 12,
+    size: 11,
     color: Colors.primary,
   },
   subtitle: {
     marginBottom: 4,
     font: Fonts.OpenSansRegular,
     color: Colors.secondary,
-    size: 10,
+    size: 9,
   },
   firstName: {
     font: Fonts.OpenSansRegular,
@@ -138,7 +138,12 @@ export const Styles = {
     color: Colors.secondary,
     size: 10,
   },
-  headerItems: {
+  inlines: {
+    size: 7,
+    color: Colors.gray,
+    font: Fonts.RobotoRegular,
+  },
+  pageInlines: {
     size: 8,
     color: Colors.gray,
     font: Fonts.RobotoRegular,
