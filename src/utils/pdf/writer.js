@@ -545,6 +545,18 @@ export class PdfWriter extends Writer {
       ],
     ]
   }
+
+  footer = async () => {
+    const text = "This resume was auto-generated from nickflorin-api.com."
+    this.setFont(Styles.footer)
+
+    const width = this.doc.getTextWidth(text)
+    const height = this.doc.getTextDimensions(text).h
+    const x0 = this.frames.page.x1 - width
+    const y0 = this.frames.page.y1 - height
+    this.doc.text(x0, y0, text)
+  }
+
   header = async () => {
     const profile = await getProfile()
     await this.drawLogo(profile.logo, { x0: this.frames.page.x0 })
@@ -587,5 +599,6 @@ export class PdfWriter extends Writer {
     for (var i = 0; i < sections.length; i++ ){
       await sections[i].write({ marginBottom: -2 })
     }
+    await this.footer()
   }
 }

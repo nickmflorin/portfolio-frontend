@@ -154,6 +154,12 @@ export const Styles = {
     height: 1.2,
     font: Fonts.RobotoLight,
   },
+  footer: {
+    color: Colors.gray,
+    size: 7,
+    height: 1.0,
+    font: Fonts.RobotoLight,
+  },
   projectTitle: {
     color: Colors.secondary,
     size: 8,
