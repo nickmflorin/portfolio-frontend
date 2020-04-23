@@ -13,22 +13,31 @@ import 'style/fonts/Roboto-Regular'
 import 'style/fonts/Roboto-Medium'
 
 import { PdfWriter } from './writer'
-import { Canvas, Carriage } from './utils'
+import { Canvas } from './canvas'
+import { Carriage } from './carriage'
 import { Gutters, DocConfig, Sizes } from './constants'
 
 
 export const generateResume = async () => {
   const doc = new jsPDF(DocConfig)
 
-  const page = new Canvas(doc, Gutters.page.left, Gutters.page.top, {
+  const page = new Canvas(doc, {
+    x0: Gutters.page.left,
+    y0: Gutters.page.top,
     width: Sizes.page.width - Gutters.page.left - Gutters.page.right,
     height: Sizes.page.height - Gutters.page.top - Gutters.page.bottom
   })
-  const content = new Canvas(doc, page.x0 + Gutters.content.left, page.y0 + Gutters.content.top, {
+
+  const content = new Canvas(doc, {
+    x0: page.x0 + Gutters.content.left,
+    y0: page.y0 + Gutters.content.top,
     width: page.width - Gutters.content.left - Gutters.content.right,
     height: page.height - Gutters.content.top - Gutters.content.bottom
   })
-  const textContent = new Canvas(doc, content.x0 + Gutters.textContent.left, content.y0 + Gutters.textContent.top, {
+
+  const textContent = new Canvas(doc, {
+    x0: content.x0 + Gutters.textContent.left,
+    y0: content.y0 + Gutters.textContent.top,
     width: content.width - Gutters.textContent.left - Gutters.textContent.right,
     height: content.height - Gutters.textContent.top - Gutters.textContent.bottom
   })

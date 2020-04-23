@@ -1,8 +1,33 @@
+import Github from 'media/icons/Github.png'
+import LinkedIn from 'media/icons/LinkedIn.png'
+import Database from 'media/icons/Database.png'
+import Phone from 'media/icons/Phone.png'
+import StreetView from 'media/icons/StreetView.png'
+import Envelope from 'media/icons/Envelope.png'
+import Globe from 'media/icons/Globe.png'
+import Pin from 'media/icons/Pin.png'
+import Calendar from 'media/icons/Calendar.png'
+import PaperPlane from 'media/icons/PaperPlane.png'
+
+
 export const DocConfig = {
   unit: "px",
   format: "letter",
   precision: 32,
   floatPrecision: "smart"
+}
+
+export const Icons = {
+  Github: Github,
+  LinkedIn: LinkedIn,
+  Database: Database,
+  Phone: Phone,
+  StreetView: StreetView,
+  Envelope: Envelope,
+  Globe: Globe,
+  Pin: Pin,
+  Calendar: Calendar,
+  PaperPlane: PaperPlane,
 }
 
 export const Sizes = {
