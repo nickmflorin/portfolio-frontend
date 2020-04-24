@@ -21,33 +21,34 @@ import { Gutters, DocConfig, Sizes } from './constants'
 export const generateResume = async () => {
   const doc = new jsPDF(DocConfig)
 
-  const page = new Canvas(doc, {
+  let config = {
+    doc: doc,
+    frames: {},
+  }
+
+  config.frames.page = new Canvas(doc, {
     x0: Gutters.page.left,
     y0: Gutters.page.top,
     width: Sizes.page.width - Gutters.page.left - Gutters.page.right,
     height: Sizes.page.height - Gutters.page.top - Gutters.page.bottom
   })
 
-  const content = new Canvas(doc, {
-    x0: page.x0 + Gutters.content.left,
-    y0: page.y0 + Gutters.content.top,
-    width: page.width - Gutters.content.left - Gutters.content.right,
-    height: page.height - Gutters.content.top - Gutters.content.bottom
+  config.frames.content = new Canvas(doc, {
+    x0: config.frames.page.x0 + Gutters.content.left,
+    y0: config.frames.page.y0 + Gutters.content.top,
+    width: config.frames.page.width - Gutters.content.left - Gutters.content.right,
+    height: config.frames.page.height - Gutters.content.top - Gutters.content.bottom
   })
 
-  const textContent = new Canvas(doc, {
-    x0: content.x0 + Gutters.textContent.left,
-    y0: content.y0 + Gutters.textContent.top,
-    width: content.width - Gutters.textContent.left - Gutters.textContent.right,
-    height: content.height - Gutters.textContent.top - Gutters.textContent.bottom
+  config.frames.textContent = new Canvas(doc, {
+    x0: config.frames.content.x0 + Gutters.textContent.left,
+    y0: config.frames.content.y0 + Gutters.textContent.top,
+    width: config.frames.content.width - Gutters.textContent.left - Gutters.textContent.right,
+    height: config.frames.content.height - Gutters.textContent.top - Gutters.textContent.bottom
   })
 
-  const carriage = new Carriage(page.coordinates.y0)
-  const writer = new PdfWriter(doc, carriage, {
-    page: page,
-    content: content,
-    textContent: textContent,
-  })
+  config.carriage = new Carriage(config.frames.page.coordinates.y0)
+  const writer = new PdfWriter(config)
   await writer.write()
 
   doc.save('Resume.pdf');

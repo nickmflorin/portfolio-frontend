@@ -11,10 +11,18 @@ import Globe from 'media/icons/Globe.png'
 
 import { Gutters, Sizes, Styles, Colors } from './constants'
 import { ExperienceSection, EducationSection } from './section'
-import { Writer } from './base'
+import { Doc } from './base'
 
 
-export class PdfWriter extends Writer {
+export class PdfWriter extends Doc {
+
+  constructor(config){
+    super(config)
+    this.sections = [
+      new ExperienceSection(this.config),
+      new EducationSection(this.config),
+    ]
+  }
 
   drawLogo = async (logo, { x0 = 0 }) => {
     var extension = getFileExtension(logo)
@@ -89,13 +97,9 @@ export class PdfWriter extends Writer {
   }
 
   write = async () => {
-    const sections = [
-      new ExperienceSection(this.doc, this.carriage, this.frames),
-      new EducationSection(this.doc, this.carriage, this.frames),
-    ]
     await this.header({ marginBottom: 0 })
-    for (var i = 0; i < sections.length; i++ ){
-      await sections[i].write({ marginBottom: -2 })
+    for (var i = 0; i < this.sections.length; i++ ){
+      await this.sections[i].write({ marginBottom: -2 })
     }
 
     var text = "Django REST Framework"

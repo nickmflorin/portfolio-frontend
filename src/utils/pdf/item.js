@@ -4,13 +4,13 @@ import { formatDegree, formatDateRange, formatGpa } from 'utils/formatting'
 import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files'
 
 import { Sizes, Margins, Styles, Icons } from './constants'
-import { Writer } from './base'
+import { Doc } from './base'
 import { Ladder, Rung } from './ladder'
 
 
-class Project extends Writer {
-  constructor(name, desc, doc, carriage, frames){
-    super(doc, carriage, frames)
+class Project extends Doc {
+  constructor(config, name, desc){
+    super(config)
     this.name = name
     this.desc = desc
   }
@@ -20,7 +20,7 @@ class Project extends Writer {
     const nameHeight = this.textHeight(this.name, Styles.projectTitle)
     const descHeight = this.totalTextHeight(this.desc, { x0: x0, ...Styles.body })
 
-    const rung = new Rung(this.doc, {
+    const rung = new Rung(this.config, {
       x1: x0 - 4,
       y0: y0 + 0.5 * (nameHeight + descHeight)
     })
@@ -34,10 +34,10 @@ class Project extends Writer {
 }
 
 
-class Item extends Writer {
+class Item extends Doc {
 
-  constructor(obj, doc, carriage, frames) {
-    super(doc, carriage, frames)
+  constructor(config, obj) {
+    super(config)
     this.obj = obj
     this.ladder = null;
   }
@@ -56,7 +56,7 @@ class Item extends Writer {
 
     for (var i = 0; i < this.projects.length; i++) {
       const description = this.projects[i].resume_description || this.projects[i].description
-      const project = new Project(this.projects[i].name, description, this.doc, this.carriage, this.frames)
+      const project = new Project(this.config, this.projects[i].name, description)
       const rung = await project.write(options)
 
       this.ladder.addRung(rung)
@@ -104,7 +104,7 @@ class Item extends Writer {
     await this.header({x0: x0, marginBottom: 0})
 
     // Wait Until Carriage Below Header
-    this.ladder = new Ladder(this.doc, {
+    this.ladder = new Ladder(this.config, {
       x0: x0 + 0.5 * Sizes.logo.width,
       y0: this.carriage.y
     })
@@ -121,7 +121,7 @@ class Item extends Writer {
     })
     this.carriage.increment(marginBottom)
 
-    return new Rung(this.doc, {
+    return new Rung(this.config, {
       x1: this.frames.content.x0 - 4,
       y0: rungY
     })

@@ -6,8 +6,11 @@ import { strip } from './utils'
 
 export class Doc {
 
-  constructor(doc){
-    this.doc = doc
+  constructor(config){
+    this.config = config
+    this.frames = config.frames
+    this.carriage = config.carriage
+    this.doc = config.doc
   }
 
   get page() {
@@ -28,16 +31,6 @@ export class Doc {
     this.doc.setLineWidth(options.thickness)
     this.doc.setDrawColor(options.color)
     this.doc.setLineDash(options.dash || [])
-  }
-}
-
-
-export class Writer extends Doc {
-
-  constructor(doc, carriage, frames){
-    super(doc)
-    this.frames = frames
-    this.carriage = carriage
   }
 
   conditionalPageBreak = () => {
@@ -91,7 +84,7 @@ export class Writer extends Doc {
     return width
   }
 
-  text = async (value, { x0 = Gutters.page.left, ...style }) => {
+  text = async (value, { x0 = 0, ...style }) => {
     const singleLineHeight = this.textHeight(value, { ...style })
     this.carriage.increment(singleLineHeight)
 
@@ -106,7 +99,7 @@ export class Writer extends Doc {
     this.carriage.increment(marginBottom + totalHeight)
   }
 
-  inlineText = async (value, { x0 = Gutters.page.left, marginRight = 2, ...style }) => {
+  inlineText = async (value, { x0 = 0, marginRight = 2, ...style }) => {
     await this.text(value, { x0: x0, ...style })
   }
 
@@ -127,7 +120,7 @@ export class Writer extends Doc {
     this.doc.addImage(data, extension, x0, y0, width, Sizes.icon.height);
   }
 
-  drawInline = async (inline, { x0 = Gutters.page.left, spacing = 0, ...style }) => {
+  drawInline = async (inline, { x0 = 0, spacing = 0, ...style }) => {
     if (inline.icon) {
       await this.drawIcon(inline.icon, { x0: x0 })
       x0 = x0 + Sizes.icon.width + spacing

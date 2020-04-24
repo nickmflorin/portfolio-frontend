@@ -7,10 +7,10 @@ import { Styles, Lines} from './constants'
 
 import { Ladder } from './ladder'
 import { EducationItem, ExperienceItem } from './item'
-import { Writer } from './base'
+import { Doc } from './base'
 
 
-class SectionHeader extends Writer {
+class SectionHeader extends Doc {
 
   leadingLine = async (x0, y, width) => {
     const line_x1 = x0 - Lines.section.padding
@@ -46,12 +46,12 @@ class SectionHeader extends Writer {
 }
 
 
-class Section extends Writer {
+class Section extends Doc {
 
-  constructor(doc, carriage, frames) {
-    super(doc, carriage, frames)
+  constructor(config) {
+    super(config)
     this.ladder = null;
-    this.header = new SectionHeader(doc, carriage, frames);
+    this.header = new SectionHeader(this.config);
   }
 }
 
@@ -66,14 +66,14 @@ export class ExperienceSection extends Section {
   write = async ({ marginBottom = 0 }) => {
     // Quarter of the way in between page left and content left looks good.
     const x = this.frames.page.x0 + 0.25 * (this.frames.content.x0 - this.frames.page.x0)
-    this.ladder = new Ladder(this.doc, { x0: x, y0: this.carriage.y })
+    this.ladder = new Ladder(this.config, { x0: x, y0: this.carriage.y })
 
     await this.header.write('Experience', { marginBottom: 2 })
 
     const data = await this.getData()
     for (var i = 0; i<data.length; i++) {
       const experience = await getExperience(data[i].id)
-      const item = new ExperienceItem(experience, this.doc, this.carriage, this.frames)
+      const item = new ExperienceItem(this.config, experience)
       const rung = await item.write({
         x0: this.frames.content.x0,
         marginBottom: 2
@@ -100,14 +100,14 @@ export class EducationSection extends Section {
   write = async ({ marginBottom = 0 }) => {
     // Quarter of the way in between page left and content left looks good.
     const x = this.frames.page.x0 + 0.25 * (this.frames.content.x0 - this.frames.page.x0)
-    this.ladder = new Ladder(this.doc, { x0: x, y0: this.carriage.y })
+    this.ladder = new Ladder(this.config, { x0: x, y0: this.carriage.y })
 
     await this.header.write('Education', { marginBottom: 2 })
 
     const data = await this.getData()
     for (var i = 0; i<data.length; i++) {
       const data_item = await getEducation(data[i].id)
-      const item = new EducationItem(data_item, this.doc, this.carriage, this.frames)
+      const item = new EducationItem(this.config, data_item)
       const rung = await item.write({
         x0: this.frames.content.x0,
         marginBottom: 2

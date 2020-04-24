@@ -3,8 +3,8 @@ import { Doc } from './base'
 
 
 export class Rung extends Doc {
-  constructor(doc, {x1 = 0, y0 = 0}){
-    super(doc)
+  constructor(config, {x1 = 0, y0 = 0}){
+    super(config)
     this.x1 = x1
     this.y0 = y0
     this.pageNumber = this.page
@@ -12,15 +12,14 @@ export class Rung extends Doc {
   draw({ x0 = 0 }){
     this.doc.setPage(this.pageNumber)
     this.setLine(Lines.rung)
-    console.log(this.x1)
     this.doc.line(x0 + CircleRadius, this.y0, this.x1, this.y0)
     this.doc.circle(x0, this.y0, CircleRadius)
   }
 }
 
 export class Ladder extends Doc {
-  constructor(doc, {x0 = 0, y0 = 0}){
-    super(doc)
+  constructor(config, {x0 = 0, y0 = 0}){
+    super(config)
     this.x0 = x0
     this.y0 = y0;
     this.rungs = [];
