@@ -1,6 +1,6 @@
 import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files'
 
-import { Gutters, Sizes, Styles, PageBreakThreshold } from './constants'
+import { Styles } from './style'
 import { strip } from './utils'
 
 
@@ -11,6 +11,8 @@ export class Doc {
     this.frames = config.frames
     this.carriage = config.carriage
     this.doc = config.doc
+    // For whatever reason, JSPDF does not have a getFont() method...
+    this.currentFont = {};
   }
 
   get page() {
@@ -18,93 +20,88 @@ export class Doc {
     return pg.pageNumber;
   }
 
-  setFont = ({ font=Styles.body.font, size=Styles.body.size, height=Styles.body.height,
-      color=Styles.body.color }) => {
-    this.doc.setFontType(font.type)
-    this.doc.setFont(font.name)
-    this.doc.setFontSize(size)
-    this.doc.setLineHeightFactor(height)
-    this.doc.setTextColor(color)
-  }
-
-  setLine = ({ ...options }) => {
-    this.doc.setLineWidth(options.thickness)
-    this.doc.setDrawColor(options.color)
-    this.doc.setLineDash(options.dash || [])
-  }
-
-  conditionalPageBreak = () => {
-    if (this.carriage.y > PageBreakThreshold * Sizes.page.height) {
-      this.doc.addPage()
-      this.carriage.moveTo(this.frames.page.y0)
+  setFont = (textStyle) => {
+    if (textStyle.font && textStyle.font.type) {
+      this.currentFont['type'] = textStyle.font.type
+      this.doc.setFontType(textStyle.font.type)
+    }
+    if (textStyle.font && textStyle.font.name) {
+      this.currentFont['name'] = textStyle.font.name
+      this.doc.setFont(textStyle.font.name)
+    }
+    if (textStyle.size) {
+      this.doc.setFontSize(textStyle.size)
+    }
+    if (textStyle.height) {
+      this.doc.setLineHeightFactor(textStyle.height)
+    }
+    if (textStyle.color) {
+      this.doc.setTextColor(textStyle.color)
     }
   }
 
-  textHeight = (value, { ...style }) => {
-    const originalStyle = {
-      font: {
-        type: 'normal', // Not sure if there is a method to get the font type.
-        name: this.doc.getFont,
-      },
+  getFont = () => {
+    return {
+      font: this.currentFont,
       size: this.doc.getFontSize(),
       height: this.doc.getLineHeightFactor(),
       color: this.doc.getTextColor()
     }
-    // TODO: Reset the font style back to original after it is updated.
-    if (Object.keys(style).length) {
-      this.setFont({ ...style })
+  }
+
+  setLine = ({ dash=[], ...lineStyle}) => {
+    this.doc.setLineDash(dash)
+    if (lineStyle.thickness) {
+      this.doc.setLineWidth(lineStyle.thickness)
     }
+    if (lineStyle.color) {
+      this.doc.setDrawColor(lineStyle.color)
+    }
+  }
+
+  textHeight = (value, { textStyle = {} }) => {
+    const originalStyle = this.getFont()
+    this.setFont(textStyle)
     const height = this.doc.getTextDimensions(value).h
-    this.setFont({ ...originalStyle })
+    this.setFont(originalStyle)
     return height
   }
 
-  totalTextHeight = (value, { x0, ...style }) => {
+  totalTextHeight = (value, { x0, textStyle = {} }) => {
     // Note that this calculation is problematic for inline text!
     const split = this.doc.splitTextToSize(value, this.frames.textContent.x1 - x0);
-    const height = this.textHeight(value, { ...style })
+    const height = this.textHeight(value, textStyle)
     return split.length * height
   }
 
-  textWidth = (value, { ...style }) => {
-    const originalStyle = {
-      font: {
-        type: 'normal', // Not sure if there is a method to get the font type.
-        name: this.doc.getFont,
-      },
-      size: this.doc.getFontSize(),
-      height: this.doc.getLineHeightFactor(),
-      color: this.doc.getTextColor()
-    }
-    if (Object.keys(style).length) {
-      this.setFont({ ...style })
-    }
+  textWidth = (value, { textStyle = {} }) => {
+    const originalStyle = this.getFont()
+    this.setFont(textStyle)
     const width = this.doc.getTextWidth(value)
-    this.setFont({ ...originalStyle })
+    this.setFont(originalStyle)
     return width
   }
 
-  text = async (value, { x0 = 0, ...style }) => {
-    const singleLineHeight = this.textHeight(value, { ...style })
+  text = async (value, { x0 = 0, textStyle = {} }) => {
+    const singleLineHeight = this.textHeight(value, { textStyle: textStyle })
     this.carriage.increment(singleLineHeight)
-
-    this.setFont({...style})
+    this.setFont(textStyle)
     this.doc.text(x0, this.carriage.y, value, { maxWidth: this.frames.textContent.width })
     this.carriage.increment(-1.0 * singleLineHeight)
   }
 
-  blockText = async (value, { x0 = 0, marginBottom = 0, ...style }) => {
-    await this.text(value, { x0: x0, ...style })
-    const totalHeight = this.totalTextHeight(value, { x0: x0, ...style })
+  blockText = async (value, { x0 = 0, marginBottom = 0, textStyle = {} }) => {
+    await this.text(value, { x0: x0, textStyle: textStyle })
+    const totalHeight = this.totalTextHeight(value, { x0: x0, textStyle: textStyle })
     this.carriage.increment(marginBottom + totalHeight)
   }
 
-  inlineText = async (value, { x0 = 0, marginRight = 2, ...style }) => {
-    await this.text(value, { x0: x0, ...style })
+  inlineText = async (value, { x0 = 0, textStyle = {} }) => {
+    await this.text(value, { x0: x0, textStyle: textStyle })
   }
 
-  description = async (value, { x0 = 0, marginBottom = 0 }) => {
-    await this.blockText(strip(value), { x0: x0, marginBottom: marginBottom })
+  description = async (value, options) => {
+    await this.blockText(strip(value), options)
   }
 
   drawIcon = async (icon, { x0 = 0 }) => {
@@ -112,32 +109,32 @@ export class Doc {
     var dimensions = await getImageDimensions(icon)
     var data = await getBase64Encoded(icon)
 
-    const width = dimensions.ratio * Sizes.icon.height
-    const mid = this.carriage.y + 0.5 * Sizes.icon.height
+    const width = dimensions.ratio * Styles.icon.size.height
+    const mid = this.carriage.y + 0.5 * Styles.icon.size.height
 
     // Not sure why we need the + 0.5 here but it makes it line up vertically.
-    const y0 = mid - 0.5 * Sizes.icon.height + 0.5
-    this.doc.addImage(data, extension, x0, y0, width, Sizes.icon.height);
+    const y0 = mid - 0.5 * Styles.icon.size.height + 0.5
+    this.doc.addImage(data, extension, x0, y0, width, Styles.icon.size.height);
   }
 
-  drawInline = async (inline, { x0 = 0, spacing = 0, ...style }) => {
+  drawInline = async (inline, { x0 = 0, spacing = 0, textStyle = {} }) => {
     if (inline.icon) {
       await this.drawIcon(inline.icon, { x0: x0 })
-      x0 = x0 + Sizes.icon.width + spacing
+      x0 = x0 + Styles.icon.size.width + spacing
     }
-    await this.inlineText(inline.text, { x0: x0, ...style})
+    await this.inlineText(inline.text, { x0: x0, textStyle: textStyle })
   }
 
-  drawInlines = async (inlines, { x0 = 0, marginBottom = 0, iconMargin = 0, spacing = 0, ...style }) => {
+  drawInlines = async (inlines, { x0 = 0, marginBottom = 0, iconMargin = 0, spacing = 0, textStyle = {} }) => {
     var fullText = ""
     for (var i = 0; i < inlines.length; i++ ){
-      await this.drawInline(inlines[i], { x0: x0, spacing: iconMargin, ...style })
-      const width = this.textWidth(inlines[i].text, { ...style })
-      x0 = x0 + width + Sizes.icon.width + iconMargin + spacing
+      await this.drawInline(inlines[i], { x0: x0, spacing: iconMargin, textStyle: textStyle })
+      const width = this.textWidth(inlines[i].text, { textStyle: textStyle })
+      x0 = x0 + width + Styles.icon.size.width + iconMargin + spacing
       fullText = fullText + inlines[i].text
     }
-    var lineHeight = this.textHeight(fullText, { ...style })  // Use First Text as Approximation
+    var lineHeight = this.textHeight(fullText, { textStyle: textStyle })  // Use First Text as Approximation
     this.carriage.increment(lineHeight)
-    this.carriage.increment(marginBottom + Sizes.icon.height)
+    this.carriage.increment(marginBottom + Styles.icon.size.height)
   }
 }

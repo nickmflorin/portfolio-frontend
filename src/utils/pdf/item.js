@@ -3,7 +3,8 @@ import _ from 'underscore'
 import { formatDegree, formatDateRange, formatGpa } from 'utils/formatting'
 import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files'
 
-import { Sizes, Margins, Styles, Icons } from './constants'
+import { Styles } from './style'
+import { Icons, Colors } from './constants'
 import { Doc } from './base'
 import { Ladder, Rung } from './ladder'
 
@@ -17,19 +18,61 @@ class Project extends Doc {
   write = async ({ x0 = 0, marginBottom=0 }) => {
 
     const y0 = this.carriage.y // Store Ref for Lines
-    const nameHeight = this.textHeight(this.name, Styles.projectTitle)
-    const descHeight = this.totalTextHeight(this.desc, { x0: x0, ...Styles.body })
+    const nameHeight = this.textHeight(this.name, { textStyle: Styles.projectTitle.textStyle })
+    const descHeight = this.totalTextHeight(this.desc, { x0: x0, textStyle: Styles.body.textStyle })
 
     const rung = new Rung(this.config, {
       x1: x0 - 4,
       y0: y0 + 0.5 * (nameHeight + descHeight)
     })
 
-    await this.blockText(this.name, { x0: x0, ...Styles.projectTitle})
-    await this.description(this.desc, { x0: x0, ...Styles.body })
+    await this.blockText(this.name, {
+      x0: x0,
+      textStyle: Styles.projectTitle.textStyle,
+      marginBottom: 2,
+    })
+    await this.description(this.desc, {
+      x0: x0,
+      textStyle: Styles.body.textStyle
+    })
     this.carriage.increment(marginBottom)
-    this.conditionalPageBreak()
+    // this.conditionalPageBreak()
     return rung
+  }
+}
+
+
+class Skill extends Doc {
+  constructor(config, text){
+    super(config)
+
+    this.text = text
+    this.textW = this.textWidth(this.text, { textStyle: Styles.skill.textStyle })
+    this.textH = this.textHeight(this.text, { textStyle: Styles.skill.textStyle })
+    this.width = this.textW + 2.0 * Styles.skill.padding.x
+    this.height = this.textH + 2.0 * Styles.skill.padding.y
+  }
+
+  write = async({ x0 = 0 }) => {
+    this.doc.setFillColor(Styles.skill.fillColor)
+    this.setFont(Styles.skill.textStyle)
+
+    this.doc.roundedRect(
+      x0,
+      this.carriage.y,
+      this.width,
+      this.height,
+      Styles.skill.radius,
+      Styles.skill.radius,
+      "F"
+    )
+
+    // No idea why the -1.0 offset is needed to center vertically.
+    this.doc.text(
+      x0 + Styles.skill.padding.x,
+      this.carriage.y + Styles.skill.padding.y + this.textH - 1.0,
+      this.text
+    )
   }
 }
 
@@ -52,17 +95,27 @@ class Item extends Doc {
     return _.filter(this.obj.projects, (project) => project.include_in_resume)
   }
 
-  writeProjects = async ({ ...options }) => {
+  writeProjects = async ({ marginBottom = 0, ...options }) => {
 
-    for (var i = 0; i < this.projects.length; i++) {
-      const description = this.projects[i].resume_description || this.projects[i].description
-      const project = new Project(this.config, this.projects[i].name, description)
-      const rung = await project.write(options)
+    if (this.projects.length != 0) {
+      for (var i = 0; i < this.projects.length; i++) {
+        const description = this.projects[i].resume_description || this.projects[i].description
+        const project = new Project(this.config, this.projects[i].name, description)
 
-      this.ladder.addRung(rung)
-    }
-    if (this.ladder.rungs.length !== 0){
-        await this.ladder.draw()
+        let rung = null;
+        if (i != this.projects.length - 1) {
+          rung = await project.write({ marginBottom: 6, ...options })
+        }
+        else {
+          rung = await project.write({ marginBottom: 0, ...options })
+        }
+
+        this.ladder.addRung(rung)
+      }
+      if (this.ladder.rungs.length !== 0){
+          await this.ladder.draw()
+      }
+      this.carriage.increment(marginBottom)
     }
   }
 
@@ -74,50 +127,89 @@ class Item extends Doc {
       var data = await getBase64Encoded(this.logo)
 
       // Width should remain constant, height varies to maintain aspect ratio.
-      const height = dimensions.inverseRatio * Sizes.logo.width
-      const mid = this.carriage.y + 0.5 * Sizes.logo.height  // Desired vertical center location of image.
+      const height = dimensions.inverseRatio * Styles.logo.size.width
+      const mid = this.carriage.y + 0.5 * Styles.logo.size.height  // Desired vertical center location of image.
 
       const y0 = mid - 0.5 * height
-      this.doc.addImage(data, extension, x0, y0, Sizes.logo.width, height);
+      this.doc.addImage(data, extension, x0, y0, Styles.logo.size.width, height);
     }
 
     await drawLogo({ x0: x0 })
     x0 = this.frames.textContent.x0
 
-    await this.blockText(this.title, { x0: x0, ...Styles.title})
-    await this.blockText(this.subtitle, { x0: x0, ...Styles.subtitle})
+    await this.blockText(this.title, {
+      x0: x0,
+      marginBottom: Styles.title.margin.bottom,
+      textStyle: Styles.title.textStyle
+    })
+    await this.blockText(this.subtitle, {
+      x0: x0,
+      marginBottom: Styles.subtitle.margin.bottom,
+      textStyle: Styles.subtitle.textStyle
+    })
 
     if (this.inlines.length !== 0) {
       await this.drawInlines(this.inlines, {
         x0: x0,
         iconMargin: 3,
         spacing: 8,
-        ...Styles.inlines
+        textStyle: Styles.inlines.textStyle,
       })
     }
     this.carriage.increment(marginBottom)
   }
 
+  writeSkills = async({ x0 = 0, marginBottom = 0 }) => {
+
+    const originalX0 = x0
+    let y0 = this.carriage.y
+
+    var skills = [];
+    if (this.obj.skills.length != 0) {
+      for (var i = 0; i < this.obj.skills.length; i++ ){
+        const skill = new Skill(this.config, this.obj.skills[i].name)
+
+        // Adjust for New Line
+        if ( x0 + skill.width + Styles.skills.padding.x > this.frames.content.x1 && i != this.obj.skills.length - 1) {
+          x0 = originalX0
+          if (skills.length >= 1) {
+            this.carriage.increment(skills[i - 1].height + Styles.skills.padding.y)  // Vertical Padding
+          }
+        }
+        await skill.write({ x0: x0 })
+        x0 = x0 + skill.width + Styles.skills.padding.x // Horizontal Padding
+        skills.push(skill)
+      }
+      const lastSkill = _.last(skills)
+      this.carriage.increment(lastSkill.height)
+      this.carriage.increment(marginBottom)
+    }
+  }
+
   write = async ({ x0 = 0, marginBottom=0 }) => {
-    const rungY = this.carriage.y + 0.5 * Sizes.logo.height
+    const rungY = this.carriage.y + 0.5 * Styles.logo.size.height
 
     await this.header({x0: x0, marginBottom: 0})
-
     // Wait Until Carriage Below Header
     this.ladder = new Ladder(this.config, {
-      x0: x0 + 0.5 * Sizes.logo.width,
+      x0: x0 + 0.5 * Styles.logo.size.width,
       y0: this.carriage.y
     })
 
-    await this.desc({
+    await this.writeDescription({
       marginBottom: 6,
-      x0: x0 + Sizes.logo.width + Margins.logo,
-      ...Styles.body
+      x0: x0 + Styles.logo.size.width + Styles.logo.margin.right,
+      textStyle: Styles.body.textStyle,
     })
 
     await this.writeProjects({
+      marginBottom: 10,
+      x0: x0 + Styles.logo.size.width + Styles.logo.margin.right
+    })
+
+    await this.writeSkills({
       marginBottom: 6,
-      x0: x0 + Sizes.logo.width + Margins.logo
+      x0: x0 + Styles.logo.size.width + Styles.logo.margin.right
     })
     this.carriage.increment(marginBottom)
 
@@ -153,7 +245,7 @@ export class ExperienceItem extends Item {
     ]
   }
 
-  desc = async ({ ...options }) => {
+  writeDescription = async ({ marginBottom = 0, ...options }) => {
     // Right now, we do not want to include the company description if the
     // experience has a description.
     if (this.obj.description) {
@@ -162,6 +254,7 @@ export class ExperienceItem extends Item {
     else if (this.obj.company.description) {
       await this.description(this.obj.company.description, options)
     }
+    this.carriage.increment(marginBottom)
   }
 }
 
@@ -191,7 +284,7 @@ export class EducationItem extends Item {
     ]
   }
 
-  desc = async ({ ...options }) => {
+  writeDescription = async ({ marginBottom = 0, ...options }) => {
     if (this.obj.description) {
       await this.description(this.obj.description, options)
     }
@@ -199,18 +292,11 @@ export class EducationItem extends Item {
       await this.description(this.obj.school.description, options)
     }
     if (this.obj.minor) {
-      await this.description(`Minor in ${this.obj.minor}`, {
-        x0: options.x0,
-        marginBottom: 0,
-        // ...options
-      })
+      await this.description(`Minor in ${this.obj.minor}`, options)
     }
     if (this.obj.concentration) {
-      await this.description(`Concentration in ${this.obj.concentration}`, {
-        x0: options.x0,
-        marginBottom: 0,
-        // ...options
-      })
+      await this.description(`Concentration in ${this.obj.concentration}`, options)
     }
+    this.carriage.increment(marginBottom)
   }
 }

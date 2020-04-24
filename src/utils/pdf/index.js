@@ -13,9 +13,10 @@ import 'style/fonts/Roboto-Regular'
 import 'style/fonts/Roboto-Medium'
 
 import { PdfWriter } from './writer'
+import { Styles } from './style'
 import { Canvas } from './canvas'
 import { Carriage } from './carriage'
-import { Gutters, DocConfig, Sizes } from './constants'
+import { Gutters, DocConfig } from './constants'
 
 
 export const generateResume = async () => {
@@ -29,8 +30,8 @@ export const generateResume = async () => {
   config.frames.page = new Canvas(doc, {
     x0: Gutters.page.left,
     y0: Gutters.page.top,
-    width: Sizes.page.width - Gutters.page.left - Gutters.page.right,
-    height: Sizes.page.height - Gutters.page.top - Gutters.page.bottom
+    width: Styles.page.size.width - Gutters.page.left - Gutters.page.right,
+    height: Styles.page.size.height - Gutters.page.top - Gutters.page.bottom
   })
 
   config.frames.content = new Canvas(doc, {

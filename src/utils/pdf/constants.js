@@ -10,6 +10,8 @@ import Calendar from 'media/icons/Calendar.png'
 import PaperPlane from 'media/icons/PaperPlane.png'
 
 
+export const FOOTER_TEXT = "This resume was auto generated.  Copyright © 2020 nickflorin-api.com.  All rights reserved."
+
 export const DocConfig = {
   unit: "px",
   format: "letter",
@@ -30,29 +32,6 @@ export const Icons = {
   PaperPlane: PaperPlane,
 }
 
-export const Sizes = {
-  brand: {
-    width: 15,
-    height: 15,
-  },
-  page: {
-    width: 459,
-    height: 594
-  },
-  icon: {
-    width: 6,
-    height: 6,
-  },
-  logo: {
-    width: 24,
-    height: 24,
-  }
-}
-
-export const Margins = {
-  logo: 5,
-}
-
 export const Gutters = {
   page: {
     left: 10,
@@ -67,7 +46,8 @@ export const Gutters = {
     bottom: 0  // This will matter when we start using it for the page break.
   },
   textContent: {
-    left: Sizes.logo.width + Margins.logo,
+    // left: Sizes.logo.width + Margins.logo,
+    left: 24 + 5,
     top: 5,  // This doesn't really matter, just for drawing grid.
     bottom: 0, // This will matter when we start using it for the page break.
     right: 5,
@@ -76,34 +56,13 @@ export const Gutters = {
 
 export const PageBreakThreshold = 0.9
 
-export const CircleRadius = 2
-
 export const Colors = {
   primary: '#282828',
   secondary: '#3C3C3C',
   tertiary: "#2b2e32",
   gray: "#696969",
   blue: "#2196F3",
-}
-
-export const Lines = {
-  rung: {
-    color: Colors.blue,
-    thickness: 1.0,
-    dash: [],
-  },
-  ladder: {
-    color: Colors.blue,
-    thickness: 1.0,
-    dash: [2, 2]
-  },
-  section: {
-    padding: 10,
-    width: 100,
-    color: Colors.blue,
-    thickness: 0.5,
-    dash: [],
-  }
+  white: "#FFFFFF",
 }
 
 export const Fonts = {
@@ -126,70 +85,5 @@ export const Fonts = {
   RobotoLight: {
     name: 'Roboto-Light',
     type: 'normal',
-  }
-
-}
-
-export const Styles = {
-  title: {
-    marginBottom: 3,
-    font: Fonts.LatoBold,
-    size: 11,
-    color: Colors.primary,
-  },
-  subtitle: {
-    marginBottom: 4,
-    font: Fonts.OpenSansRegular,
-    color: Colors.secondary,
-    size: 9,
-  },
-  firstName: {
-    font: Fonts.OpenSansRegular,
-    color: Colors.primary,
-    size: 14,
-  },
-  lastName: {
-    font: Fonts.OpenSansRegular,
-    color: Colors.blue,
-    size: 14,
-  },
-  tagline: {
-    font: Fonts.OpenSansRegular,
-    color: Colors.primary,
-    size: 8,
-  },
-  sectionTitle: {
-    font: Fonts.OpenSansRegular,
-    color: Colors.secondary,
-    size: 10,
-  },
-  inlines: {
-    size: 7,
-    color: Colors.gray,
-    font: Fonts.RobotoRegular,
-  },
-  pageInlines: {
-    size: 8,
-    color: Colors.gray,
-    font: Fonts.RobotoRegular,
-  },
-  body: {
-    color: Colors.tertiary,
-    size: 8,
-    height: 1.2,
-    font: Fonts.RobotoLight,
-  },
-  footer: {
-    color: Colors.gray,
-    size: 7,
-    height: 1.0,
-    font: Fonts.RobotoLight,
-  },
-  projectTitle: {
-    color: Colors.secondary,
-    size: 8,
-    height: 1.0,
-    font: Fonts.OpenSansRegular,
-    marginBottom: 3
   }
 }
