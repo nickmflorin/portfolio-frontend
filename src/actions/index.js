@@ -19,6 +19,10 @@ export const REQUESTING_ALL_EXPERIENCE = "REQUESTING_ALL_EXPERIENCE";
 export const RECEIVED_ALL_EXPERIENCE = "RECEIVED_ALL_EXPERIENCE";
 export const ERROR_REQUESTING_ALL_EXPERIENCE = "ERROR_REQUESTING_ALL_EXPERIENCE";
 
+export const REQUESTING_EXPERIENCE = "REQUESTING_EXPERIENCE";
+export const RECEIVED_EXPERIENCE = "RECEIVED_EXPERIENCE";
+export const ERROR_REQUESTING_EXPERIENCE = "ERROR_REQUESTING_EXPERIENCE";
+
 export const REQUESTING_ALL_EDUCATION = "REQUESTING_ALL_EDUCATION";
 export const RECEIVED_ALL_EDUCATION = "RECEIVED_ALL_EDUCATION";
 export const ERROR_REQUESTING_ALL_EDUCATION = "ERROR_REQUESTING_ALL_EDUCATION";
@@ -64,6 +68,57 @@ export const fetchProjects = () => {
   }
 }
 
+export const requestingExperienceAction = (id) => {
+  return { type: REQUESTING_EXPERIENCE, value: id };
+}
+
+export const receiveExperienceAction = (education) => {
+  return { type: RECEIVED_EXPERIENCE, value: education };
+}
+
+export const errorRequestingExperienceAction = (id) => {
+  return { type: ERROR_REQUESTING_EXPERIENCE, value: id };
+}
+
+export const shouldFetchExperience = (state, id) => {
+  if (!(isNil(state.experience[id]))) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export const fetchExperienceIfNeeded = (id) => {
+  return (dispatch, getState) => {
+    if (shouldFetchExperience(getState(), id)) {
+      return dispatch(fetchExperience(id))
+    } else {
+      // Let the calling code know there's nothing to wait for.
+      return Promise.resolve()
+    }
+  }
+}
+
+export const fetchExperience = (id) => {
+  var request_config = { ...REQUEST_CONFIGURATION };
+  return dispatch => {
+    dispatch(requestingExperienceAction(id))
+    return fetch(`${process.env.REACT_APP_API_HOST}experience/${id}/`, request_config)
+      .then(
+        response => response.json(),
+        error => {
+          dispatch(errorRequestingExperienceAction(id))
+          console.error(`There was an error loading experience ${id}.`)
+        }
+      )
+      .then(json => dispatch(receiveExperienceAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingExperienceAction(id))
+        console.error(`There was an error loading education ${id}.`)
+      })
+  }
+}
+
 export const requestingAllExperienceAction = () => {
   return { type: REQUESTING_ALL_EXPERIENCE };
 }
@@ -94,18 +149,6 @@ export const fetchAllExperience = () => {
       )
       .then(json => dispatch(receivedAllExperienceAction(json)))
   }
-}
-
-export const requestingAllEducationAction = () => {
-  return { type: REQUESTING_ALL_EDUCATION };
-}
-
-export const receivedAllEducationAction = (education) => {
-  return { type: RECEIVED_ALL_EDUCATION, value: education };
-}
-
-export const errorRequestingAllEducationAction = () => {
-  return { type: ERROR_REQUESTING_ALL_EDUCATION }
 }
 
 export const requestingEducationAction = (id) => {
@@ -157,6 +200,18 @@ export const fetchEducation = (id) => {
         console.error(`There was an error loading education ${id}.`)
       })
   }
+}
+
+export const requestingAllEducationAction = () => {
+  return { type: REQUESTING_ALL_EDUCATION };
+}
+
+export const receivedAllEducationAction = (education) => {
+  return { type: RECEIVED_ALL_EDUCATION, value: education };
+}
+
+export const errorRequestingAllEducationAction = () => {
+  return { type: ERROR_REQUESTING_ALL_EDUCATION }
 }
 
 export const fetchAllEducation = () => {
@@ -291,24 +346,5 @@ export const fetchProfile = () => {
         }
       )
       .then(json => dispatch(receiveProfileAction(json)))
-  }
-}
-
-export const shouldFetchProfile = (state) => {
-  if (!(isNil(state.profile))) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-export const fetchProfileIfNeeded = () => {
-  return (dispatch, getState) => {
-    if (shouldFetchProfile(getState())) {
-      return dispatch(fetchProfile())
-    } else {
-      // Let the calling code know there's nothing to wait for.
-      return Promise.resolve()
-    }
   }
 }

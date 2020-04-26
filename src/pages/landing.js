@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {pick} from "lodash";
 
-import { fetchProfileIfNeeded, fetchComments } from "actions";
+import { fetchProfile, fetchComments } from "actions";
 
 import { CommentForm } from 'components/forms'
 import { CommentItem } from 'components/items'
@@ -62,7 +62,7 @@ class Landing extends React.Component {
 const mapStateToProps = state => pick(state, ['profile', 'comments'])
 
 const mapDispatchToProps = {
-  fetchProfile: () => fetchProfileIfNeeded(),
+  fetchProfile: () => fetchProfile(),
   fetchComments: () => fetchComments(),
 };
 

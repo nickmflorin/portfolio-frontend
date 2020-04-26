@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import { isNil, pick } from "lodash";
 
 import { faCalendarAlt, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
-import { getExperience } from 'services'
+import { fetchExperienceIfNeeded } from 'actions'
 import { formatDateRange } from 'utils'
 
 import ErrorBoundary from 'components/errorBoundary'
-
 import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
-
 import { Panel, ProjectsPanel, SkillsPanel } from './panels'
 import PageItem from './pageItem'
 
@@ -25,73 +25,48 @@ class Experience extends React.Component {
     id: PropTypes.number.isRequired,
   }
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      skills: [],
-      projects: [],
-      start_year: null,
-      end_year: null,
-      start_month: null,
-      end_month: null,
-      company: null,
-      title: null,
-      description: null,
-      loading: true,
-    }
-  }
   componentDidMount() {
-    var self = this
-    getExperience(this.props.id).then((response) => {
-      self.setState({
-        skills: response.skills,
-        projects: response.projects,
-        company: response.company,
-        start_year: response.start_year,
-        end_year: response.end_year,
-        start_month: response.start_month,
-        end_month: response.end_month,
-        title: response.title,
-        description: response.description,
-      })
-    }).catch((error) => {
-      console.error(`There was an error loading experience ${this.props.id}.`)
-    }).finally(() => {
-      self.setState({loading: false})
-    })
+    this.props.fetchExperienceIfNeeded(this.props.id)
   }
+
   render() {
-    if (this.state.loading) {
+    const experience = this.props.experience[this.props.id]
+    if (isNil(experience)) {
       return (
-        <PageItem id={`experience-${this.props.id}`} loading>
-            <PageItem.Header.Placeholder/>
-            <PageItem.Body.Placeholder/>
+        <PageItem id={`experience-${this.props.id}`}>
+          <PageItem.Header.Placeholder/>
+          <PageItem.Body.Placeholder/>
         </PageItem>
       )
-    }
-    else {
+    } else if (experience.error) {
+      return (
+        <PageItem id={`experience-${this.props.id}`}>
+          <p>There was an error.</p>
+        </PageItem>
+      )
+    } else {
       return (
         <PageItem id={`experience-${this.props.id}`}>
           <PageItem.Header>
             <div className="left">
-              {this.state.company.url
-                ? <LogoLink href={this.state.company.url} src={this.state.company.logo}/>
-                : <Logo src={this.state.company.logo}/>
+              {experience.company.url
+                ? <LogoLink href={experience.company.url} src={experience.company.logo}/>
+                : <Logo src={experience.company.logo}/>
               }
             </div>
             <div className="right">
-              <h1 className="thick">{this.state.title}</h1>
-              <h3>{this.state.company.name}</h3>
+              <h1 className="thick">{experience.title}</h1>
+              <h3>{experience.company.name}</h3>
               <div className="header-items">
                 <div className="header-item">
-                  <IconizedText icon={faMapPin}>{`${this.state.company.city}, ${this.state.company.state}`}</IconizedText>
+                  <IconizedText icon={faMapPin}>{`${experience.company.city}, ${experience.company.state}`}</IconizedText>
                 </div>
                 <div className="header-item">
                   <IconizedText icon={faCalendarAlt}>{formatDateRange(
-                    this.state.start_year,
-                    this.state.start_month,
-                    this.state.end_year,
-                    this.state.end_month,
+                    experience.start_year,
+                    experience.start_month,
+                    experience.end_year,
+                    experience.end_month,
                     true
                   )}</IconizedText>
                 </div>
@@ -101,22 +76,22 @@ class Experience extends React.Component {
           <PageItem.Body>
             <ErrorBoundary>
               <Panel>
-                {(this.state.company.description) && (
-                  <HtmlDescription>{this.state.company.description}</HtmlDescription>
+                {(experience.company.description) && (
+                  <HtmlDescription>{experience.company.description}</HtmlDescription>
                 )}
-                {(this.state.description) && (
-                  <HtmlDescription>{this.state.description}</HtmlDescription>
+                {(experience.description) && (
+                  <HtmlDescription>{experience.description}</HtmlDescription>
                 )}
               </Panel>
             </ErrorBoundary>
-            {(this.state.projects.length !== 0) && (
+            {(experience.projects.length !== 0) && (
               <ErrorBoundary>
-                <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />
+                <ProjectsPanel bordered header={"Projects"} projects={experience.projects} />
               </ErrorBoundary>
             )}
-            {(this.state.skills.length !== 0) && (
+            {(experience.skills.length !== 0) && (
               <ErrorBoundary>
-                <SkillsPanel bordered header={"Skills"} skills={this.state.skills} />
+                <SkillsPanel bordered header={"Skills"} skills={experience.skills} />
               </ErrorBoundary>
             )}
           </PageItem.Body>
@@ -126,4 +101,13 @@ class Experience extends React.Component {
   }
 }
 
-export default Experience;
+
+const mapStateToProps = state => pick(state, ['experience'])
+
+const mapDispatchToProps = {
+  fetchExperienceIfNeeded: (id) => fetchExperienceIfNeeded(id),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Experience);
+
+

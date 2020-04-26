@@ -28,6 +28,9 @@ import {
   RECEIVED_EDUCATION,
   REQUESTING_EDUCATION,
   ERROR_REQUESTING_EDUCATION,
+  REQUESTING_EXPERIENCE,
+  RECEIVED_EXPERIENCE,
+  ERROR_REQUESTING_EXPERIENCE,
 } from 'actions'
 
 const NavBarItems = [
@@ -108,6 +111,8 @@ const loadingReducer = (state=initialState.loading, action) => {
     return true;
   } else if (action.type === REQUESTING_EDUCATION) {
     return true;
+  } else if (action.type === REQUESTING_EXPERIENCE) {
+    return true;
   } else if (action.type === RECEIVED_PROFILE) {
     return false;
   } else if (action.type == ERROR_REQUESTING_PROFILE) {
@@ -129,6 +134,8 @@ const loadingReducer = (state=initialState.loading, action) => {
   } else if (action.type === ERROR_REQUESTING_PROJECTS) {
     return false;
   } else if (action.type === RECEIVED_EDUCATION) {
+    return false;
+  } else if (action.type === RECEIVED_EXPERIENCE) {
     return false;
   }
   return state;
@@ -176,6 +183,10 @@ const experienceReducer = (state = initialState.experience, action) => {
   const newState = { ...state };
   if (action.type === RECEIVED_ALL_EXPERIENCE) {
     newState.all = sortExperienceEducation(action.value);
+  } else if (action.type === RECEIVED_EXPERIENCE) {
+    newState[action.value.id] = action.value;
+  } else if (action.type === ERROR_REQUESTING_EXPERIENCE) {
+    newState[action.value] = {error: true}
   }
   return newState;
 }
