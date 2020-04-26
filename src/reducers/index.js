@@ -8,14 +8,19 @@ import { sortExperienceEducation } from 'utils'
 import {
   REQUESTING_PROFILE,
   RECEIVED_PROFILE,
+  ERROR_REQUESTING_PROFILE,
   REQUESTING_COMMENTS,
   RECEIVED_COMMENTS,
+  ERROR_REQUESTING_COMMENTS,
   REQUESTING_ALL_EXPERIENCE,
   RECEIVED_ALL_EXPERIENCE,
+  ERROR_REQUESTING_ALL_EXPERIENCE,
   REQUESTING_ALL_EDUCATION,
   RECEIVED_ALL_EDUCATION,
+  ERROR_REQUESTING_ALL_EDUCATION,
   REQUESTING_PROJECTS,
   RECEIVED_PROJECTS,
+  ERROR_REQUESTING_PROJECTS,
 } from 'actions'
 
 
@@ -93,16 +98,31 @@ const loadingReducer = (state=initialState.loading, action) => {
   else if (action.type === RECEIVED_PROFILE) {
     return false;
   }
+  else if (action.type == ERROR_REQUESTING_PROFILE) {
+    return false;
+  }
   else if (action.type === RECEIVED_COMMENTS) {
+    return false;
+  }
+  else if (action.type === ERROR_REQUESTING_COMMENTS) {
     return false;
   }
   else if (action.type === RECEIVED_ALL_EXPERIENCE) {
     return false;
   }
+  else if (action.type === ERROR_REQUESTING_ALL_EXPERIENCE) {
+    return false;
+  }
   else if (action.type === RECEIVED_ALL_EDUCATION) {
     return false;
   }
+  else if (action.type === ERROR_REQUESTING_ALL_EDUCATION) {
+    return false;
+  }
   else if (action.type === RECEIVED_PROJECTS) {
+    return false;
+  }
+  else if (action.type === ERROR_REQUESTING_PROJECTS) {
     return false;
   }
   return state;

@@ -4,12 +4,21 @@ import { REQUEST_CONFIGURATION } from 'config'
 
 export const REQUESTING_PROFILE = "REQUESTING_PROFILE";
 export const RECEIVED_PROFILE = "RECEIVED_PROFILE";
+export const ERROR_REQUESTING_PROFILE = "ERROR_REQUESTING_PROFILE";
+
 export const REQUESTING_COMMENTS = "REQUESTING_COMMENTS";
 export const RECEIVED_COMMENTS = "RECEIVED_COMMENTS";
+export const ERROR_REQUESTING_COMMENTS = "ERROR_REQUESTING_COMMENTS";
+
 export const REQUESTING_ALL_EXPERIENCE = "REQUESTING_ALL_EXPERIENCE";
 export const RECEIVED_ALL_EXPERIENCE = "RECEIVED_ALL_EXPERIENCE";
+export const ERROR_REQUESTING_ALL_EXPERIENCE = "ERROR_REQUESTING_ALL_EXPERIENCE";
+
 export const REQUESTING_ALL_EDUCATION = "REQUESTING_ALL_EDUCATION";
 export const RECEIVED_ALL_EDUCATION = "RECEIVED_ALL_EDUCATION";
+export const ERROR_REQUESTING_ALL_EDUCATION = "ERROR_REQUESTING_ALL_EDUCATION";
+
+export const ERROR_REQUESTING_PROJECTS = "ERROR_REQUESTING_PROJECTS";
 export const REQUESTING_PROJECTS = "REQUESTING_PROJECTS";
 export const RECEIVED_PROJECTS = "RECEIVED_PROJECTS";
 
@@ -22,6 +31,10 @@ export const receivedProjectsAction = (projects) => {
   return { type: RECEIVED_PROJECTS, value: projects };
 }
 
+export const errorRequestingProjectsAction = () => {
+  return { type: ERROR_REQUESTING_PROJECTS }
+}
+
 export const fetchProjects = () => {
   var request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
@@ -30,7 +43,7 @@ export const fetchProjects = () => {
       .then(response => response.json())
       .then(json => dispatch(receivedProjectsAction(json)))
       .catch((error) => {
-        // TODO: Dispatch to error action to stop loading.
+        dispatch(errorRequestingProjectsAction())
         console.error('There was an error loading projects.')
       })
   }
@@ -44,6 +57,10 @@ export const receivedAllExperienceAction = (experience) => {
   return { type: RECEIVED_ALL_EXPERIENCE, value: experience };
 }
 
+export const errorRequestingAllExperienceAction = () => {
+  return { type: ERROR_REQUESTING_ALL_EXPERIENCE }
+}
+
 export const fetchAllExperience = () => {
   var request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
@@ -52,7 +69,7 @@ export const fetchAllExperience = () => {
       .then(response => response.json())
       .then(json => dispatch(receivedAllExperienceAction(json)))
       .catch((error) => {
-        // TODO: Dispatch to error action to stop loading.
+        dispatch(errorRequestingAllExperienceAction())
         console.error('There was an error loading education.')
       })
   }
@@ -66,6 +83,10 @@ export const receivedAllEducationAction = (education) => {
   return { type: RECEIVED_ALL_EDUCATION, value: education };
 }
 
+export const errorRequestingAllEducationAction = () => {
+  return { type: ERROR_REQUESTING_ALL_EDUCATION }
+}
+
 export const fetchAllEducation = () => {
   var request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
@@ -74,7 +95,7 @@ export const fetchAllEducation = () => {
       .then(response => response.json())
       .then(json => dispatch(receivedAllEducationAction(json)))
       .catch((error) => {
-        // TODO: Dispatch to error action to stop loading.
+        dispatch(errorRequestingAllEducationAction())
         console.error('There was an error loading education.')
       })
   }
@@ -88,6 +109,10 @@ export const receiveCommentsAction = (comments) => {
   return { type: RECEIVED_COMMENTS, value: comments };
 }
 
+export const errorRequestingCommentsAction = (comments) => {
+  return { type: ERROR_REQUESTING_COMMENTS };
+}
+
 export const fetchComments = () => {
   var request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
@@ -96,7 +121,7 @@ export const fetchComments = () => {
       .then(response => response.json())
       .then(json => dispatch(receiveCommentsAction(json)))
       .catch((error) => {
-        // TODO: Dispatch to error action to stop loading.
+        dispatch(errorRequestingCommentsAction())
         console.error('There was an error loading comments.')
       })
   }
@@ -110,6 +135,10 @@ export const receiveProfileAction = (profile) => {
   return { type: RECEIVED_PROFILE, value: profile };
 }
 
+export const errorRequestingProfileAction = () => {
+  return { type: ERROR_REQUESTING_PROFILE };
+}
+
 export const fetchProfile = () => {
   var request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
@@ -118,7 +147,7 @@ export const fetchProfile = () => {
       .then(response => response.json())
       .then(json => dispatch(receiveProfileAction(json)))
       .catch((error) => {
-        // TODO: Dispatch to error action to stop loading.
+        dispatch(errorRequestingProfileAction());
         console.error('There was an error loading profile.')
       })
   }
