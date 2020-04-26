@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {connect} from "react-redux";
+import { pick } from "lodash";
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
@@ -10,10 +11,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
-import { createComment } from 'services'
 import { Item } from 'components/items';
 
 import './forms.sass'
+
+import { publishComment } from 'actions'
 
 
 const schema = yup.object({
@@ -120,6 +122,10 @@ export class CommentForm extends React.Component {  // eslint-disable-line
   }
   render() {
     var self = this
+    if (this.props.comments.errors.length != 0) {
+      console.log('THERE WAS AN ERROR SUBMITTING THE COMMENT')
+      console.log(this.props.comments.errors)
+    }
     return (
       <Item className="bordered">
         <Formik
@@ -130,32 +136,33 @@ export class CommentForm extends React.Component {  // eslint-disable-line
             comment: '',
           }}
           onSubmit={(values, actions) => {
-            self.setState({ loading: true })
-            actions.setSubmitting(true)  // Not Sure What This Triggers w Formik.
-
-            createComment(values).then((response) => {
-              console.log(`Comment ${response.id} Successfully Submitted`)
-              self.props.onSubmitted()  // Reload the Comments to Repopulate
-              actions.resetForm()
-              self.showSuccess()
-            }).catch((error) => {
-              // TODO: Maybe we want to just show these as global form errors
-              // instead of using a modal.
-              if (error.body) {
-                if (error.body.__all__) {
-                  self.showFailure(error.body.__all__)
-                }
-                else {
-                  actions.setStatus(error.body)
-                }
-              }
-              else {
-                self.showFailure(['Unknown error with API.'])
-              }
-            }).finally(() => {
-              self.setState({ loading: false })  // Use Formik Hook ?
-              actions.setSubmitting(false)  // Not Sure What This Triggers w Formik.
-            })
+            self.props.publishComment(values)
+            // self.setState({ loading: true })
+            // actions.setSubmitting(true)  // Not Sure What This Triggers w Formik.
+            //
+            // createComment(values).then((response) => {
+            //   console.log(`Comment ${response.id} Successfully Submitted`)
+            //   self.props.onSubmitted()  // Reload the Comments to Repopulate
+            //   actions.resetForm()
+            //   self.showSuccess()
+            // }).catch((error) => {
+            //   // TODO: Maybe we want to just show these as global form errors
+            //   // instead of using a modal.
+            //   if (error.body) {
+            //     if (error.body.__all__) {
+            //       self.showFailure(error.body.__all__)
+            //     }
+            //     else {
+            //       actions.setStatus(error.body)
+            //     }
+            //   }
+            //   else {
+            //     self.showFailure(['Unknown error with API.'])
+            //   }
+            // }).finally(() => {
+            //   self.setState({ loading: false })  // Use Formik Hook ?
+            //   actions.setSubmitting(false)  // Not Sure What This Triggers w Formik.
+            // })
           }}
           validationSchema={schema}
         >
@@ -234,3 +241,12 @@ export class CommentForm extends React.Component {  // eslint-disable-line
     )
   }
 }
+
+const mapStateToProps = state => pick(state, ['comments'])
+
+const mapDispatchToProps = {
+  publishComment: (data) => publishComment(data),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);
+

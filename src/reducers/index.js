@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import _ from 'underscore'
+import { isNil } from 'lodash';
 
 import {faBriefcase, faFilePdf, faGraduationCap, faHammer, faHome} from "@fortawesome/free-solid-svg-icons";
 import {Education, Experience, Landing, Projects} from "pages";
@@ -22,6 +23,7 @@ import {
   RECEIVED_PROJECTS,
   ERROR_REQUESTING_PROJECTS,
 } from 'actions'
+import {ERROR_PUBLISHING_COMMENT, PUBLISHED_COMMENT, PUBLISHING_COMMENT} from "../actions";
 
 
 const NavBarItems = [
@@ -66,7 +68,11 @@ const initialState = {
   },
   profile: {},
   loading: false,
-  comments: [],
+  comments: {
+    all: [],
+    errors: {},
+    publishing: false,
+  },
   education: [],
   experience: [],
   projects: [],
@@ -82,47 +88,33 @@ const navbarItemsReducer = (state = initialState.navbar, action) => {
 const loadingReducer = (state=initialState.loading, action) => {
   if (action.type === REQUESTING_PROFILE) {
     return true;
-  }
-  else if (action.type == REQUESTING_COMMENTS) {
+  } else if (action.type == REQUESTING_COMMENTS) {
     return true;
-  }
-  else if (action.type == REQUESTING_ALL_EXPERIENCE) {
+  } else if (action.type == REQUESTING_ALL_EXPERIENCE) {
     return true;
-  }
-  else if (action.type == REQUESTING_ALL_EDUCATION) {
+  } else if (action.type == REQUESTING_ALL_EDUCATION) {
     return true;
-  }
-  else if (action.type == REQUESTING_PROJECTS) {
+  } else if (action.type == REQUESTING_PROJECTS) {
     return true;
-  }
-  else if (action.type === RECEIVED_PROFILE) {
+  } else if (action.type === RECEIVED_PROFILE) {
     return false;
-  }
-  else if (action.type == ERROR_REQUESTING_PROFILE) {
+  } else if (action.type == ERROR_REQUESTING_PROFILE) {
     return false;
-  }
-  else if (action.type === RECEIVED_COMMENTS) {
+  } else if (action.type === RECEIVED_COMMENTS) {
     return false;
-  }
-  else if (action.type === ERROR_REQUESTING_COMMENTS) {
+  } else if (action.type === ERROR_REQUESTING_COMMENTS) {
     return false;
-  }
-  else if (action.type === RECEIVED_ALL_EXPERIENCE) {
+  } else if (action.type === RECEIVED_ALL_EXPERIENCE) {
     return false;
-  }
-  else if (action.type === ERROR_REQUESTING_ALL_EXPERIENCE) {
+  } else if (action.type === ERROR_REQUESTING_ALL_EXPERIENCE) {
     return false;
-  }
-  else if (action.type === RECEIVED_ALL_EDUCATION) {
+  } else if (action.type === RECEIVED_ALL_EDUCATION) {
     return false;
-  }
-  else if (action.type === ERROR_REQUESTING_ALL_EDUCATION) {
+  } else if (action.type === ERROR_REQUESTING_ALL_EDUCATION) {
     return false;
-  }
-  else if (action.type === RECEIVED_PROJECTS) {
+  } else if (action.type === RECEIVED_PROJECTS) {
     return false;
-  }
-  else if (action.type === ERROR_REQUESTING_PROJECTS) {
+  } else if (action.type === ERROR_REQUESTING_PROJECTS) {
     return false;
   }
   return state;
@@ -138,15 +130,24 @@ const profileReducer = (state = initialState.profile, action) => {
 }
 
 const commentsReducer = (state = initialState.comments, action) => {
-  const newState = [ ...state ]
+  const newState = { ...state };
   if (action.type === RECEIVED_COMMENTS) {
-    return [ ...action.value ];
+    newState.all = [ ...action.value ];
+  } else if (action.type === PUBLISHING_COMMENT) {
+    newState.publishing = true;
+  } else if (action.type === PUBLISHED_COMMENT) {
+    newState.publishing = false;
+  } else if (action.type === ERROR_PUBLISHING_COMMENT) {
+    newState.publishing = false;
+    if (!isNil(action.value)) {
+      newState.errors = action.value;
+    }
   }
   return newState;
 }
 
 const educationReducer = (state = initialState.education, action) => {
-  const newState = [ ...state ]
+  const newState = [ ...state ];
   if (action.type === RECEIVED_ALL_EDUCATION) {
     const sorted = sortExperienceEducation(action.value);
     return sorted;
@@ -155,7 +156,7 @@ const educationReducer = (state = initialState.education, action) => {
 }
 
 const experienceReducer = (state = initialState.experience, action) => {
-  const newState = [ ...state ]
+  const newState = [ ...state ];
   if (action.type === RECEIVED_ALL_EXPERIENCE) {
     const sorted = sortExperienceEducation(action.value);
     return sorted;
@@ -164,7 +165,7 @@ const experienceReducer = (state = initialState.experience, action) => {
 }
 
 const projectsReducer = (state = initialState.experience, action) => {
-  const newState = [ ...state ]
+  const newState = [ ...state ];
   if (action.type === RECEIVED_PROJECTS) {
     const projects = _.filter(action.value, (item) => item.showcase);
     return projects;

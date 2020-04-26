@@ -2,13 +2,14 @@ import React from 'react';
 import {connect} from "react-redux";
 import {pick} from "lodash";
 
+import { fetchProfileIfNeeded, fetchComments } from "actions";
+
 import { CommentForm } from 'components/forms'
 import { CommentItem } from 'components/items'
 import { HtmlHeader } from 'components/html'
 import Banner from 'components/landing/banner'
 
 import Page from './page'
-import { fetchProfileIfNeeded, fetchComments } from "../actions";
 
 
 class Landing extends React.Component {
@@ -25,7 +26,6 @@ class Landing extends React.Component {
       this.props.profile.middle_name && this.props.profile.last_name) {
         title = `${this.props.profile.first_name} ${this.props.profile.middle_name && this.props.profile.middle_name[0]}. ${this.props.profile.last_name}`
     }
-
     return (
       <React.Fragment>
         <Banner
@@ -41,7 +41,7 @@ class Landing extends React.Component {
           >{this.props.profile.intro}
           </HtmlHeader>
           <div>
-            {this.props.comments.map((comment) => {
+            {this.props.comments.all.map((comment) => {
               return (
                 <CommentItem comment={comment.comment}
                   date_created={comment.date_created}
