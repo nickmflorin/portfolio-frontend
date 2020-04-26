@@ -1,94 +1,47 @@
 import React from 'react';
-
-import { getProfile, getComments } from 'services'
+import {connect} from "react-redux";
+import {pick} from "lodash";
 
 import { CommentForm } from 'components/forms'
 import { CommentItem } from 'components/items'
 import { HtmlHeader } from 'components/html'
-
 import Banner from 'components/landing/banner'
-// import PoweredBy from 'components/landing/poweredBy'
 
 import Page from './page'
+import { fetchProfileIfNeeded, fetchComments } from "../actions";
 
 
 class Landing extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-        comments: [],
-        profile: {
-          github_url: null,
-          linkedin_url: null,
-          intro: null,
-          first_name: null,
-          last_name: null,
-          middle_name: null,
-          headshot: null,
-        }
-    }
-  }
+
   componentDidMount() {
-    this.getProfile()
-    this.getComments()
+    this.props.fetchProfile()
+    this.props.fetchComments()
   }
-  getProfile() {
-    this.props.isLoading(true)
 
-    var self = this
-    getProfile().then((response) => {
-      self.setState({
-        profile: {
-          github_url: response.github_url,
-          linkedin_url: response.linkedin_url,
-          intro: response.intro,
-          first_name: response.first_name,
-          last_name: response.last_name,
-          middle_name: response.middle_name,
-          headshot: response.headshot,
-        }
-      })
-    }).catch((error) => {
-      console.error('There was an error loading the resume.')
-    }).finally(() => {
-      self.props.isLoading(false)
-    })
-  }
-  getComments() {
-    this.props.isLoading(true)
-
-    var self = this
-    getComments().then((response) => {
-      self.setState({comments: response})
-    }).catch((error) => {
-      console.error(`There was an error loading comments.`)
-    }).finally(() => {
-      self.props.isLoading(false)
-    })
-  }
   render(){
-    var title = null;
-    if (this.state.profile &&
-      this.state.profile.first_name &&
-      this.state.profile.middle_name && this.state.profile.last_name) {
-        title = `${this.state.profile.first_name} ${this.state.profile.middle_name && this.state.profile.middle_name[0]}. ${this.state.profile.last_name}`
+    let title = null;
+    if (this.props.profile &&
+      this.props.profile.first_name &&
+      this.props.profile.middle_name && this.props.profile.last_name) {
+        title = `${this.props.profile.first_name} ${this.props.profile.middle_name && this.props.profile.middle_name[0]}. ${this.props.profile.last_name}`
     }
+
     return (
       <React.Fragment>
         <Banner
-          github_url={this.state.profile.github_url}
-          headshot={this.state.profile.headshot}
-          linkedin_url={this.state.profile.linkedin_url}
+          github_url={this.props.profile.github_url}
+          headshot={this.props.profile.headshot}
+          linkedin_url={this.props.profile.linkedin_url}
           title={title}
         />
         <Page className="landing" {...this.props}>
           <HtmlHeader
             className="intro"
             tag="h3"
-          >{this.state.profile.intro}
+          >{this.props.profile.intro}
           </HtmlHeader>
           <div>
-            {this.state.comments.map((comment) => {
+            {this.props.comments.map((comment) => {
               return (
                 <CommentItem comment={comment.comment}
                   date_created={comment.date_created}
@@ -99,13 +52,18 @@ class Landing extends React.Component {
               )
             })}
           </div>
-          <CommentForm
-            onSubmitted={this.getComments.bind(this)}
-          />
+          <CommentForm/>
         </Page>
       </React.Fragment>
     )
   }
 }
 
-export default Landing;
+const mapStateToProps = state => pick(state, ['profile', 'comments'])
+
+const mapDispatchToProps = {
+  fetchProfile: () => fetchProfileIfNeeded(),
+  fetchComments: () => fetchComments(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);

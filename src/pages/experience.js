@@ -1,32 +1,19 @@
 import React from 'react';
-
+import { connect } from "react-redux";
 import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
+import { pick } from "lodash";
 
-import { getAllExperience } from 'services'
 import { ExperienceItem } from 'components/items'
-import { sortExperienceEducation } from 'utils'
 
 import Page from './page'
+import { fetchAllExperience } from "actions";
 
 
 class Experience extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = { items: [] }
-  }
-  componentDidMount() {
-    this.props.isLoading(true)
 
-    var self = this
-    getAllExperience().then((response) => {
-      const ordered = sortExperienceEducation(response)
-      self.setState({items: ordered})
-    }).catch((error) => {
-      console.error('There was an error loading experience history.')
-    }).finally(() => {
-      self.props.isLoading(false)
-    })
+  componentDidMount() {
+    this.props.fetchAllExperience()
   }
   render() {
     return (
@@ -34,7 +21,7 @@ class Experience extends React.Component {
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">
-              {this.state.items.map((item) => (
+              {this.props.experience.map((item) => (
                 <List.Item key={item.id}>
                   <HashLink smooth to={`#experience-${item.id}`}>
                     {item.short_title || item.title}
@@ -44,7 +31,7 @@ class Experience extends React.Component {
             </List>
           </Page.Content.Left>
           <Page.Content.Right>
-            {this.state.items.map((item) => {
+            {this.props.experience.map((item) => {
               return <ExperienceItem id={item.id} key={item.id} />
             })}
           </Page.Content.Right>
@@ -54,4 +41,10 @@ class Experience extends React.Component {
   }
 }
 
-export default Experience;
+const mapStateToProps = state => pick(state, ['experience'])
+
+const mapDispatchToProps = {
+  fetchAllExperience: () => fetchAllExperience(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Experience);

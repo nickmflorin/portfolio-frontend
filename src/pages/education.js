@@ -1,40 +1,28 @@
 import React from 'react';
-
+import { connect } from "react-redux";
 import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
+import { pick } from "lodash";
 
 import { EducationItem } from 'components/items'
-import { getAllEducation } from 'services'
-import { sortExperienceEducation } from 'utils'
-
 import Page from './page'
+
+import { fetchAllEducation } from 'actions'
 
 
 class Education extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = { items: [] }
-  }
-  componentDidMount() {
-    this.props.isLoading(true)
 
-    var self = this
-    getAllEducation().then((response) => {
-      const ordered = sortExperienceEducation(response)
-      self.setState({items: ordered})
-    }).catch((error) => {
-      console.error('There was an error loading education history.')
-    }).finally(() => {
-      self.props.isLoading(false)
-    })
+  componentDidMount() {
+    this.props.fetchAllEducation()
   }
+
   render() {
     return (
       <Page {...this.props}>
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">
-              {this.state.items.map((item) => (
+              {this.props.education.map((item) => (
                 <List.Item key={item.id}>
                   <HashLink smooth to={`#education-${item.id}`}>{item.major}</HashLink>
                 </List.Item>
@@ -42,7 +30,7 @@ class Education extends React.Component {
             </List>
           </Page.Content.Left>
           <Page.Content.Right>
-            {this.state.items.map((item) => {
+            {this.props.education.map((item) => {
               return <EducationItem id={item.id} key={item.id} />
             })}
           </Page.Content.Right>
@@ -52,4 +40,10 @@ class Education extends React.Component {
   }
 }
 
-export default Education;
+const mapStateToProps = state => pick(state, ['education'])
+
+const mapDispatchToProps = {
+  fetchAllEducation: () => fetchAllEducation(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Education);

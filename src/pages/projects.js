@@ -1,50 +1,36 @@
 import React from 'react';
-import _ from 'underscore'
-
+import { connect } from "react-redux";
+import { pick } from "lodash";
 import { List } from 'semantic-ui-react'
 import ReactDOM from "react-dom";
 import { withRouter} from 'react-router-dom'
 
-import { getProjects } from 'services'
 import { ProjectItem } from 'components/items'
 import ErrorBoundary from 'components/errorBoundary'
 
 import Page from './page'
+import { fetchProjects } from 'actions';
 
 
 class Projects extends React.Component {  // eslint-disable-line
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-        projects: [],
-        loading: true,
-    }
-  }
-  componentDidMount() {
-    this.props.isLoading(true)
 
-    var self = this
-    getProjects().then((response) => {
-      const projects = _.filter(response, (item) => item.showcase)
-      self.setState({projects: projects})
-    }).catch((error) => {
-      console.error('There was an error loading projects.')
-    }).finally(() => {
-      self.props.isLoading(false)
-    })
+  componentDidMount() {
+    this.props.fetchProjects()
   }
+
   scrollToProject(element, behavior, timeout){
       setTimeout(() => {
         element.scrollIntoView({behavior: behavior});
       }, timeout);
   }
+
   render() {
     return (
       <Page {...this.props}>
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">
-              {this.state.projects.map((item) => (
+              {this.props.projects.map((item) => (
                 <List.Item key={item.id}>
                   <a className={"accordion-link"} onClick={() => {
                     const element = document.getElementById(`project-${item.id}`)
@@ -59,7 +45,7 @@ class Projects extends React.Component {  // eslint-disable-line
           </Page.Content.Left>
           <ErrorBoundary>
             <Page.Content.Right>
-              {this.state.projects.map((project, index) => (
+              {this.props.projects.map((project, index) => (
                 <ErrorBoundary key={project.id}>
                   <ProjectItem
                     ref={(el) => {
@@ -85,4 +71,11 @@ class Projects extends React.Component {  // eslint-disable-line
   }
 }
 
-export default withRouter(Projects);
+const mapStateToProps = state => pick(state, ['projects'])
+
+const mapDispatchToProps = {
+  fetchProjects: () => fetchProjects(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Projects));
+

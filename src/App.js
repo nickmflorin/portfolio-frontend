@@ -1,54 +1,16 @@
 import React from 'react';
-import { HashRouter, Switch, Route} from 'react-router-dom'
-import update from 'react-addons-update';
-import _ from 'underscore'
+import { connect } from 'react-redux';
+import { pick } from 'lodash';
+import { HashRouter, Switch, Route} from 'react-router-dom';
+import _ from 'underscore';
 
-import { Loader } from 'semantic-ui-react'
-import { faGraduationCap, faBriefcase, faHammer, faFilePdf, faHome
-  } from '@fortawesome/free-solid-svg-icons'
+import { Loader } from 'semantic-ui-react';
 
-import { getProfile } from 'services'
-import { generateResume } from 'utils'
+import { fetchProfileIfNeeded } from 'actions';
+import { generateResume } from 'utils';
 
-import { Landing, Projects, Experience, Education } from 'pages'
-import { NavBar, SideBar, Footer } from 'components/layout'
+import { NavBar, SideBar, Footer } from 'components/layout';
 
-
-const NavBarItems = [
-  {
-    id : 'home',
-    label : 'Home',
-    url : '/',
-    icon: faHome,
-    page: Landing,
-  },
-  {
-    id : 'experience',
-    label : 'Experience',
-    url : '/experience',
-    icon: faBriefcase,
-    page: Experience,
-  },
-  {
-    id : 'education',
-    label : 'Education',
-    url : '/education',
-    icon: faGraduationCap,
-    page: Education,
-  },
-  {
-    id : 'projects',
-    label : 'Projects',
-    url : '/projects',
-    icon: faHammer,
-    page: Projects,
-  },
-  {
-    id: 'resume',
-    label: 'Resume',
-    icon: faFilePdf,
-  }
-]
 
 const AppHeader = (props) => (
   <header>
@@ -87,7 +49,6 @@ const AppContent = (props) => (
           path={item.url}
           render={(pps) => (
             <PageComponent
-              isLoading={props.isLoading}
               onPageAreaClick={props.onPageAreaClick}
               {...pps}
             />
@@ -103,31 +64,12 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.sidebar = React.createRef();
+  }
 
-    const items = [...NavBarItems]
-    var resume_item = _.findWhere(items, { id: 'resume' })
-    resume_item['onClick'] = this.onResumeClick.bind(this)
-    this.state = { items: items }
-  }
-  componentDidMount() {
-    this.isLoading(true)
+  // componentDidMount() {
+  //   this.props.fetchProfile();
+  // }
 
-    var self = this
-    getProfile().then((response) => {
-      var index = _.findIndex(this.state.items, value => value.id === 'resume')
-      const items = update(this.state.items, {
-        [index]: {$merge: {url: response.resume}}
-      })
-      self.setState({ items : items })
-    }).catch((error) => {
-      console.error('There was an error loading the resume.')
-    }).finally(() => {
-      self.isLoading(false)
-    })
-  }
-  isLoading(value){
-    this.setState({ loading: value })
-  }
   onResumeClick(){
     this.isLoading(true)
 
@@ -135,39 +77,42 @@ class App extends React.Component {
     generateResume().then(() => {
       console.log('Resume successfully generated.')
     }).catch((error) => {
-      console.log(error)
       console.error('There was an error generating the resume.')
     }).finally(() => {
       self.isLoading(false)
     })
   }
+
   onMenuClick(){
     this.sidebar.current.toggle()
   }
+
   onSideBarItemClick(){
     this.sidebar.current.hideIfShowing()
   }
+
   onHomeClick(){
     this.sidebar.current.hideIfShowing()
   }
+
   onPageAreaClick(){
     this.sidebar.current.hideIfShowing()
   }
+
   render() {
     return (
       <HashRouter>
         <div className="app">
+          <Loader active={this.props.loading} style={{position: 'fixed'}}/>
           <AppHeader
-            items={this.state.items}
+            items={this.props.navbar.items}
             onHomeClick={this.onHomeClick.bind(this)}
             onMenuClick={this.onMenuClick.bind(this)}
             onSideBarItemClick={this.onSideBarItemClick.bind(this)}
             sidebar={this.sidebar}
           />
-          <Loader active={this.state.loading} style={{position: 'fixed'}}/>
           <AppContent
-            isLoading={this.isLoading.bind(this)}
-            items={this.state.items}
+            items={this.props.navbar.items}
             onPageAreaClick={() => {
               this.onPageAreaClick()
             }}
@@ -179,4 +124,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => pick(state, ['profile', 'navbar', 'loading'])
+
+const mapDispatchToProps = {
+  // fetchProfile: () => fetchProfileIfNeeded(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

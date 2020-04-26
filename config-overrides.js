@@ -11,6 +11,8 @@ module.exports = function override(config, env) {
       media: path.resolve(__dirname, 'src/media/'),
       utils: path.resolve(__dirname, 'src/utils/'),
       config: path.resolve(__dirname, 'src/config.js'),
+      actions: path.resolve(__dirname, 'src/actions'),
+      reducers: path.resolve(__dirname, 'src/reducers')
     }
   }
   return config;
