@@ -5,11 +5,12 @@ import { List } from 'semantic-ui-react'
 import ReactDOM from "react-dom";
 import { withRouter} from 'react-router-dom'
 
+import { fetchProjects } from 'actions';
+
 import { ProjectItem } from 'components/items'
 import ErrorBoundary from 'components/errorBoundary'
 
 import Page from './page'
-import { fetchProjects } from 'actions';
 
 
 class Projects extends React.Component {  // eslint-disable-line

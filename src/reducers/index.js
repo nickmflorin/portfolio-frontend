@@ -31,6 +31,9 @@ import {
   REQUESTING_EXPERIENCE,
   RECEIVED_EXPERIENCE,
   ERROR_REQUESTING_EXPERIENCE,
+  REQUESTING_PROJECT,
+  RECEIVED_PROJECT,
+  ERROR_REQUESTING_PROJECT,
 } from 'actions'
 
 const NavBarItems = [
@@ -113,6 +116,8 @@ const loadingReducer = (state=initialState.loading, action) => {
     return true;
   } else if (action.type === REQUESTING_EXPERIENCE) {
     return true;
+  } else if (action.type === REQUESTING_PROJECT) {
+    return true;
   } else if (action.type === RECEIVED_PROFILE) {
     return false;
   } else if (action.type == ERROR_REQUESTING_PROFILE) {
@@ -135,7 +140,15 @@ const loadingReducer = (state=initialState.loading, action) => {
     return false;
   } else if (action.type === RECEIVED_EDUCATION) {
     return false;
+  } else if (action.type === ERROR_REQUESTING_EDUCATION) {
+    return false;
   } else if (action.type === RECEIVED_EXPERIENCE) {
+    return false;
+  } else if (action.type === ERROR_REQUESTING_EXPERIENCE) {
+    return false;
+  } else if (action.type === RECEIVED_PROJECT) {
+    return false;
+  } else if (action.type === ERROR_REQUESTING_PROJECT) {
     return false;
   }
   return state;
@@ -174,7 +187,7 @@ const educationReducer = (state = initialState.education, action) => {
   } else if (action.type === RECEIVED_EDUCATION) {
     newState[action.value.id] = action.value;
   } else if (action.type === ERROR_REQUESTING_EDUCATION) {
-    newState[action.value] = {error: true}
+    newState[action.value] = {error: true};
   }
   return newState;
 }
@@ -186,7 +199,7 @@ const experienceReducer = (state = initialState.experience, action) => {
   } else if (action.type === RECEIVED_EXPERIENCE) {
     newState[action.value.id] = action.value;
   } else if (action.type === ERROR_REQUESTING_EXPERIENCE) {
-    newState[action.value] = {error: true}
+    newState[action.value] = {error: true};
   }
   return newState;
 }
@@ -195,6 +208,10 @@ const projectsReducer = (state = initialState.experience, action) => {
   const newState = { ...state };
   if (action.type === RECEIVED_PROJECTS) {
     newState.all = _.filter(action.value, (item) => item.showcase);
+  } else if (action.type === RECEIVED_PROJECT) {
+    newState[action.value.id] = action.value;
+  } else if (action.type === ERROR_REQUESTING_PROJECT) {
+    newState[action.value] = {error: true};
   }
   return newState;
 }

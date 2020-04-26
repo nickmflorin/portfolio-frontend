@@ -1,19 +1,20 @@
 import React from 'react';
+import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import _ from 'underscore'
+import _ from 'underscore';
+import { pick, isNil } from "lodash";
 
-import { getProject } from 'services'
-import { isImageFile } from 'utils'
+import { isImageFile } from 'utils';
+import { fetchProjectIfNeeded } from 'actions';
 
-import ErrorBoundary from 'components/errorBoundary'
+import ErrorBoundary from 'components/errorBoundary';
+import { Image } from 'components/image';
+import { HtmlDescription, HtmlCaption } from 'components/html';
 
-import { Image } from 'components/image'
-import { HtmlDescription, HtmlCaption } from 'components/html'
+import { Panel, SkillsPanel } from './panels';
+import PageItem from './pageItem';
 
-import { Panel, SkillsPanel } from './panels'
-import PageItem from './pageItem'
-
-import './items.sass'
+import './items.sass';
 
 
 class ProjectFile extends React.Component {
@@ -45,51 +46,44 @@ class Project extends React.Component {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-        loading: true,
-        showcase_description: null,
-        skills: [],
-        files: [],
-    }
-  }
+
   componentDidMount() {
-    var self = this
-    getProject(this.props.id).then((response) => {
-      const files = _.filter(response.files, (file) => {
+    this.props.fetchProject(this.props.id)
+  }
+
+  render() {
+    const project = this.props.projects[this.props.id]
+    if (isNil(project)) {
+      return (
+        <PageItem className="project" id={`project-${this.props.id}`}>
+          <h1 className="thick">{this.props.name}</h1>
+        </PageItem>
+      )
+    } else if (project.error) {
+      return (
+        <PageItem className="project" id={`project-${this.props.id}`}>
+          <h1 className="thick">{this.props.name}</h1>
+          <p>There was an error.</p>
+        </PageItem>
+      )
+    } else {
+      let files = _.sortBy(project.files, 'relative_order')
+      files = _.filter(files, (file) => {
         return isImageFile(file.file)
       })
-      self.setState({
-          showcase_description: response.showcase_description,
-          files: files,
-          skills: response.skills,
-      })
-    }).catch((error) => {
-      console.error(`There was an error loading project ${this.props.id}.`)
-    }).finally(() => {
-      self.setState({loading: false})
-    })
-  }
-  render() {
-    var files = []
-    if (this.state.files) {
-      files = _.sortBy(this.state.files, 'relative_order')
-    }
-    return (
+      return (
         <PageItem
           className="project"
           id={`project-${this.props.id}`}
-          loading={this.state.loading}
         >
           <h1 className="thick">{this.props.name}</h1>
           <PageItem.Body className="project">
             <Panel>
-              <HtmlDescription>{this.state.showcase_description}</HtmlDescription>
+              <HtmlDescription>{project.showcase_description}</HtmlDescription>
             </Panel>
-            {(this.state.skills.length !== 0) && (
+            {(project.skills.length !== 0) && (
               <ErrorBoundary>
-                <SkillsPanel skills={this.state.skills}/>
+                <SkillsPanel skills={project.skills}/>
               </ErrorBoundary>
             )}
             <div className="files-container">
@@ -109,8 +103,15 @@ class Project extends React.Component {
             </div>
           </PageItem.Body>
         </PageItem>
-    )
+      )
+    }
   }
 }
 
-export default Project;
+const mapStateToProps = state => pick(state, ['projects'])
+
+const mapDispatchToProps = {
+  fetchProject: (id) => fetchProjectIfNeeded(id),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Project);

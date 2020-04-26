@@ -35,6 +35,61 @@ export const ERROR_REQUESTING_PROJECTS = "ERROR_REQUESTING_PROJECTS";
 export const REQUESTING_PROJECTS = "REQUESTING_PROJECTS";
 export const RECEIVED_PROJECTS = "RECEIVED_PROJECTS";
 
+export const REQUESTING_PROJECT = "REQUESTING_PROJECT";
+export const RECEIVED_PROJECT = "RECEIVED_PROJECT";
+export const ERROR_REQUESTING_PROJECT = "ERROR_REQUESTING_PROJECT";
+
+
+export const requestingProjectAction = (id) => {
+  return { type: REQUESTING_PROJECT, value: id };
+}
+
+export const receiveProjectAction = (project) => {
+  return { type: RECEIVED_PROJECT, value: project };
+}
+
+export const errorRequestingProjectAction = (id) => {
+  return { type: ERROR_REQUESTING_PROJECT, value: id };
+}
+
+export const shouldFetchProject = (state, id) => {
+  if (!(isNil(state.projects[id]))) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export const fetchProjectIfNeeded = (id) => {
+  return (dispatch, getState) => {
+    if (shouldFetchProject(getState(), id)) {
+      return dispatch(fetchProject(id))
+    } else {
+      // Let the calling code know there's nothing to wait for.
+      return Promise.resolve()
+    }
+  }
+}
+
+export const fetchProject = (id) => {
+  var request_config = { ...REQUEST_CONFIGURATION };
+  return dispatch => {
+    dispatch(requestingProjectAction(id))
+    return fetch(`${process.env.REACT_APP_API_HOST}projects/${id}/`, request_config)
+      .then(
+        response => response.json(),
+        error => {
+          dispatch(errorRequestingProjectAction(id))
+          console.error(`There was an error loading project ${id}.`, error)
+        }
+      )
+      .then(json => dispatch(receiveProjectAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingProjectAction(id))
+        console.error(`There was an error loading project ${id}.`, error)
+      })
+  }
+}
 
 export const requestingProjectsAction = () => {
   return { type: REQUESTING_PROJECTS };
@@ -61,10 +116,14 @@ export const fetchProjects = () => {
         // https://github.com/facebook/react/issues/6895
         error => {
           dispatch(errorRequestingProjectsAction())
-          console.error('There was an error loading projects.')
+          console.error('There was an error loading projects.', error)
         }
       )
       .then(json => dispatch(receivedProjectsAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingProjectsAction())
+        console.error('There was an error loading projects.', error)
+      })
   }
 }
 
@@ -108,13 +167,13 @@ export const fetchExperience = (id) => {
         response => response.json(),
         error => {
           dispatch(errorRequestingExperienceAction(id))
-          console.error(`There was an error loading experience ${id}.`)
+          console.error(`There was an error loading experience ${id}.`, error)
         }
       )
       .then(json => dispatch(receiveExperienceAction(json)))
       .catch(error => {
         dispatch(errorRequestingExperienceAction(id))
-        console.error(`There was an error loading education ${id}.`)
+        console.error(`There was an error loading education ${id}.`, error)
       })
   }
 }
@@ -144,10 +203,14 @@ export const fetchAllExperience = () => {
         // https://github.com/facebook/react/issues/6895
         error => {
           dispatch(errorRequestingAllExperienceAction())
-          console.error('There was an error loading experience.')
+          console.error('There was an error loading experience.', error)
         }
       )
       .then(json => dispatch(receivedAllExperienceAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingAllExperienceAction())
+        console.error('There was an error loading experience.', error)
+      })
   }
 }
 
@@ -191,13 +254,13 @@ export const fetchEducation = (id) => {
         response => response.json(),
         error => {
           dispatch(errorRequestingEducationAction(id))
-          console.error(`There was an error loading education ${id}.`)
+          console.error(`There was an error loading education ${id}.`, error)
         }
       )
       .then(json => dispatch(receiveEducationAction(json)))
       .catch(error => {
         dispatch(errorRequestingEducationAction(id))
-        console.error(`There was an error loading education ${id}.`)
+        console.error(`There was an error loading education ${id}.`, error)
       })
   }
 }
@@ -231,6 +294,10 @@ export const fetchAllEducation = () => {
         }
       )
       .then(json => dispatch(receivedAllEducationAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingAllEducationAction())
+        console.error(`There was an error loading the education.`, error)
+      })
   }
 }
 
@@ -247,7 +314,6 @@ export const errorRequestingCommentsAction = (comments) => {
 }
 
 export const fetchComments = () => {
-  console.log('Fetching Comments')
   var request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingProfileAction())
@@ -260,10 +326,14 @@ export const fetchComments = () => {
         // https://github.com/facebook/react/issues/6895
         error => {
           dispatch(errorRequestingCommentsAction())
-          console.error('There was an error loading comments.')
+          console.error('There was an error loading comments.', error)
         }
       )
       .then(json => dispatch(receiveCommentsAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingCommentsAction())
+        console.error('There was an error loading comments.', error)
+      })
   }
 }
 
@@ -311,9 +381,13 @@ export const publishComment = (data) => {
         // https://github.com/facebook/react/issues/6895
         error => {
           dispatch(errorPublishingCommentAction())
-          console.error('There was an error loading comments.')
+          console.error('There was an error publishing the comment.', error)
         }
       )
+      .catch(error => {
+        dispatch(errorPublishingCommentAction())
+        console.error('There was an error publishing the comment.', error)
+      })
   }
 }
 
@@ -346,5 +420,9 @@ export const fetchProfile = () => {
         }
       )
       .then(json => dispatch(receiveProfileAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingProfileAction())
+        console.error('There was an error loading profile.')
+      })
   }
 }
