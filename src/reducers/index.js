@@ -22,9 +22,13 @@ import {
   REQUESTING_PROJECTS,
   RECEIVED_PROJECTS,
   ERROR_REQUESTING_PROJECTS,
+  ERROR_PUBLISHING_COMMENT,
+  PUBLISHED_COMMENT,
+  PUBLISHING_COMMENT,
+  RECEIVED_EDUCATION,
+  REQUESTING_EDUCATION,
+  ERROR_REQUESTING_EDUCATION,
 } from 'actions'
-import {ERROR_PUBLISHING_COMMENT, PUBLISHED_COMMENT, PUBLISHING_COMMENT} from "../actions";
-
 
 const NavBarItems = [
   {
@@ -73,9 +77,15 @@ const initialState = {
     errors: {},
     publishing: false,
   },
-  education: [],
-  experience: [],
-  projects: [],
+  education: {
+    all: [],
+  },
+  experience: {
+    all: [],
+  },
+  projects: {
+    all: [],
+  },
 }
 
 
@@ -96,6 +106,8 @@ const loadingReducer = (state=initialState.loading, action) => {
     return true;
   } else if (action.type == REQUESTING_PROJECTS) {
     return true;
+  } else if (action.type === REQUESTING_EDUCATION) {
+    return true;
   } else if (action.type === RECEIVED_PROFILE) {
     return false;
   } else if (action.type == ERROR_REQUESTING_PROFILE) {
@@ -115,6 +127,8 @@ const loadingReducer = (state=initialState.loading, action) => {
   } else if (action.type === RECEIVED_PROJECTS) {
     return false;
   } else if (action.type === ERROR_REQUESTING_PROJECTS) {
+    return false;
+  } else if (action.type === RECEIVED_EDUCATION) {
     return false;
   }
   return state;
@@ -147,28 +161,29 @@ const commentsReducer = (state = initialState.comments, action) => {
 }
 
 const educationReducer = (state = initialState.education, action) => {
-  const newState = [ ...state ];
+  const newState = { ...state };
   if (action.type === RECEIVED_ALL_EDUCATION) {
-    const sorted = sortExperienceEducation(action.value);
-    return sorted;
+    newState.all = sortExperienceEducation(action.value);
+  } else if (action.type === RECEIVED_EDUCATION) {
+    newState[action.value.id] = action.value;
+  } else if (action.type === ERROR_REQUESTING_EDUCATION) {
+    newState[action.value] = {error: true}
   }
   return newState;
 }
 
 const experienceReducer = (state = initialState.experience, action) => {
-  const newState = [ ...state ];
+  const newState = { ...state };
   if (action.type === RECEIVED_ALL_EXPERIENCE) {
-    const sorted = sortExperienceEducation(action.value);
-    return sorted;
+    newState.all = sortExperienceEducation(action.value);
   }
   return newState;
 }
 
 const projectsReducer = (state = initialState.experience, action) => {
-  const newState = [ ...state ];
+  const newState = { ...state };
   if (action.type === RECEIVED_PROJECTS) {
-    const projects = _.filter(action.value, (item) => item.showcase);
-    return projects;
+    newState.all = _.filter(action.value, (item) => item.showcase);
   }
   return newState;
 }

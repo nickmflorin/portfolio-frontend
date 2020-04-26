@@ -21,7 +21,7 @@ class Experience extends React.Component {
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">
-              {this.props.experience.map((item) => (
+              {this.props.experience.all.map((item) => (
                 <List.Item key={item.id}>
                   <HashLink smooth to={`#experience-${item.id}`}>
                     {item.short_title || item.title}
@@ -31,7 +31,7 @@ class Experience extends React.Component {
             </List>
           </Page.Content.Left>
           <Page.Content.Right>
-            {this.props.experience.map((item) => {
+            {this.props.experience.all.map((item) => {
               return <ExperienceItem id={item.id} key={item.id} />
             })}
           </Page.Content.Right>

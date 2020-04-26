@@ -23,6 +23,10 @@ export const REQUESTING_ALL_EDUCATION = "REQUESTING_ALL_EDUCATION";
 export const RECEIVED_ALL_EDUCATION = "RECEIVED_ALL_EDUCATION";
 export const ERROR_REQUESTING_ALL_EDUCATION = "ERROR_REQUESTING_ALL_EDUCATION";
 
+export const REQUESTING_EDUCATION = "REQUESTING_EDUCATION";
+export const RECEIVED_EDUCATION = "RECEIVED_EDUCATION";
+export const ERROR_REQUESTING_EDUCATION = "ERROR_REQUESTING_EDUCATION";
+
 export const ERROR_REQUESTING_PROJECTS = "ERROR_REQUESTING_PROJECTS";
 export const REQUESTING_PROJECTS = "REQUESTING_PROJECTS";
 export const RECEIVED_PROJECTS = "RECEIVED_PROJECTS";
@@ -102,6 +106,57 @@ export const receivedAllEducationAction = (education) => {
 
 export const errorRequestingAllEducationAction = () => {
   return { type: ERROR_REQUESTING_ALL_EDUCATION }
+}
+
+export const requestingEducationAction = (id) => {
+  return { type: REQUESTING_EDUCATION, value: id };
+}
+
+export const receiveEducationAction = (education) => {
+  return { type: RECEIVED_EDUCATION, value: education };
+}
+
+export const errorRequestingEducationAction = (id) => {
+  return { type: ERROR_REQUESTING_EDUCATION, value: id };
+}
+
+export const shouldFetchEducation = (state, id) => {
+  if (!(isNil(state.education[id]))) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export const fetchEducationIfNeeded = (id) => {
+  return (dispatch, getState) => {
+    if (shouldFetchEducation(getState(), id)) {
+      return dispatch(fetchEducation(id))
+    } else {
+      // Let the calling code know there's nothing to wait for.
+      return Promise.resolve()
+    }
+  }
+}
+
+export const fetchEducation = (id) => {
+  var request_config = { ...REQUEST_CONFIGURATION };
+  return dispatch => {
+    dispatch(requestingEducationAction(id))
+    return fetch(`${process.env.REACT_APP_API_HOST}education/${id}/`, request_config)
+      .then(
+        response => response.json(),
+        error => {
+          dispatch(errorRequestingEducationAction(id))
+          console.error(`There was an error loading education ${id}.`)
+        }
+      )
+      .then(json => dispatch(receiveEducationAction(json)))
+      .catch(error => {
+        dispatch(errorRequestingEducationAction(id))
+        console.error(`There was an error loading education ${id}.`)
+      })
+  }
 }
 
 export const fetchAllEducation = () => {
@@ -240,7 +295,6 @@ export const fetchProfile = () => {
 }
 
 export const shouldFetchProfile = (state) => {
-  return true;
   if (!(isNil(state.profile))) {
     return false;
   } else {

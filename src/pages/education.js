@@ -22,7 +22,7 @@ class Education extends React.Component {
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">
-              {this.props.education.map((item) => (
+              {this.props.education.all.map((item) => (
                 <List.Item key={item.id}>
                   <HashLink smooth to={`#education-${item.id}`}>{item.major}</HashLink>
                 </List.Item>
@@ -30,7 +30,7 @@ class Education extends React.Component {
             </List>
           </Page.Content.Left>
           <Page.Content.Right>
-            {this.props.education.map((item) => {
+            {this.props.education.all.map((item) => {
               return <EducationItem id={item.id} key={item.id} />
             })}
           </Page.Content.Right>

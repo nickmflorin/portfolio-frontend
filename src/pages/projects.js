@@ -30,7 +30,7 @@ class Projects extends React.Component {  // eslint-disable-line
         <Page.Content>
           <Page.Content.Left>
             <List className="accordion">
-              {this.props.projects.map((item) => (
+              {this.props.projects.all.map((item) => (
                 <List.Item key={item.id}>
                   <a className={"accordion-link"} onClick={() => {
                     const element = document.getElementById(`project-${item.id}`)
@@ -45,7 +45,7 @@ class Projects extends React.Component {  // eslint-disable-line
           </Page.Content.Left>
           <ErrorBoundary>
             <Page.Content.Right>
-              {this.props.projects.map((project, index) => (
+              {this.props.projects.all.map((project, index) => (
                 <ErrorBoundary key={project.id}>
                   <ProjectItem
                     ref={(el) => {

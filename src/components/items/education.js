@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import { pick, isNil }  from "lodash";
 
 import { faCalendarAlt, faMapPin, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
-import { getEducation } from 'services'
+import { fetchEducationIfNeeded } from 'actions'
 import { formatDateRange, formatDegree, formatGpa, formatEducationDescription } from 'utils'
 
 import ErrorBoundary from 'components/errorBoundary'
-
 import { LogoLink } from 'components/buttons'
 import { HtmlDescription } from 'components/html'
 import { Logo } from 'components/image'
 import { IconizedText } from 'components/icons'
-
 import { Panel, ProjectsPanel, SkillsPanel, CoursesPanel } from './panels'
+
 import PageItem from './pageItem'
 
 import './items.sass'
@@ -25,139 +26,105 @@ class Education extends React.Component {
     id: PropTypes.number.isRequired,
   }
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      skills: [],
-      projects: [],
-      courses: [],
-      school: null,
-      title: null,
-      minor: null,
-      concentration: null,
-      gpa: null,
-      description: null,
-      start_year: null,
-      end_year: null,
-      start_month: null,
-      end_month: null,
-      loading: true,
-    }
-  }
   componentDidMount() {
-    var self = this
-    getEducation(this.props.id).then((response) => {
-      self.setState({
-        skills: response.skills,
-        projects: response.projects,
-        courses: response.courses,
-        school: response.school,
-        title: formatDegree(response.degree, response.major),
-        minor: response.minor,
-        concentration: response.concentration,
-        gpa: response.gpa,
-        description: response.description,
-        start_year: response.start_year,
-        end_year: response.end_year,
-        start_month: response.start_month,
-        end_month: response.end_month,
-        open: false,
-        dimmer: false,
-      })
-    }).catch((error) => {
-      console.error(`There was an error loading education ${this.props.id}.`)
-    }).finally(() => {
-      self.setState({loading: false})
-    })
+    this.props.fetchEducationIfNeeded(this.props.id)
   }
+
   onCourseClick(id){
-    console.log('Course Clicked')
     this.setState({ open: true })
   }
+
   onSkillClick(id){
-    console.log('Skill Clicked')
     this.setState({ open: true })
   }
+
   close(){
     this.setState({ open: false })
   }
+
   render() {
-    if (this.state.loading) {
+    const education = this.props.education[this.props.id]
+    if (isNil(education)) {
       return (
-        <PageItem id={`education-${this.props.id}`} loading>
-            <PageItem.Header.Placeholder/>
-            <PageItem.Body.Placeholder/>
+        <PageItem id={`education-${this.props.id}`}>
+          <PageItem.Header.Placeholder/>
+          <PageItem.Body.Placeholder/>
         </PageItem>
       )
-    }
-    else {
+    } else if (education.error) {
+      return (
+        <PageItem id={`education-${this.props.id}`}>
+          <p>There was an error.</p>
+        </PageItem>
+      )
+    } else {
       return (
         <PageItem id={`education-${this.props.id}`}>
           <PageItem.Header>
             <div className="left">
-              {this.state.school.url
-                ? <LogoLink href={this.state.school.url} src={this.state.school.logo}/>
-                : <Logo src={this.state.school.logo}/>
+              {education.school.url
+                ? <LogoLink href={education.school.url} src={education.school.logo}/>
+                : <Logo src={education.school.logo}/>
               }
             </div>
             <div className="right">
-              <h1 className="thick">{this.state.title}</h1>
-              <h3>{this.state.school.name}</h3>
+              <h1 className="thick">{formatDegree(education.degree, education.major)}</h1>
+              <h3>{education.school.name}</h3>
               <div className="header-items">
                 <div className="header-item">
-                  <IconizedText icon={faMapPin}>{`${this.state.school.city}, ${this.state.school.state}`}</IconizedText>
+                  <IconizedText icon={faMapPin}>{`${education.school.city}, ${education.school.state}`}</IconizedText>
                 </div>
                 <div className="header-item">
                   <ErrorBoundary>
                     <IconizedText icon={faCalendarAlt}>{formatDateRange(
-                      this.state.start_year,
-                      this.state.start_month,
-                      this.state.end_year,
-                      this.state.end_month
+                      education.start_year,
+                      education.start_month,
+                      education.end_year,
+                      education.end_month
                     )}</IconizedText>
                   </ErrorBoundary>
                 </div>
                 <div className="header-item">
-                  <IconizedText icon={faPaperPlane}>{formatGpa(this.state.gpa)}</IconizedText>
+                  <IconizedText icon={faPaperPlane}>{formatGpa(education.gpa)}</IconizedText>
                 </div>
               </div>
             </div>
           </PageItem.Header>
           <PageItem.Body>
             <Panel>
-              {this.state.school.description && (
+              {education.school.description && (
                 <HtmlDescription>
-                  {this.state.school.description}
+                  {education.school.description}
                 </HtmlDescription>
               )}
               {formatEducationDescription(
-                  this.state.description, this.state.minor, this.state.concentration) && (
+                  education.description, education.minor, education.concentration) && (
                 <HtmlDescription>
                   {formatEducationDescription(
-                    this.state.description, this.state.minor, this.state.concentration)}
+                    education.description, education.minor, education.concentration)}
                 </HtmlDescription>
               )}
             </Panel>
-            {(this.state.projects.length !== 0) && (
+            {(education.projects.length !== 0) && (
               <ErrorBoundary>
-                <ProjectsPanel bordered header={"Projects"} projects={this.state.projects} />
+                <ProjectsPanel bordered header={"Projects"} projects={education.projects} />
               </ErrorBoundary>
             )}
-            {(this.state.skills.length !== 0) && (
+            {(education.skills.length !== 0) && (
               <ErrorBoundary>
                 <SkillsPanel
                   bordered
                   header={"Skills"}
                   onSkillClick={this.onSkillClick.bind(this)}
-                  skills={this.state.skills}
+                  skills={education.skills}
                 />
               </ErrorBoundary>
             )}
-            {(this.state.courses.length !== 0) && (
+            {(education.courses.length !== 0) && (
               <ErrorBoundary>
                 <CoursesPanel
                   bordered
-                  courses={this.state.courses}
+                  courses={education.courses}
                   header={"Courses"}
                   onCourseClick={this.onCourseClick.bind(this)}
                 />
@@ -170,4 +137,11 @@ class Education extends React.Component {
   }
 }
 
-export default Education;
+const mapStateToProps = state => pick(state, ['education'])
+
+const mapDispatchToProps = {
+  fetchEducationIfNeeded: (id) => fetchEducationIfNeeded(id),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Education);
+
