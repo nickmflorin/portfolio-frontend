@@ -2,8 +2,8 @@ import { combineReducers } from 'redux'
 import _ from 'underscore'
 import { isNil } from 'lodash';
 
-import {faBriefcase, faFilePdf, faGraduationCap, faHammer, faHome} from "@fortawesome/free-solid-svg-icons";
-import {Education, Experience, Landing, Projects} from "pages";
+import { faBriefcase, faGraduationCap, faHammer, faHome } from "@fortawesome/free-solid-svg-icons";
+import { Education, Experience, Landing, Projects } from "pages";
 import { sortExperienceEducation } from 'utils';
 
 import {
@@ -37,7 +37,7 @@ import {
   TOGGLE_SIDEBAR,
   OPEN_SIDEBAR,
   CLOSE_SIDEBAR,
-} from 'actions'
+} from 'actions';
 
 const NavBarItems = [
   {
@@ -68,11 +68,6 @@ const NavBarItems = [
     icon: faHammer,
     page: Projects,
   },
-  // {
-  //   id: 'resume',
-  //   label: 'Resume',
-  //   icon: faFilePdf,
-  // }
 ]
 
 const initialState = {
@@ -84,7 +79,8 @@ const initialState = {
   loading: false,
   comments: {
     all: [],
-    errors: {},
+    error: {},
+    success: false,
     publishing: false,
   },
   education: {
@@ -183,12 +179,16 @@ const commentsReducer = (state = initialState.comments, action) => {
     newState.all = [ ...action.value ];
   } else if (action.type === PUBLISHING_COMMENT) {
     newState.publishing = true;
+    newState.error = initialState.error;
+    newState.success = false;
   } else if (action.type === PUBLISHED_COMMENT) {
     newState.publishing = false;
+    newState.success = true;
   } else if (action.type === ERROR_PUBLISHING_COMMENT) {
     newState.publishing = false;
+    newState.success = false;
     if (!isNil(action.value)) {
-      newState.errors = action.value;
+      newState.error = action.value;
     }
   }
   return newState;

@@ -6,9 +6,10 @@ import SocialLink from './socialLink';
 import LogoLink from './logoLink';
 import BrandButton from "./brandButton";
 import ResumeButton from './resumeButton';
+import SideBarResumeButton from './sidebarResumeButton'
 
 import './buttons.sass'
 
 
 export { SideBarButton, MenuButton, NavBarButton, FileLink, SocialLink,
-  LogoLink, BrandButton, ResumeButton };
+  LogoLink, BrandButton, ResumeButton, SideBarResumeButton };

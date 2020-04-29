@@ -130,8 +130,7 @@ export const fetchProjects = () => {
     return fetch(`${process.env.REACT_APP_API_HOST}projects/`, request_config)
       .then(
         response => response.json(),
-        // Do not use catch, because that will also catch
-        // any errors in the dispatch and resulting render,
+        // Do not use catch, because that will also catch any errors in the dispatch and resulting render,
         // causing a loop of 'Unexpected batch number' errors.
         // https://github.com/facebook/react/issues/6895
         error => {
@@ -217,8 +216,7 @@ export const fetchAllExperience = () => {
     return fetch(`${process.env.REACT_APP_API_HOST}experience/`, request_config)
       .then(
         response => response.json(),
-        // Do not use catch, because that will also catch
-        // any errors in the dispatch and resulting render,
+        // Do not use catch, because that will also catch any errors in the dispatch and resulting render,
         // causing a loop of 'Unexpected batch number' errors.
         // https://github.com/facebook/react/issues/6895
         error => {
@@ -304,8 +302,7 @@ export const fetchAllEducation = () => {
     return fetch(`${process.env.REACT_APP_API_HOST}education/`, request_config)
       .then(
         response => response.json(),
-        // Do not use catch, because that will also catch
-        // any errors in the dispatch and resulting render,
+        // Do not use catch, because that will also catch any errors in the dispatch and resulting render,
         // causing a loop of 'Unexpected batch number' errors.
         // https://github.com/facebook/react/issues/6895
         error => {
@@ -340,8 +337,7 @@ export const fetchComments = () => {
     return fetch(`${process.env.REACT_APP_API_HOST}comments/`, request_config)
       .then(
         response => response.json(),
-        // Do not use catch, because that will also catch
-        // any errors in the dispatch and resulting render,
+        // Do not use catch, because that will also catch any errors in the dispatch and resulting render,
         // causing a loop of 'Unexpected batch number' errors.
         // https://github.com/facebook/react/issues/6895
         error => {
@@ -369,7 +365,7 @@ export const errorPublishingCommentAction = (errors) => {
   return { type: ERROR_PUBLISHING_COMMENT, value: errors }
 }
 
-export const publishComment = (data) => {
+export const publishComment = (data, resetForm) => {
   var request_config = { ...REQUEST_CONFIGURATION };
   request_config.method = "POST"
   request_config.body = JSON.stringify(data)
@@ -393,10 +389,10 @@ export const publishComment = (data) => {
             })
             // TODO: Maybe we should only reload the comments if the submitted comment was public.
             dispatch(fetchComments())
+            resetForm()
           }
         },
-        // Do not use catch, because that will also catch
-        // any errors in the dispatch and resulting render,
+        // Do not use catch, because that will also catch any errors in the dispatch and resulting render,
         // causing a loop of 'Unexpected batch number' errors.
         // https://github.com/facebook/react/issues/6895
         error => {

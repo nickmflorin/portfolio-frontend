@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
-import PropTypes from 'prop-types';
 import { pick } from "lodash";
 
-import SideBarButton from 'components/buttons/sidebarButton'
+import { SideBarButton, SideBarResumeButton } from 'components/buttons'
 import './sidebar.sass'
 
 var classNames = require('classnames')
@@ -14,7 +13,6 @@ const SideBar = (props) => (
       return (
         <div className="button-container" key={item.id}>
           <SideBarButton
-            external={item.external}
             icon={item.icon}
             label={item.label}
             url={item.url}
@@ -22,6 +20,9 @@ const SideBar = (props) => (
         </div>
       )
     })}
+    <div className="button-container">
+      <SideBarResumeButton/>
+    </div>
   </div>
 )
 
