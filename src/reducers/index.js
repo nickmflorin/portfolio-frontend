@@ -37,6 +37,12 @@ import {
   TOGGLE_SIDEBAR,
   OPEN_SIDEBAR,
   CLOSE_SIDEBAR,
+  REQUESTING_RESUME,
+  RECEIVED_RESUME,
+  ERROR_REQUESTING_RESUME,
+  GENERATING_RESUME,
+  GENERATED_RESUME,
+  ERROR_GENERATING_RESUME,
 } from 'actions';
 
 const NavBarItems = [
@@ -128,6 +134,10 @@ const loadingReducer = (state=initialState.loading, action) => {
     return true;
   } else if (action.type === REQUESTING_PROJECT) {
     return true;
+  } else if (action.type === REQUESTING_RESUME) {
+    return true;
+  } else if (action.type === GENERATING_RESUME) {
+    return true;
   } else if (action.type === RECEIVED_PROFILE) {
     return false;
   } else if (action.type === ERROR_REQUESTING_PROFILE) {
@@ -159,6 +169,14 @@ const loadingReducer = (state=initialState.loading, action) => {
   } else if (action.type === RECEIVED_PROJECT) {
     return false;
   } else if (action.type === ERROR_REQUESTING_PROJECT) {
+    return false;
+  } else if (action.type === ERROR_REQUESTING_RESUME) {
+    return false;
+  } else if (action.type === RECEIVED_RESUME) {
+    return false;
+  } else if (action.type === GENERATED_RESUME) {
+    return false;
+  } else if (action.type === ERROR_GENERATING_RESUME) {
     return false;
   }
   return state;

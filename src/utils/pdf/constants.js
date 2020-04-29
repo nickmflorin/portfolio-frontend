@@ -1,13 +1,13 @@
-import Github from 'media/icons/Github.png'
-import LinkedIn from 'media/icons/LinkedIn.png'
-import Database from 'media/icons/Database.png'
-import Phone from 'media/icons/Phone.png'
-import StreetView from 'media/icons/StreetView.png'
-import Envelope from 'media/icons/Envelope.png'
-import Globe from 'media/icons/Globe.png'
-import Pin from 'media/icons/Pin.png'
-import Calendar from 'media/icons/Calendar.png'
-import PaperPlane from 'media/icons/PaperPlane.png'
+import Github from 'media/icons/Github.png';
+import LinkedIn from 'media/icons/LinkedIn.png';
+import Database from 'media/icons/Database.png';
+import Phone from 'media/icons/Phone.png';
+import StreetView from 'media/icons/StreetView.png';
+import Envelope from 'media/icons/Envelope.png';
+import Globe from 'media/icons/Globe.png';
+import Pin from 'media/icons/Pin.png';
+import Calendar from 'media/icons/Calendar.png';
+import PaperPlane from 'media/icons/PaperPlane.png';
 
 
 export const FOOTER_TEXT = "This resume was auto generated.  Copyright © 2020 nickflorin-api.com.  All rights reserved."

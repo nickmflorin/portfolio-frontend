@@ -1,4 +1,4 @@
-import { Colors, Fonts } from './constants'
+import { Colors, Fonts } from './constants';
 
 
 export const Styles = {

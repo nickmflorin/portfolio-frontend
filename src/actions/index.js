@@ -1,7 +1,8 @@
 import { isNil } from 'lodash';
 import Cookies from "js-cookie";
 
-import { REQUEST_CONFIGURATION } from 'config'
+import { generateResume } from 'utils';
+import { REQUEST_CONFIGURATION } from 'config';
 
 export const REQUESTING_PROFILE = "REQUESTING_PROFILE";
 export const RECEIVED_PROFILE = "RECEIVED_PROFILE";
@@ -43,9 +44,61 @@ export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR"
 export const CLOSE_SIDEBAR = "CLOSE_SIDEBAR"
 export const OPEN_SIDEBAR = "OPEN_SIDEBAR"
 
+export const REQUESTING_RESUME = "REQUESTING_RESUME";
+export const RECEIVED_RESUME = "RECEIVED_RESUME";
+export const ERROR_REQUESTING_RESUME = "ERROR_REQUESTING_RESUME";
+export const GENERATING_RESUME = "GENERATING_RESUME";
+export const GENERATED_RESUME = "GENERATED_RESUME";
+export const ERROR_GENERATING_RESUME = "ERROR_GENERATING_RESUME";
+
+export const requestingResumeAction = () => {
+  return { type: REQUESTING_RESUME };
+}
+
+export const receiveResumeAction = (resume) => {
+  return { type: RECEIVED_RESUME, value: resume };
+}
+
+export const errorRequestingResumeAction = () => {
+  return { type: ERROR_REQUESTING_RESUME };
+}
+
+export const generatingResumeAction = (resume) => {
+  return { type: GENERATING_RESUME, value: resume };
+}
+
+export const errorGeneratingResumeAction = () => {
+  return { type: ERROR_GENERATING_RESUME };
+}
+
+export const generatedResumeAction = () => {
+  return { type: GENERATED_RESUME };
+}
+
+
 export const generateResumeAction = () => {
-  console.log('Generate Resume')
-  return { type: OPEN_SIDEBAR }
+  let request_config = { ...REQUEST_CONFIGURATION };
+  return dispatch => {
+    dispatch(requestingResumeAction())
+    return fetch(`${process.env.REACT_APP_API_HOST}resume/`, request_config)
+      .then(
+        response => response.json(),
+        error => {
+          dispatch(errorRequestingResumeAction())
+          console.error(`There was an error requesting the resume.`, error)
+        }
+      )
+      .then(json => {
+        dispatch(receiveResumeAction(json))
+        dispatch(generatingResumeAction(json))
+        generateResume(json)
+        dispatch(generatedResumeAction())
+      })
+      .catch(error => {
+        dispatch(errorRequestingResumeAction())
+        console.error(`There was an error requesting the resume.`, error)
+      })
+  }
 }
 
 export const toggleSidebarAction = () => {
@@ -92,7 +145,7 @@ export const fetchProjectIfNeeded = (id) => {
 }
 
 export const fetchProject = (id) => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingProjectAction(id))
     return fetch(`${process.env.REACT_APP_API_HOST}projects/${id}/`, request_config)
@@ -124,7 +177,7 @@ export const errorRequestingProjectsAction = () => {
 }
 
 export const fetchProjects = () => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingProjectsAction())
     return fetch(`${process.env.REACT_APP_API_HOST}projects/`, request_config)
@@ -178,7 +231,7 @@ export const fetchExperienceIfNeeded = (id) => {
 }
 
 export const fetchExperience = (id) => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingExperienceAction(id))
     return fetch(`${process.env.REACT_APP_API_HOST}experience/${id}/`, request_config)
@@ -210,7 +263,7 @@ export const errorRequestingAllExperienceAction = () => {
 }
 
 export const fetchAllExperience = () => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingAllExperienceAction())
     return fetch(`${process.env.REACT_APP_API_HOST}experience/`, request_config)
@@ -264,7 +317,7 @@ export const fetchEducationIfNeeded = (id) => {
 }
 
 export const fetchEducation = (id) => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingEducationAction(id))
     return fetch(`${process.env.REACT_APP_API_HOST}education/${id}/`, request_config)
@@ -296,7 +349,7 @@ export const errorRequestingAllEducationAction = () => {
 }
 
 export const fetchAllEducation = () => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingAllEducationAction())
     return fetch(`${process.env.REACT_APP_API_HOST}education/`, request_config)
@@ -331,7 +384,7 @@ export const errorRequestingCommentsAction = (comments) => {
 }
 
 export const fetchComments = () => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingProfileAction())
     return fetch(`${process.env.REACT_APP_API_HOST}comments/`, request_config)
@@ -366,7 +419,7 @@ export const errorPublishingCommentAction = (errors) => {
 }
 
 export const publishComment = (data, resetForm) => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   request_config.method = "POST"
   request_config.body = JSON.stringify(data)
   request_config.headers = { ...REQUEST_CONFIGURATION.headers };
@@ -377,7 +430,7 @@ export const publishComment = (data, resetForm) => {
     return fetch(`${process.env.REACT_APP_API_HOST}comments/`, request_config)
       .then(
         response => {
-          if (response.status != 201) {
+          if (response.status !== 201) {
             // TODO: Wrap this around a try/catch.
             // This might be problematic if the response does not contain any JSON data.
             response.json().then(function(data) {
@@ -420,7 +473,7 @@ export const errorRequestingProfileAction = () => {
 }
 
 export const fetchProfile = () => {
-  var request_config = { ...REQUEST_CONFIGURATION };
+  let request_config = { ...REQUEST_CONFIGURATION };
   return dispatch => {
     dispatch(requestingProfileAction())
     return fetch(`${process.env.REACT_APP_API_HOST}profile/`, request_config)

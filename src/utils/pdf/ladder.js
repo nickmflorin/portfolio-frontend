@@ -1,5 +1,5 @@
-import { Styles } from './style'
-import { Doc } from './base'
+import { Styles } from './style';
+import { Doc } from './base';
 
 
 export class Rung extends Doc {
@@ -38,7 +38,7 @@ export class Ladder extends Doc {
     this.doc.setPage(this.rungs[0].pageNumber)
     this.doc.line(this.x0, this.y0, this.x0, this.rungs[0].y0 - Styles.circle.radius)
 
-    for (var i = 0; i < this.rungs.length; i++ ){
+    for (let i = 0; i < this.rungs.length; i++ ){
       this.rungs[i].draw({ x0: this.x0 })
 
       // Draw Connecting Line

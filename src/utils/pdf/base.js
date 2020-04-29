@@ -1,7 +1,7 @@
-import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files'
+import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files';
 
-import { Styles } from './style'
-import { strip } from './utils'
+import { Styles } from './style';
+import { strip } from './utils';
 
 
 export class Doc {
@@ -16,7 +16,7 @@ export class Doc {
   }
 
   get page() {
-    var pg = this.doc.internal.getCurrentPageInfo();
+    let pg = this.doc.internal.getCurrentPageInfo();
     return pg.pageNumber;
   }
 
@@ -82,7 +82,7 @@ export class Doc {
     return width
   }
 
-  text = async (value, { x0 = 0, textStyle = {} }) => {
+  text = (value, { x0 = 0, textStyle = {} }) => {
     const singleLineHeight = this.textHeight(value, { textStyle: textStyle })
     this.carriage.increment(singleLineHeight)
     this.setFont(textStyle)
@@ -90,50 +90,55 @@ export class Doc {
     this.carriage.increment(-1.0 * singleLineHeight)
   }
 
-  blockText = async (value, { x0 = 0, marginBottom = 0, textStyle = {} }) => {
-    await this.text(value, { x0: x0, textStyle: textStyle })
+  blockText = (value, { x0 = 0, marginBottom = 0, textStyle = {} }) => {
+    this.text(value, { x0: x0, textStyle: textStyle })
     const totalHeight = this.totalTextHeight(value, { x0: x0, textStyle: textStyle })
     this.carriage.increment(marginBottom + totalHeight)
   }
 
-  inlineText = async (value, { x0 = 0, textStyle = {} }) => {
-    await this.text(value, { x0: x0, textStyle: textStyle })
+  inlineText = (value, { x0 = 0, textStyle = {} }) => {
+    this.text(value, { x0: x0, textStyle: textStyle })
   }
 
-  description = async (value, options) => {
-    await this.blockText(strip(value), options)
+  description = (value, options) => {
+    this.blockText(strip(value), options)
   }
 
-  drawIcon = async (icon, { x0 = 0 }) => {
-    var extension = getFileExtension(icon)
-    var dimensions = await getImageDimensions(icon)
-    var data = await getBase64Encoded(icon)
+  drawIcon = (icon, { x0 = 0 }) => {
+    let self = this;
 
-    const width = dimensions.ratio * Styles.icon.size.height
-    const mid = this.carriage.y + 0.5 * Styles.icon.size.height
+    let extension = getFileExtension(icon)
 
-    // Not sure why we need the + 0.5 here but it makes it line up vertically.
-    const y0 = mid - 0.5 * Styles.icon.size.height + 0.5
-    this.doc.addImage(data, extension, x0, y0, width, Styles.icon.size.height);
+    // TODO: Catch error.  If there is an error loading the image, use a placeholder image.
+    getImageDimensions(icon).then((dimensions) => {
+      getBase64Encoded(icon).then((data) => {
+        const width = dimensions.ratio * Styles.icon.size.height
+        const mid = self.carriage.y + 0.5 * Styles.icon.size.height
+
+        // Not sure why we need the + 0.5 here but it makes it line up vertically.
+        const y0 = mid - 0.5 * Styles.icon.size.height + 0.5
+        self.doc.addImage(data, extension, x0, y0, width, Styles.icon.size.height);
+      })
+    })
   }
 
-  drawInline = async (inline, { x0 = 0, spacing = 0, textStyle = {} }) => {
+  drawInline = (inline, { x0 = 0, spacing = 0, textStyle = {} }) => {
     if (inline.icon) {
-      await this.drawIcon(inline.icon, { x0: x0 })
+      this.drawIcon(inline.icon, { x0: x0 })
       x0 = x0 + Styles.icon.size.width + spacing
     }
-    await this.inlineText(inline.text, { x0: x0, textStyle: textStyle })
+    this.inlineText(inline.text, { x0: x0, textStyle: textStyle })
   }
 
-  drawInlines = async (inlines, { x0 = 0, marginBottom = 0, iconMargin = 0, spacing = 0, textStyle = {} }) => {
-    var fullText = ""
-    for (var i = 0; i < inlines.length; i++ ){
-      await this.drawInline(inlines[i], { x0: x0, spacing: iconMargin, textStyle: textStyle })
+  drawInlines = (inlines, { x0 = 0, marginBottom = 0, iconMargin = 0, spacing = 0, textStyle = {} }) => {
+    let fullText = ""
+    for (let i = 0; i < inlines.length; i++ ){
+      this.drawInline(inlines[i], { x0: x0, spacing: iconMargin, textStyle: textStyle })
       const width = this.textWidth(inlines[i].text, { textStyle: textStyle })
       x0 = x0 + width + Styles.icon.size.width + iconMargin + spacing
       fullText = fullText + inlines[i].text
     }
-    var lineHeight = this.textHeight(fullText, { textStyle: textStyle })  // Use First Text as Approximation
+    let lineHeight = this.textHeight(fullText, { textStyle: textStyle })  // Use First Text as Approximation
     this.carriage.increment(lineHeight)
     this.carriage.increment(marginBottom + Styles.icon.size.height)
   }

@@ -30,7 +30,7 @@ const SideBarButton = ({ closeSidebar, ...props }) => {  // eslint-disable-line
   )
 }
 
-const mapStateToProps = () => {};
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   closeSidebar: () => closeSidebarAction(),

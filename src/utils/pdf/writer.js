@@ -1,45 +1,40 @@
 import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files'
-import { getProfile } from 'services'
 
 import { Styles } from './style'
-import { Gutters, Colors, Icons, PageBreakThreshold, FOOTER_TEXT } from './constants'
+import { Gutters, Icons, PageBreakThreshold, FOOTER_TEXT } from './constants'
 import { ExperienceSection, EducationSection } from './section'
 import { Doc } from './base'
 
 
 export class PdfWriter extends Doc {
 
-  constructor(config){
-    super(config)
-    this.sections = [
-      new ExperienceSection(this.config),
-      new EducationSection(this.config),
-    ]
-  }
-
-  pageBreak = async () => {
+  pageBreak = () => {
     this.doc.addPage()
     this.carriage.moveTo(this.frames.page.y0)
-    await this.header({ marginBottom: 1 })
   }
 
-  conditionalPageBreak = async () => {
+  conditionalPageBreak = () => {
     if (this.carriage.y > PageBreakThreshold * Styles.page.size.height) {
       this.doc.addPage()
       this.carriage.moveTo(this.frames.page.y0)
     }
   }
 
-  drawLogo = async (logo, { x0 = 0 }) => {
-    var extension = getFileExtension(logo)
-    var dimensions = await getImageDimensions(logo)
-    var data = await getBase64Encoded(logo)
+  drawLogo = (logo, { x0 = 0 }) => {
+    var self = this;
 
-    // Width should remain constant, height varies to maintain aspect ratio.
-    const height = dimensions.inverseRatio * Styles.brand.size.width
-    const mid = this.carriage.y + 0.5 * Styles.brand.size.height  // Desired vertical center location of image.
-    const y0 = mid - 0.5 * height
-    this.doc.addImage(data, extension, x0, y0, Styles.brand.size.width, height);
+    let extension = getFileExtension(logo)
+
+    // TODO: Catch error.  If there is an error loading the image, use a placeholder image.
+    getImageDimensions(logo).then((dimensions) => {
+      getBase64Encoded(logo).then((data) => {
+        // Width should remain constant, height varies to maintain aspect ratio.
+        const height = dimensions.inverseRatio * Styles.brand.size.width
+        const mid = self.carriage.y + 0.5 * Styles.brand.size.height  // Desired vertical center location of image.
+        const y0 = mid - 0.5 * height
+        self.doc.addImage(data, extension, x0, y0, Styles.brand.size.width, height);
+      })
+    })
   }
 
   inlines = (profile) => {
@@ -58,7 +53,7 @@ export class PdfWriter extends Doc {
     ]
   }
 
-  footer = async () => {
+  footer = () => {
 
     const width = this.textWidth(FOOTER_TEXT, { textStyle: Styles.footer.textStyle })
     const height = this.textHeight(FOOTER_TEXT, { textStyle: Styles.footer.textStyle })
@@ -69,13 +64,12 @@ export class PdfWriter extends Doc {
     this.doc.text(x0, y0, FOOTER_TEXT)
   }
 
-  header = async ({ marginBottom = 0 }) => {
-    const profile = await getProfile()
-    await this.drawLogo(profile.logo, { x0: this.frames.page.x0 })
+  header = (profile, { marginBottom = 0 }) => {
+    this.drawLogo(profile.logo, { x0: this.frames.page.x0 })
 
     const firstNamePart = `${profile.first_name} ${profile.middle_name[0]}.`
 
-    await this.inlineText(firstNamePart, {
+    this.inlineText(firstNamePart, {
       x0: Gutters.page.left + Styles.brand.size.width + 3,
       textStyle: Styles.firstName.textStyle,
     })
@@ -83,7 +77,7 @@ export class PdfWriter extends Doc {
       textStyle: Styles.firstName.textStyle
     })
 
-    await this.inlineText(profile.last_name.toUpperCase(), {
+    this.inlineText(profile.last_name.toUpperCase(), {
       x0: this.frames.page.x0 + Styles.brand.size.width + 3 + width + 1,
       textStyle: Styles.lastName.textStyle
     })
@@ -96,7 +90,7 @@ export class PdfWriter extends Doc {
     // TODO: Create Constant
     this.carriage.increment(4) // Spacing Between Name and Tagline
 
-    await this.blockText(profile.tagline, {
+    this.blockText(profile.tagline, {
       x0: this.frames.page.x0 + Styles.brand.size.width + 3,
       textStyle: Styles.tagline.textStyle
     })
@@ -104,7 +98,7 @@ export class PdfWriter extends Doc {
     // TODO: Create Constant
     this.carriage.increment(4) // Spacing Between Tagline and Inlines
 
-    await this.drawInlines(this.inlines(profile)[0], {
+    this.drawInlines(this.inlines(profile)[0], {
       x0: this.frames.page.x0 + Styles.brand.size.width + 3,
       iconMargin: 3,
       spacing: 6,
@@ -114,7 +108,7 @@ export class PdfWriter extends Doc {
     // TODO: Create Constant
     this.carriage.increment(-2) // Inline rows are spaced too far apart...
 
-    await this.drawInlines(this.inlines(profile)[1], {
+    this.drawInlines(this.inlines(profile)[1], {
       x0: this.frames.page.x0 + Styles.brand.size.width + 3,
       iconMargin: 3,
       spacing: 6,
@@ -124,15 +118,18 @@ export class PdfWriter extends Doc {
     this.carriage.increment(marginBottom)
   }
 
-  write = async () => {
-    await this.header({ marginBottom: 1 })
-    for (var i = 0; i < this.sections.length; i++ ){
-      await this.sections[i].write({ marginBottom: -2 })
-      if (i != this.sections.length - 1) {
-        await this.footer()
-        await this.pageBreak()
-      }
-    }
-    await this.footer()
+  write = (data) => {
+    const experienceSection = new ExperienceSection(this.config)
+    const educationSection = new EducationSection(this.config)
+
+    this.header(data.profile, { marginBottom: 1 })
+    experienceSection.write(data.experience, {})
+    this.footer()
+
+    this.pageBreak()
+
+    this.header(data.profile, { marginBottom: 1 })
+    educationSection.write(data.education, {})
+    this.footer()
   }
 }

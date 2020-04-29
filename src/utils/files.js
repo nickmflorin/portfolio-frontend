@@ -6,13 +6,14 @@ export const getFileExtension = (filename) => {
 };
 
 export const isImageFile = (file) => {
-  var ext = getFileExtension(file)
+  let ext = getFileExtension(file)
   return (IMAGE_EXTENSIONS.indexOf(ext.toLowerCase()) !== -1)
 };
 
+
 export function getImageDimensions(file) {
-  return new Promise (function (resolved, rejected) {
-    var i = new Image()
+  return new Promise (function (resolved, reject) {
+    let i = new Image()
     i.onload = function(){
       resolved({
         width: i.width,
@@ -21,21 +22,27 @@ export function getImageDimensions(file) {
         inverseRatio: i.height/i.width,
       })
     };
+    i.onerror = function(){
+      reject(new Error('Could not load image at ' + file));
+    }
     i.src = file
   })
 };
 
-export function getBase64Encoded(url, callback) {
-  return new Promise (function (resolved, rejected) {
-    var xhr = new XMLHttpRequest();
+export function getBase64Encoded(url) {
+  return new Promise (function (resolved, reject) {
+    let xhr = new XMLHttpRequest();
 
     xhr.onload = function() {
-      var reader = new FileReader();
+      let reader = new FileReader();
       reader.onloadend = function() {
         resolved(reader.result);
       }
       reader.readAsDataURL(xhr.response);
     };
+    xhr.onerror = function(){
+      reject(new Error('Could not load image at ' + url));
+    }
     xhr.open('GET', url);
     xhr.responseType = 'blob';
     xhr.send();

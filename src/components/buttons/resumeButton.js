@@ -9,11 +9,10 @@ const ResumeButton = (props) => (
   </a>
 )
 
-const mapStateToProps = () => {}
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = {
   generateResume: () => generateResumeAction(),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResumeButton);
-

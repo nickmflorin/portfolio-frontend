@@ -25,7 +25,7 @@ const SideBarResumeButton = (props) => {
   )
 }
 
-const mapStateToProps = () => {}
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = {
   generateResume: () => generateResumeAction(),

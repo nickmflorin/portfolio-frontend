@@ -31,7 +31,6 @@ const TextualInput = ({
   responseError,
   ...props
 }) => {
-  console.log(responseError)
   return (
     <BootstrapForm.Group as={BootstrapForm.Row} style={{display: "block"}}>
       {props.label && (

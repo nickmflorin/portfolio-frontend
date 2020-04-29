@@ -1,12 +1,12 @@
-import _ from 'underscore'
+import _ from 'underscore';
 
-import { formatDegree, formatDateRange, formatGpa } from 'utils/formatting'
-import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files'
+import { formatDegree, formatDateRange, formatGpa } from 'utils/formatting';
+import { getFileExtension, getImageDimensions, getBase64Encoded } from 'utils/files';
 
-import { Styles } from './style'
-import { Icons, Colors } from './constants'
-import { Doc } from './base'
-import { Ladder, Rung } from './ladder'
+import { Styles } from './style';
+import { Icons, Colors } from './constants';
+import { Doc } from './base';
+import { Ladder, Rung } from './ladder';
 
 
 class Project extends Doc {
@@ -15,7 +15,7 @@ class Project extends Doc {
     this.name = name
     this.desc = desc
   }
-  write = async ({ x0 = 0, marginBottom=0 }) => {
+  write = ({ x0 = 0, marginBottom=0 }) => {
 
     const y0 = this.carriage.y // Store Ref for Lines
     const nameHeight = this.textHeight(this.name, { textStyle: Styles.projectTitle.textStyle })
@@ -26,12 +26,12 @@ class Project extends Doc {
       y0: y0 + 0.5 * (nameHeight + descHeight)
     })
 
-    await this.blockText(this.name, {
+    this.blockText(this.name, {
       x0: x0,
       textStyle: Styles.projectTitle.textStyle,
       marginBottom: 2,
     })
-    await this.description(this.desc, {
+    this.description(this.desc, {
       x0: x0,
       textStyle: Styles.body.textStyle
     })
@@ -53,7 +53,7 @@ class Skill extends Doc {
     this.height = this.textH + 2.0 * Styles.skill.padding.y
   }
 
-  write = async({ x0 = 0 }) => {
+  write = ({ x0 = 0 }) => {
     this.doc.setFillColor(Styles.skill.fillColor)
     this.setFont(Styles.skill.textStyle)
 
@@ -95,61 +95,66 @@ class Item extends Doc {
     return _.filter(this.obj.projects, (project) => project.include_in_resume)
   }
 
-  writeProjects = async ({ marginBottom = 0, ...options }) => {
+  writeProjects = ({ marginBottom = 0, ...options }) => {
 
-    if (this.projects.length != 0) {
+    if (this.projects.length !== 0) {
       for (var i = 0; i < this.projects.length; i++) {
         const description = this.projects[i].resume_description || this.projects[i].description
         const project = new Project(this.config, this.projects[i].name, description)
 
         let rung = null;
-        if (i != this.projects.length - 1) {
-          rung = await project.write({ marginBottom: 6, ...options })
+        if (i !== this.projects.length - 1) {
+          rung = project.write({ marginBottom: 6, ...options })
         }
         else {
-          rung = await project.write({ marginBottom: 0, ...options })
+          rung = project.write({ marginBottom: 0, ...options })
         }
 
         this.ladder.addRung(rung)
       }
       if (this.ladder.rungs.length !== 0){
-          await this.ladder.draw()
+          this.ladder.draw()
       }
       this.carriage.increment(marginBottom)
     }
   }
 
-  header = async ({ x0 = 0, marginBottom = 0 }) => {
+  header = ({ x0 = 0, marginBottom = 0 }) => {
 
-    const drawLogo = async ({ x0 = 0 }) => {
-      var extension = getFileExtension(this.logo)
-      var dimensions = await getImageDimensions(this.logo)
-      var data = await getBase64Encoded(this.logo)
+    const drawLogo = ({ x0 = 0 }) => {
+      let self = this;
 
-      // Width should remain constant, height varies to maintain aspect ratio.
-      const height = dimensions.inverseRatio * Styles.logo.size.width
-      const mid = this.carriage.y + 0.5 * Styles.logo.size.height  // Desired vertical center location of image.
+      let extension = getFileExtension(this.logo)
 
-      const y0 = mid - 0.5 * height
-      this.doc.addImage(data, extension, x0, y0, Styles.logo.size.width, height);
+      // TODO: Catch error.  If there is an error loading the image, use a placeholder image.
+      getImageDimensions(this.logo).then((dimensions) => {
+        getBase64Encoded(this.logo).then((data) => {
+          // Width should remain constant, height varies to maintain aspect ratio.
+          const height = dimensions.inverseRatio * Styles.logo.size.width
+          const mid = self.carriage.y + 0.5 * Styles.logo.size.height  // Desired vertical center location of image.
+
+          const y0 = mid - 0.5 * height
+          self.doc.addImage(data, extension, x0, y0, Styles.logo.size.width, height);
+        })
+      })
     }
 
-    await drawLogo({ x0: x0 })
+    drawLogo({ x0: x0 })
     x0 = this.frames.textContent.x0
 
-    await this.blockText(this.title, {
+    this.blockText(this.title, {
       x0: x0,
       marginBottom: Styles.title.margin.bottom,
       textStyle: Styles.title.textStyle
     })
-    await this.blockText(this.subtitle, {
+    this.blockText(this.subtitle, {
       x0: x0,
       marginBottom: Styles.subtitle.margin.bottom,
       textStyle: Styles.subtitle.textStyle
     })
 
     if (this.inlines.length !== 0) {
-      await this.drawInlines(this.inlines, {
+      this.drawInlines(this.inlines, {
         x0: x0,
         iconMargin: 3,
         spacing: 8,
@@ -159,24 +164,24 @@ class Item extends Doc {
     this.carriage.increment(marginBottom)
   }
 
-  writeSkills = async({ x0 = 0, marginBottom = 0 }) => {
+  writeSkills = ({ x0 = 0, marginBottom = 0 }) => {
 
     const originalX0 = x0
     let y0 = this.carriage.y
 
     var skills = [];
-    if (this.obj.skills.length != 0) {
+    if (this.obj.skills.length !== 0) {
       for (var i = 0; i < this.obj.skills.length; i++ ){
         const skill = new Skill(this.config, this.obj.skills[i].name)
 
         // Adjust for New Line
-        if ( x0 + skill.width + Styles.skills.padding.x > this.frames.content.x1 && i != this.obj.skills.length - 1) {
+        if ( x0 + skill.width + Styles.skills.padding.x > this.frames.content.x1 && i !== this.obj.skills.length - 1) {
           x0 = originalX0
           if (skills.length >= 1) {
             this.carriage.increment(skills[i - 1].height + Styles.skills.padding.y)  // Vertical Padding
           }
         }
-        await skill.write({ x0: x0 })
+        skill.write({ x0: x0 })
         x0 = x0 + skill.width + Styles.skills.padding.x // Horizontal Padding
         skills.push(skill)
       }
@@ -186,28 +191,28 @@ class Item extends Doc {
     }
   }
 
-  write = async ({ x0 = 0, marginBottom=0 }) => {
+  write = ({ x0 = 0, marginBottom=0 }) => {
     const rungY = this.carriage.y + 0.5 * Styles.logo.size.height
 
-    await this.header({x0: x0, marginBottom: 0})
+    this.header({x0: x0, marginBottom: 0})
     // Wait Until Carriage Below Header
     this.ladder = new Ladder(this.config, {
       x0: x0 + 0.5 * Styles.logo.size.width,
       y0: this.carriage.y
     })
 
-    await this.writeDescription({
+    this.writeDescription({
       marginBottom: 6,
       x0: x0 + Styles.logo.size.width + Styles.logo.margin.right,
       textStyle: Styles.body.textStyle,
     })
 
-    await this.writeProjects({
+    this.writeProjects({
       marginBottom: 10,
       x0: x0 + Styles.logo.size.width + Styles.logo.margin.right
     })
 
-    await this.writeSkills({
+    this.writeSkills({
       marginBottom: 6,
       x0: x0 + Styles.logo.size.width + Styles.logo.margin.right
     })
@@ -245,14 +250,14 @@ export class ExperienceItem extends Item {
     ]
   }
 
-  writeDescription = async ({ marginBottom = 0, ...options }) => {
+  writeDescription = ({ marginBottom = 0, ...options }) => {
     // Right now, we do not want to include the company description if the
     // experience has a description.
     if (this.obj.description) {
-      await this.description(this.obj.description, options)
+      this.description(this.obj.description, options)
     }
     else if (this.obj.company.description) {
-      await this.description(this.obj.company.description, options)
+      this.description(this.obj.company.description, options)
     }
     this.carriage.increment(marginBottom)
   }
@@ -284,18 +289,18 @@ export class EducationItem extends Item {
     ]
   }
 
-  writeDescription = async ({ marginBottom = 0, ...options }) => {
+  writeDescription = ({ marginBottom = 0, ...options }) => {
     if (this.obj.description) {
-      await this.description(this.obj.description, options)
+      this.description(this.obj.description, options)
     }
     else if (this.obj.school.description) {
-      await this.description(this.obj.school.description, options)
+      this.description(this.obj.school.description, options)
     }
     if (this.obj.minor) {
-      await this.description(`Minor in ${this.obj.minor}`, options)
+      this.description(`Minor in ${this.obj.minor}`, options)
     }
     if (this.obj.concentration) {
-      await this.description(`Concentration in ${this.obj.concentration}`, options)
+      this.description(`Concentration in ${this.obj.concentration}`, options)
     }
     this.carriage.increment(marginBottom)
   }

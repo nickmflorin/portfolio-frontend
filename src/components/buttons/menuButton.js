@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import { toggleSidebarAction } from 'actions'
+import { toggleSidebarAction } from "actions";
 
 const MenuButton = (props) => (  // eslint-disable-line
   <a className="menu-button" onClick={props.toggleSidebar}>
@@ -11,7 +11,7 @@ const MenuButton = (props) => (  // eslint-disable-line
   </a>
 )
 
-const mapStateToProps = () => {};
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   toggleSidebar: () => toggleSidebarAction(),

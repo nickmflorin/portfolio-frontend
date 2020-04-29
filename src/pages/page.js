@@ -59,7 +59,7 @@ Page.Content.Right = (props) => ( // eslint-disable-line
   </Col>
 )
 
-const mapStateToProps = () => {}
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   closeSidebar: () => closeSidebarAction(),
