@@ -21,7 +21,7 @@ export class PdfWriter extends Doc {
   }
 
   drawLogo = (logo, { x0 = 0 }) => {
-    var self = this;
+    let self = this;
 
     let extension = getFileExtension(logo)
 
