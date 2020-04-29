@@ -4,7 +4,7 @@ import { isNil } from 'lodash';
 
 import {faBriefcase, faFilePdf, faGraduationCap, faHammer, faHome} from "@fortawesome/free-solid-svg-icons";
 import {Education, Experience, Landing, Projects} from "pages";
-import { sortExperienceEducation } from 'utils'
+import { sortExperienceEducation } from 'utils';
 
 import {
   REQUESTING_PROFILE,
@@ -34,6 +34,9 @@ import {
   REQUESTING_PROJECT,
   RECEIVED_PROJECT,
   ERROR_REQUESTING_PROJECT,
+  TOGGLE_SIDEBAR,
+  OPEN_SIDEBAR,
+  CLOSE_SIDEBAR,
 } from 'actions'
 
 const NavBarItems = [
@@ -65,14 +68,15 @@ const NavBarItems = [
     icon: faHammer,
     page: Projects,
   },
-  {
-    id: 'resume',
-    label: 'Resume',
-    icon: faFilePdf,
-  }
+  // {
+  //   id: 'resume',
+  //   label: 'Resume',
+  //   icon: faFilePdf,
+  // }
 ]
 
 const initialState = {
+  sidebar: false,
   navbar: {
     items: NavBarItems,
   },
@@ -94,6 +98,16 @@ const initialState = {
   },
 }
 
+const sidebarReducer = (state = initialState.sidebar, action) => {
+  if (action.type === CLOSE_SIDEBAR){
+    return false;
+  } else if (action.type === OPEN_SIDEBAR){
+    return true;
+  } else if (action.type === TOGGLE_SIDEBAR){
+    return !state;
+  }
+  return state;
+}
 
 const navbarItemsReducer = (state = initialState.navbar, action) => {
   const newState = { ...state };
@@ -104,13 +118,13 @@ const navbarItemsReducer = (state = initialState.navbar, action) => {
 const loadingReducer = (state=initialState.loading, action) => {
   if (action.type === REQUESTING_PROFILE) {
     return true;
-  } else if (action.type == REQUESTING_COMMENTS) {
+  } else if (action.type === REQUESTING_COMMENTS) {
     return true;
-  } else if (action.type == REQUESTING_ALL_EXPERIENCE) {
+  } else if (action.type === REQUESTING_ALL_EXPERIENCE) {
     return true;
-  } else if (action.type == REQUESTING_ALL_EDUCATION) {
+  } else if (action.type === REQUESTING_ALL_EDUCATION) {
     return true;
-  } else if (action.type == REQUESTING_PROJECTS) {
+  } else if (action.type === REQUESTING_PROJECTS) {
     return true;
   } else if (action.type === REQUESTING_EDUCATION) {
     return true;
@@ -120,7 +134,7 @@ const loadingReducer = (state=initialState.loading, action) => {
     return true;
   } else if (action.type === RECEIVED_PROFILE) {
     return false;
-  } else if (action.type == ERROR_REQUESTING_PROFILE) {
+  } else if (action.type === ERROR_REQUESTING_PROFILE) {
     return false;
   } else if (action.type === RECEIVED_COMMENTS) {
     return false;
@@ -217,6 +231,7 @@ const projectsReducer = (state = initialState.experience, action) => {
 }
 
 export default combineReducers({
+  sidebar: sidebarReducer,
   navbar: navbarItemsReducer,
   profile: profileReducer,
   loading: loadingReducer,

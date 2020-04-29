@@ -9,7 +9,6 @@ import Page from './page'
 
 import { fetchAllEducation } from 'actions'
 
-
 class Education extends React.Component {
 
   componentDidMount() {

@@ -1,10 +1,13 @@
 import React from 'react';
+import { connect } from "react-redux";
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-var classNames = require('classnames');
+import { closeSidebarAction } from "actions";
 
+var classNames = require('classnames');
 
 export class Page extends React.Component {
   constructor(props, context) {
@@ -21,7 +24,7 @@ export class Page extends React.Component {
   }
   handleClickInside(event) {
     if (this.ref.current && this.ref.current.contains(event.target)) {
-      this.props.onPageAreaClick(event)
+      this.props.closeSidebar()
     }
   }
   render() {
@@ -56,4 +59,10 @@ Page.Content.Right = (props) => ( // eslint-disable-line
   </Col>
 )
 
-export default Page;
+const mapStateToProps = () => {}
+
+const mapDispatchToProps = {
+  closeSidebar: () => closeSidebarAction(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

@@ -4,11 +4,10 @@ import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
 import { pick } from "lodash";
 
+import { fetchAllExperience } from "actions";
 import { ExperienceItem } from 'components/items'
 
 import Page from './page'
-import { fetchAllExperience } from "actions";
-
 
 class Experience extends React.Component {
 

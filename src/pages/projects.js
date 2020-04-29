@@ -12,7 +12,6 @@ import ErrorBoundary from 'components/errorBoundary'
 
 import Page from './page'
 
-
 class Projects extends React.Component {  // eslint-disable-line
 
   componentDidMount() {

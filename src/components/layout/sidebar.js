@@ -1,60 +1,33 @@
 import React from 'react';
+import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import { pick } from "lodash";
 
-import { SideBarButton } from 'components/buttons'
+import SideBarButton from 'components/buttons/sidebarButton'
 import './sidebar.sass'
 
 var classNames = require('classnames')
 
+const SideBar = (props) => (
+  <div className={classNames('sidebar', props.sidebar ? 'visible' : 'invisible')}>
+    {props.navbar.items.map((item) => {
+      return (
+        <div className="button-container" key={item.id}>
+          <SideBarButton
+            external={item.external}
+            icon={item.icon}
+            label={item.label}
+            url={item.url}
+          />
+        </div>
+      )
+    })}
+  </div>
+)
 
-class SideBar extends React.Component {
 
-  static propTypes = {
-    items: PropTypes.array.isRequired,  // eslint-disable-line
-    onSideBarItemClick: PropTypes.func.isRequired,
-  }
+const mapStateToProps = state => pick(state, ['sidebar', 'navbar'])
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {visible: false}
-  }
-  toggle(){
-    if (this.state.visible) {
-      this.setState({ visible: false })
-    }
-    else {
-      this.setState({ visible: true })
-    }
-  }
-  showIfHidden(){
-    if (this.state.visible === false) {
-      this.setState({ visible: true })
-    }
-  }
-  hideIfShowing(){
-    if (this.state.visible === true) {
-      this.setState({ visible: false })
-    }
-  }
-  render() {
-    return (
-      <div className={classNames('sidebar', this.state.visible ? 'visible' : 'invisible')}>
-        {this.props.items.map((item) => {
-          return (
-            <div className="button-container" key={item.id}>
-              <SideBarButton
-                external={item.external}
-                icon={item.icon}
-                label={item.label}
-                onClick={this.props.onSideBarItemClick}
-                url={item.url}
-              />
-            </div>
-          )
-        })}
-      </div>
-    );
-  }
-}
+const mapDispatchToProps = {};
 
-export default SideBar;
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

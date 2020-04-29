@@ -39,6 +39,26 @@ export const REQUESTING_PROJECT = "REQUESTING_PROJECT";
 export const RECEIVED_PROJECT = "RECEIVED_PROJECT";
 export const ERROR_REQUESTING_PROJECT = "ERROR_REQUESTING_PROJECT";
 
+export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR"
+export const CLOSE_SIDEBAR = "CLOSE_SIDEBAR"
+export const OPEN_SIDEBAR = "OPEN_SIDEBAR"
+
+export const generateResumeAction = () => {
+  console.log('Generate Resume')
+  return { type: OPEN_SIDEBAR }
+}
+
+export const toggleSidebarAction = () => {
+  return { type: TOGGLE_SIDEBAR };
+}
+
+export const closeSidebarAction = () => {
+  return { type: CLOSE_SIDEBAR };
+}
+
+export const openSidebarAction = () => {
+  return { type: OPEN_SIDEBAR };
+}
 
 export const requestingProjectAction = (id) => {
   return { type: REQUESTING_PROJECT, value: id };

@@ -11,7 +11,6 @@ import Banner from 'components/landing/banner'
 
 import Page from './page'
 
-
 class Landing extends React.Component {
 
   componentDidMount() {
