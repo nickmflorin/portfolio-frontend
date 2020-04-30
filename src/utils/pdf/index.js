@@ -19,7 +19,7 @@ import { Carriage } from './carriage'
 import { Gutters, DocConfig } from './constants'
 
 
-export const generateResume = (resume) => {
+export const generateResume = async (resume) => {
   const doc = new jsPDF(DocConfig)
 
   let config = {
@@ -50,7 +50,7 @@ export const generateResume = (resume) => {
 
   config.carriage = new Carriage(config.frames.page.coordinates.y0)
   const writer = new PdfWriter(config)
-  writer.write(resume)
+  await writer.write(resume)
 
   doc.save('Resume.pdf');
 }

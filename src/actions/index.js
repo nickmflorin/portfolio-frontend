@@ -92,7 +92,13 @@ export const generateResumeAction = () => {
         dispatch(receiveResumeAction(json))
         dispatch(generatingResumeAction(json))
         generateResume(json)
-        dispatch(generatedResumeAction())
+          .then(() => {
+            dispatch(generatedResumeAction())
+          })
+          .catch((error) => {
+            dispatch(errorGeneratingResumeAction())
+            console.error(`There was an error generating the resume.`, error)
+          })
       })
       .catch(error => {
         dispatch(errorRequestingResumeAction())

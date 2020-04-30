@@ -119,27 +119,22 @@ class Item extends Doc {
     }
   }
 
-  header = ({ x0 = 0, marginBottom = 0 }) => {
+  header = async ({ x0 = 0, marginBottom = 0 }) => {
 
-    const drawLogo = ({ x0 = 0 }) => {
-      let self = this;
-
+    const drawLogo = async ({ x0 = 0 }) => {
       let extension = getFileExtension(this.logo)
+      let dimensions = await getImageDimensions(this.logo)
+      let data = await getBase64Encoded(this.logo)
 
-      // TODO: Catch error.  If there is an error loading the image, use a placeholder image.
-      getImageDimensions(this.logo).then((dimensions) => {
-        getBase64Encoded(this.logo).then((data) => {
-          // Width should remain constant, height varies to maintain aspect ratio.
-          const height = dimensions.inverseRatio * Styles.logo.size.width
-          const mid = self.carriage.y + 0.5 * Styles.logo.size.height  // Desired vertical center location of image.
+      // Width should remain constant, height varies to maintain aspect ratio.
+      const height = dimensions.inverseRatio * Styles.logo.size.width
+      const mid = this.carriage.y + 0.5 * Styles.logo.size.height  // Desired vertical center location of image.
 
-          const y0 = mid - 0.5 * height
-          self.doc.addImage(data, extension, x0, y0, Styles.logo.size.width, height);
-        })
-      })
+      const y0 = mid - 0.5 * height
+      this.doc.addImage(data, extension, x0, y0, Styles.logo.size.width, height);
     }
 
-    drawLogo({ x0: x0 })
+    await drawLogo({ x0: x0 })
     x0 = this.frames.textContent.x0
 
     this.blockText(this.title, {
@@ -154,7 +149,7 @@ class Item extends Doc {
     })
 
     if (this.inlines.length !== 0) {
-      this.drawInlines(this.inlines, {
+      await this.drawInlines(this.inlines, {
         x0: x0,
         iconMargin: 3,
         spacing: 8,
@@ -169,9 +164,9 @@ class Item extends Doc {
     const originalX0 = x0
     let y0 = this.carriage.y
 
-    var skills = [];
+    let skills = [];
     if (this.obj.skills.length !== 0) {
-      for (var i = 0; i < this.obj.skills.length; i++ ){
+      for (let i = 0; i < this.obj.skills.length; i++ ){
         const skill = new Skill(this.config, this.obj.skills[i].name)
 
         // Adjust for New Line
@@ -191,10 +186,10 @@ class Item extends Doc {
     }
   }
 
-  write = ({ x0 = 0, marginBottom=0 }) => {
+  write = async ({ x0 = 0, marginBottom=0 }) => {
     const rungY = this.carriage.y + 0.5 * Styles.logo.size.height
 
-    this.header({x0: x0, marginBottom: 0})
+    await this.header({x0: x0, marginBottom: 0})
     // Wait Until Carriage Below Header
     this.ladder = new Ladder(this.config, {
       x0: x0 + 0.5 * Styles.logo.size.width,

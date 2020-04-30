@@ -104,36 +104,30 @@ export class Doc {
     this.blockText(strip(value), options)
   }
 
-  drawIcon = (icon, { x0 = 0 }) => {
-    let self = this;
-
+  drawIcon = async (icon, { x0 = 0 }) => {
     let extension = getFileExtension(icon)
+    let dimensions = await getImageDimensions(icon)
+    let data = await getBase64Encoded(icon)
+    const width = dimensions.ratio * Styles.icon.size.height
+    const mid = this.carriage.y + 0.5 * Styles.icon.size.height
 
-    // TODO: Catch error.  If there is an error loading the image, use a placeholder image.
-    getImageDimensions(icon).then((dimensions) => {
-      getBase64Encoded(icon).then((data) => {
-        const width = dimensions.ratio * Styles.icon.size.height
-        const mid = self.carriage.y + 0.5 * Styles.icon.size.height
-
-        // Not sure why we need the + 0.5 here but it makes it line up vertically.
-        const y0 = mid - 0.5 * Styles.icon.size.height + 0.5
-        self.doc.addImage(data, extension, x0, y0, width, Styles.icon.size.height);
-      })
-    })
+    // Not sure why we need the + 0.5 here but it makes it line up vertically.
+    const y0 = mid - 0.5 * Styles.icon.size.height + 0.5
+    this.doc.addImage(data, extension, x0, y0, width, Styles.icon.size.height);
   }
 
-  drawInline = (inline, { x0 = 0, spacing = 0, textStyle = {} }) => {
+  drawInline = async (inline, { x0 = 0, spacing = 0, textStyle = {} }) => {
     if (inline.icon) {
-      this.drawIcon(inline.icon, { x0: x0 })
+      await this.drawIcon(inline.icon, { x0: x0 })
       x0 = x0 + Styles.icon.size.width + spacing
     }
     this.inlineText(inline.text, { x0: x0, textStyle: textStyle })
   }
 
-  drawInlines = (inlines, { x0 = 0, marginBottom = 0, iconMargin = 0, spacing = 0, textStyle = {} }) => {
+  drawInlines = async (inlines, { x0 = 0, marginBottom = 0, iconMargin = 0, spacing = 0, textStyle = {} }) => {
     let fullText = ""
     for (let i = 0; i < inlines.length; i++ ){
-      this.drawInline(inlines[i], { x0: x0, spacing: iconMargin, textStyle: textStyle })
+      await this.drawInline(inlines[i], { x0: x0, spacing: iconMargin, textStyle: textStyle })
       const width = this.textWidth(inlines[i].text, { textStyle: textStyle })
       x0 = x0 + width + Styles.icon.size.width + iconMargin + spacing
       fullText = fullText + inlines[i].text

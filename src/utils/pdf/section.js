@@ -59,7 +59,7 @@ class Section extends Doc {
 
 export class ExperienceSection extends Section {
 
-  write = (data, { marginBottom = 0 }) => {
+  write = async (data, { marginBottom = 0 }) => {
     // Quarter of the way in between page left and content left looks good.
     const x = this.frames.page.x0 + 0.25 * (this.frames.content.x0 - this.frames.page.x0)
     this.ladder = new Ladder(this.config, { x0: x, y0: this.carriage.y })
@@ -69,7 +69,7 @@ export class ExperienceSection extends Section {
     data = sortExperienceEducation(data)
     for (let i = 0; i < data.length; i++) {
       const item = new ExperienceItem(this.config, data[i])
-      const rung = item.write({
+      const rung = await item.write({
         x0: this.frames.content.x0,
         marginBottom: 2
       })
@@ -85,7 +85,7 @@ export class ExperienceSection extends Section {
 
 export class EducationSection extends Section {
 
-  write = (data, { marginBottom = 0 }) => {
+  write = async (data, { marginBottom = 0 }) => {
     // Quarter of the way in between page left and content left looks good.
     const x = this.frames.page.x0 + 0.25 * (this.frames.content.x0 - this.frames.page.x0)
     this.ladder = new Ladder(this.config, { x0: x, y0: this.carriage.y })
@@ -95,7 +95,7 @@ export class EducationSection extends Section {
     data = sortExperienceEducation(data)
     for (let i = 0; i < data.length; i++) {
       const item = new EducationItem(this.config, data[i])
-      const rung = item.write({
+      const rung = await item.write({
         x0: this.frames.content.x0,
         marginBottom: 2
       })

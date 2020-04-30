@@ -20,21 +20,18 @@ export class PdfWriter extends Doc {
     }
   }
 
-  drawLogo = (logo, { x0 = 0 }) => {
-    let self = this;
-
+  drawLogo = async (logo, { x0 = 0 }) => {
     let extension = getFileExtension(logo)
 
     // TODO: Catch error.  If there is an error loading the image, use a placeholder image.
-    getImageDimensions(logo).then((dimensions) => {
-      getBase64Encoded(logo).then((data) => {
-        // Width should remain constant, height varies to maintain aspect ratio.
-        const height = dimensions.inverseRatio * Styles.brand.size.width
-        const mid = self.carriage.y + 0.5 * Styles.brand.size.height  // Desired vertical center location of image.
-        const y0 = mid - 0.5 * height
-        self.doc.addImage(data, extension, x0, y0, Styles.brand.size.width, height);
-      })
-    })
+    let dimensions = await getImageDimensions(logo)
+    let data = await getBase64Encoded(logo)
+
+    // Width should remain constant, height varies to maintain aspect ratio.
+    const height = dimensions.inverseRatio * Styles.brand.size.width
+    const mid = this.carriage.y + 0.5 * Styles.brand.size.height  // Desired vertical center location of image.
+    const y0 = mid - 0.5 * height
+    this.doc.addImage(data, extension, x0, y0, Styles.brand.size.width, height);
   }
 
   inlines = (profile) => {
@@ -53,7 +50,7 @@ export class PdfWriter extends Doc {
     ]
   }
 
-  footer = () => {
+  footer = async () => {
 
     const width = this.textWidth(FOOTER_TEXT, { textStyle: Styles.footer.textStyle })
     const height = this.textHeight(FOOTER_TEXT, { textStyle: Styles.footer.textStyle })
@@ -64,8 +61,8 @@ export class PdfWriter extends Doc {
     this.doc.text(x0, y0, FOOTER_TEXT)
   }
 
-  header = (profile, { marginBottom = 0 }) => {
-    this.drawLogo(profile.logo, { x0: this.frames.page.x0 })
+  header = async (profile, { marginBottom = 0 }) => {
+    await this.drawLogo(profile.logo, { x0: this.frames.page.x0 })
 
     const firstNamePart = `${profile.first_name} ${profile.middle_name[0]}.`
 
@@ -98,7 +95,7 @@ export class PdfWriter extends Doc {
     // TODO: Create Constant
     this.carriage.increment(4) // Spacing Between Tagline and Inlines
 
-    this.drawInlines(this.inlines(profile)[0], {
+    await this.drawInlines(this.inlines(profile)[0], {
       x0: this.frames.page.x0 + Styles.brand.size.width + 3,
       iconMargin: 3,
       spacing: 6,
@@ -108,7 +105,7 @@ export class PdfWriter extends Doc {
     // TODO: Create Constant
     this.carriage.increment(-2) // Inline rows are spaced too far apart...
 
-    this.drawInlines(this.inlines(profile)[1], {
+    await this.drawInlines(this.inlines(profile)[1], {
       x0: this.frames.page.x0 + Styles.brand.size.width + 3,
       iconMargin: 3,
       spacing: 6,
@@ -118,18 +115,18 @@ export class PdfWriter extends Doc {
     this.carriage.increment(marginBottom)
   }
 
-  write = (data) => {
+  write = async (data) => {
     const experienceSection = new ExperienceSection(this.config)
     const educationSection = new EducationSection(this.config)
 
-    this.header(data.profile, { marginBottom: 1 })
-    experienceSection.write(data.experience, {})
-    this.footer()
+    await this.header(data.profile, { marginBottom: 1 })
+    await experienceSection.write(data.experience, {})
+    await this.footer()
 
     this.pageBreak()
 
-    this.header(data.profile, { marginBottom: 1 })
-    educationSection.write(data.education, {})
-    this.footer()
+    await this.header(data.profile, { marginBottom: 1 })
+    await educationSection.write(data.education, {})
+    await this.footer()
   }
 }
