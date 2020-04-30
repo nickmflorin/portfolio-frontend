@@ -6,7 +6,7 @@ import { pick } from "lodash";
 
 const AppContent = (props) => (
   <div className="content">
-    {_.map(_.filter(props.navbar.items, (item) => (item.id !== 'resume')), (item) => {
+    {_.map(props.navbar.items, (item) => {
       const PageComponent = item.page
       return (
         <Route

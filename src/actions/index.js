@@ -485,8 +485,7 @@ export const fetchProfile = () => {
     return fetch(`${process.env.REACT_APP_API_HOST}profile/`, request_config)
       .then(
         response => response.json(),
-        // Do not use catch, because that will also catch
-        // any errors in the dispatch and resulting render,
+        // Do not use catch, because that will also catch any errors in the dispatch and resulting render,
         // causing a loop of 'Unexpected batch number' errors.
         // https://github.com/facebook/react/issues/6895
         error => {
