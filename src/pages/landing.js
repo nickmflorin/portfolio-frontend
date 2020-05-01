@@ -4,10 +4,10 @@ import {pick} from "lodash";
 
 import { fetchProfile, fetchComments } from "actions";
 
-import { CommentForm } from 'components/forms'
-import { CommentItem } from 'components/items'
-import { HtmlHeader } from 'components/html'
-import Banner from 'components/landing/banner'
+import { CommentForm } from 'components/forms';
+import { CommentItem } from 'components/items';
+import { HtmlHeader } from 'components/html';
+import Banner from 'components/landing/banner';
 
 import Page from './page'
 

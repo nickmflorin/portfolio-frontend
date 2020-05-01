@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 
 import { closeSidebarAction } from "actions";
 
-var classNames = require('classnames');
+let classNames = require('classnames');
 
 export class Page extends React.Component {
   constructor(props, context) {

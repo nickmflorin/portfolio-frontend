@@ -4,10 +4,11 @@ import { List } from 'semantic-ui-react'
 import { HashLink } from 'react-router-hash-link';
 import { pick } from "lodash";
 
-import { EducationItem } from 'components/items'
-import Page from './page'
+import { fetchAllEducation } from 'actions';
 
-import { fetchAllEducation } from 'actions'
+import { EducationItem } from 'components/items';
+import Page from './page';
+
 
 class Education extends React.Component {
 
